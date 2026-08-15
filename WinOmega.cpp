@@ -126,37 +126,77 @@ bool cursorOn = false;
 bool cursorSolid = false;
 POINT cursorPos = { 0,0 };
 
-// Edge-triggered gamepad state, so a held direction/button produces one
-// queued input per physical press rather than flooding inputKeys every
-// time pollGamepad() runs.
+// Last settled direction, mirrored from gamepadDirDebounce.settled below
+// (see pushGamepadDirection()) -- also referenced by gamepadConfigDlgProc
+// indirectly through the debounce objects.
 int gamepadLastDir = 0;
-WORD gamepadLastButtons = 0;
 
-// Debounce counter for direction release: some controllers' d-pad/POV
-// briefly reports "centered" for a poll tick or two even while
-// physically still held (contact bounce / report jitter), which would
-// otherwise reset gamepadLastDir mid-press and let the very next poll
-// re-trigger the same direction as if it were a fresh press -- ie. one
-// physical tap producing several queued moves. Direction only counts
-// as truly released after this many consecutive "centered" polls.
-int gamepadDirOffCount = 0;
-const int GAMEPAD_DIR_OFF_DEBOUNCE = 3;
+// Generic "commit only once stable" debounce: some controllers report
+// noisy raw values around a real physical press/release -- a d-pad/POV
+// can flicker between two adjacent direction buckets right at their
+// boundary, or drop to "centered" for a poll tick or two while still
+// physically held; buttons can bounce the same way at the electrical
+// level. Naively edge-triggering off the raw per-poll value turns one
+// physical action into several queued inputs. This type instead
+// requires a value to be seen for several consecutive polls before it's
+// treated as the new "settled" state, and only queues an input on that
+// transition.
+template <typename T> struct GamepadDebounce
+{
+  T settled;
+  T pending;
+  int pendingCount;
+  T zeroValue;
+  GamepadDebounce(T initial, T zero) : settled(initial), pending(initial), pendingCount(0), zeroValue(zero) {}
 
-// Shared edge-trigger + debounce logic for both the XInput and
-// DirectInput polling paths -- see gamepadDirOffCount above.
+  // Returns true (once) when raw has just become the new settled value.
+  // ticksToZero/ticksAwayFromZero let the "looks released" and "looks
+  // freshly pressed/changed" transitions require different amounts of
+  // stability: released needs to survive a brief bounce-to-centered
+  // mid-press (higher tick count), while a fresh press/new direction
+  // just needs to not be pure single-tick noise (lower tick count).
+  bool update(T raw, int ticksToZero, int ticksAwayFromZero)
+  {
+    if (raw == settled)
+    {
+      pending = raw;
+      pendingCount = 0;
+      return false;
+    }
+    if (raw == pending)
+      pendingCount++;
+    else
+    {
+      pending = raw;
+      pendingCount = 1;
+    }
+    int needed = (raw == zeroValue) ? ticksToZero : ticksAwayFromZero;
+    if (pendingCount >= needed)
+    {
+      settled = raw;
+      pendingCount = 0;
+      return true;
+    }
+    return false;
+  }
+};
+
+GamepadDebounce<int> gamepadDirDebounce(0,0);
+GamepadDebounce<bool> gamepadConfirmDebounce(false,false);
+GamepadDebounce<bool> gamepadCancelDebounce(false,false);
+
+// Shared debounced-direction logic for both the XInput and DirectInput
+// polling paths. Releasing (settling back to 0) needs 3 consecutive
+// "centered" polls (~48ms at the 16ms poll period), so a brief bounce-
+// to-centered mid-press doesn't reset things; a fresh or changed
+// direction needs 2 consecutive matching polls (~32ms), so noise
+// straddling two adjacent direction buckets doesn't register as two
+// separate presses.
 void pushGamepadDirection(int dir)
 {
-  if (dir != 0)
-  {
-    gamepadDirOffCount = 0;
-    if (dir != gamepadLastDir)
-      inputKeys.push_back(dir);
-    gamepadLastDir = dir;
-  }
-  else if (++gamepadDirOffCount >= GAMEPAD_DIR_OFF_DEBOUNCE)
-  {
-    gamepadLastDir = 0;
-  }
+  if (gamepadDirDebounce.update(dir,3,2) && dir != 0)
+    inputKeys.push_back(dir);
+  gamepadLastDir = gamepadDirDebounce.settled;
 }
 
 // DirectInput button-role mapping (confirm/cancel/run), unlike XInput's
@@ -741,7 +781,7 @@ void pollDirectInput()
 
   bool aHeld = gamepadControlHeld(js,gamepadButtonConfirm);
   bool bHeld = gamepadControlHeld(js,gamepadButtonCancel);
-  if (aHeld && !(gamepadLastButtons & 1))
+  if (gamepadConfirmDebounce.update(aHeld,3,2) && aHeld)
   {
     // 'y' answers yes/no decisions (ynq() et al only accept y/n/q/ESC);
     // RETURN dismisses the far more common "-More-" pager prompts
@@ -754,7 +794,7 @@ void pollDirectInput()
     inputKeys.push_back('y');
     inputKeys.push_back('\n');
   }
-  if (bHeld && !(gamepadLastButtons & 2))
+  if (gamepadCancelDebounce.update(bHeld,3,2) && bHeld)
   {
     // ESCAPE alone, not 'n': ynq()-style decisions already treat ESCAPE
     // as equivalent to declining/quitting (see scr.c's ynq() -- it
@@ -765,7 +805,6 @@ void pollDirectInput()
     // also a movement key on the main dungeon/city command table).
     inputKeys.push_back(27);
   }
-  gamepadLastButtons = (aHeld ? 1 : 0) | (bHeld ? 2 : 0);
 }
 
 // Polls gamepad 0 (via XInput) for movement and yes/no confirmation.
@@ -840,8 +879,6 @@ void pollGamepad()
 
   if (!connected)
   {
-    gamepadLastDir = 0;
-    gamepadLastButtons = 0;
     pollDirectInput();
     return;
   }
@@ -889,7 +926,9 @@ void pollGamepad()
     gamepadDebugLog("  -> pushed direction '%c' (run=%d, dx=%d dy=%d)",dir,runHeld,dx,dy);
 #endif
 
-  if ((buttons & XINPUT_GAMEPAD_A) && !(gamepadLastButtons & XINPUT_GAMEPAD_A))
+  bool aHeld = (buttons & XINPUT_GAMEPAD_A) != 0;
+  bool bHeld = (buttons & XINPUT_GAMEPAD_B) != 0;
+  if (gamepadConfirmDebounce.update(aHeld,3,2) && aHeld)
   {
     // See the DirectInput path's comment on why both 'y' and RETURN are
     // queued: ynq()-style decisions only accept y/n/q/ESC, while the far
@@ -900,7 +939,7 @@ void pollGamepad()
     gamepadDebugLog("  -> pushed 'y'+RETURN (A pressed)");
 #endif
   }
-  if ((buttons & XINPUT_GAMEPAD_B) && !(gamepadLastButtons & XINPUT_GAMEPAD_B))
+  if (gamepadCancelDebounce.update(bHeld,3,2) && bHeld)
   {
     // See the DirectInput path's comment: ESCAPE alone, not 'n' -- ynq()
     // already treats ESCAPE as declining, and 'n' risks leaking through
@@ -910,7 +949,6 @@ void pollGamepad()
     gamepadDebugLog("  -> pushed ESCAPE (B pressed)");
 #endif
   }
-  gamepadLastButtons = buttons;
 }
 
 // Refreshes the three role status labels from the current
@@ -1626,7 +1664,13 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
     AppendMenu(sysMenu,MF_STRING,ID_SYSMENU_GAMEPAD,LS(IDS_UI_GAMEPAD_MENU_ITEM));
   }
 
-  SetTimer(wnd,2,50,NULL);
+  // 16ms (~60Hz) rather than a rounder 50ms: the debounce logic in
+  // pushGamepadDirection()/GamepadDebounce requires a value to be seen
+  // for a couple of consecutive polls before it's trusted, so a slower
+  // poll rate directly raises the minimum press duration needed to
+  // register at all -- at 50ms that was ~100ms, long enough to eat
+  // genuine quick taps. At 16ms the same tick counts only cost ~32-48ms.
+  SetTimer(wnd,2,16,NULL);
 
   // Run Omega
   char* argv[2] = { "omega",OmegaSave };
