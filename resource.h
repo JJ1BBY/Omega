@@ -2636,6 +2636,35 @@
 #define IDS_MSG_22960                   22960
 #define IDS_MSG_22961                   22961
 
+// ---- mon.c (gap-fill) ----
+#define IDS_MSG_22962                   22962
+#define IDS_MSG_22963                   22963
+#define IDS_MSG_22964                   22964
+#define IDS_MSG_22965                   22965
+#define IDS_MSG_22966                   22966
+#define IDS_MSG_22967                   22967
+#define IDS_MSG_22968                   22968
+#define IDS_MSG_22969                   22969
+#define IDS_MSG_22970                   22970
+#define IDS_MSG_22971                   22971
+#define IDS_MSG_22972                   22972
+#define IDS_MSG_22973                   22973
+#define IDS_MSG_22974                   22974
+#define IDS_MSG_22975                   22975
+#define IDS_MSG_22976                   22976
+#define IDS_MSG_22977                   22977
+#define IDS_MSG_22978                   22978
+#define IDS_MSG_22979                   22979
+#define IDS_MSG_22980                   22980
+#define IDS_MSG_22981                   22981
+#define IDS_MSG_22982                   22982
+#define IDS_MSG_22983                   22983
+#define IDS_MSG_22984                   22984
+#define IDS_MSG_22985                   22985
+#define IDS_MSG_22986                   22986
+#define IDS_MSG_22987                   22987
+#define IDS_MSG_22988                   22988
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222

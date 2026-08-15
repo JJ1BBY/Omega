@@ -119,10 +119,10 @@ int dmg,dtype;
     if (los_p(Player.x,Player.y,m->x,m->y)) { 
       if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
       else {
-	strcpy(Str1,"The ");
+	strcpy(Str1,LS(IDS_MSG_22962));
 	strcat(Str1,m->monstring);
       }
-      strcat(Str1," ignores the attack!");
+      strcat(Str1,LS(IDS_MSG_22963));
       mprint(Str1);
     }
   }
@@ -144,10 +144,10 @@ struct monster *m;
     calc_melee();
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," is dead! ");
+    strcat(Str1,LS(IDS_MSG_22964));
     mprint(Str1);
   }
   m_dropstuff(m);
@@ -613,7 +613,7 @@ int npcid;
     m_pickup(npc,ob);
   }
   npc->monstring = salloc(Str2);
-  strcpy(Str1,"The body of ");
+  strcpy(Str1,LS(IDS_MSG_22965));
   strcat(Str1,Str2);
   npc->corpsestr = salloc(Str1);
 }
@@ -696,7 +696,7 @@ struct monster *npc;
   behavior = 2718;
   level = 1;
   status = 2;
-  strcpy(Str2,"Malaprop the Misnamed");
+  strcpy(Str2,LS(IDS_MSG_22966));
   
   strcpy(Str1,/*_WIN32 Omegalib*/"./");
   strcat(Str1,"omega.log");
@@ -718,29 +718,29 @@ struct monster *npc;
   if (status==1) {
     if (level < 3) {
       *npc = Monsters[GHOST];
-      strcpy(Str1,"ghost named ");
+      strcpy(Str1,LS(IDS_MSG_22967));
     }
     else if (level < 7) {
       *npc = Monsters[HAUNT];
-      strcpy(Str1,"haunt named ");
+      strcpy(Str1,LS(IDS_MSG_22968));
     }
     else if (level < 12) {
       *npc = Monsters[SPECTRE];
-      strcpy(Str1,"spectre named ");
+      strcpy(Str1,LS(IDS_MSG_22969));
     }
     else {
       *npc = Monsters[LICHE];
-      strcpy(Str1,"lich named ");
+      strcpy(Str1,LS(IDS_MSG_22970));
     }
     strcat(Str1,Str2);
     npc->monstring = salloc(Str1);
-    strcpy(Str3,"the mortal remains of ");
+    strcpy(Str3,LS(IDS_MSG_22971));
     strcat(Str3,Str2);
     npc->corpsestr = salloc(Str3);
   }
   else {
     npc->monstring=salloc(Str2);
-    strcpy(Str3,"the corpse of ");
+    strcpy(Str3,LS(IDS_MSG_22972));
     strcat(Str3,Str2);
     npc->corpsestr = salloc(Str3);
   }
@@ -757,10 +757,10 @@ struct monster *m;
   if (los_p(m->x,m->y,Player.x,Player.y)) {
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," was hit by a dart!");
+    strcat(Str1,LS(IDS_MSG_22973));
     mprint(Str1);
     Level->site[m->x][m->y].locchar = TRAP;
     lset(m->x, m->y, CHANGED);
@@ -774,10 +774,10 @@ struct monster *m;
   if (los_p(m->x,m->y,Player.x,Player.y)) {
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," fell into a pit!");
+    strcat(Str1,LS(IDS_MSG_22974));
     mprint(Str1);
     Level->site[m->x][m->y].locchar = TRAP;
     lset(m->x, m->y, CHANGED);
@@ -794,10 +794,10 @@ struct monster *m;
   if (los_p(m->x,m->y,Player.x,Player.y)) {
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," fell into a trap door!");
+    strcat(Str1,LS(IDS_MSG_22975));
     mprint(Str1);
     Level->site[m->x][m->y].locchar = TRAP;
     lset(m->x, m->y, CHANGED);
@@ -812,10 +812,10 @@ struct monster *m;
   if (los_p(m->x,m->y,Player.x,Player.y)) {
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," fell into the infinite abyss!");
+    strcat(Str1,LS(IDS_MSG_22976));
     mprint(Str1);
     Level->site[m->x][m->y].locchar = ABYSS;
     lset(m->x, m->y, CHANGED);
@@ -836,10 +836,10 @@ struct monster *m;
   if (los_p(m->x,m->y,Player.x,Player.y)) {
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," was caught in a snare!");
+    strcat(Str1,LS(IDS_MSG_22977));
     mprint(Str1);
   }
   if (! m_statusp(m,INTANGIBLE)) m_status_reset(m,MOBILE);
@@ -854,10 +854,10 @@ struct monster *m;
   if (los_p(m->x,m->y,Player.x,Player.y)) { 
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," was hit by a blade trap!");
+    strcat(Str1,LS(IDS_MSG_22978));
     mprint(Str1); } 
   m_damage(m,(difficulty()+1)*7-Player.defense,NORMAL_DAMAGE);
 }
@@ -871,10 +871,10 @@ struct monster *m;
   if (los_p(m->x,m->y,Player.x,Player.y)) { 
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," was hit by a fire trap!");
+    strcat(Str1,LS(IDS_MSG_22979));
     mprint(Str1); 
   } 
   m_damage(m,(difficulty()+1)*5,FLAME);
@@ -888,10 +888,10 @@ struct monster *m;
   if (los_p(m->x,m->y,Player.x,Player.y)) { 
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," was blasted by fire!");
+    strcat(Str1,LS(IDS_MSG_22980));
     mprint(Str1); 
   } 
   m_damage(m,random_range(100),FLAME);
@@ -906,10 +906,10 @@ struct monster *m;
   if (los_p(m->x,m->y,Player.x,Player.y)) { 
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," walked into a teleport trap!");
+    strcat(Str1,LS(IDS_MSG_22981));
     mprint(Str1); 
   } 
   m_teleport(m);
@@ -922,10 +922,10 @@ struct monster *m;
   if (los_p(m->x,m->y,Player.x,Player.y)) { 
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," walked into a disintegration trap!");
+    strcat(Str1,LS(IDS_MSG_22982));
     mprint(Str1); 
     Level->site[m->x][m->y].locchar = TRAP;
     lset(m->x, m->y, CHANGED);
@@ -940,10 +940,10 @@ struct monster *m;
   if (los_p(m->x,m->y,Player.x,Player.y)) { 
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," walked into a sleepgas trap!");
+    strcat(Str1,LS(IDS_MSG_22983));
     mprint(Str1); 
     Level->site[m->x][m->y].locchar = TRAP;
     lset(m->x, m->y, CHANGED);
@@ -958,10 +958,10 @@ struct monster *m;
   if (los_p(m->x,m->y,Player.x,Player.y)) { 
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," walked into an acid bath trap!");
+    strcat(Str1,LS(IDS_MSG_22984));
     mprint(Str1); 
     Level->site[m->x][m->y].locchar = TRAP;
     lset(m->x, m->y, CHANGED);
@@ -976,10 +976,10 @@ struct monster *m;
   if (los_p(m->x,m->y,Player.x,Player.y)) { 
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," walked into a manadrain trap!");
+    strcat(Str1,LS(IDS_MSG_22985));
     mprint(Str1); 
     Level->site[m->x][m->y].locchar = TRAP;
     lset(m->x, m->y, CHANGED);
@@ -998,10 +998,10 @@ struct monster *m;
     if (los_p(m->x,m->y,Player.x,Player.y)) { 
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-      strcat(Str1," drowned!");
+      strcat(Str1,LS(IDS_MSG_22986));
       mprint(Str1); 
     }
     m_death(m);
@@ -1016,10 +1016,10 @@ struct monster *m;
   if (los_p(m->x,m->y,Player.x,Player.y)) {
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," fell into the infinite abyss!");
+    strcat(Str1,LS(IDS_MSG_22976));
     mprint(Str1);
   }
   m_vanish(m);
@@ -1036,10 +1036,10 @@ struct monster *m;
     if (los_p(m->x,m->y,Player.x,Player.y)) { 
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-      strcat(Str1," died in a pool of lava!");
+      strcat(Str1,LS(IDS_MSG_22987));
       mprint(Str1); 
     }
     m_death(m);
@@ -1056,10 +1056,10 @@ struct monster *m;
   if (visible) {
     if (m->uniqueness != COMMON) strcpy(Str1,m->monstring);
     else {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_22962));
       strcat(Str1,m->monstring);
     }
-    strcat(Str1," walks next to an altar...");
+    strcat(Str1,LS(IDS_MSG_22988));
     mprint(Str1);
   }
   if (!m_statusp(m, HOSTILE))

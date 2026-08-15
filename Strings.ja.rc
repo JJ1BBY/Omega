@@ -2719,6 +2719,38 @@ BEGIN
     IDS_MSG_22961    "A completely inoperative trap."
 END
 
+// ==================== mon.c (gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_22962    "The "
+    IDS_MSG_22963    " ignores the attack!"
+    IDS_MSG_22964    " is dead! "
+    IDS_MSG_22965    "The body of "
+    IDS_MSG_22966    "Malaprop the Misnamed"
+    IDS_MSG_22967    "ghost named "
+    IDS_MSG_22968    "haunt named "
+    IDS_MSG_22969    "spectre named "
+    IDS_MSG_22970    "lich named "
+    IDS_MSG_22971    "the mortal remains of "
+    IDS_MSG_22972    "the corpse of "
+    IDS_MSG_22973    " was hit by a dart!"
+    IDS_MSG_22974    " fell into a pit!"
+    IDS_MSG_22975    " fell into a trap door!"
+    IDS_MSG_22976    " fell into the infinite abyss!"
+    IDS_MSG_22977    " was caught in a snare!"
+    IDS_MSG_22978    " was hit by a blade trap!"
+    IDS_MSG_22979    " was hit by a fire trap!"
+    IDS_MSG_22980    " was blasted by fire!"
+    IDS_MSG_22981    " walked into a teleport trap!"
+    IDS_MSG_22982    " walked into a disintegration trap!"
+    IDS_MSG_22983    " walked into a sleepgas trap!"
+    IDS_MSG_22984    " walked into an acid bath trap!"
+    IDS_MSG_22985    " walked into a manadrain trap!"
+    IDS_MSG_22986    " drowned!"
+    IDS_MSG_22987    " died in a pool of lava!"
+    IDS_MSG_22988    " walks next to an altar..."
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN
