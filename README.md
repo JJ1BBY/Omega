@@ -8,13 +8,44 @@ I've taken Omega 0.80.2 and built it as a "proper" Windows application (rather t
 
 ![Omega in play](omega.png)
 
-## Japanese localization (work in progress)
+## Japanese localization
 
-The `japanese-localization` branch is in progress work towards a Japanese
-translation. Hardcoded in-game message strings have been moved into
-`Strings.en.rc` / `Strings.ja.rc` resource files with a language-switching
-mechanism in `WinOmega.rc`; the actual Japanese translation is not done yet.
-See `LOCALIZATION_PLAN.md` on that branch for details and remaining work.
+The `japanese-localization` branch adds a full Japanese translation
+alongside the original English text.
+
+**How it works:** every in-game message string was moved out of the C
+source and into Windows resources, split by language:
+`Strings.en.rc` (English) and `Strings.ja.rc` (Japanese), both `#include`d
+from `WinOmega.rc` inside their own `LANGUAGE` block. Game code looks a
+string up by ID through a small `LS(id)` helper (a `LoadStringA` wrapper),
+which resolves against whichever `LANGUAGE` block matches the thread's
+current locale -- the same mechanism Windows itself uses to serve the
+right resource out of a multi-language binary. Plain-text files
+(`help*.txt`, `motd.txt`) and the encrypted story/lore text
+(`intro.txt`, `abyss.txt`, `scroll*.txt`) follow the same idea one level
+up: a Japanese copy sits alongside the English original as `name.ja.txt`,
+and `omegalibFile()` in `file.c` picks whichever one matches the current
+language when a file is opened (the encrypted files are decrypted,
+translated, and re-encrypted with the same rolling-XOR cipher the game
+already uses, so no other code needed to change). `license.txt` is
+deliberately left English-only, since it's the game's legal license text.
+
+**Choosing a language:** the setup dialog shown at startup has a
+**Language** dropdown -- *System default*, *English*, or *日本語*. Selecting
+one calls `SetThreadLocale()`, which is what makes the resource lookup
+above pick the matching `LANGUAGE` block; *System default* just leaves
+the OS's own locale in charge (so the game already opens in Japanese on
+a Japanese-locale Windows install without touching this setting). The
+choice is saved to the registry and re-applied on the next launch.
+
+**English is the fallback.** Anywhere a Japanese string, help file, or
+resource dialog doesn't exist -- an untranslated leftover, a future
+addition, whatever -- Windows' own resource-language negotiation falls
+back to the English `LANGUAGE` block automatically, so nothing is ever
+silently blank.
+
+See `LOCALIZATION_PLAN.md` on that branch for the full implementation
+notes and the remaining deferred work (item/spell name tables).
 
 ## Building
 
