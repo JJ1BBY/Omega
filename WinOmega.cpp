@@ -840,21 +840,6 @@ int impl_wprintw(WINDOW *win, const char *fmt, va_list list)
   char buffer[256];
   vsprintf(buffer,fmt,list);
 
-#ifdef OMEGA_JA_DEBUG
-  {
-    FILE* dbg = fopen("ja_debug.log","a");
-    if (dbg)
-    {
-      fprintf(dbg,"fmt   [%d bytes]:",(int)strlen(fmt));
-      for (const unsigned char* p = (const unsigned char*)fmt; *p; p++) fprintf(dbg," %02X",*p);
-      fprintf(dbg,"\nbuffer[%d bytes]:",(int)strlen(buffer));
-      for (const unsigned char* p = (const unsigned char*)buffer; *p; p++) fprintf(dbg," %02X",*p);
-      fprintf(dbg,"\nACP=%u lfCharSet=%u lfFaceName=%s\n\n",GetACP(),(unsigned)fontSetup.lfCharSet,fontSetup.lfFaceName);
-      fclose(dbg);
-    }
-  }
-#endif
-
   int len = (int)strlen(buffer);
   for (int i = 0; i < len; i++)
     waddch(win,*(buffer+i));
@@ -959,9 +944,23 @@ extern "C" int waddch(WINDOW *win, const char ch)
       win->_cury++;
     break;
   default:
-    if (isprint(ch))
+    // ch must be treated as unsigned here: isprint() with a negative
+    // value other than EOF is undefined behaviour, and Shift-JIS
+    // lead/trail bytes (0x80-0xFF) are negative as a signed char. The
+    // sign-extension of a negative ch into the attribute bits of
+    // ch+(win->_attr<<8) was a second, related bug, also fixed by the
+    // (unsigned char) cast below.
+    //
+    // isprint() itself isn't multibyte-aware: nothing here ever calls
+    // setlocale(), so it runs under the default "C" locale, where every
+    // byte 0x80-0xFF is classified as non-printable by definition. That
+    // silently dropped every Shift-JIS lead/trail byte instead of
+    // storing it. Bytes with the high bit set are always a DBCS lead or
+    // trail byte in this codebase (only Shift-JIS text is ever handled),
+    // so let them through unconditionally instead of asking isprint().
+    if (((unsigned char)ch >= 0x80) || isprint((unsigned char)ch))
     {
-      win->_text[(win->_cury*(win->_maxx+1))+win->_curx] = ch+(win->_attr<<8);
+      win->_text[(win->_cury*(win->_maxx+1))+win->_curx] = (unsigned char)ch+(win->_attr<<8);
       win->_line[win->_cury] = 1;
       if (win->_curx < win->_maxx)
         win->_curx++;
