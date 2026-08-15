@@ -181,35 +181,34 @@ PowerShellで `LoadLibraryEx(path, 0, LOAD_LIBRARY_AS_DATAFILE)` →
 着手する場合は、まず両配列が `strcmp` 等でどこから参照されているかを
 `grep -rn "sitenames\|spell_names"` で洗い出してから方針を決めること。
 
-### 2. ② 暗号化テキストファイルの翻訳
+### 2. ② 暗号化テキストファイルの翻訳 — 完了
 
-対象: `OmegaLib/intro.txt`, `abyss.txt`, `scroll1.txt`〜`scroll4.txt`
-(`file.c` の `displaycryptfile()` が読む)
+`OmegaLib/intro.ja.txt`, `abyss.ja.txt`, `scroll1.ja.txt`〜`scroll4.ja.txt`
+を作成済み(CP932でエンコードした翻訳文を、下記と同じローリングXORで
+再暗号化したバイナリ)。
 
-暗号方式(ローリングXOR、`Omega/Omega/file.c:595-626` に実装):
-```
-key = 100 (初期値)
-各バイト c について:
-  key = c XOR key   ← これが復号後の平文バイト
-  出力(表示)する
-```
-つまり `平文[i] = 暗号文[i] XOR key[i-1]`、`key[0]=100`、
-`key[i] = 平文[i]`(= 直前の平文バイトが次のXOR鍵になる)。
+**使用したアルゴリズム**(`Omega/Omega/file.c`の`displaycryptfile()`を参照):
+復号は `平文[i] = 暗号文[i] XOR key`、その後 `key := 平文[i]`(key初期値100)。
+暗号化はこれを順方向に適用するだけ: `暗号文[i] = 平文[i] XOR key`、その後
+`key := 平文[i]`。鍵の更新には常に平文バイトを使う点が同じなので、暗号化・
+復号は対称的な処理になる。実装前に、既存の6ファイルすべてで「復号→
+再暗号化」のラウンドトリップがオリジナルのバイト列と完全一致することを
+確認してからテキストの翻訳に着手した。
 
-復号・翻訳・再暗号化の流れ:
-1. 上記アルゴリズムでファイルをバイト列として復号 → 平文を取得
-2. 平文を日本語に翻訳(全角文字を含む場合、桁ズレやページ送り
-   `if (y > (LINES-6))` の判定に影響する可能性は低い想定だが、
-   `intro.txt`等は見た目重視の演出テキストなので実際に表示して確認推奨)
-3. 同じアルゴリズムで**逆方向に**再暗号化: `key`を100から開始し、
-   `暗号文[i] = 平文[i] XOR key`、その後 `key = 平文[i]` に更新、を
-   平文の先頭から順に適用(暗号化・復号で全く同じ関数を使い回せる実装が
-   多いので、`displaycryptfile`のロジックを流用したCLIツールを別途書くのが早い)
-4. 既存の `abyss.dat` 等の `.dat` ファイルは `cryptkey()` という別方式
-   (ダンジョンマップデータ、自然文はほぼ含まれない)なので翻訳対象外
+`file.c`の`user_intro()`, `abyss_file()`, `cityguidefile()`, `wishfile()`,
+`adeptfile()`, `theologyfile()`は、プレーンテキストヘルプファイル(タスク4)
+と同じ`omegalibFile()`ヘルパー経由に変更済み。暗号化ファイルは`_access()`
+によるファイル存在チェック以外は中身を見ないため、`omegalibFile()`を
+そのまま流用できた。
 
-同じ暗号を使う `abyss_file()`, `cityguidefile()` 等の呼び出し元は
-`Omega/Omega/file.c` 内で `grep -n displaycryptfile` すれば一覧できる。
+`scroll1.txt`(神統記)の神名(Odin、Athena、Set、Hecate、Lords of Destiny、
+ArchDruid)と`scroll3.txt`(上級魔法解説)で引用符付きで言及される呪文名
+(`'Death'`、`'Power'`、`'Skill'`など)は、`spell_names[]`/`sitenames[]`
+(タスク⑤、未着手のまま)との対応を壊すリスクを避けるため、意図的に英語の
+まま残した。
+
+`abyss.dat`等の`.dat`ファイルは`cryptkey()`という別方式(ダンジョンマップ
+データ、自然文をほぼ含まない)であり、これは引き続き翻訳対象外。
 
 ### 3. ⑥ Windows UI文字列 — 完了
 
