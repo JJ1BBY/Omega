@@ -2821,6 +2821,30 @@
 #define IDS_MSG_23154                   23154
 #define IDS_MSG_23155                   23155
 
+// ---- inv.c (gap-fill) ----
+#define IDS_MSG_23156                   23156
+#define IDS_MSG_23157                   23157
+#define IDS_MSG_23158                   23158
+#define IDS_MSG_23159                   23159
+#define IDS_MSG_23160                   23160
+#define IDS_MSG_23161                   23161
+#define IDS_MSG_23162                   23162
+#define IDS_MSG_23163                   23163
+#define IDS_MSG_23164                   23164
+#define IDS_MSG_23165                   23165
+#define IDS_MSG_23166                   23166
+#define IDS_MSG_23167                   23167
+#define IDS_MSG_23168                   23168
+#define IDS_MSG_23169                   23169
+#define IDS_MSG_23170                   23170
+#define IDS_MSG_23171                   23171
+#define IDS_MSG_23172                   23172
+#define IDS_MSG_23173                   23173
+#define IDS_MSG_23174                   23174
+#define IDS_MSG_23175                   23175
+#define IDS_MSG_23176                   23176
+#define IDS_MSG_23177                   23177
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222

@@ -171,25 +171,25 @@ pob obj;
     else if (obj->known == 1) {
       if (obj->id == ARTIFACTID + 8 || obj->id == ARTIFACTID + 20 ||
 	obj->id == ARTIFACTID + 21)
-	strcat(Str4, "the ");
+	strcat(Str4, LS(IDS_MSG_23156));
       strcat(Str4,obj->truename);
     }
     else {
       if (obj->id == ARTIFACTID + 8 || obj->id == ARTIFACTID + 20 ||
 	obj->id == ARTIFACTID + 21)
-	strcat(Str4, "the ");
+	strcat(Str4, LS(IDS_MSG_23156));
       if (obj->usef == I_NOTHING && Objects[obj->id].usef != I_NOTHING)
-	strcat(Str4, "disenchanted ");
+	strcat(Str4, LS(IDS_MSG_23157));
       if (obj->blessing < 0) {
-	strcat(Str4, "cursed ");
+	strcat(Str4, LS(IDS_MSG_23158));
 	strcat(Str4, obj->cursestr);
       }
       else if (obj->blessing > 0) {
-	strcat(Str4, "blessed ");
+	strcat(Str4, LS(IDS_MSG_23159));
 	strcat(Str4, obj->truename);
       }
       else strcat(Str4,obj->truename);
-      if (obj->number > 1) strcat(Str4,"s");
+      if (obj->number > 1) strcat(Str4,LS(IDS_MSG_23160));
       switch (obj->objchar) {
       case STICK: 
         setchargestr(obj,tstr);
@@ -212,13 +212,13 @@ pob obj;
 
 char *cashstr()
 {
-  if (difficulty() < 3) return("copper pieces");
-  else if (difficulty() < 5) return("silver pieces");
-  else if (difficulty() < 7) return("gold pieces");
-  else if (difficulty() < 8) return("semiprecious gems");
-  else if (difficulty() < 9) return("mithril pieces");
-  else if (difficulty() < 10) return("precious gems"); 
-  else return("orichalc pieces");
+  if (difficulty() < 3) return(LS(IDS_MSG_23171));
+  else if (difficulty() < 5) return(LS(IDS_MSG_23172));
+  else if (difficulty() < 7) return(LS(IDS_MSG_23173));
+  else if (difficulty() < 8) return(LS(IDS_MSG_23174));
+  else if (difficulty() < 9) return(LS(IDS_MSG_23175));
+  else if (difficulty() < 10) return(LS(IDS_MSG_23176)); 
+  else return(LS(IDS_MSG_23177));
 }
 
 /* return an object's plus as a string */
@@ -333,14 +333,14 @@ struct object *o;
   }
   else {
     if (m->uniqueness == COMMON) {
-      strcpy(Str3,"The ");
+      strcpy(Str3,LS(IDS_MSG_23161));
       strcat(Str3,m->monstring);
     }
     else strcpy(Str3,m->monstring);
     
     if (m_statusp(m,GREEDY) || m_statusp(m,NEEDY)) {
       m_pickup(m,o);
-      strcat(Str3," takes your gift");
+      strcat(Str3,LS(IDS_MSG_23162));
       print1(Str3);
       Player.alignment++;
       if (m_statusp(m,GREEDY) && (true_item_value(o) < (long) m->level*100))
@@ -360,7 +360,7 @@ struct object *o;
       if (((m->id == HORSE) && (o->id == FOODID+15)) || /* grain */
 	  ((m->id != HORSE) &&
 	   ((o->usef == I_FOOD) || (o->usef == I_POISON_FOOD)))) {
-	strcat(Str3," wolfs down your food ... ");
+	strcat(Str3,LS(IDS_MSG_23163));
 	print1(Str3);
 	m_status_reset(m,HUNGRY);
 	m_status_reset(m,HOSTILE);
@@ -376,13 +376,13 @@ struct object *o;
 	free((char *)o);
       }
       else {
-	strcat(Str3," spurns your offering and leaves it on the ground.");
+	strcat(Str3,LS(IDS_MSG_23164));
 	print1(Str3);
 	drop_at(m->x,m->y,o);
       }
     }
     else {
-      strcat(Str3," doesn't care for your offering and drops it.");
+      strcat(Str3,LS(IDS_MSG_23165));
       print1(Str3);
       drop_at(m->x,m->y,o);
     }
@@ -766,19 +766,19 @@ void inventory_control()
 	  print3(LS(IDS_MSG_21335));
 	else {
 	  if (Player.possessions[slot]->uniqueness == COMMON)
-	    strcat(Str1, "Your ");
+	    strcat(Str1, LS(IDS_MSG_23166));
 	  strcat(Str1, itemid(Player.possessions[slot]));
 	  if (Player.possessions[slot]->objchar == BOOTS)
-	    strcat(Str1, " look like ");
+	    strcat(Str1, LS(IDS_MSG_23167));
 	  else {
-	    strcat(Str1, " looks like a");
+	    strcat(Str1, LS(IDS_MSG_23168));
 	    letter = Player.possessions[slot]->objstr[0];
 	    if (letter == 'a' || letter == 'A' || letter == 'e' ||
 	      letter == 'E' || letter == 'i' || letter == 'I' ||
 	      letter == 'o' || letter == 'O' || letter == 'u' || letter == 'U')
-	      strcat(Str1, "n ");
+	      strcat(Str1, LS(IDS_MSG_23169));
 	    else
-	      strcat(Str1, " ");
+	      strcat(Str1, LS(IDS_MSG_23170));
 	  }
 	  strcat(Str1, Player.possessions[slot]->objstr);
 	  print3(Str1);
@@ -927,19 +927,19 @@ void top_inventory_control()
 	  print3(LS(IDS_MSG_21335));
 	else {
 	  if (Player.possessions[slot]->uniqueness == COMMON)
-	    strcat(Str1, "Your ");
+	    strcat(Str1, LS(IDS_MSG_23166));
 	  strcat(Str1, itemid(Player.possessions[slot]));
 	  if (Player.possessions[slot]->objchar == BOOTS)
-	    strcat(Str1, " look like ");
+	    strcat(Str1, LS(IDS_MSG_23167));
 	  else {
-	    strcat(Str1, " looks like a");
+	    strcat(Str1, LS(IDS_MSG_23168));
 	    letter = Player.possessions[slot]->objstr[0];
 	    if (letter == 'a' || letter == 'A' || letter == 'e' ||
 	      letter == 'E' || letter == 'i' || letter == 'I' ||
 	      letter == 'o' || letter == 'O' || letter == 'u' || letter == 'U')
-	      strcat(Str1, "n ");
+	      strcat(Str1, LS(IDS_MSG_23169));
 	    else
-	      strcat(Str1, " ");
+	      strcat(Str1, LS(IDS_MSG_23170));
 	  }
 	  strcat(Str1, Player.possessions[slot]->objstr);
 	  print3(Str1);

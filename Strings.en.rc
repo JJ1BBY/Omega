@@ -2928,6 +2928,33 @@ BEGIN
     IDS_MSG_23155    "dead "
 END
 
+// ==================== inv.c (gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23156    "the "
+    IDS_MSG_23157    "disenchanted "
+    IDS_MSG_23158    "cursed "
+    IDS_MSG_23159    "blessed "
+    IDS_MSG_23160    "s"
+    IDS_MSG_23161    "The "
+    IDS_MSG_23162    " takes your gift"
+    IDS_MSG_23163    " wolfs down your food ... "
+    IDS_MSG_23164    " spurns your offering and leaves it on the ground."
+    IDS_MSG_23165    " doesn't care for your offering and drops it."
+    IDS_MSG_23166    "Your "
+    IDS_MSG_23167    " look like "
+    IDS_MSG_23168    " looks like a"
+    IDS_MSG_23169    "n "
+    IDS_MSG_23170    " "
+    IDS_MSG_23171    "copper pieces"
+    IDS_MSG_23172    "silver pieces"
+    IDS_MSG_23173    "gold pieces"
+    IDS_MSG_23174    "semiprecious gems"
+    IDS_MSG_23175    "mithril pieces"
+    IDS_MSG_23176    "precious gems"
+    IDS_MSG_23177    "orichalc pieces"
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN
