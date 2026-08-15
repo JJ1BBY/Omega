@@ -285,9 +285,9 @@ void talk()
     else {
       m = Level->site[Player.x+dx][Player.y+dy].creature;
       menuclear();
-      strcpy(Str1,"     Talk to ");
+      strcpy(Str1,LS(IDS_MSG_23192));
       strcat(Str1,m->monstring);
-      strcat(Str1,":");
+      strcat(Str1,LS(IDS_MSG_23193));
       menuprint(Str1);
       menuprint("\na: Greet.");
       menuprint("\nb: Threaten.");

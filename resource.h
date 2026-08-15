@@ -2864,6 +2864,16 @@
 #define IDS_MSG_23189                   23189
 #define IDS_MSG_23190                   23190
 
+// ---- site1.c (gap-fill) ----
+#define IDS_MSG_23191                   23191
+
+// ---- command2.c (gap-fill) ----
+#define IDS_MSG_23192                   23192
+#define IDS_MSG_23193                   23193
+
+// ---- command3.c (gap-fill) ----
+#define IDS_MSG_23194                   23194
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222

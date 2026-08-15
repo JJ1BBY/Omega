@@ -195,7 +195,7 @@ int base,numitems;
   print2(LS(IDS_MSG_22245));
   menuclear();
   for(i=0;i<numitems;i++) {
-    strcpy(Str4," :");
+    strcpy(Str4,LS(IDS_MSG_23191));
     Str4[0] = i + 'a';
     strcat(Str4,Objects[base+i].objstr);
     menuprint(Str4);
@@ -1027,7 +1027,7 @@ void l_pawn_shop()
       menuclear();
       for(i=0;i<PAWNITEMS;i++) 
 	if (Pawnitems[i] != NULL) {
-	  strcpy(Str3," :");
+	  strcpy(Str3,LS(IDS_MSG_23191));
 	  Str3[0] = i+'a';
 	  strcat(Str3,itemid(Pawnitems[i]));
 	  menuprint(Str3);

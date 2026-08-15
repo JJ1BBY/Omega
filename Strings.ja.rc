@@ -2983,6 +2983,25 @@ BEGIN
     IDS_MSG_23190    " screams at you!"
 END
 
+// ==================== site1.c (gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23191    " :"
+END
+
+// ==================== command2.c (gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23192    "     Talk to "
+    IDS_MSG_23193    ":"
+END
+
+// ==================== command3.c (gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23194    ", the Wizard of Omega appears before you...."
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN

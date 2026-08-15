@@ -520,7 +520,7 @@ void wizard()
       else {
 	mprint(LS(IDS_MSG_20633));
 	strcpy(Str1,WIZARD);
-	strcat(Str1,", the Wizard of Omega appears before you....");
+	strcat(Str1,LS(IDS_MSG_23194));
 	if (Str1[0] >= 'a' && Str1[0] <= 'z')
 	    Str1[0] += 'A'-'a'; /* capitalise 1st letter */
 	mprint(Str1);
