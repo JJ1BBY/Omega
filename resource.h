@@ -2754,6 +2754,29 @@
 #define IDS_MSG_23097                   23097
 #define IDS_MSG_23098                   23098
 
+// ---- aux3.c (gap-fill) ----
+#define IDS_MSG_23099                   23099
+#define IDS_MSG_23100                   23100
+#define IDS_MSG_23101                   23101
+#define IDS_MSG_23102                   23102
+#define IDS_MSG_23103                   23103
+#define IDS_MSG_23104                   23104
+#define IDS_MSG_23105                   23105
+#define IDS_MSG_23106                   23106
+#define IDS_MSG_23107                   23107
+#define IDS_MSG_23108                   23108
+#define IDS_MSG_23109                   23109
+#define IDS_MSG_23110                   23110
+#define IDS_MSG_23111                   23111
+#define IDS_MSG_23112                   23112
+#define IDS_MSG_23113                   23113
+#define IDS_MSG_23114                   23114
+#define IDS_MSG_23115                   23115
+#define IDS_MSG_23116                   23116
+#define IDS_MSG_23117                   23117
+#define IDS_MSG_23118                   23118
+#define IDS_MSG_23119                   23119
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222

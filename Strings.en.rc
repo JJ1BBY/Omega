@@ -2846,6 +2846,32 @@ BEGIN
     IDS_MSG_23098    " curses your ancestry."
 END
 
+// ==================== aux3.c (gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23099    "Almost impassable mountains"
+    IDS_MSG_23100    "Seemingly endless plains"
+    IDS_MSG_23101    "A frosty stretch of tundra"
+    IDS_MSG_23102    "A paved highway"
+    IDS_MSG_23103    "A secret mountain pass"
+    IDS_MSG_23104    "A rolling river"
+    IDS_MSG_23105    "The city of Rampart"
+    IDS_MSG_23106    "A rural village"
+    IDS_MSG_23107    "A verdant forest"
+    IDS_MSG_23108    "A densely overgrown jungle"
+    IDS_MSG_23109    "A swampy fen"
+    IDS_MSG_23110    "A huge active volcano"
+    IDS_MSG_23111    "An imposing castle"
+    IDS_MSG_23112    "A mysterious mountain."
+    IDS_MSG_23113    "A cavern filled with treasure."
+    IDS_MSG_23114    "An island emanating magic."
+    IDS_MSG_23115    "A hidden cave entrance"
+    IDS_MSG_23116    "A neoclassical temple"
+    IDS_MSG_23117    "A sere desert"
+    IDS_MSG_23118    "The Sea of Chaos"
+    IDS_MSG_23119    "I have no idea."
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN

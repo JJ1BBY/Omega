@@ -729,67 +729,67 @@ short terrain;
 {
   switch(terrain&0xff) {
   case MOUNTAINS&0xff:
-    strcpy(Str1,"Almost impassable mountains");
+    strcpy(Str1,LS(IDS_MSG_23099));
     break;
   case PLAINS&0xff:
-    strcpy(Str1,"Seemingly endless plains");
+    strcpy(Str1,LS(IDS_MSG_23100));
     break;
   case TUNDRA&0xff:
-    strcpy(Str1,"A frosty stretch of tundra");
+    strcpy(Str1,LS(IDS_MSG_23101));
     break;
   case ROAD&0xff:
-    strcpy(Str1,"A paved highway");
+    strcpy(Str1,LS(IDS_MSG_23102));
     break;
   case PASS&0xff:
-    strcpy(Str1,"A secret mountain pass");
+    strcpy(Str1,LS(IDS_MSG_23103));
     break;
   case RIVER&0xff:
-    strcpy(Str1,"A rolling river");
+    strcpy(Str1,LS(IDS_MSG_23104));
     break;
   case CITY&0xff:
-    strcpy(Str1,"The city of Rampart");
+    strcpy(Str1,LS(IDS_MSG_23105));
     break;
   case VILLAGE&0xff:
-    strcpy(Str1,"A rural village");
+    strcpy(Str1,LS(IDS_MSG_23106));
     break;
   case FOREST&0xff:
-    strcpy(Str1,"A verdant forest");
+    strcpy(Str1,LS(IDS_MSG_23107));
     break;
   case JUNGLE&0xff:
-    strcpy(Str1,"A densely overgrown jungle");
+    strcpy(Str1,LS(IDS_MSG_23108));
     break;
   case SWAMP&0xff:
-    strcpy(Str1,"A swampy fen");
+    strcpy(Str1,LS(IDS_MSG_23109));
     break;
   case VOLCANO&0xff:
-    strcpy(Str1,"A huge active volcano");
+    strcpy(Str1,LS(IDS_MSG_23110));
     break;
   case CASTLE&0xff:
-    strcpy(Str1,"An imposing castle");
+    strcpy(Str1,LS(IDS_MSG_23111));
     break;
   case STARPEAK&0xff:
-    strcpy(Str1,"A mysterious mountain.");
+    strcpy(Str1,LS(IDS_MSG_23112));
     break;
   case DRAGONLAIR&0xff:
-    strcpy(Str1,"A cavern filled with treasure.");
+    strcpy(Str1,LS(IDS_MSG_23113));
     break;
   case MAGIC_ISLE&0xff:
-    strcpy(Str1,"An island emanating magic.");
+    strcpy(Str1,LS(IDS_MSG_23114));
     break;
   case CAVES&0xff:
-    strcpy(Str1,"A hidden cave entrance");
+    strcpy(Str1,LS(IDS_MSG_23115));
     break;
   case TEMPLE&0xff:
-    strcpy(Str1,"A neoclassical temple");
+    strcpy(Str1,LS(IDS_MSG_23116));
     break;
   case DESERT&0xff:
-    strcpy(Str1,"A sere desert");
+    strcpy(Str1,LS(IDS_MSG_23117));
     break;
   case CHAOS_SEA&0xff:
-    strcpy(Str1,"The Sea of Chaos");
+    strcpy(Str1,LS(IDS_MSG_23118));
     break;
   default:
-    strcpy(Str1,"I have no idea.");
+    strcpy(Str1,LS(IDS_MSG_23119));
     break;
   }
   return(Str1);
