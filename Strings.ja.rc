@@ -478,8 +478,8 @@ BEGIN
     IDS_MSG_20441    "You manage to get your horse downstairs."
     IDS_MSG_20442    "You descend a level."
     IDS_MSG_20443    "This stairway is deviant. You can't use it."
-    IDS_MSG_20444    "Currently selected option is preceded by highlit >>"
-    IDS_MSG_20445    "Move selected option with '>' and '<', ESCAPE to quit."
+    IDS_MSG_20444    "現在選択中のオプションの前には強調表示の >> が付きます"
+    IDS_MSG_20445    "選択オプションの移動は '>' と '<'、終了はESCAPE。"
     IDS_MSG_20446    "'T' is meaningless for this option."
     IDS_MSG_20447    "'F' is meaningless for this option."
     IDS_MSG_20448    "'M' is meaningless for this option."
@@ -2399,7 +2399,23 @@ END
 // ==================== scr.c ====================
 STRINGTABLE
 BEGIN
-    IDS_MSG_22220    "Pack is empty."
+    IDS_MSG_22220    "荷物は空です。"
+    IDS_MSG_22665    "-- オプション BELLICOSE [TF]: "
+    IDS_MSG_22666    "-- オプション JUMPMOVE [TF]: "
+    IDS_MSG_22667    "-- オプション RUNSTOP [TF]: "
+    IDS_MSG_22668    "-- オプション PICKUP [TF]: "
+    IDS_MSG_22669    "-- オプション CONFIRM [TF]: "
+    IDS_MSG_22670    "-- オプション TOPINV [TF]: "
+    IDS_MSG_22671    "-- オプション PACKADD [TF]: "
+    IDS_MSG_22672    "-- オプション COMPRESS [TF]: "
+    IDS_MSG_22673    "-- オプション COLOUR [TF]: "
+    IDS_MSG_22674    "(現在: T) "
+    IDS_MSG_22675    "(現在: F) "
+    IDS_MSG_22676    "-- オプション VERBOSITY [(T)erse,(M)edium,(V)erbose]: (現在: "
+    IDS_MSG_22677    "Verbose)"
+    IDS_MSG_22678    "Medium)"
+    IDS_MSG_22679    "Terse)"
+    IDS_MSG_22680    "-- オプション SEARCHNUM [0>x>10]: (現在: %d)"
 END
 
 // ==================== site1.c ====================

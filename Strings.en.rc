@@ -2400,6 +2400,22 @@ END
 STRINGTABLE
 BEGIN
     IDS_MSG_22220    "Pack is empty."
+    IDS_MSG_22665    "-- Option BELLICOSE [TF]: "
+    IDS_MSG_22666    "-- Option JUMPMOVE [TF]: "
+    IDS_MSG_22667    "-- Option RUNSTOP [TF]: "
+    IDS_MSG_22668    "-- Option PICKUP [TF]: "
+    IDS_MSG_22669    "-- Option CONFIRM [TF]: "
+    IDS_MSG_22670    "-- Option TOPINV [TF]: "
+    IDS_MSG_22671    "-- Option PACKADD [TF]: "
+    IDS_MSG_22672    "-- Option COMPRESS [TF]: "
+    IDS_MSG_22673    "-- Option COLOUR [TF]: "
+    IDS_MSG_22674    "(now T) "
+    IDS_MSG_22675    "(now F) "
+    IDS_MSG_22676    "-- Option VERBOSITY [(T)erse,(M)edium,(V)erbose]: (now "
+    IDS_MSG_22677    "Verbose)"
+    IDS_MSG_22678    "Medium)"
+    IDS_MSG_22679    "Terse)"
+    IDS_MSG_22680    "-- Option SEARCHNUM [0>x>10]: (now %d)"
 END
 
 // ==================== site1.c ====================

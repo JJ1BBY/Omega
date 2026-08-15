@@ -1548,54 +1548,53 @@ int slot;
   wclear(Showline[slot]);
   switch(slot) {
   case 1:
-    wprintw(Showline[slot],"-- Option BELLICOSE [TF]: ");
-    wprintw(Showline[slot], optionp(BELLICOSE) ? "(now T) " : "(now F) ");
+    wprintw(Showline[slot],LS(IDS_MSG_22665));
+    wprintw(Showline[slot], optionp(BELLICOSE) ? LS(IDS_MSG_22674) : LS(IDS_MSG_22675));
     break;
   case 2:
-    wprintw(Showline[slot],"-- Option JUMPMOVE [TF]: ");
-    wprintw(Showline[slot], optionp(JUMPMOVE) ? "(now T) " : "(now F) ");
+    wprintw(Showline[slot],LS(IDS_MSG_22666));
+    wprintw(Showline[slot], optionp(JUMPMOVE) ? LS(IDS_MSG_22674) : LS(IDS_MSG_22675));
     break;
   case 3:
-    wprintw(Showline[slot],"-- Option RUNSTOP [TF]: ");
-    wprintw(Showline[slot], optionp(RUNSTOP) ? "(now T) " : "(now F) ");
+    wprintw(Showline[slot],LS(IDS_MSG_22667));
+    wprintw(Showline[slot], optionp(RUNSTOP) ? LS(IDS_MSG_22674) : LS(IDS_MSG_22675));
     break;
   case 4:
-    wprintw(Showline[slot],"-- Option PICKUP [TF]: ");
-    wprintw(Showline[slot], optionp(PICKUP) ? "(now T) " : "(now F) ");
+    wprintw(Showline[slot],LS(IDS_MSG_22668));
+    wprintw(Showline[slot], optionp(PICKUP) ? LS(IDS_MSG_22674) : LS(IDS_MSG_22675));
     break;
   case 5:
-    wprintw(Showline[slot],"-- Option CONFIRM [TF]: ");
-    wprintw(Showline[slot], optionp(CONFIRM) ? "(now T) " : "(now F) ");
+    wprintw(Showline[slot],LS(IDS_MSG_22669));
+    wprintw(Showline[slot], optionp(CONFIRM) ? LS(IDS_MSG_22674) : LS(IDS_MSG_22675));
     break;
   case 6:
-    wprintw(Showline[slot],"-- Option TOPINV [TF]: ");
-    wprintw(Showline[slot], optionp(TOPINV) ? "(now T) " : "(now F) ");
+    wprintw(Showline[slot],LS(IDS_MSG_22670));
+    wprintw(Showline[slot], optionp(TOPINV) ? LS(IDS_MSG_22674) : LS(IDS_MSG_22675));
     break;
   case 7:
-    wprintw(Showline[slot],"-- Option PACKADD [TF]: ");
-    wprintw(Showline[slot], optionp(PACKADD) ? "(now T) " : "(now F) ");
+    wprintw(Showline[slot],LS(IDS_MSG_22671));
+    wprintw(Showline[slot], optionp(PACKADD) ? LS(IDS_MSG_22674) : LS(IDS_MSG_22675));
     break;
   case 8:
 #ifdef COMPRESS_SAVE_FILES
-    wprintw(Showline[slot],"-- Option COMPRESS [TF]: ");
-    wprintw(Showline[slot], optionp(COMPRESS_OPTION) ? "(now T) " : "(now F) ");
+    wprintw(Showline[slot],LS(IDS_MSG_22672));
+    wprintw(Showline[slot], optionp(COMPRESS_OPTION) ? LS(IDS_MSG_22674) : LS(IDS_MSG_22675));
 #endif
     break;
   case 9:
 #if defined(MSDOS) || defined(AMIGA) || defined(_WIN32)
-    wprintw(Showline[slot],"-- Option COLOUR [TF]: ");
-    wprintw(Showline[slot], optionp(SHOW_COLOUR) ? "(now T) " : "(now F) ");
+    wprintw(Showline[slot],LS(IDS_MSG_22673));
+    wprintw(Showline[slot], optionp(SHOW_COLOUR) ? LS(IDS_MSG_22674) : LS(IDS_MSG_22675));
 #endif
     break;
   case VERBOSITY_LEVEL:
-    wprintw(Showline[slot],
-	    "-- Option VERBOSITY [(T)erse,(M)edium,(V)erbose]: (now ");
-    if (Verbosity == VERBOSE) wprintw(Showline[slot],"Verbose)");
-    else if (Verbosity == MEDIUM) wprintw(Showline[slot],"Medium)");
-    else wprintw(Showline[slot],"Terse)");
+    wprintw(Showline[slot], LS(IDS_MSG_22676));
+    if (Verbosity == VERBOSE) wprintw(Showline[slot],LS(IDS_MSG_22677));
+    else if (Verbosity == MEDIUM) wprintw(Showline[slot],LS(IDS_MSG_22678));
+    else wprintw(Showline[slot],LS(IDS_MSG_22679));
     break;
   case SEARCH_DURATION:
-    wprintw(Showline[slot],"-- Option SEARCHNUM [0>x>10]: (now %d)",Searchnum);
+    wprintw(Showline[slot],LS(IDS_MSG_22680),Searchnum);
     break;
   }
   wrefresh(Showline[slot]);

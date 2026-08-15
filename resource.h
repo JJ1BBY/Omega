@@ -2306,6 +2306,25 @@
 // ---- scr.c ----
 #define IDS_MSG_22220                   22220
 
+// ---- scr.c: display_option_slot() (wprintw literals, missed by the
+// original print1/mprint-only extraction pass) ----
+#define IDS_MSG_22665                   22665
+#define IDS_MSG_22666                   22666
+#define IDS_MSG_22667                   22667
+#define IDS_MSG_22668                   22668
+#define IDS_MSG_22669                   22669
+#define IDS_MSG_22670                   22670
+#define IDS_MSG_22671                   22671
+#define IDS_MSG_22672                   22672
+#define IDS_MSG_22673                   22673
+#define IDS_MSG_22674                   22674
+#define IDS_MSG_22675                   22675
+#define IDS_MSG_22676                   22676
+#define IDS_MSG_22677                   22677
+#define IDS_MSG_22678                   22678
+#define IDS_MSG_22679                   22679
+#define IDS_MSG_22680                   22680
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222
