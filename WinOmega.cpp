@@ -436,6 +436,15 @@ void copyLibFile(const char* name)
 // help4.txt/help12.txt), so no changes are needed anywhere the game
 // itself reads moves. A and B map to 'y'/'n', matching the ynq()
 // prompts used throughout the game.
+//
+// Holding X while pressing a direction sends the uppercase vi-key
+// ('H','J','K','L','B','N','Y','U' -- see command1.c's p_process(),
+// which sets FAST_MOVE and lets the main loop keep re-issuing that same
+// move each turn until an obstacle/RUNSTOP condition clears it) instead
+// of the plain digit, so a single button-hold + direction runs until
+// something interesting happens, same as Shift+direction on a keyboard.
+// This mirrors the "hold a face button to dash/move diagonally" scheme
+// used by the Mystery Dungeon (Shiren/Torneko) series.
 void pollGamepad()
 {
   XINPUT_STATE state;
@@ -464,13 +473,23 @@ void pollGamepad()
     else if (sy < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) dy = 1;
   }
 
+  // Row 0 = up (dy=-1), row 2 = down (dy=+1); column 0 = left (dx=-1),
+  // column 2 = right (dx=+1) -- matches command1.c's '7'/'8'/'9' (up
+  // row) and '1'/'2'/'3' (down row) digit-key layout.
   static const int dirDigit[3][3] =
   {
-    { '1','2','3' },
-    { '4', 0 ,'6' },
     { '7','8','9' },
+    { '4', 0 ,'6' },
+    { '1','2','3' },
   };
-  int dir = dirDigit[dy+1][dx+1];
+  static const int dirRun[3][3] =
+  {
+    { 'Y','K','U' },
+    { 'H', 0 ,'L' },
+    { 'B','J','N' },
+  };
+  bool runHeld = (buttons & XINPUT_GAMEPAD_X) != 0;
+  int dir = (runHeld ? dirRun : dirDigit)[dy+1][dx+1];
   if (dir != 0 && dir != gamepadLastDir)
     inputKeys.push_back(dir);
   gamepadLastDir = dir;
