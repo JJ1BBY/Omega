@@ -8,6 +8,17 @@ I've taken Omega 0.80.2 and built it as a "proper" Windows application (rather t
 
 ![Omega in play](omega.png)
 
+## About this fork
+
+This is a fork of [DavidKinder/Omega](https://github.com/DavidKinder/Omega)
+(the original Windows port described above). The `japanese-localization`
+branch adds, on top of that: a full Japanese translation with a runtime
+language switcher (see below), and gamepad support (movement, confirm/cancel,
+and a hold-to-run modifier, with an in-game configuration screen reachable
+from the system menu -- useful since the game's controller mapping isn't
+standardized the way a keyboard's is). `master` on this fork tracks upstream
+unchanged; all of the above lives only on `japanese-localization`.
+
 ## Japanese localization
 
 The `japanese-localization` branch adds a full Japanese translation
@@ -19,9 +30,9 @@ source and into Windows resources, split by language:
 from `WinOmega.rc` inside their own `LANGUAGE` block. Game code looks a
 string up by ID through a small `LS(id)` helper (a `LoadStringA` wrapper),
 which resolves against whichever `LANGUAGE` block matches the thread's
-current locale -- the same mechanism Windows itself uses to serve the
-right resource out of a multi-language binary. Plain-text files
-(`help*.txt`, `motd.txt`) and the encrypted story/lore text
+current UI language (`SetThreadUILanguage`) -- the same mechanism Windows
+itself uses to serve the right resource out of a multi-language binary.
+Plain-text files (`help*.txt`, `motd.txt`) and the encrypted story/lore text
 (`intro.txt`, `abyss.txt`, `scroll*.txt`) follow the same idea one level
 up: a Japanese copy sits alongside the English original as `name.ja.txt`,
 and `omegalibFile()` in `file.c` picks whichever one matches the current
@@ -31,12 +42,16 @@ already uses, so no other code needed to change). `license.txt` is
 deliberately left English-only, since it's the game's legal license text.
 
 **Choosing a language:** the setup dialog shown at startup has a
-**Language** dropdown -- *System default*, *English*, or *日本語*. Selecting
-one calls `SetThreadLocale()`, which is what makes the resource lookup
-above pick the matching `LANGUAGE` block; *System default* just leaves
-the OS's own locale in charge (so the game already opens in Japanese on
-a Japanese-locale Windows install without touching this setting). The
-choice is saved to the registry and re-applied on the next launch.
+**Language** dropdown -- *System default*, *English*, or *日本語* -- next to
+a **Remember this selection** checkbox. Selecting a language calls
+`SetThreadUILanguage()`, which is what makes the resource lookup above
+pick the matching `LANGUAGE` block; *System default* leaves the OS's own
+UI language in charge instead (so on a Japanese-locale Windows install,
+picking *System default* opens the game in Japanese). With the checkbox
+checked, the choice is saved to the registry and re-applied on the next
+launch; leaving it unchecked keeps the change for the current session
+only. On a fresh install, before anything has been saved, the game
+defaults to *English* rather than following the OS locale.
 
 **English is the fallback.** Anywhere a Japanese string, help file, or
 resource dialog doesn't exist -- an untranslated leftover, a future
@@ -55,6 +70,10 @@ Install git. I use the version of git that is part of MSYS2, a Linux-like enviro
 
 Open the environment that you are using git from, and switch to the root directory that the build environment will be created under. Clone this repository with git:
 ```
-git clone https://github.com/DavidKinder/Omega.git
+git clone https://github.com/JJ1BBY/Omega.git
+```
+This fork's default branch is `master`, tracking upstream unchanged; check out `japanese-localization` for the Japanese translation and gamepad support described above:
+```
+git checkout japanese-localization
 ```
 Start Visual Studio, open the solution "Omega.sln", then build and run the "Omega" project.
