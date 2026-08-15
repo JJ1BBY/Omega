@@ -23,10 +23,19 @@
 - ビルド確認済み(MSBuild, Release|x86, 後述のツールセット指定で成功)
 - `LoadLibraryEx` + `LoadStringA` で実際にリソースが正しくロードされることを検証済み
 
-## 進行中の翻訳作業(japanese-localization ブランチ)
+## 翻訳作業(japanese-localization ブランチ) — 完了
 
-`Strings.ja.rc` は現在 **388/2665件** 翻訳済み(abyss.c, aux1.c, aux2.c, aux3.c,
-char.c, command1.c)。残り約2,277件。
+`Strings.ja.rc` は **2665/2665件、完了**(元の`print1/print2/print3/nprint1/
+nprint2/nprint3/mprint`呼び出しからの機械抽出分、および後述のギャップ埋め分
+IDS_MSG_22665〜22738を含む全件)。RPGステータス略号(`Hit/Dmg/Def/Arm/Spd`、
+`HP/MANA/AU/LEVEL/CARRY`、`STR/CON/DEX/AGI/INT/POW`)とアスキーアートの
+バナー類は、ユーザー指示により意図的に英語のまま残してある。
+
+最終コミット: "Translate spell.c, time.c, trap.c, util.c strings to Japanese"
+(spell.c/time.c/trap.c/util.cを最後に、全ファイルグループの翻訳が完了)。
+
+このドキュメントの以下の「手順」節は今後同種の抽出漏れ・追加翻訳作業が
+発生した場合の参考として残す。
 
 **重要: `Strings.ja.rc` を編集する際の手順**
 1. 通常のテキストエディタ/Read・Editツールで作業する前に、ファイルが
@@ -99,19 +108,19 @@ char.c, command1.c)。残り約2,277件。
 
 ## 未着手のタスク
 
-### 1. 本命: `Strings.ja.rc` の翻訳(2,665件)
+翻訳の進め方に関する参考情報(完了済みの`Strings.ja.rc`本体翻訳で実際に
+使った手順)を以下に残す。
 
-`Omega/Strings.ja.rc` を開き、`STRINGTABLE` の各行
+`Omega/Strings.ja.rc` の `STRINGTABLE` の各行
 
 ```
     IDS_MSG_20123    "Some English text here."
 ```
 
-の右辺(ダブルクォート内)だけを日本語に置き換える。**IDと`IDS_MSG_`定義行、
-ブロック区切りコメント(`// ==== xxx.c ====`)は変更しない。**
+の右辺(ダブルクォート内)だけを日本語に置き換える形式だった。**IDと
+`IDS_MSG_`定義行、ブロック区切りコメント(`// ==== xxx.c ====`)は変更しない。**
 
-対応する原文は `Strings.en.rc` の同じIDの行(内容は同一なので、`Strings.en.rc`
-を見ながら`Strings.ja.rc`だけ書き換えれば良い)。
+対応する原文は `Strings.en.rc` の同じIDの行(内容は同一)。
 
 **重要な注意点(文字コード)**:
 - `WinOmega.rc` のJapaneseブロックは `#pragma code_page(932)` を指定している
@@ -140,7 +149,7 @@ char.c, command1.c)。残り約2,277件。
 PowerShellで `LoadLibraryEx(path, 0, LOAD_LIBRARY_AS_DATAFILE)` →
 `LoadStringA(handle, id, buf, size)` で任意のIDの文字列を検証できる。
 
-### 2. ⑤ アイテム名/呪文名テーブル(意図的に保留中・要注意)
+### 1. ⑤ アイテム名/呪文名テーブル(意図的に保留中・要注意)
 
 - `Omega/aux3.c:798` の `static char *sitenames[]`
 - `Omega/spell.c:726` の `static char *spell_names[]`
@@ -150,7 +159,7 @@ PowerShellで `LoadLibraryEx(path, 0, LOAD_LIBRARY_AS_DATAFILE)` →
 着手する場合は、まず両配列が `strcmp` 等でどこから参照されているかを
 `grep -rn "sitenames\|spell_names"` で洗い出してから方針を決めること。
 
-### 3. ② 暗号化テキストファイルの翻訳
+### 2. ② 暗号化テキストファイルの翻訳
 
 対象: `OmegaLib/intro.txt`, `abyss.txt`, `scroll1.txt`〜`scroll4.txt`
 (`file.c` の `displaycryptfile()` が読む)
@@ -180,7 +189,7 @@ key = 100 (初期値)
 同じ暗号を使う `abyss_file()`, `cityguidefile()` 等の呼び出し元は
 `Omega/Omega/file.c` 内で `grep -n displaycryptfile` すれば一覧できる。
 
-### 4. ⑥ Windows UI文字列
+### 3. ⑥ Windows UI文字列
 
 - `IDD_SETUP` ダイアログ(`WinOmega.rc:71-93`)が **Englishブロックにしか
   存在しない**。日本語版ダイアログを出すには、Japaneseブロック内に
@@ -197,7 +206,7 @@ key = 100 (初期値)
   `LS()`経由に置き換えるのが自然(`IDS_MSG_*`のレンジ20000-22664とは別に、
   例えば23000番台を使うなど)。
 
-### 5. ① プレーンテキストファイルの翻訳
+### 4. ① プレーンテキストファイルの翻訳
 
 `OmegaLib/help1.txt`〜`help13.txt`, `license.txt`, `thanks.txt`, `update.txt`,
 `motd.txt` は暗号化なしの生テキスト。日本語版を `OmegaLib/help1.ja.txt` の
@@ -214,9 +223,13 @@ key = 100 (初期値)
 ```bash
 cd /d/src/WinOmega/Omega
 export MSYS2_ARG_CONV_EXCL="*"
-"/c/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" \
+"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe" \
   Omega.sln /p:Configuration=Release /p:Platform=x86 /p:PlatformToolset=v143 /m
 ```
+
+(このマシンのVisual Studioインストールパスは`18/Community`だった。別環境
+では`2022/Community`など異なる場合があるので、`find "/c/Program Files/
+Microsoft Visual Studio" -iname MSBuild.exe`で探すのが確実)
 
 ソリューション構成は `Release|x86` / `Debug|x86` のみ(x64は無い)。
 
