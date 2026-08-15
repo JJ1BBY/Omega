@@ -35,15 +35,15 @@ void wattrset ARGS((WINDOW *, int));
 void phaseprint()
 {
   wclear(Phasew);
-  wprintw(Phasew,"Moon's Phase:\n");
+  wprintw(Phasew,LS(IDS_MSG_22681));
   switch(Phase/2) {
-  case 0: wprintw(Phasew,"NEW"); break;
-  case 1: case 11: wprintw(Phasew,"CRESCENT"); break;
-  case 2: case 10: wprintw(Phasew,"1/4"); break;
-  case 3: case 9: wprintw(Phasew,"HALF"); break;
-  case 4: case 8: wprintw(Phasew,"3/4"); break;
-  case 5: case 7: wprintw(Phasew,"GIBBOUS"); break;
-  case 6: wprintw(Phasew,"FULL"); break;
+  case 0: wprintw(Phasew,LS(IDS_MSG_22682)); break;
+  case 1: case 11: wprintw(Phasew,LS(IDS_MSG_22683)); break;
+  case 2: case 10: wprintw(Phasew,LS(IDS_MSG_22684)); break;
+  case 3: case 9: wprintw(Phasew,LS(IDS_MSG_22685)); break;
+  case 4: case 8: wprintw(Phasew,LS(IDS_MSG_22686)); break;
+  case 5: case 7: wprintw(Phasew,LS(IDS_MSG_22687)); break;
+  case 6: wprintw(Phasew,LS(IDS_MSG_22688)); break;
   }
   wrefresh(Phasew);
 }
@@ -129,10 +129,10 @@ char ynq()
   while ((p != 'n') && (p != 'y') && (p != 'q') && (p != ESCAPE))
     p = wgetch(Msgw);
   switch (p) {
-    case 'y': wprintw(Msgw,"yes. "); break;
-    case 'n': wprintw(Msgw,"no. "); break;
+    case 'y': wprintw(Msgw,LS(IDS_MSG_22689)); break;
+    case 'n': wprintw(Msgw,LS(IDS_MSG_22690)); break;
     case ESCAPE: p = 'q';
-    case 'q': wprintw(Msgw,"quit. "); break;
+    case 'q': wprintw(Msgw,LS(IDS_MSG_22691)); break;
     }
   wrefresh(Msgw);
   return(p);
@@ -823,8 +823,8 @@ void morewait()
     return;
   do {
     wclear(Morew);
-    if (display) wprintw(Morew,"***  MORE  ***");
-    else wprintw(Morew,"+++  MORE  +++");
+    if (display) wprintw(Morew,LS(IDS_MSG_22692));
+    else wprintw(Morew,LS(IDS_MSG_22693));
     display = ! display;
     wrefresh(Morew);
     c = wgetch(Msgw);
@@ -839,8 +839,8 @@ int stillonblock()
   char c;
   do {
     wclear(Morew);
-    if (display) wprintw(Morew,"<<<STAY?>>>");
-    else wprintw(Morew,">>>STAY?<<<");
+    if (display) wprintw(Morew,LS(IDS_MSG_22694));
+    else wprintw(Morew,LS(IDS_MSG_22695));
     display = ! display;
     wrefresh(Morew);
     c = wgetch(Msgw);
@@ -1102,15 +1102,15 @@ char *source;
   clear();
   touchwin(stdscr);
   printw("\n\n\n\n");
-  printw("Requiescat In Pace, ");
+  printw(LS(IDS_MSG_22711));
   printw(Player.name);
-  printw(" (%ld points)",calc_points());
+  printw(LS(IDS_MSG_22712),calc_points());
   strcpy(Str4,"Killed by ");
   strcat(Str4,source);
   printw("\n");
   printw(Str4);
   printw(".");
-  printw("\n\n\n\n\nHit 'c' to continue.");
+  printw(LS(IDS_MSG_22713));
   refresh();
   while (wgetch(stdscr) != 'c')
 	;
@@ -1128,14 +1128,14 @@ void display_win()
   printw("\n\n\n\n");
   printw(Player.name);
   if (Player.rank[ADEPT]) {
-    printw(" is a total master of omega with %ld points!",FixedPoints);
+    printw(LS(IDS_MSG_22714),FixedPoints);
     strcpy(Str4,"A total master of omega");
   }
   else {
     strcpy(Str4,"retired a winner");
-    printw(" triumphed in omega with %ld points!",calc_points());
+    printw(LS(IDS_MSG_22715),calc_points());
   }
-  printw("\n\n\n\n\nHit 'c' to continue.");
+  printw(LS(IDS_MSG_22713));
   refresh();
   while (wgetch(stdscr) != 'c')
 	;
@@ -1154,8 +1154,8 @@ void display_quit()
   printw("\n\n\n\n");
   printw(Player.name);
   strcpy(Str4,"A quitter.");
-  printw(" wimped out with %ld points!",calc_points());
-  printw("\n\n\n\n\nHit 'c' to continue.");
+  printw(LS(IDS_MSG_22716),calc_points());
+  printw(LS(IDS_MSG_22713));
   refresh();
   while (wgetch(stdscr) != 'c')
 	;
@@ -1173,8 +1173,8 @@ void display_bigwin()
   printw("\n\n\n\n");
   printw(Player.name);
   strcpy(Str4,"retired, an Adept of Omega.");
-  printw(" retired, an Adept of Omega with %ld points!",FixedPoints);
-  printw("\n\n\n\n\nHit 'c' to continue.");
+  printw(LS(IDS_MSG_22717),FixedPoints);
+  printw(LS(IDS_MSG_22713));
   refresh();
   while (wgetch(stdscr) != 'c')
 	;
@@ -1256,33 +1256,33 @@ void showflags()
   phaseprint();
   wclear(Flagw);
   if (Player.food < 0)
-    wprintw(Flagw,"Starving\n");
+    wprintw(Flagw,LS(IDS_MSG_22696));
   else if (Player.food <= 3)
-    wprintw(Flagw,"Weak\n");
+    wprintw(Flagw,LS(IDS_MSG_22697));
   else if (Player.food <= 10)
-    wprintw(Flagw,"Ravenous\n");
+    wprintw(Flagw,LS(IDS_MSG_22698));
   else if (Player.food <= 20)
-    wprintw(Flagw,"Hungry\n");
+    wprintw(Flagw,LS(IDS_MSG_22699));
   else if (Player.food <= 30)
-    wprintw(Flagw,"A mite peckish\n");
+    wprintw(Flagw,LS(IDS_MSG_22700));
   else if (Player.food <= 36)
-    wprintw(Flagw,"Content\n");
+    wprintw(Flagw,LS(IDS_MSG_22701));
   else if (Player.food <= 44)
-    wprintw(Flagw,"Satiated\n");
-  else wprintw(Flagw,"Bloated\n");
+    wprintw(Flagw,LS(IDS_MSG_22702));
+  else wprintw(Flagw,LS(IDS_MSG_22703));
 
 
   if (Player.status[POISONED]>0)
-    wprintw(Flagw,"Poisoned\n");
-  else wprintw(Flagw,"Vigorous\n");
+    wprintw(Flagw,LS(IDS_MSG_22704));
+  else wprintw(Flagw,LS(IDS_MSG_22705));
 
   if (Player.status[DISEASED]>0)
-    wprintw(Flagw,"Diseased\n");
-  else wprintw(Flagw,"Healthy\n");
+    wprintw(Flagw,LS(IDS_MSG_22706));
+  else wprintw(Flagw,LS(IDS_MSG_22707));
 
-  if (gamestatusp(MOUNTED)) wprintw(Flagw,"Mounted\n");
-  else if (Player.status[LEVITATING]) wprintw(Flagw,"Levitating\n");
-  else wprintw(Flagw,"Afoot\n");
+  if (gamestatusp(MOUNTED)) wprintw(Flagw,LS(IDS_MSG_22708));
+  else if (Player.status[LEVITATING]) wprintw(Flagw,LS(IDS_MSG_22709));
+  else wprintw(Flagw,LS(IDS_MSG_22710));
 
   wrefresh(Flagw);
 }

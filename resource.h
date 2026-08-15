@@ -2325,6 +2325,70 @@
 #define IDS_MSG_22679                   22679
 #define IDS_MSG_22680                   22680
 
+// ---- scr.c: HUD/status/game-over strings (also missed by the original
+// print1/mprint-only extraction pass; pure ASCII-art banners and the
+// HP/MANA/STR-style stat abbreviations were left untranslated on purpose) ----
+#define IDS_MSG_22681                   22681
+#define IDS_MSG_22682                   22682
+#define IDS_MSG_22683                   22683
+#define IDS_MSG_22684                   22684
+#define IDS_MSG_22685                   22685
+#define IDS_MSG_22686                   22686
+#define IDS_MSG_22687                   22687
+#define IDS_MSG_22688                   22688
+#define IDS_MSG_22689                   22689
+#define IDS_MSG_22690                   22690
+#define IDS_MSG_22691                   22691
+#define IDS_MSG_22692                   22692
+#define IDS_MSG_22693                   22693
+#define IDS_MSG_22694                   22694
+#define IDS_MSG_22695                   22695
+#define IDS_MSG_22696                   22696
+#define IDS_MSG_22697                   22697
+#define IDS_MSG_22698                   22698
+#define IDS_MSG_22699                   22699
+#define IDS_MSG_22700                   22700
+#define IDS_MSG_22701                   22701
+#define IDS_MSG_22702                   22702
+#define IDS_MSG_22703                   22703
+#define IDS_MSG_22704                   22704
+#define IDS_MSG_22705                   22705
+#define IDS_MSG_22706                   22706
+#define IDS_MSG_22707                   22707
+#define IDS_MSG_22708                   22708
+#define IDS_MSG_22709                   22709
+#define IDS_MSG_22710                   22710
+#define IDS_MSG_22711                   22711
+#define IDS_MSG_22712                   22712
+#define IDS_MSG_22713                   22713
+#define IDS_MSG_22714                   22714
+#define IDS_MSG_22715                   22715
+#define IDS_MSG_22716                   22716
+#define IDS_MSG_22717                   22717
+
+// ---- file.c: hiscore board / -More- / -Done- (also missed) ----
+#define IDS_MSG_22718                   22718
+#define IDS_MSG_22719                   22719
+#define IDS_MSG_22720                   22720
+#define IDS_MSG_22721                   22721
+#define IDS_MSG_22722                   22722
+#define IDS_MSG_22723                   22723
+#define IDS_MSG_22724                   22724
+#define IDS_MSG_22725                   22725
+#define IDS_MSG_22726                   22726
+#define IDS_MSG_22727                   22727
+#define IDS_MSG_22728                   22728
+#define IDS_MSG_22729                   22729
+#define IDS_MSG_22730                   22730
+#define IDS_MSG_22731                   22731
+#define IDS_MSG_22732                   22732
+#define IDS_MSG_22733                   22733
+#define IDS_MSG_22734                   22734
+#define IDS_MSG_22735                   22735
+#define IDS_MSG_22736                   22736
+#define IDS_MSG_22737                   22737
+#define IDS_MSG_22738                   22738
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222

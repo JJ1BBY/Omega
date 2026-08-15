@@ -234,39 +234,39 @@ void showscores()
   fclose(fd);
   unlock_score_file();
   clear();
-  printw("High Score: %ld",Hiscore);
-  printw(", by %s (%s)",Hiscorer,levelname(Hilevel));
+  printw(LS(IDS_MSG_22718),Hiscore);
+  printw(LS(IDS_MSG_22719),Hiscorer,levelname(Hilevel));
   printw("\n%s\n",Hidescrip);
-  printw("\nLord of Chaos: %s (%s)",Chaoslord,levelname(Chaoslordlevel));
-  printw("\nLord of Law: %s (%s)",Lawlord,levelname(Lawlordlevel));
-  printw("\n\nDuke of Rampart:              ");
+  printw(LS(IDS_MSG_22720),Chaoslord,levelname(Chaoslordlevel));
+  printw(LS(IDS_MSG_22721),Lawlord,levelname(Lawlordlevel));
+  printw(LS(IDS_MSG_22722));
   printw("%s (%s)",Duke,levelname(Dukelevel));
-  printw("\nJusticiar:                    ");
+  printw(LS(IDS_MSG_22723));
   printw("%s (%s)",Justiciar,levelname(Justiciarlevel));
-  printw("\nCommandant:                   ");
+  printw(LS(IDS_MSG_22724));
   printw("%s (%s)",Commandant,levelname(Commandantlevel));
-  printw("\nChampion:                     ");
+  printw(LS(IDS_MSG_22725));
   printw("%s (%s)",Champion,levelname(Championlevel));
-  printw("\nArchmage:                     ");
+  printw(LS(IDS_MSG_22726));
   printw("%s (%s)",Archmage,levelname(Archmagelevel));
-  printw("\nPrime Sorceror:               ");
+  printw(LS(IDS_MSG_22727));
   printw("%s (%s)",Prime,levelname(Primelevel));
-  printw("\nShadowlord:                   ");
+  printw(LS(IDS_MSG_22728));
   printw("%s (%s)",Shadowlord,levelname(Shadowlordlevel));
-  printw("\n\nHigh Priests:");
-  printw("\n of Odin:                     ");
+  printw(LS(IDS_MSG_22729));
+  printw(LS(IDS_MSG_22730));
   printw("%s (%s)",Priest[ODIN],levelname(Priestlevel[ODIN]));
-  printw("\n of Set:                      ");
+  printw(LS(IDS_MSG_22731));
   printw("%s (%s)",Priest[SET],levelname(Priestlevel[SET]));
-  printw("\n of Athena:                   ");
+  printw(LS(IDS_MSG_22732));
   printw("%s (%s)",Priest[ATHENA],levelname(Priestlevel[ATHENA]));
-  printw("\n of Hecate:                   ");
+  printw(LS(IDS_MSG_22733));
   printw("%s (%s)",Priest[HECATE],levelname(Priestlevel[HECATE]));
-  printw("\n of the Lords of Destiny:     ");
+  printw(LS(IDS_MSG_22734));
   printw("%s (%s)",Priest[DESTINY],levelname(Priestlevel[DESTINY]));
-  printw("\nThe ArchDruid:                ");
+  printw(LS(IDS_MSG_22735));
   printw("%s (%s)",Priest[DRUID],levelname(Priestlevel[DRUID]));
-  printw("\n\nHit any key to continue.");
+  printw(LS(IDS_MSG_22736));
   refresh();
   wgetch(stdscr);
 }
@@ -573,7 +573,7 @@ char *filestr;
   while ((c != EOF)&&((char) d != 'q')&&((char) d!=ESCAPE)) {
     getyx(stdscr,y,x);
     if (y > (LINES-6)) { // _WIN32
-      printw("\n-More-");
+      printw(LS(IDS_MSG_22737));
       refresh();
       d = wgetch(stdscr);
       clear();
@@ -582,7 +582,7 @@ char *filestr;
     c = fgetc(fd);
   }
   if (((char) d != 'q')&&((char) d!=ESCAPE)) {
-    printw("\n-Done-");
+    printw(LS(IDS_MSG_22738));
     refresh();
     getch();
   }
@@ -606,7 +606,7 @@ char *filestr;
   while ((c != EOF)&&((char) d != 'q')&&((char) d!=ESCAPE)) {
     getyx(stdscr,y,x);
     if (y > (LINES-6)) { // _WIN32
-      printw("\n-More-");
+      printw(LS(IDS_MSG_22737));
       refresh();
       d = wgetch(stdscr);
       clear();
@@ -616,7 +616,7 @@ char *filestr;
     c = fgetc(fd);
   }
   if (((char) d != 'q')&&((char) d!=ESCAPE)) {
-    printw("\n-Done-");
+    printw(LS(IDS_MSG_22738));
     refresh();
     getch();
   }
