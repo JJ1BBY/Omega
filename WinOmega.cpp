@@ -87,12 +87,21 @@ LOGFONT fontSetup;
 int fontSize = 11;
 TEXTMETRIC fontMetrics;
 
-// UI language override: 0 means follow the OS default (unchanged
-// behaviour), otherwise a LANGID explicitly picked in the setup dialog
-// and persisted in the registry. originalLocale is the thread's locale
-// before any override, used to restore "system default" behaviour.
-DWORD uiLanguage = 0;
+// UI language override: 0 means follow the OS default, otherwise a LANGID
+// explicitly picked in the setup dialog. Defaults to English so a first
+// run (no "Language" registry value yet) doesn't depend on the OS locale;
+// an explicit "(System default)" choice is still selectable and, once
+// saved, is distinguished from "never set" by the registry value existing
+// at all. originalLocale is the thread's locale before any override, used
+// to restore "system default" behaviour.
+DWORD uiLanguage = MAKELANGID(LANG_ENGLISH,SUBLANG_ENGLISH_UK);
 LCID originalLocale = 0;
+
+// Whether the language selection should be written to the registry so it
+// persists to the next run; mirrors the "Remember this selection"
+// checkbox in the setup dialog. Defaults to on so existing behaviour
+// (language is always remembered) is unchanged until a user opts out.
+bool saveLanguageChoice = true;
 
 // Set of fixed width TrueType fonts
 std::set<std::string> fontNames;
@@ -1311,6 +1320,9 @@ INT_PTR CALLBACK dlgProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
         langSel = 2;
       SendMessage(languageCtrl,CB_SETCURSEL,langSel,0);
 
+      // Initialize the "remember this selection" checkbox
+      SendMessage(GetDlgItem(wnd,IDC_SAVE_LANGUAGE),BM_SETCHECK,saveLanguageChoice ? BST_CHECKED : BST_UNCHECKED,0);
+
       // Initialize the saved games control
       HWND savedCtrl = GetDlgItem(wnd,IDC_SAVED);
       oldSavedListProc = SetWindowLongPtr(savedCtrl,GWLP_WNDPROC,(LONG_PTR)savedListProc);
@@ -1366,13 +1378,23 @@ INT_PTR CALLBACK dlgProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
         }
         applyUILanguage(uiLanguage);
 
+        // Read whether the language selection should be remembered, and
+        // persist that choice itself so the checkbox stays in the state
+        // the user left it in
+        saveLanguageChoice = (SendMessage(GetDlgItem(wnd,IDC_SAVE_LANGUAGE),BM_GETCHECK,0,0) == BST_CHECKED);
+        DWORD regSaveLanguage = saveLanguageChoice ? 1 : 0;
+        RegSetValueEx(settings,"Save Language",0,REG_DWORD,(BYTE*)&regSaveLanguage,sizeof regSaveLanguage);
+
         // Save the user's display settings
         DWORD regGraphics = graphics ? 1 : 0;
         RegSetValueEx(settings,"Graphics",0,REG_DWORD,(BYTE*)&regGraphics,sizeof regGraphics);
         RegSetValueEx(settings,"Font Name",0,REG_SZ,(BYTE*)fontSetup.lfFaceName,strlen(fontSetup.lfFaceName)+1);
         DWORD regFontSize = fontSize;
         RegSetValueEx(settings,"Font Size",0,REG_DWORD,(BYTE*)&regFontSize,sizeof regFontSize);
-        RegSetValueEx(settings,"Language",0,REG_DWORD,(BYTE*)&uiLanguage,sizeof uiLanguage);
+        if (saveLanguageChoice)
+          RegSetValueEx(settings,"Language",0,REG_DWORD,(BYTE*)&uiLanguage,sizeof uiLanguage);
+        else
+          RegDeleteValue(settings,"Language");
 
         // Read in the user's saved game selection
         int sel = SendMessage(GetDlgItem(wnd,IDC_SAVED),LB_GETCURSEL,0,0);
@@ -1514,6 +1536,12 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
   {
     if (setType == REG_DWORD)
       fontSize = *((DWORD*)setData);
+  }
+  setLength = 256;
+  if (RegQueryValueEx(settings,"Save Language",NULL,&setType,setData,&setLength) == ERROR_SUCCESS)
+  {
+    if (setType == REG_DWORD)
+      saveLanguageChoice = (*((DWORD*)setData) != 0);
   }
   setLength = 256;
   if (RegQueryValueEx(settings,"Language",NULL,&setType,setData,&setLength) == ERROR_SUCCESS)

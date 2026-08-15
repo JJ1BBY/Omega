@@ -10,6 +10,7 @@
 #define IDC_FONTSIZE                    1002
 #define IDC_GRAPHICS                    1003
 #define IDC_LANGUAGE                    1004
+#define IDC_SAVE_LANGUAGE               1005
 #define IDC_GAMEPAD_TESTAREA            1010
 #define IDC_GAMEPAD_CONFIRM_STATUS      1011
 #define IDC_GAMEPAD_CONFIRM_ASSIGN      1012
