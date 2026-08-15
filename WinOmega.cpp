@@ -83,6 +83,13 @@ LOGFONT fontSetup;
 int fontSize = 11;
 TEXTMETRIC fontMetrics;
 
+// UI language override: 0 means follow the OS default (unchanged
+// behaviour), otherwise a LANGID explicitly picked in the setup dialog
+// and persisted in the registry. originalLocale is the thread's locale
+// before any override, used to restore "system default" behaviour.
+DWORD uiLanguage = 0;
+LCID originalLocale = 0;
+
 // Set of fixed width TrueType fonts
 std::set<std::string> fontNames;
 
@@ -501,6 +508,17 @@ LRESULT CALLBACK savedListProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
   return result;
 }
 
+// Switches which LANGUAGE block in WinOmega.rc subsequent resource lookups
+// (LoadStringA via LS(), DialogBox, etc.) resolve to, by adjusting the
+// current thread's locale -- the standard mechanism the Win32 resource
+// loader consults when a binary has more than one LANGUAGE block for the
+// same resource. A lang of 0 restores whatever locale was in effect
+// before any override (ie. the OS default, the prior behaviour).
+void applyUILanguage(DWORD lang)
+{
+  SetThreadLocale(lang != 0 ? MAKELCID(lang,SORT_DEFAULT) : originalLocale);
+}
+
 // Called by Windows with any messages for the setup dialog
 INT_PTR CALLBACK dlgProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -527,6 +545,20 @@ INT_PTR CALLBACK dlgProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
       }
       itoa(fontSize,fontSizeStr,10);
       SendMessage(fontSizeCtrl,CB_SELECTSTRING,-1,(LPARAM)fontSizeStr);
+
+      // Initialize the language control. Language names are shown in
+      // their own language regardless of the current UI language, which
+      // is why these aren't pulled from LS().
+      HWND languageCtrl = GetDlgItem(wnd,IDC_LANGUAGE);
+      SendMessage(languageCtrl,CB_ADDSTRING,0,(LPARAM)"(System default)");
+      SendMessage(languageCtrl,CB_ADDSTRING,0,(LPARAM)"English");
+      SendMessage(languageCtrl,CB_ADDSTRING,0,(LPARAM)"\x93\xFA\x96\x7B\x8C\xEA");
+      int langSel = 0;
+      if (uiLanguage == MAKELANGID(LANG_ENGLISH,SUBLANG_ENGLISH_UK))
+        langSel = 1;
+      else if (uiLanguage == MAKELANGID(LANG_JAPANESE,SUBLANG_JAPANESE_JAPAN))
+        langSel = 2;
+      SendMessage(languageCtrl,CB_SETCURSEL,langSel,0);
 
       // Initialize the saved games control
       HWND savedCtrl = GetDlgItem(wnd,IDC_SAVED);
@@ -573,12 +605,23 @@ INT_PTR CALLBACK dlgProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
         if (fontSize < 6)
           fontSize = 6;
 
+        // Read in the user's language selection
+        int langSel = SendMessage(GetDlgItem(wnd,IDC_LANGUAGE),CB_GETCURSEL,0,0);
+        switch (langSel)
+        {
+        case 1: uiLanguage = MAKELANGID(LANG_ENGLISH,SUBLANG_ENGLISH_UK); break;
+        case 2: uiLanguage = MAKELANGID(LANG_JAPANESE,SUBLANG_JAPANESE_JAPAN); break;
+        default: uiLanguage = 0; break;
+        }
+        applyUILanguage(uiLanguage);
+
         // Save the user's display settings
         DWORD regGraphics = graphics ? 1 : 0;
         RegSetValueEx(settings,"Graphics",0,REG_DWORD,(BYTE*)&regGraphics,sizeof regGraphics);
         RegSetValueEx(settings,"Font Name",0,REG_SZ,(BYTE*)fontSetup.lfFaceName,strlen(fontSetup.lfFaceName)+1);
         DWORD regFontSize = fontSize;
         RegSetValueEx(settings,"Font Size",0,REG_DWORD,(BYTE*)&regFontSize,sizeof regFontSize);
+        RegSetValueEx(settings,"Language",0,REG_DWORD,(BYTE*)&uiLanguage,sizeof uiLanguage);
 
         // Read in the user's saved game selection
         int sel = SendMessage(GetDlgItem(wnd,IDC_SAVED),LB_GETCURSEL,0,0);
@@ -620,6 +663,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
 {
   // Don't display horrible old error dialogs
   SetErrorMode(SEM_FAILCRITICALERRORS|SEM_NOOPENFILEERRORBOX);
+
+  // Remember the OS-determined thread locale so an explicit language
+  // override can later be reverted back to "system default"
+  originalLocale = GetThreadLocale();
 
   // Initialize COM and controls
   CoInitialize(NULL);
@@ -715,6 +762,13 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
     if (setType == REG_DWORD)
       fontSize = *((DWORD*)setData);
   }
+  setLength = 256;
+  if (RegQueryValueEx(settings,"Language",NULL,&setType,setData,&setLength) == ERROR_SUCCESS)
+  {
+    if (setType == REG_DWORD)
+      uiLanguage = *((DWORD*)setData);
+  }
+  applyUILanguage(uiLanguage);
 
   // Show the setup dialog
   if (showDialog(instance,IDD_SETUP,0,dlgProc) != IDOK)

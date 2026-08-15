@@ -90,21 +90,43 @@ IDS_MSG_22665〜22738を含む全件)。RPGステータス略号(`Hit/Dmg/Def/Ar
 `PreprocessorDefinitions`に`OMEGA_JA_DEBUG;`を追加してビルドし、
 `%APPDATA%\Omega\ja_debug.log`を確認する。)
 
-## 未着手のタスク: 言語切り替えUI
+## 言語切り替えUI — 実装済み(japanese-localization ブランチ)
 
-現状、English/Japaneseどちらのリソースブロックが使われるかは**Windowsのリソース
-言語解決に完全に依存**しており、アプリ内に切り替えUIは無い(OSのロケールが
-日本語ならLoadStringAが自動的に日本語ブロックを、英語ロケールなら英語ブロックを
-拾うだけ)。英語ロケールのマシンで日本語表示を選びたい、といったケースに対応
-できない。
+`IDD_SETUP` ダイアログに `IDC_LANGUAGE` コンボボックス(「(System default)」/
+「English」/「日本語」)を追加し、選択結果を `HKCU\Software\David Kinder\Omega`
+の `Language` (REG_DWORD、LANGID値。0=システム既定) に保存・次回起動時に復元
+するようにした。
 
-対応する場合の方針:
-1. `LS()`の実装(`LoadStringA`)をやめ、`FindResourceEx`+`MAKELANGID`で明示的に
-   言語IDを指定する形に変更(現在の選択言語をグローバル変数で保持)
-2. セットアップダイアログ(`IDD_SETUP`、フォント選択の隣あたり)に言語選択の
-   コンボボックスを追加し、選択結果をレジストリ(`HKCU\Software\David
-   Kinder\Omega`)に保存・次回起動時に復元
-3. `Strings.en.rc`は今後も削除せず残すこと(英語版ユーザー向けに必要)
+**実装方式**: `FindResourceEx`への全面置き換えは行わず、`SetThreadLocale()`で
+スレッドロケールを切り替える方式を採用した(`WinOmega.cpp`の`applyUILanguage()`)。
+Win32のリソースローダーは複数の`LANGUAGE`ブロックを持つバイナリで、明示的な
+言語IDが指定されなかった`LoadStringA`/`DialogBox`呼び出しに対して現在の
+スレッドロケールをヒントに解決言語を選ぶため、既存の`LS()`(`LoadStringA`
+ラッパー)はそのままで動作する。`originalLocale`にプロセス起動時点の
+スレッドロケールを保持しておき、「(System default)」選択時はそこへ復元する。
+
+- `WinMain`起動時: レジストリから`Language`を読み込み → `applyUILanguage()`を
+  `showDialog(IDD_SETUP,...)`より前に呼ぶ(次回以降の起動でセットアップ
+  ダイアログ自体も選択言語で表示されるようにするため。ただし`IDD_SETUP`の
+  日本語版`DIALOGEX`ブロックはまだ無いので、現状は英語版ダイアログが表示
+  される。日本語版ダイアログの追加はタスク3で対応)
+- ダイアログの`IDOK`/`IDCANCEL`ハンドラ内: コンボボックスの選択を読み取り、
+  `applyUILanguage()`を即座に呼んでからレジストリに保存
+
+`resource.h`に`IDC_LANGUAGE`(1004)を追加、`WinOmega.rc`の`IDD_SETUP`
+DIALOGEXを拡張(ダイアログ高さ146→160、Displayグループボックスに言語行を
+追加)。ビルド確認済み(0エラー0警告)。
+
+**既知の制限**: このセッションの環境ではPythonが64bit、`Omega.exe`が32bit
+(i386)のため、`LoadLibraryExW`+`LOAD_LIBRARY_AS_DATAFILE`によるプロセス外
+リソース検証(以前使っていた手法)が`EnumResourceTypesW`で空リストを返し
+機能しなかった。実機起動しての動作確認は未実施(このセッションでは過去に
+GUI起動確認で無関係なプロセスを誤ってkillした事故があったため、意図的に
+避けている)。次回、32bit版のPythonまたは`Resource Hacker`等のツールで
+`Release\Omega.exe`のSTRINGTABLE言語ブロック切り替えと`IDD_SETUP`ダイアログの
+言語コンボボックス表示を実際に確認することを推奨。
+
+`Strings.en.rc`は引き続き削除せず維持。
 
 ## 未着手のタスク
 
