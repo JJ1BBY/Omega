@@ -13,11 +13,12 @@ I've taken Omega 0.80.2 and built it as a "proper" Windows application (rather t
 This is a fork of [DavidKinder/Omega](https://github.com/DavidKinder/Omega)
 (the original Windows port described above). The `japanese-localization`
 branch adds, on top of that: a full Japanese translation with a runtime
-language switcher (see below), and gamepad support (movement, confirm/cancel,
-and a hold-to-run modifier, with an in-game configuration screen reachable
-from the system menu -- useful since the game's controller mapping isn't
-standardized the way a keyboard's is). `master` on this fork tracks upstream
-unchanged; all of the above lives only on `japanese-localization`.
+language switcher (see below), and **gamepad support (experimental)**
+(movement, confirm/cancel, and a hold-to-run modifier, with an in-game
+configuration screen reachable from the system menu -- useful since the
+game's controller mapping isn't standardized the way a keyboard's is).
+`master` on this fork tracks upstream unchanged; all of the above lives
+only on `japanese-localization`.
 
 ## Japanese localization
 
