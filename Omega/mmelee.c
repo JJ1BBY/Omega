@@ -10,7 +10,7 @@ struct monster *m;
 int dtype;
 {
   if (m->uniqueness == COMMON) {
-    strcpy(Str3,"a ");
+    strcpy(Str3,LS(IDS_MSG_23076));
     strcat(Str3,m->monstring);
   }
   else strcpy(Str3,m->monstring);
@@ -30,18 +30,18 @@ struct monster *m;
   transcribe_monster_actions(m);
   while ((i < strlen(m->meleestr)) && (m->hp > 0)) {
     if (m->uniqueness == COMMON) {
-      strcpy(Str4,"The ");
+      strcpy(Str4,LS(IDS_MSG_23077));
       strcat(Str4,m->monstring);
     }
     else strcpy(Str4,m->monstring);
     if (m->meleestr[i] == 'A') {
-      strcat(Str4," attacks ");
+      strcat(Str4,LS(IDS_MSG_23078));
       strcat(Str4,actionlocstr(m->meleestr[i+1]));
       if (Verbosity == VERBOSE) mprint(Str4);
       monster_melee(m,m->meleestr[i+1],0);
     }
     else if (m->meleestr[i] == 'L') {
-      strcat(Str4," lunges ");
+      strcat(Str4,LS(IDS_MSG_23079));
       strcat(Str4,actionlocstr(m->meleestr[i+1]));
       if (Verbosity == VERBOSE) mprint(Str4);
       monster_melee(m,m->meleestr[i+1],m->level);
@@ -64,50 +64,50 @@ int bonus;
     if (m->attacked==0) Player.alignment++;
     m->attacked++;
     if (m->uniqueness == COMMON) {
-      strcpy(Str2,"The ");
+      strcpy(Str2,LS(IDS_MSG_23077));
       strcat(Str2,m->monstring);
     }
     else strcpy(Str2,m->monstring);
     if (monster_hit(m,hitloc,bonus))
       switch(m->meleef) {
       case M_NO_OP: 
-	strcat(Str2," touches you.");
+	strcat(Str2,LS(IDS_MSG_23080));
 	mprint(Str2);
 	break;
       case M_MELEE_NORMAL:
-	strcat(Str2," hits you.");
+	strcat(Str2,LS(IDS_MSG_23081));
 	mprint(Str2);
 	m_hit(m,NORMAL_DAMAGE);
 	break;
       case M_MELEE_NG:
-	strcat(Str2," hits you.");
+	strcat(Str2,LS(IDS_MSG_23081));
 	mprint(Str2);
 	m_hit(m,NORMAL_DAMAGE);
 	if (random_range(5)==3) m_sp_ng(m);
 	break;
       case M_MELEE_FIRE:
-	strcat(Str2," blasts you with fire.");
+	strcat(Str2,LS(IDS_MSG_23082));
 	mprint(Str2);
 	m_hit(m,FLAME);
 	break;
       case M_MELEE_DRAGON:
-	strcat(Str2," hits you and blasts you with fire.");
+	strcat(Str2,LS(IDS_MSG_23083));
 	mprint(Str2);
 	m_hit(m,NORMAL_DAMAGE);
 	m_hit(m,FLAME);
 	break;
       case M_MELEE_ELEC:
-	strcat(Str2," lashes you with electricity.");
+	strcat(Str2,LS(IDS_MSG_23084));
 	mprint(Str2);
 	m_hit(m,ELECTRICITY);
 	break;
       case M_MELEE_COLD:
-	strcat(Str2," freezes you with cold.");
+	strcat(Str2,LS(IDS_MSG_23085));
 	mprint(Str2);
 	m_hit(m,ELECTRICITY);
 	break;
       case M_MELEE_POISON:
-	strcat(Str2," hits you.");
+	strcat(Str2,LS(IDS_MSG_23081));
 	mprint(Str2);
 	m_hit(m,NORMAL_DAMAGE);
 	if (random_range(10) < m->level) {
@@ -116,19 +116,19 @@ int bonus;
 	}
 	break;
       case M_MELEE_GRAPPLE:
-	strcat(Str2," grabs you.");
+	strcat(Str2,LS(IDS_MSG_23086));
 	mprint(Str2);
 	m_hit(m,NORMAL_DAMAGE);
 	Player.status[IMMOBILE]++;
 	break;
       case M_MELEE_SPIRIT:
-	strcat(Str2," touches you.");
+	strcat(Str2,LS(IDS_MSG_23080));
 	mprint(Str2);
 	m_hit(m,NORMAL_DAMAGE);
 	drain_life(m->level);
 	break;
       case M_MELEE_DISEASE:
-	strcat(Str2," hits you.");
+	strcat(Str2,LS(IDS_MSG_23081));
 	mprint(Str2);
 	m_hit(m,NORMAL_DAMAGE);
 	if (random_range(10) < m->level) {
@@ -137,7 +137,7 @@ int bonus;
 	}
 	break;
       case M_MELEE_SLEEP:
-	strcat(Str2," hit you.");
+	strcat(Str2,LS(IDS_MSG_23087));
 	mprint(Str2);
 	m_hit(m,NORMAL_DAMAGE);
 	if (random_range(10) < m->level) {
@@ -147,35 +147,35 @@ int bonus;
 	break;
       }
     else {
-      if (random_range(10)) strcat(Str2," missed you.");
+      if (random_range(10)) strcat(Str2,LS(IDS_MSG_23088));
       else {
 	if (Verbosity == TERSE) {
 	  switch(random_range(10)) {
 	    case 0:
-	      strcat(Str2," blundered severely.");
+	      strcat(Str2,LS(IDS_MSG_23089));
 	      m_damage(m,m->dmg,UNSTOPPABLE); break;
 	    case 1:
-	      strcat(Str2," tripped while attacking.");m_dropstuff(m);break;
+	      strcat(Str2,LS(IDS_MSG_23090));m_dropstuff(m);break;
 	    case 2:
-	      strcat(Str2," seems seriously confused.");
+	      strcat(Str2,LS(IDS_MSG_23091));
 	      m->speed = min(30,m->speed*2); break;
 	    default:
-	      strcat(Str2," missed you.");
+	      strcat(Str2,LS(IDS_MSG_23088));
 	  }
 	}
 	switch(random_range(10)) {
-	  case 0: strcat(Str2," flailed stupidly at you."); break;
-	  case 1: strcat(Str2," made you laugh."); break;
-	  case 2: strcat(Str2," blundered severely.");
+	  case 0: strcat(Str2,LS(IDS_MSG_23092)); break;
+	  case 1: strcat(Str2,LS(IDS_MSG_23093)); break;
+	  case 2: strcat(Str2,LS(IDS_MSG_23089));
 	    m_damage(m,m->dmg,UNSTOPPABLE); break;
-	  case 3: strcat(Str2," tripped while attacking.");m_dropstuff(m);break;
-	  case 4: strcat(Str2," seems seriously confused.");
+	  case 3: strcat(Str2,LS(IDS_MSG_23090));m_dropstuff(m);break;
+	  case 4: strcat(Str2,LS(IDS_MSG_23091));
 	    m->speed = min(30,m->speed*2); break;
-	  case 5: strcat(Str2," is seriously ashamed."); break;
-	  case 6: strcat(Str2," made a boo-boo."); break;
-	  case 7: strcat(Str2," blundered."); break;
-	  case 8: strcat(Str2," cries out in anger and frustration."); break;
-	  case 9: strcat(Str2," curses your ancestry."); break;
+	  case 5: strcat(Str2,LS(IDS_MSG_23094)); break;
+	  case 6: strcat(Str2,LS(IDS_MSG_23095)); break;
+	  case 7: strcat(Str2,LS(IDS_MSG_23096)); break;
+	  case 8: strcat(Str2,LS(IDS_MSG_23097)); break;
+	  case 9: strcat(Str2,LS(IDS_MSG_23098)); break;
 	}
       }
       mprint(Str2);

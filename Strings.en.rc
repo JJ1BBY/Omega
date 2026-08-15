@@ -2818,6 +2818,34 @@ BEGIN
     IDS_MSG_23075    ""
 END
 
+// ==================== mmelee.c (gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23076    "a "
+    IDS_MSG_23077    "The "
+    IDS_MSG_23078    " attacks "
+    IDS_MSG_23079    " lunges "
+    IDS_MSG_23080    " touches you."
+    IDS_MSG_23081    " hits you."
+    IDS_MSG_23082    " blasts you with fire."
+    IDS_MSG_23083    " hits you and blasts you with fire."
+    IDS_MSG_23084    " lashes you with electricity."
+    IDS_MSG_23085    " freezes you with cold."
+    IDS_MSG_23086    " grabs you."
+    IDS_MSG_23087    " hit you."
+    IDS_MSG_23088    " missed you."
+    IDS_MSG_23089    " blundered severely."
+    IDS_MSG_23090    " tripped while attacking."
+    IDS_MSG_23091    " seems seriously confused."
+    IDS_MSG_23092    " flailed stupidly at you."
+    IDS_MSG_23093    " made you laugh."
+    IDS_MSG_23094    " is seriously ashamed."
+    IDS_MSG_23095    " made a boo-boo."
+    IDS_MSG_23096    " blundered."
+    IDS_MSG_23097    " cries out in anger and frustration."
+    IDS_MSG_23098    " curses your ancestry."
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN

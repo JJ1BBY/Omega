@@ -2729,6 +2729,31 @@
 #define IDS_MSG_23074                   23074
 #define IDS_MSG_23075                   23075
 
+// ---- mmelee.c (gap-fill) ----
+#define IDS_MSG_23076                   23076
+#define IDS_MSG_23077                   23077
+#define IDS_MSG_23078                   23078
+#define IDS_MSG_23079                   23079
+#define IDS_MSG_23080                   23080
+#define IDS_MSG_23081                   23081
+#define IDS_MSG_23082                   23082
+#define IDS_MSG_23083                   23083
+#define IDS_MSG_23084                   23084
+#define IDS_MSG_23085                   23085
+#define IDS_MSG_23086                   23086
+#define IDS_MSG_23087                   23087
+#define IDS_MSG_23088                   23088
+#define IDS_MSG_23089                   23089
+#define IDS_MSG_23090                   23090
+#define IDS_MSG_23091                   23091
+#define IDS_MSG_23092                   23092
+#define IDS_MSG_23093                   23093
+#define IDS_MSG_23094                   23094
+#define IDS_MSG_23095                   23095
+#define IDS_MSG_23096                   23096
+#define IDS_MSG_23097                   23097
+#define IDS_MSG_23098                   23098
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222
