@@ -211,22 +211,20 @@ key = 100 (初期値)
 同じ暗号を使う `abyss_file()`, `cityguidefile()` 等の呼び出し元は
 `Omega/Omega/file.c` 内で `grep -n displaycryptfile` すれば一覧できる。
 
-### 3. ⑥ Windows UI文字列
+### 3. ⑥ Windows UI文字列 — 完了
 
-- `IDD_SETUP` ダイアログ(`WinOmega.rc:71-93`)が **Englishブロックにしか
-  存在しない**。日本語版ダイアログを出すには、Japaneseブロック内に
-  `IDD_SETUP DIALOGEX` を複製して文言を訳す必要がある(キャプション
-  "Omega"、ボタン "&Play Omega"、"Display"、"&Font name"、"Font si&ze"、
-  "&Saved games"、"Credits" など)
-- `WinOmega.cpp` 内のハードコードされたエラー文言(`fatal()`/`MessageBox`):
-  - L389: `MessageBox(0,msg,"Omega",...)` (msg自体は動的生成)
-  - L632, 638, 642, 695, 753, 772, 812: `fatal("...")` 各種
-  - L778: `MessageBox(0,"Graphics file not loaded.","Omega",...)`
-
-  これらは`①⑤`と違いプレイヤーが頻繁に見るテキストではない(異常系のみ)ため
-  優先度は低い。対応する場合は `IDS_UI_*` のような別レンジのIDを新設し、
-  `LS()`経由に置き換えるのが自然(`IDS_MSG_*`のレンジ20000-22664とは別に、
-  例えば23000番台を使うなど)。
+- `IDD_SETUP` ダイアログ: `WinOmega.rc`のJapanese `LANGUAGE`ブロック内に
+  `IDD_SETUP DIALOGEX` を複製・翻訳して追加済み(キャプション"Omega"は
+  ゲーム名としてそのまま、ボタン「オメガを開始(&P)」、「表示」、
+  「フォント名(&F)」、「サイズ(&Z)」、「セーブデータ(&S)」、「クレジット」
+  など)。ダイアログフォントは`MS UI Gothic`・charset `0x80`(SHIFTJIS_CHARSET)
+  を明示指定。タスク5の言語切り替え(`SetThreadLocale`)により、この
+  ダイアログ自体も選択言語で表示されるようになった。
+- `WinOmega.cpp`のハードコードされたエラー文言(`fatal()`/`MessageBox`)は
+  `IDS_UI_OMEGALIB_PATH`〜`IDS_UI_CREATE_WINDOW`(23000-23007、
+  `IDS_MSG_*`とは別レンジ)として`Strings.en.rc`/`Strings.ja.rc`両方に追加し、
+  `LS()`経由で読み込むよう変更済み。`MessageBox`のタイトル文字列"Omega"
+  (ゲーム名)自体は翻訳せずリテラルのまま維持。
 
 ### 4. ① プレーンテキストファイルの翻訳 — 完了
 
