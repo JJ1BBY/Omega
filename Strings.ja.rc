@@ -2916,6 +2916,18 @@ BEGIN
     IDS_MSG_23148    " emits an irritating humming sound."
 END
 
+// ==================== lev.c (gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23149    " of Odin"
+    IDS_MSG_23150    " of Set"
+    IDS_MSG_23151    " of Hecate"
+    IDS_MSG_23152    " of Athena"
+    IDS_MSG_23153    " of Destiny"
+    IDS_MSG_23154    " of the Balance"
+    IDS_MSG_23155    "dead "
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN

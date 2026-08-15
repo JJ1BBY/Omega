@@ -328,19 +328,19 @@ int mid;
       newmonster->aux1 = random_range(6)+1;
     strcpy(Str3,Monsters[mid].monstring);
     switch(newmonster->aux1) {
-    case ODIN: strcat(Str3," of Odin"); break;
-    case SET: strcat(Str3," of Set"); break;
-    case HECATE: strcat(Str3," of Hecate"); break;
-    case ATHENA: strcat(Str3," of Athena"); break;
-    case DESTINY: strcat(Str3," of Destiny"); break;
-    case DRUID: strcat(Str3," of the Balance"); break;
+    case ODIN: strcat(Str3,LS(IDS_MSG_23149)); break;
+    case SET: strcat(Str3,LS(IDS_MSG_23150)); break;
+    case HECATE: strcat(Str3,LS(IDS_MSG_23151)); break;
+    case ATHENA: strcat(Str3,LS(IDS_MSG_23152)); break;
+    case DESTINY: strcat(Str3,LS(IDS_MSG_23153)); break;
+    case DRUID: strcat(Str3,LS(IDS_MSG_23154)); break;
     }
     newmonster->monstring = salloc(Str3);
   }
   else if (mid == ML0+7 || mid == ML3+13) { 
     /* generic 0th level human, or a were-human */
     newmonster->monstring = mantype();
-    strcpy(Str1,"dead ");
+    strcpy(Str1,LS(IDS_MSG_23155));
     strcat(Str1,newmonster->monstring);
     newmonster->corpsestr = salloc(Str1);
   }

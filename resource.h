@@ -2812,6 +2812,15 @@
 #define IDS_MSG_23147                   23147
 #define IDS_MSG_23148                   23148
 
+// ---- lev.c (gap-fill) ----
+#define IDS_MSG_23149                   23149
+#define IDS_MSG_23150                   23150
+#define IDS_MSG_23151                   23151
+#define IDS_MSG_23152                   23152
+#define IDS_MSG_23153                   23153
+#define IDS_MSG_23154                   23154
+#define IDS_MSG_23155                   23155
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222
