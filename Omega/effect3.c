@@ -196,16 +196,16 @@ int blessing;
     target = Level->site[x][y].creature;
     if (target != NULL) {
       if (target->uniqueness == COMMON) {
-	strcpy(Str1,"The ");
+	strcpy(Str1,LS(IDS_MSG_23120));
 	strcat(Str1,target->monstring);
       }
       else strcpy(Str1,target->monstring);
       if (! m_immunityp(target,SLEEP)) {
-	strcat(Str1," seems to have fallen asleep.");
+	strcat(Str1,LS(IDS_MSG_23121));
 	m_status_reset(target,AWAKE);
 	target->wakeup = 0;
       }
-      else strcat(Str1," is bright eyed, and bushy tailed!");
+      else strcat(Str1,LS(IDS_MSG_23122));
       mprint(Str1);
     }
     else mprint(LS(IDS_MSG_20817));
@@ -351,18 +351,18 @@ int x,y,amount;
     target = Level->site[x][y].creature;
     if (target != NULL) {
       if (target->uniqueness == COMMON) {
-	strcpy(Str1,"The ");
+	strcpy(Str1,LS(IDS_MSG_23120));
 	strcat(Str1,target->monstring);
       }
       else strcpy(Str1,target->monstring);
       if (! m_immunityp(target,NORMAL_DAMAGE)) {
-	strcat(Str1," was blasted!");
+	strcat(Str1,LS(IDS_MSG_23123));
 	mprint(Str1);
 	m_damage(target,amount,NORMAL_DAMAGE);
 	target->wakeup = 0;
       }
       else {
-	strcat(Str1," does not seem affected.");
+	strcat(Str1,LS(IDS_MSG_23124));
 	mprint(Str1);
       }
     }
@@ -397,11 +397,11 @@ int x,y;
       setgamestatus(SUPPRESS_PRINTING);
     if ((target = Level->site[x][y].creature) != NULL) {
       if (target->uniqueness == COMMON) {
-	strcpy(Str1,"The ");
+	strcpy(Str1,LS(IDS_MSG_23120));
 	strcat(Str1,target->monstring);
       }
       else strcpy(Str1,target->monstring);
-      strcat(Str1," disintegrates!");
+      strcat(Str1,LS(IDS_MSG_23125));
       mprint(Str1);
       m_damage(target,100,UNSTOPPABLE);
       if (target->hp > 0) mprint(LS(IDS_MSG_20833));
@@ -904,9 +904,9 @@ int blessing;
     mprint(LS(IDS_MSG_20883));
   else {
     if (m_immunityp(m,OTHER_MAGIC) || (m->level > random_range(12))) {
-      strcpy(Str1,"The ");
+      strcpy(Str1,LS(IDS_MSG_23120));
       strcat(Str1,m->monstring);
-      strcat(Str1," resists the change!");
+      strcat(Str1,LS(IDS_MSG_23126));
       m_status_set(m,HOSTILE);
     }
     else {
@@ -1149,13 +1149,13 @@ int amount;
       if ((Player.str < 3) || (Player.con < 3)) {
 	mprint(LS(IDS_MSG_20919));
 	Player.hp = 0;
-	strcpy(Str2,"a coronary");
+	strcpy(Str2,LS(IDS_MSG_23127));
 	p_death(Str2);
       }
     }
     else {
       mprint(LS(IDS_MSG_20920));
-      strcpy(Str2,"soul destruction");
+      strcpy(Str2,LS(IDS_MSG_23128));
       level_drain(amount,Str2);
     }
   }
@@ -1177,15 +1177,15 @@ int x,y;
   }
   else if ((m = Level->site[x][y].creature) != NULL) {
     if (m->uniqueness == COMMON) {
-      strcpy(Str2,"The ");
+      strcpy(Str2,LS(IDS_MSG_23120));
       strcat(Str2,m->monstring);
     }
     else strcpy(Str2,m->monstring);
     m->speed = max(2,m->speed-1);
     if (m_immunityp(m,FEAR)) 
-      strcat(Str2,"seems enraged!");
+      strcat(Str2,LS(IDS_MSG_23129));
     else {
-      strcat(Str2,"is terrorized!");
+      strcat(Str2,LS(IDS_MSG_23130));
       m_dropstuff(m);
       if (m_statusp(m,MOBILE))
 	m->movef = M_MOVE_SCAREDY;

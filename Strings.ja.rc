@@ -2872,6 +2872,22 @@ BEGIN
     IDS_MSG_23119    "I have no idea."
 END
 
+// ==================== effect3.c (gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23120    "The "
+    IDS_MSG_23121    " seems to have fallen asleep."
+    IDS_MSG_23122    " is bright eyed, and bushy tailed!"
+    IDS_MSG_23123    " was blasted!"
+    IDS_MSG_23124    " does not seem affected."
+    IDS_MSG_23125    " disintegrates!"
+    IDS_MSG_23126    " resists the change!"
+    IDS_MSG_23127    "a coronary"
+    IDS_MSG_23128    "soul destruction"
+    IDS_MSG_23129    "seems enraged!"
+    IDS_MSG_23130    "is terrorized!"
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN

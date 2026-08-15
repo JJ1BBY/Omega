@@ -2777,6 +2777,19 @@
 #define IDS_MSG_23118                   23118
 #define IDS_MSG_23119                   23119
 
+// ---- effect3.c (gap-fill) ----
+#define IDS_MSG_23120                   23120
+#define IDS_MSG_23121                   23121
+#define IDS_MSG_23122                   23122
+#define IDS_MSG_23123                   23123
+#define IDS_MSG_23124                   23124
+#define IDS_MSG_23125                   23125
+#define IDS_MSG_23126                   23126
+#define IDS_MSG_23127                   23127
+#define IDS_MSG_23128                   23128
+#define IDS_MSG_23129                   23129
+#define IDS_MSG_23130                   23130
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222
