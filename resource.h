@@ -2859,6 +2859,11 @@
 #define IDS_MSG_23186                   23186
 #define IDS_MSG_23187                   23187
 
+// ---- mstrike.c (gap-fill) ----
+#define IDS_MSG_23188                   23188
+#define IDS_MSG_23189                   23189
+#define IDS_MSG_23190                   23190
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222

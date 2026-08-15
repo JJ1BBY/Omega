@@ -2975,6 +2975,14 @@ BEGIN
     IDS_MSG_23187    " releases the dog's chain!"
 END
 
+// ==================== mstrike.c (gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23188    "The "
+    IDS_MSG_23189    " gazes at you menacingly"
+    IDS_MSG_23190    " screams at you!"
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN

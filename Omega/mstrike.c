@@ -48,11 +48,11 @@ struct monster *m;
       los_p(m->x,m->y,Player.x,Player.y) &&
       (distance(m->x,m->y,Player.x,Player.y) < 5)) {
     if (m->uniqueness == COMMON) {
-      strcpy(Str2,"The ");
+      strcpy(Str2,LS(IDS_MSG_23188));
       strcat(Str2,m->monstring);
     }
     else strcpy(Str2,m->monstring);
-    strcat(Str2," gazes at you menacingly");
+    strcat(Str2,LS(IDS_MSG_23189));
     mprint(Str2);
     if (! p_immune(GAZE)) {
       mprint(LS(IDS_MSG_20875));
@@ -71,11 +71,11 @@ void m_strike_sonic(m)
 struct monster *m;
 {
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_23188));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
-  strcat(Str2," screams at you!");
+  strcat(Str2,LS(IDS_MSG_23190));
   mprint(Str2);
   p_damage(m->dmg,OTHER_MAGIC,"a sonic blast");
 }
