@@ -2874,6 +2874,48 @@
 // ---- command3.c (gap-fill) ----
 #define IDS_MSG_23194                   23194
 
+// ---- site1.c (menuprint gap-fill) ----
+#define IDS_MSG_23195                   23195
+#define IDS_MSG_23196                   23196
+#define IDS_MSG_23197                   23197
+#define IDS_MSG_23198                   23198
+#define IDS_MSG_23199                   23199
+#define IDS_MSG_23200                   23200
+#define IDS_MSG_23201                   23201
+#define IDS_MSG_23202                   23202
+#define IDS_MSG_23203                   23203
+#define IDS_MSG_23204                   23204
+#define IDS_MSG_23205                   23205
+#define IDS_MSG_23206                   23206
+#define IDS_MSG_23207                   23207
+#define IDS_MSG_23208                   23208
+#define IDS_MSG_23209                   23209
+#define IDS_MSG_23210                   23210
+#define IDS_MSG_23211                   23211
+#define IDS_MSG_23212                   23212
+#define IDS_MSG_23213                   23213
+#define IDS_MSG_23214                   23214
+#define IDS_MSG_23215                   23215
+#define IDS_MSG_23216                   23216
+#define IDS_MSG_23217                   23217
+#define IDS_MSG_23218                   23218
+#define IDS_MSG_23219                   23219
+#define IDS_MSG_23220                   23220
+#define IDS_MSG_23221                   23221
+#define IDS_MSG_23222                   23222
+#define IDS_MSG_23223                   23223
+#define IDS_MSG_23224                   23224
+#define IDS_MSG_23225                   23225
+#define IDS_MSG_23226                   23226
+#define IDS_MSG_23227                   23227
+#define IDS_MSG_23228                   23228
+#define IDS_MSG_23229                   23229
+#define IDS_MSG_23230                   23230
+#define IDS_MSG_23231                   23231
+#define IDS_MSG_23232                   23232
+#define IDS_MSG_23233                   23233
+#define IDS_MSG_23234                   23234
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222

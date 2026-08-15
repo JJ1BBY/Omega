@@ -3002,6 +3002,51 @@ BEGIN
     IDS_MSG_23194    ", the Wizard of Omega appears before you...."
 END
 
+// ==================== site1.c (menuprint gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23195    "?: This List.\n"
+    IDS_MSG_23196    "O: Open an account.\n"
+    IDS_MSG_23197    "P: Enter password.\n"
+    IDS_MSG_23198    "D: Deposit.\n"
+    IDS_MSG_23199    "W: Withdraw\n"
+    IDS_MSG_23200    "X: eXit\n"
+    IDS_MSG_23201    "Alert! Alert! Invalid Password!\n"
+    IDS_MSG_23202    "The police are being summoned!\n"
+    IDS_MSG_23203    "Please wait for the police to arrive....\n\n"
+    IDS_MSG_23204    "----Hit space bar to continue----\n"
+    IDS_MSG_23205    "^@^@^@^@^@00AD1203BC0F0000FFFFFFFFFFFF\n"
+    IDS_MSG_23206    "Interrupt in _get_space. Illegal Character.\n"
+    IDS_MSG_23207    "Aborting _police_alert.....\n"
+    IDS_MSG_23208    "Attempting reboot.....\n"
+    IDS_MSG_23209    "Warning: Illegal shmop at _count_cash.\n"
+    IDS_MSG_23210    "Warning: Command Buffer NOT CLEARED\n"
+    IDS_MSG_23211    "Reboot Complete. Execution Continuing.\n"
+    IDS_MSG_23212    "Withdrawing: 4294967297 Au.\n"
+    IDS_MSG_23213    "Warning: Arithmetic Overflow in _withdraw\n"
+    IDS_MSG_23214    "Yo mama. Core dumped.\n"
+    IDS_MSG_23215    "\n"
+    IDS_MSG_23216    "Train for 2000 Au. Choose:\n"
+    IDS_MSG_23217    "\na: work out in the weight room"
+    IDS_MSG_23218    "\nb: use our gymnastics equipment"
+    IDS_MSG_23219    "\nc: take our new anaerobics course"
+    IDS_MSG_23220    "\nd: enroll in dance lessons."
+    IDS_MSG_23221    "\nESCAPE: Leave this place."
+    IDS_MSG_23222    "Riley says: Whataya have?\n\n"
+    IDS_MSG_23223    "a: Pint of Riley's ultra-dark 1Au\n"
+    IDS_MSG_23224    "b: Shot of Tullimore Dew 10Au\n"
+    IDS_MSG_23225    "c: Round for the House. 100Au\n"
+    IDS_MSG_23226    "d: Bed and Breakfast. 25Au\n"
+    IDS_MSG_23227    "ESCAPE: Leave this comfortable haven.\n"
+    IDS_MSG_23228    "Peruse a scroll:\n"
+    IDS_MSG_23229    "a: Omegan Theology\n"
+    IDS_MSG_23230    "b: Guide to Rampart\n"
+    IDS_MSG_23231    "c: High Magick\n"
+    IDS_MSG_23232    "d: Odd Uncatalogued Document\n"
+    IDS_MSG_23233    "e: Attempt Advanced Research\n"
+    IDS_MSG_23234    "ESCAPE: Leave this font of learning.\n"
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN

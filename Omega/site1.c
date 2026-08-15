@@ -31,15 +31,15 @@ void l_bank()
       response = mgetc();
       if (response == '?') {
 	menuclear();
-	menuprint("?: This List.\n");
+	menuprint(LS(IDS_MSG_23195));
 	if (strcmp(Password,"")==0)
-	  menuprint("O: Open an account.\n");
+	  menuprint(LS(IDS_MSG_23196));
 	else {
-	  menuprint("P: Enter password.\n");
-	  menuprint("D: Deposit.\n");
-	  menuprint("W: Withdraw\n");
+	  menuprint(LS(IDS_MSG_23197));
+	  menuprint(LS(IDS_MSG_23198));
+	  menuprint(LS(IDS_MSG_23199));
 	}
-	menuprint("X: eXit\n");
+	menuprint(LS(IDS_MSG_23200));
 	showmenu();
 	morewait();
 	xredraw();
@@ -53,10 +53,10 @@ void l_bank()
 	if (! valid) {
 	  done = TRUE;
 	  menuclear();
-	  menuprint("Alert! Alert! Invalid Password!\n");
-	  menuprint("The police are being summoned!\n");
-	  menuprint("Please wait for the police to arrive....\n\n");
-	  menuprint("----Hit space bar to continue----\n");
+	  menuprint(LS(IDS_MSG_23201));
+	  menuprint(LS(IDS_MSG_23202));
+	  menuprint(LS(IDS_MSG_23203));
+	  menuprint(LS(IDS_MSG_23204));
 	  showmenu();
 	  response = menugetc();
 	  if (response == ' ') {
@@ -71,24 +71,24 @@ void l_bank()
 	    Player.alignment -= 5;
 	    menuclear();
 	    sleep(4);
-	    menuprint("^@^@^@^@^@00AD1203BC0F0000FFFFFFFFFFFF\n");
-	    menuprint("Interrupt in _get_space. Illegal Character.\n");
+	    menuprint(LS(IDS_MSG_23205));
+	    menuprint(LS(IDS_MSG_23206));
 	    showmenu();
 	    sleep(4);
-	    menuprint("Aborting _police_alert.....\n");
-	    menuprint("Attempting reboot.....\n");
+	    menuprint(LS(IDS_MSG_23207));
+	    menuprint(LS(IDS_MSG_23208));
 	    showmenu();
 	    sleep(4);
-	    menuprint("Warning: Illegal shmop at _count_cash.\n");
-	    menuprint("Warning: Command Buffer NOT CLEARED\n");
+	    menuprint(LS(IDS_MSG_23209));
+	    menuprint(LS(IDS_MSG_23210));
 	    showmenu();
 	    sleep(4);
-	    menuprint("Reboot Complete. Execution Continuing.\n");
-	    menuprint("Withdrawing: 4294967297 Au.\n");
-	    menuprint("Warning: Arithmetic Overflow in _withdraw\n");
+	    menuprint(LS(IDS_MSG_23211));
+	    menuprint(LS(IDS_MSG_23212));
+	    menuprint(LS(IDS_MSG_23213));
 	    showmenu();
 	    sleep(4);
-	    menuprint("Yo mama. Core dumped.\n");
+	    menuprint(LS(IDS_MSG_23214));
 	    showmenu();
 	    sleep(4);
 	    xredraw();
@@ -199,7 +199,7 @@ int base,numitems;
     Str4[0] = i + 'a';
     strcat(Str4,Objects[base+i].objstr);
     menuprint(Str4);
-    menuprint("\n");
+    menuprint(LS(IDS_MSG_23215));
   }
   showmenu();
   item = ' ';
@@ -294,12 +294,12 @@ void l_gym()
     }
     done = FALSE;
     menuclear();
-    menuprint("Train for 2000 Au. Choose:\n");
-    menuprint("\na: work out in the weight room");
-    menuprint("\nb: use our gymnastics equipment");
-    menuprint("\nc: take our new anaerobics course");
-    menuprint("\nd: enroll in dance lessons.");
-    menuprint("\nESCAPE: Leave this place.");
+    menuprint(LS(IDS_MSG_23216));
+    menuprint(LS(IDS_MSG_23217));
+    menuprint(LS(IDS_MSG_23218));
+    menuprint(LS(IDS_MSG_23219));
+    menuprint(LS(IDS_MSG_23220));
+    menuprint(LS(IDS_MSG_23221));
     showmenu();
     switch(mgetc()) {
     case 'a': 
@@ -659,12 +659,12 @@ void l_tavern()
   print1(LS(IDS_MSG_21926));
   if (nighttime()) {
     menuclear();
-    menuprint("Riley says: Whataya have?\n\n");
-    menuprint("a: Pint of Riley's ultra-dark 1Au\n");
-    menuprint("b: Shot of Tullimore Dew 10Au\n");
-    menuprint("c: Round for the House. 100Au\n");
-    menuprint("d: Bed and Breakfast. 25Au\n");
-    menuprint("ESCAPE: Leave this comfortable haven.\n");
+    menuprint(LS(IDS_MSG_23222));
+    menuprint(LS(IDS_MSG_23223));
+    menuprint(LS(IDS_MSG_23224));
+    menuprint(LS(IDS_MSG_23225));
+    menuprint(LS(IDS_MSG_23226));
+    menuprint(LS(IDS_MSG_23227));
     showmenu();
     do response = (char) mcigetc();
     while ((response != 'a') &&
@@ -920,13 +920,13 @@ void l_library()
 	  Player.cash -= fee;
 	  dataprint();
 	  menuclear();
-	  menuprint("Peruse a scroll:\n");
-	  menuprint("a: Omegan Theology\n");
-	  menuprint("b: Guide to Rampart\n");
-	  menuprint("c: High Magick\n");
-	  menuprint("d: Odd Uncatalogued Document\n");
-	  menuprint("e: Attempt Advanced Research\n");
-	  menuprint("ESCAPE: Leave this font of learning.\n");
+	  menuprint(LS(IDS_MSG_23228));
+	  menuprint(LS(IDS_MSG_23229));
+	  menuprint(LS(IDS_MSG_23230));
+	  menuprint(LS(IDS_MSG_23231));
+	  menuprint(LS(IDS_MSG_23232));
+	  menuprint(LS(IDS_MSG_23233));
+	  menuprint(LS(IDS_MSG_23234));
 	  showmenu();
 	  response = (char) mcigetc();
 	  if (response == 'a') {
@@ -1031,7 +1031,7 @@ void l_pawn_shop()
 	  Str3[0] = i+'a';
 	  strcat(Str3,itemid(Pawnitems[i]));
 	  menuprint(Str3);
-	  menuprint("\n");
+	  menuprint(LS(IDS_MSG_23215));
 	}
       showmenu();
       action = (char) mcigetc();
