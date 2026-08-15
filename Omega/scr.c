@@ -1105,7 +1105,7 @@ char *source;
   printw(LS(IDS_MSG_22711));
   printw(Player.name);
   printw(LS(IDS_MSG_22712),calc_points());
-  strcpy(Str4,"Killed by ");
+  strcpy(Str4,LS(IDS_MSG_23178));
   strcat(Str4,source);
   printw("\n");
   printw(Str4);
@@ -1129,10 +1129,10 @@ void display_win()
   printw(Player.name);
   if (Player.rank[ADEPT]) {
     printw(LS(IDS_MSG_22714),FixedPoints);
-    strcpy(Str4,"A total master of omega");
+    strcpy(Str4,LS(IDS_MSG_23179));
   }
   else {
-    strcpy(Str4,"retired a winner");
+    strcpy(Str4,LS(IDS_MSG_23180));
     printw(LS(IDS_MSG_22715),calc_points());
   }
   printw(LS(IDS_MSG_22713));
@@ -1153,7 +1153,7 @@ void display_quit()
   touchwin(stdscr);
   printw("\n\n\n\n");
   printw(Player.name);
-  strcpy(Str4,"A quitter.");
+  strcpy(Str4,LS(IDS_MSG_23181));
   printw(LS(IDS_MSG_22716),calc_points());
   printw(LS(IDS_MSG_22713));
   refresh();
@@ -1172,7 +1172,7 @@ void display_bigwin()
   touchwin(stdscr);
   printw("\n\n\n\n");
   printw(Player.name);
-  strcpy(Str4,"retired, an Adept of Omega.");
+  strcpy(Str4,LS(IDS_MSG_23182));
   printw(LS(IDS_MSG_22717),FixedPoints);
   printw(LS(IDS_MSG_22713));
   refresh();

@@ -2845,6 +2845,13 @@
 #define IDS_MSG_23176                   23176
 #define IDS_MSG_23177                   23177
 
+// ---- scr.c (gap-fill) ----
+#define IDS_MSG_23178                   23178
+#define IDS_MSG_23179                   23179
+#define IDS_MSG_23180                   23180
+#define IDS_MSG_23181                   23181
+#define IDS_MSG_23182                   23182
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222

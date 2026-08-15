@@ -2955,6 +2955,16 @@ BEGIN
     IDS_MSG_23177    "orichalc pieces"
 END
 
+// ==================== scr.c (gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23178    "Killed by "
+    IDS_MSG_23179    "A total master of omega"
+    IDS_MSG_23180    "retired a winner"
+    IDS_MSG_23181    "A quitter."
+    IDS_MSG_23182    "retired, an Adept of Omega."
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN
