@@ -95,6 +95,27 @@ BEGIN
                     IDC_STATIC,14,91,184,50
 END
 
+IDD_GAMEPAD DIALOGEX 0, 0, 280, 220
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION |
+    WS_SYSMENU
+CAPTION "Gamepad Configuration"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_GAMEPAD_TESTAREA,"Static",SS_OWNERDRAW | WS_BORDER,
+                    7,7,266,110
+    LTEXT           "Confirm (yes / OK):",IDC_STATIC,7,127,110,10
+    LTEXT           "(none)",IDC_GAMEPAD_CONFIRM_STATUS,120,127,75,10
+    PUSHBUTTON      "Assign",IDC_GAMEPAD_CONFIRM_ASSIGN,199,125,74,14
+    LTEXT           "Cancel (no):",IDC_STATIC,7,144,110,10
+    LTEXT           "(none)",IDC_GAMEPAD_CANCEL_STATUS,120,144,75,10
+    PUSHBUTTON      "Assign",IDC_GAMEPAD_CANCEL_ASSIGN,199,142,74,14
+    LTEXT           "Run (hold + direction):",IDC_STATIC,7,161,110,10
+    LTEXT           "(none)",IDC_GAMEPAD_RUN_STATUS,120,161,75,10
+    PUSHBUTTON      "Assign",IDC_GAMEPAD_RUN_ASSIGN,199,159,74,14
+    PUSHBUTTON      "Reset",IDC_GAMEPAD_RESET,7,199,74,14
+    DEFPUSHBUTTON   "Close",IDOK,199,199,74,14
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -163,6 +184,27 @@ BEGIN
     GROUPBOX        "クレジット",IDC_STATIC,7,80,199,67
     CTEXT           "Omega 0.80  作者: Laurence R. Brothers\n更新: Robert Rendell, Erik Max Francis\nWindows版: David Kinder\nグラフィック: David Gervais\n日本語化及び多言語対応、Gamepad対応: Naoki Ishizaka",
                     IDC_STATIC,14,91,184,50
+END
+
+IDD_GAMEPAD DIALOGEX 0, 0, 280, 220
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION |
+    WS_SYSMENU
+CAPTION "ゲームパッド設定"
+FONT 9, "MS UI Gothic", 400, 0, 0x80
+BEGIN
+    CONTROL         "",IDC_GAMEPAD_TESTAREA,"Static",SS_OWNERDRAW | WS_BORDER,
+                    7,7,266,110
+    LTEXT           "決定（はい/OK）:",IDC_STATIC,7,127,110,10
+    LTEXT           "（未設定）",IDC_GAMEPAD_CONFIRM_STATUS,120,127,75,10
+    PUSHBUTTON      "割り当て",IDC_GAMEPAD_CONFIRM_ASSIGN,199,125,74,14
+    LTEXT           "キャンセル（いいえ）:",IDC_STATIC,7,144,110,10
+    LTEXT           "（未設定）",IDC_GAMEPAD_CANCEL_STATUS,120,144,75,10
+    PUSHBUTTON      "割り当て",IDC_GAMEPAD_CANCEL_ASSIGN,199,142,74,14
+    LTEXT           "走る（押しながら方向）:",IDC_STATIC,7,161,110,10
+    LTEXT           "（未設定）",IDC_GAMEPAD_RUN_STATUS,120,161,75,10
+    PUSHBUTTON      "割り当て",IDC_GAMEPAD_RUN_ASSIGN,199,159,74,14
+    PUSHBUTTON      "リセット",IDC_GAMEPAD_RESET,7,199,74,14
+    DEFPUSHBUTTON   "閉じる",IDOK,199,199,74,14
 END
 
 /////////////////////////////////////////////////////////////////////////////

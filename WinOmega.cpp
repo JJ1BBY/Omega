@@ -13,6 +13,8 @@
 #include <objbase.h>
 #include <shlobj.h>
 #include <xinput.h>
+#define DIRECTINPUT_VERSION 0x0800
+#include <dinput.h>
 
 extern "C"
 {
@@ -67,6 +69,7 @@ char OmegaSave[_MAX_PATH] = "";
 HWND wnd = 0;
 HFONT font = 0;
 HICON icon = 0;
+HINSTANCE appInstance = 0;
 
 // Handles for the display bitmap
 HDC drawDC = 0;
@@ -128,6 +131,43 @@ POINT cursorPos = { 0,0 };
 // time pollGamepad() runs.
 int gamepadLastDir = 0;
 WORD gamepadLastButtons = 0;
+
+// Debounce counter for direction release: some controllers' d-pad/POV
+// briefly reports "centered" for a poll tick or two even while
+// physically still held (contact bounce / report jitter), which would
+// otherwise reset gamepadLastDir mid-press and let the very next poll
+// re-trigger the same direction as if it were a fresh press -- ie. one
+// physical tap producing several queued moves. Direction only counts
+// as truly released after this many consecutive "centered" polls.
+int gamepadDirOffCount = 0;
+const int GAMEPAD_DIR_OFF_DEBOUNCE = 3;
+
+// Shared edge-trigger + debounce logic for both the XInput and
+// DirectInput polling paths -- see gamepadDirOffCount above.
+void pushGamepadDirection(int dir)
+{
+  if (dir != 0)
+  {
+    gamepadDirOffCount = 0;
+    if (dir != gamepadLastDir)
+      inputKeys.push_back(dir);
+    gamepadLastDir = dir;
+  }
+  else if (++gamepadDirOffCount >= GAMEPAD_DIR_OFF_DEBOUNCE)
+  {
+    gamepadLastDir = 0;
+  }
+}
+
+// DirectInput button-role mapping (confirm/cancel/run), unlike XInput's
+// fixed A/B/RightShoulder there's no standard numbering across DirectInput
+// devices, so these are learned per-machine via the system menu's
+// "Configure Gamepad..." dialog (see showGamepadConfigDialog()) and
+// persisted in the registry. -1 means "not configured" -- pollDirectInput()
+// simply skips that role.
+int gamepadButtonConfirm = -1;
+int gamepadButtonCancel = -1;
+int gamepadButtonRun = -1;
 
 // If true, use graphics
 bool graphics = true;
@@ -430,6 +470,304 @@ void copyLibFile(const char* name)
   SetFileAttributes(name,FILE_ATTRIBUTE_NORMAL);
 }
 
+// XInputGetState is resolved dynamically instead of via static import.
+// Only xinput9_1_0.lib ships as an import library in this SDK, but its
+// compatibility shim fails to enumerate some Bluetooth/HID XInput-
+// compatible controllers that the full XInput 1.4 driver stack sees
+// fine -- confirmed via gamepad_debug.log: calling XInputGetState
+// through the static 9.1.0 import returned ERROR_DEVICE_NOT_CONNECTED
+// on all four user slots for a controller Windows' own "Game
+// Controllers" panel showed as connected and OK. xinput1_4.dll (ships
+// with Windows 8+) is tried first and falls back to xinput9_1_0.dll,
+// which covers both cases without needing an xinput1_4.lib that isn't
+// available to link against.
+typedef DWORD (WINAPI *PFN_XInputGetState)(DWORD,XINPUT_STATE*);
+PFN_XInputGetState pXInputGetState = NULL;
+
+#ifdef OMEGA_GAMEPAD_DEBUG
+// Temporary diagnostic logging for gamepad detection issues. Writes to
+// gamepad_debug.log in the current directory, which by the time this
+// can run is always the %APPDATA%\Omega directory (see
+// SetCurrentDirectory() in WinMain), same place omega.log/omega.hi
+// live. Logs a heartbeat every ~1s (20 polls at the 50ms timer period)
+// plus immediately on any connect/disconnect transition or state
+// change, so it's easy to tell "timer never fires" apart from
+// "XInputGetState/DirectInput never succeeds" apart from "succeeds but
+// buttons look wrong".
+static void gamepadDebugLog(const char* fmt, ...)
+{
+  FILE* f = fopen("gamepad_debug.log","a");
+  if (f == NULL)
+    return;
+  va_list args;
+  va_start(args,fmt);
+  vfprintf(f,fmt,args);
+  va_end(args);
+  fprintf(f,"\n");
+  fclose(f);
+}
+#endif
+
+void initXInput()
+{
+  const char* dllNames[] = { "xinput1_4.dll","xinput9_1_0.dll","xinput1_3.dll" };
+  for (int i = 0; i < 3 && pXInputGetState == NULL; i++)
+  {
+    HMODULE dll = LoadLibraryA(dllNames[i]);
+    if (dll != NULL)
+    {
+      pXInputGetState = (PFN_XInputGetState)GetProcAddress(dll,"XInputGetState");
+#ifdef OMEGA_GAMEPAD_DEBUG
+      if (pXInputGetState != NULL)
+      {
+        FILE* f = fopen("gamepad_debug.log","a");
+        if (f != NULL)
+        {
+          fprintf(f,"initXInput: resolved XInputGetState from %s\n",dllNames[i]);
+          fclose(f);
+        }
+      }
+#endif
+    }
+  }
+}
+
+// DirectInput fallback for controllers XInput can't see at all (confirmed
+// via gamepad_debug.log: a Bluetooth LE "XInput compatible" pad that
+// Windows' own Game Controllers panel lists as connected/OK still gets
+// ERROR_DEVICE_NOT_CONNECTED from XInputGetState on every user slot,
+// through both xinput1_4.dll and xinput9_1_0.dll). The Game Controllers
+// panel is itself a DirectInput device list, so if a controller shows up
+// there, DirectInput can see it even when XInput can't.
+LPDIRECTINPUT8 directInput = NULL;
+LPDIRECTINPUTDEVICE8 diJoystick = NULL;
+
+BOOL CALLBACK enumJoystickCallback(const DIDEVICEINSTANCE* inst, VOID* context)
+{
+  if (FAILED(directInput->CreateDevice(inst->guidInstance,&diJoystick,NULL)))
+    return DIENUM_CONTINUE;
+  return DIENUM_STOP;
+}
+
+BOOL CALLBACK enumAxesCallback(const DIDEVICEOBJECTINSTANCE* inst, VOID* context)
+{
+  DIPROPRANGE range;
+  ZeroMemory(&range,sizeof range);
+  range.diph.dwSize = sizeof range;
+  range.diph.dwHeaderSize = sizeof range.diph;
+  range.diph.dwHow = DIPH_BYID;
+  range.diph.dwObj = inst->dwType;
+  range.lMin = -1000;
+  range.lMax = 1000;
+  diJoystick->SetProperty(DIPROP_RANGE,&range.diph);
+  return DIENUM_CONTINUE;
+}
+
+void initDirectInput(HINSTANCE instance, HWND wnd)
+{
+  if (FAILED(DirectInput8Create(instance,DIRECTINPUT_VERSION,IID_IDirectInput8,(VOID**)&directInput,NULL)))
+    return;
+  directInput->EnumDevices(DI8DEVCLASS_GAMECTRL,enumJoystickCallback,NULL,DIEDFL_ATTACHEDONLY);
+  if (diJoystick == NULL)
+    return;
+  diJoystick->SetDataFormat(&c_dfDIJoystick2);
+  diJoystick->SetCooperativeLevel(wnd,DISCL_NONEXCLUSIVE|DISCL_BACKGROUND);
+  diJoystick->EnumObjects(enumAxesCallback,NULL,DIDFT_AXIS);
+  diJoystick->Acquire();
+#ifdef OMEGA_GAMEPAD_DEBUG
+  FILE* f = fopen("gamepad_debug.log","a");
+  if (f != NULL)
+  {
+    fprintf(f,"initDirectInput: device found and acquired\n");
+    fclose(f);
+  }
+#endif
+}
+
+// A "control" learned during calibration is either a digital button
+// (0-127) or an analog axis being pushed past a threshold, encoded as
+// 1000+axisIndex (0=Z, 1=slider0, 2=slider1) so triggers that a
+// controller reports as analog (eg. Joy-Con-style ZR) rather than as a
+// digital button still work. -1 means unconfigured/none.
+bool gamepadControlHeld(const DIJOYSTATE2& js, int control)
+{
+  // rgbButtons only has 128 elements -- controls 128-999 are not a
+  // valid button index (they used to fall through into
+  // rgbButtons[control] here, reading past the end of the array and
+  // occasionally "detecting" a phantom press from whatever garbage
+  // byte happened to have its high bit set).
+  if (control >= 0 && control < 128)
+    return (js.rgbButtons[control] & 0x80) != 0;
+  if (control >= 1000 && control <= 1002)
+  {
+    switch (control - 1000)
+    {
+    case 0: return js.lZ > 500;
+    case 1: return js.rglSlider[0] > 500;
+    case 2: return js.rglSlider[1] > 500;
+    }
+  }
+  return false;
+}
+
+// Formats a control id (see gamepadControlHeld()) as a short display
+// string for the gamepad config dialog's status labels.
+void formatGamepadControl(int control, char* buf, size_t bufSize)
+{
+  if (control < 0)
+    strcpy(buf,LS(IDS_UI_GAMEPAD_NONE));
+  else if (control < 1000)
+    _snprintf(buf,bufSize,"%s %d",LS(IDS_UI_GAMEPAD_BUTTON),control+1);
+  else
+    _snprintf(buf,bufSize,"%s %d",LS(IDS_UI_GAMEPAD_AXIS),control-1000+1);
+}
+
+// Which role (if any) the gamepad config dialog is currently waiting on
+// a button press for. Checked/advanced from that dialog's WM_TIMER
+// handler, so the modal dialog's own message pump keeps running instead
+// of blocking in a wait loop.
+enum GamepadAssignTarget { GA_NONE, GA_CONFIRM, GA_CANCEL, GA_RUN };
+GamepadAssignTarget gamepadAssignTarget = GA_NONE;
+bool gamepadAssignWasHeld[1003];
+
+void gamepadAssignBegin(GamepadAssignTarget target)
+{
+  gamepadAssignTarget = target;
+  DIJOYSTATE2 js;
+  ZeroMemory(&js,sizeof js);
+  diJoystick->Poll();
+  if (SUCCEEDED(diJoystick->GetDeviceState(sizeof js,&js)))
+  {
+    for (int c = 0; c < 1003; c++)
+      gamepadAssignWasHeld[c] = gamepadControlHeld(js,c);
+  }
+}
+
+// Called every gamepad config dialog timer tick while gamepadAssignTarget
+// is set. Returns the newly-pressed control id, or -1 if nothing new was
+// pressed this tick.
+int gamepadAssignPoll(const DIJOYSTATE2& js)
+{
+  for (int c = 0; c < 1003; c++)
+  {
+    bool held = gamepadControlHeld(js,c);
+    if (held && !gamepadAssignWasHeld[c])
+      return c;
+    gamepadAssignWasHeld[c] = held;
+  }
+  return -1;
+}
+
+void gamepadSaveConfig()
+{
+  RegSetValueEx(settings,"Gamepad Confirm",0,REG_DWORD,(BYTE*)&gamepadButtonConfirm,sizeof gamepadButtonConfirm);
+  RegSetValueEx(settings,"Gamepad Cancel",0,REG_DWORD,(BYTE*)&gamepadButtonCancel,sizeof gamepadButtonCancel);
+  RegSetValueEx(settings,"Gamepad Run",0,REG_DWORD,(BYTE*)&gamepadButtonRun,sizeof gamepadButtonRun);
+}
+
+// Polling helper for the DirectInput fallback device. While
+// OMEGA_GAMEPAD_DEBUG is on this dumps every button/POV/axis raw value
+// on change, so the (device-specific, unlike XInput) button numbering
+// can be read off directly instead of guessed at.
+void pollDirectInput()
+{
+  if (diJoystick == NULL)
+    return;
+
+  diJoystick->Poll();
+  DIJOYSTATE2 js;
+  HRESULT hr = diJoystick->GetDeviceState(sizeof js,&js);
+  if (FAILED(hr))
+  {
+    diJoystick->Acquire();
+    return;
+  }
+
+#ifdef OMEGA_GAMEPAD_DEBUG
+  {
+    static DIJOYSTATE2 last;
+    static bool haveLast = false;
+    if (!haveLast || memcmp(&last,&js,sizeof js) != 0)
+    {
+      char buttons[129];
+      for (int i = 0; i < 128; i++)
+        buttons[i] = (js.rgbButtons[i] & 0x80) ? '1' : '0';
+      buttons[128] = '\0';
+      gamepadDebugLog("DI lX=%ld lY=%ld POV0=%lu buttons=%s",
+        js.lX,js.lY,js.rgdwPOV[0],buttons);
+      last = js;
+      haveLast = true;
+    }
+  }
+#endif
+
+  int dx = 0, dy = 0;
+  if (js.rgdwPOV[0] != (DWORD)-1)
+  {
+    // POV is in hundredths of a degree, 0 = up, clockwise
+    DWORD pov = js.rgdwPOV[0];
+    if (pov > 31500 || pov < 4500) dy -= 1;
+    if (pov > 4500 && pov < 13500) dx += 1;
+    if (pov > 13500 && pov < 22500) dy += 1;
+    if (pov > 22500 && pov < 31500) dx -= 1;
+  }
+  else
+  {
+    if (js.lX > 300) dx = 1;
+    else if (js.lX < -300) dx = -1;
+    if (js.lY > 300) dy = 1;
+    else if (js.lY < -300) dy = -1;
+  }
+
+  static const int dirDigit[3][3] =
+  {
+    { '7','8','9' },
+    { '4', 0 ,'6' },
+    { '1','2','3' },
+  };
+  static const int dirRun[3][3] =
+  {
+    { 'Y','K','U' },
+    { 'H', 0 ,'L' },
+    { 'B','J','N' },
+  };
+  // Unlike XInput, DirectInput has no standard button numbering, so
+  // these roles come from the system menu's "Configure Gamepad..."
+  // dialog (persisted in the registry) rather than being hardcoded.
+  // -1 (unconfigured) just means that role never fires.
+  bool runHeld = gamepadControlHeld(js,gamepadButtonRun);
+  int dir = (runHeld ? dirRun : dirDigit)[dy+1][dx+1];
+  pushGamepadDirection(dir);
+
+  bool aHeld = gamepadControlHeld(js,gamepadButtonConfirm);
+  bool bHeld = gamepadControlHeld(js,gamepadButtonCancel);
+  if (aHeld && !(gamepadLastButtons & 1))
+  {
+    // 'y' answers yes/no decisions (ynq() et al only accept y/n/q/ESC);
+    // RETURN dismisses the far more common "-More-" pager prompts
+    // (morewait() only accepts space/RETURN, not 'y'). Whichever one
+    // the current context doesn't want is simply ignored by its input
+    // loop and left queued for the next prompt -- in the plain dungeon/
+    // city command loop a stray RETURN is an explicit documented no-op
+    // (command1.c: case 10/13: SKIP_MONSTERS), so there's no harmful
+    // side effect either way.
+    inputKeys.push_back('y');
+    inputKeys.push_back('\n');
+  }
+  if (bHeld && !(gamepadLastButtons & 2))
+  {
+    // ESCAPE alone, not 'n': ynq()-style decisions already treat ESCAPE
+    // as equivalent to declining/quitting (see scr.c's ynq() -- it
+    // folds ESCAPE into the same case as 'q'), and most menus (lettered
+    // option lists, shop screens, etc.) only accept ESCAPE to back out,
+    // not 'n'. Sending both here would occasionally leak 'n' as a
+    // southeast move when nothing is actually waiting on input (n is
+    // also a movement key on the main dungeon/city command table).
+    inputKeys.push_back(27);
+  }
+  gamepadLastButtons = (aHeld ? 1 : 0) | (bHeld ? 2 : 0);
+}
+
 // Polls gamepad 0 (via XInput) for movement and yes/no confirmation.
 // Directions are mapped to the same numeric-keypad digits ('1'-'9') that
 // the keyboard's numpad and vi-key equivalents already produce (see
@@ -447,22 +785,64 @@ void copyLibFile(const char* name)
 // dash/precise diagonal movement" convention used by the Mystery
 // Dungeon (Shiren/Torneko) series -- A/B are left alone as OK/Cancel
 // (y/n here), matching that series' own A=decide/B=cancel mapping.
+bool gamepadConfigDialogOpen = false;
+
 void pollGamepad()
 {
+  // The gamepad config dialog polls diJoystick directly for its own
+  // live test-area display and button-assignment detection; suppress
+  // ordinary gameplay input injection while it's open so pressing
+  // buttons to calibrate doesn't also move the player around.
+  if (gamepadConfigDialogOpen)
+    return;
+
+  if (pXInputGetState == NULL)
+    return;
+
   // Scan all four XInput user indices rather than assuming slot 0 --
   // a controller (especially Bluetooth) isn't guaranteed to land on 0,
   // particularly if other controllers were connected previously.
   XINPUT_STATE state;
   bool connected = false;
+  DWORD connectedIndex = 0;
+  DWORD errors[XUSER_MAX_COUNT] = { 0,0,0,0 };
   for (DWORD i = 0; i < XUSER_MAX_COUNT && !connected; i++)
   {
     ZeroMemory(&state,sizeof state);
-    connected = (XInputGetState(i,&state) == ERROR_SUCCESS);
+    DWORD result = pXInputGetState(i,&state);
+    errors[i] = result;
+    connected = (result == ERROR_SUCCESS);
+    if (connected)
+      connectedIndex = i;
   }
+
+#ifdef OMEGA_GAMEPAD_DEBUG
+  {
+    static bool everConnected = false;
+    static int pollCount = 0;
+    static bool lastConnected = false;
+    pollCount++;
+    if (connected != lastConnected || (pollCount % 20) == 0)
+    {
+      gamepadDebugLog("poll #%d connected=%d slot=%lu errors=[%lu,%lu,%lu,%lu]",
+        pollCount,connected,connectedIndex,errors[0],errors[1],errors[2],errors[3]);
+      if (connected)
+      {
+        everConnected = true;
+        gamepadDebugLog("  buttons=0x%04X LX=%d LY=%d",
+          state.Gamepad.wButtons,state.Gamepad.sThumbLX,state.Gamepad.sThumbLY);
+      }
+    }
+    lastConnected = connected;
+    (void)everConnected;
+  }
+#endif
+
   if (!connected)
   {
     gamepadLastDir = 0;
     gamepadLastButtons = 0;
+    pollDirectInput();
     return;
   }
 
@@ -500,15 +880,236 @@ void pollGamepad()
   };
   bool runHeld = (buttons & XINPUT_GAMEPAD_RIGHT_SHOULDER) != 0;
   int dir = (runHeld ? dirRun : dirDigit)[dy+1][dx+1];
-  if (dir != 0 && dir != gamepadLastDir)
-    inputKeys.push_back(dir);
-  gamepadLastDir = dir;
+#ifdef OMEGA_GAMEPAD_DEBUG
+  bool willPush = (dir != 0 && dir != gamepadLastDir);
+#endif
+  pushGamepadDirection(dir);
+#ifdef OMEGA_GAMEPAD_DEBUG
+  if (willPush)
+    gamepadDebugLog("  -> pushed direction '%c' (run=%d, dx=%d dy=%d)",dir,runHeld,dx,dy);
+#endif
 
   if ((buttons & XINPUT_GAMEPAD_A) && !(gamepadLastButtons & XINPUT_GAMEPAD_A))
+  {
+    // See the DirectInput path's comment on why both 'y' and RETURN are
+    // queued: ynq()-style decisions only accept y/n/q/ESC, while the far
+    // more common morewait() "-More-" pager only accepts space/RETURN.
     inputKeys.push_back('y');
+    inputKeys.push_back('\n');
+#ifdef OMEGA_GAMEPAD_DEBUG
+    gamepadDebugLog("  -> pushed 'y'+RETURN (A pressed)");
+#endif
+  }
   if ((buttons & XINPUT_GAMEPAD_B) && !(gamepadLastButtons & XINPUT_GAMEPAD_B))
-    inputKeys.push_back('n');
+  {
+    // See the DirectInput path's comment: ESCAPE alone, not 'n' -- ynq()
+    // already treats ESCAPE as declining, and 'n' risks leaking through
+    // as a southeast move when nothing is actually waiting on input.
+    inputKeys.push_back(27);
+#ifdef OMEGA_GAMEPAD_DEBUG
+    gamepadDebugLog("  -> pushed ESCAPE (B pressed)");
+#endif
+  }
   gamepadLastButtons = buttons;
+}
+
+// Refreshes the three role status labels from the current
+// gamepadButtonConfirm/Cancel/Run values.
+void updateGamepadStatusLabels(HWND hwnd)
+{
+  char buf[64];
+  formatGamepadControl(gamepadButtonConfirm,buf,sizeof buf);
+  SetWindowText(GetDlgItem(hwnd,IDC_GAMEPAD_CONFIRM_STATUS),buf);
+  formatGamepadControl(gamepadButtonCancel,buf,sizeof buf);
+  SetWindowText(GetDlgItem(hwnd,IDC_GAMEPAD_CANCEL_STATUS),buf);
+  formatGamepadControl(gamepadButtonRun,buf,sizeof buf);
+  SetWindowText(GetDlgItem(hwnd,IDC_GAMEPAD_RUN_STATUS),buf);
+}
+
+// Live test-area drawing for the gamepad config dialog, loosely modeled
+// on Windows' own Game Controllers properties/test page: an X/Y
+// crosshair box, a POV compass, and a grid of numbered button circles
+// that light up red while held.
+void drawGamepadTestArea(HDC dc, const RECT* rect)
+{
+  FillRect(dc,rect,(HBRUSH)GetStockObject(WHITE_BRUSH));
+  SetBkMode(dc,TRANSPARENT);
+
+  DIJOYSTATE2 js;
+  ZeroMemory(&js,sizeof js);
+  bool haveState = false;
+  if (diJoystick != NULL)
+  {
+    diJoystick->Poll();
+    haveState = SUCCEEDED(diJoystick->GetDeviceState(sizeof js,&js));
+  }
+
+  if (!haveState)
+  {
+    RECT r = *rect;
+    DrawTextA(dc,LS(IDS_UI_GAMEPAD_NO_CONTROLLER),-1,&r,DT_CENTER|DT_VCENTER|DT_SINGLELINE);
+    return;
+  }
+
+  // X/Y axis crosshair box
+  int boxLeft = rect->left+14, boxTop = rect->top+10, boxSize = 80;
+  Rectangle(dc,boxLeft,boxTop,boxLeft+boxSize,boxTop+boxSize);
+  int cx = boxLeft+boxSize/2 + (js.lX*(boxSize/2))/1000;
+  int cy = boxTop+boxSize/2 + (js.lY*(boxSize/2))/1000;
+  MoveToEx(dc,cx-6,cy,NULL); LineTo(dc,cx+7,cy);
+  MoveToEx(dc,cx,cy-6,NULL); LineTo(dc,cx,cy+7);
+
+  // POV compass
+  int povCx = boxLeft+boxSize+70, povCy = boxTop+boxSize/2, povR = 36;
+  Ellipse(dc,povCx-povR,povCy-povR,povCx+povR,povCy+povR);
+  int povDx = 0, povDy = 0;
+  if (js.rgdwPOV[0] != (DWORD)-1)
+  {
+    DWORD pov = js.rgdwPOV[0];
+    if (pov > 31500 || pov < 4500) povDy = -1;
+    if (pov > 4500 && pov < 13500) povDx = 1;
+    if (pov > 13500 && pov < 22500) povDy = 1;
+    if (pov > 22500 && pov < 31500) povDx = -1;
+  }
+  int dotX = povCx + povDx*(povR*3/4);
+  int dotY = povCy + povDy*(povR*3/4);
+  HBRUSH povBrush = CreateSolidBrush(RGB(220,40,40));
+  HBRUSH oldBrush = (HBRUSH)SelectObject(dc,povBrush);
+  Ellipse(dc,dotX-4,dotY-4,dotX+4,dotY+4);
+  SelectObject(dc,oldBrush);
+  DeleteObject(povBrush);
+
+  // Numbered button grid
+  int btnTop = boxTop+boxSize+22;
+  int btnR = 9;
+  int perRow = 8;
+  for (int i = 0; i < 32; i++)
+  {
+    int bx = rect->left+22+(i%perRow)*30;
+    int by = btnTop+(i/perRow)*24;
+    if (by+btnR > rect->bottom-4)
+      break;
+    bool held = (js.rgbButtons[i] & 0x80) != 0;
+    HBRUSH br = CreateSolidBrush(held ? RGB(220,40,40) : RGB(225,225,225));
+    HBRUSH old = (HBRUSH)SelectObject(dc,br);
+    Ellipse(dc,bx-btnR,by-btnR,bx+btnR,by+btnR);
+    SelectObject(dc,old);
+    DeleteObject(br);
+    char num[4];
+    _snprintf(num,sizeof num,"%d",i+1);
+    RECT tr = { bx-btnR,by-btnR,bx+btnR,by+btnR };
+    SetTextColor(dc,held ? RGB(255,255,255) : RGB(0,0,0));
+    DrawTextA(dc,num,-1,&tr,DT_CENTER|DT_VCENTER|DT_SINGLELINE);
+    SetTextColor(dc,RGB(0,0,0));
+  }
+}
+
+// Dialog procedure for IDD_GAMEPAD -- see showGamepadConfigDialog().
+INT_PTR CALLBACK gamepadConfigDlgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+  switch (msg)
+  {
+  case WM_INITDIALOG:
+    updateGamepadStatusLabels(hwnd);
+    SetTimer(hwnd,1,50,NULL);
+    return TRUE;
+
+  case WM_DRAWITEM:
+    if (wParam == IDC_GAMEPAD_TESTAREA)
+    {
+      DRAWITEMSTRUCT* dis = (DRAWITEMSTRUCT*)lParam;
+      drawGamepadTestArea(dis->hDC,&dis->rcItem);
+      return TRUE;
+    }
+    break;
+
+  case WM_TIMER:
+    InvalidateRect(GetDlgItem(hwnd,IDC_GAMEPAD_TESTAREA),NULL,FALSE);
+    if (gamepadAssignTarget != GA_NONE && diJoystick != NULL)
+    {
+      diJoystick->Poll();
+      DIJOYSTATE2 js;
+      ZeroMemory(&js,sizeof js);
+      if (SUCCEEDED(diJoystick->GetDeviceState(sizeof js,&js)))
+      {
+        int found = gamepadAssignPoll(js);
+        if (found >= 0)
+        {
+          switch (gamepadAssignTarget)
+          {
+          case GA_CONFIRM: gamepadButtonConfirm = found; break;
+          case GA_CANCEL: gamepadButtonCancel = found; break;
+          case GA_RUN: gamepadButtonRun = found; break;
+          default: break;
+          }
+          gamepadSaveConfig();
+          gamepadAssignTarget = GA_NONE;
+          updateGamepadStatusLabels(hwnd);
+        }
+      }
+    }
+    return TRUE;
+
+  case WM_COMMAND:
+    switch (LOWORD(wParam))
+    {
+    case IDC_GAMEPAD_CONFIRM_ASSIGN:
+      if (diJoystick != NULL)
+      {
+        gamepadAssignBegin(GA_CONFIRM);
+        SetWindowText(GetDlgItem(hwnd,IDC_GAMEPAD_CONFIRM_STATUS),LS(IDS_UI_GAMEPAD_WAITING));
+      }
+      return TRUE;
+    case IDC_GAMEPAD_CANCEL_ASSIGN:
+      if (diJoystick != NULL)
+      {
+        gamepadAssignBegin(GA_CANCEL);
+        SetWindowText(GetDlgItem(hwnd,IDC_GAMEPAD_CANCEL_STATUS),LS(IDS_UI_GAMEPAD_WAITING));
+      }
+      return TRUE;
+    case IDC_GAMEPAD_RUN_ASSIGN:
+      if (diJoystick != NULL)
+      {
+        gamepadAssignBegin(GA_RUN);
+        SetWindowText(GetDlgItem(hwnd,IDC_GAMEPAD_RUN_STATUS),LS(IDS_UI_GAMEPAD_WAITING));
+      }
+      return TRUE;
+    case IDC_GAMEPAD_RESET:
+      gamepadButtonConfirm = -1;
+      gamepadButtonCancel = -1;
+      gamepadButtonRun = -1;
+      gamepadAssignTarget = GA_NONE;
+      gamepadSaveConfig();
+      updateGamepadStatusLabels(hwnd);
+      return TRUE;
+    case IDOK:
+    case IDCANCEL:
+      KillTimer(hwnd,1);
+      EndDialog(hwnd,wParam);
+      return TRUE;
+    }
+    break;
+
+  case WM_DESTROY:
+    KillTimer(hwnd,1);
+    break;
+  }
+  return FALSE;
+}
+
+// Opens the gamepad configuration dialog (reachable from the window's
+// system menu, see WM_SYSCOMMAND in wndProc). Live-tests the connected
+// DirectInput device and lets the player (re-)assign the Confirm/
+// Cancel/Run roles by pressing the physical button/trigger they want,
+// or clear them via Reset -- unlike XInput, DirectInput has no
+// standard button numbering, so this has to stay available for
+// re-calibration rather than being a one-shot startup guess.
+void showGamepadConfigDialog(HINSTANCE instance, HWND parent)
+{
+  gamepadAssignTarget = GA_NONE;
+  gamepadConfigDialogOpen = true;
+  showDialog(instance,IDD_GAMEPAD,parent,gamepadConfigDlgProc);
+  gamepadConfigDialogOpen = false;
 }
 
 // Called by Windows with any messages for the window
@@ -567,6 +1168,14 @@ LRESULT CALLBACK wndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
       cursorSolid = !cursorSolid;
       if (cursorOn)
         drawCursor();
+    }
+    break;
+
+  case WM_SYSCOMMAND:
+    if ((wParam & 0xFFF0) == ID_SYSMENU_GAMEPAD)
+    {
+      showGamepadConfigDialog(appInstance,wnd);
+      return 0;
     }
     break;
   }
@@ -765,6 +1374,8 @@ int CALLBACK fontProc(ENUMLOGFONTEX* font, NEWTEXTMETRICEX* metric, DWORD fontTy
 // Entry point into the program
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
 {
+  appInstance = instance;
+
   // Don't display horrible old error dialogs
   SetErrorMode(SEM_FAILCRITICALERRORS|SEM_NOOPENFILEERRORBOX);
 
@@ -873,6 +1484,18 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
       uiLanguage = *((DWORD*)setData);
   }
   applyUILanguage(uiLanguage);
+
+  // Read the DirectInput gamepad button calibration, if present (see
+  // showGamepadConfigDialog())
+  setLength = 256;
+  if (RegQueryValueEx(settings,"Gamepad Confirm",NULL,&setType,setData,&setLength) == ERROR_SUCCESS && setType == REG_DWORD)
+    gamepadButtonConfirm = *((int*)setData);
+  setLength = 256;
+  if (RegQueryValueEx(settings,"Gamepad Cancel",NULL,&setType,setData,&setLength) == ERROR_SUCCESS && setType == REG_DWORD)
+    gamepadButtonCancel = *((int*)setData);
+  setLength = 256;
+  if (RegQueryValueEx(settings,"Gamepad Run",NULL,&setType,setData,&setLength) == ERROR_SUCCESS && setType == REG_DWORD)
+    gamepadButtonRun = *((int*)setData);
 
   // Show the setup dialog
   if (showDialog(instance,IDD_SETUP,0,dlgProc) != IDOK)
@@ -986,6 +1609,23 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
   SetTimer(wnd,1,GetCaretBlinkTime(),NULL);
 
   // Start a timer to poll for gamepad input
+  initXInput();
+  initDirectInput(instance,wnd);
+
+  // Add a "Configure Gamepad..." item to the window's system menu (the
+  // menu that opens from the title bar icon or Alt+Space) so the
+  // DirectInput button calibration (see showGamepadConfigDialog()) can
+  // be reopened any time during play, not just automatically on first
+  // run -- DirectInput's button numbering isn't standardized the way
+  // XInput's is, so this needs to stay reachable/re-doable per
+  // controller rather than being a one-shot startup prompt.
+  HMENU sysMenu = GetSystemMenu(wnd,FALSE);
+  if (sysMenu != NULL)
+  {
+    AppendMenu(sysMenu,MF_SEPARATOR,0,NULL);
+    AppendMenu(sysMenu,MF_STRING,ID_SYSMENU_GAMEPAD,LS(IDS_UI_GAMEPAD_MENU_ITEM));
+  }
+
   SetTimer(wnd,2,50,NULL);
 
   // Run Omega

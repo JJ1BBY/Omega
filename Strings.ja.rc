@@ -2961,4 +2961,10 @@ BEGIN
     IDS_UI_BITMAP_PATH         "ビットマップパスの設定に失敗しました"
     IDS_UI_GRAPHICS_NOT_LOADED "グラフィックファイルを読み込めませんでした。"
     IDS_UI_CREATE_WINDOW       "ウィンドウの作成に失敗しました"
+    IDS_UI_GAMEPAD_MENU_ITEM     "ゲームパッド設定(&G)..."
+    IDS_UI_GAMEPAD_NONE          "（未設定）"
+    IDS_UI_GAMEPAD_BUTTON        "ボタン"
+    IDS_UI_GAMEPAD_AXIS          "トリガー"
+    IDS_UI_GAMEPAD_WAITING       "ボタンを押してください……"
+    IDS_UI_GAMEPAD_NO_CONTROLLER "コントローラーが検出されていません。"
 END

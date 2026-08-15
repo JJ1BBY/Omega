@@ -2961,4 +2961,10 @@ BEGIN
     IDS_UI_BITMAP_PATH         "Failed to set up bitmap path"
     IDS_UI_GRAPHICS_NOT_LOADED "Graphics file not loaded."
     IDS_UI_CREATE_WINDOW       "Failed to create window"
+    IDS_UI_GAMEPAD_MENU_ITEM     "Configure &Gamepad..."
+    IDS_UI_GAMEPAD_NONE          "(none)"
+    IDS_UI_GAMEPAD_BUTTON        "Button"
+    IDS_UI_GAMEPAD_AXIS          "Trigger"
+    IDS_UI_GAMEPAD_WAITING       "Press a button now..."
+    IDS_UI_GAMEPAD_NO_CONTROLLER "No controller detected."
 END
