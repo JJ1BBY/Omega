@@ -23,6 +23,70 @@
 - ビルド確認済み(MSBuild, Release|x86, 後述のツールセット指定で成功)
 - `LoadLibraryEx` + `LoadStringA` で実際にリソースが正しくロードされることを検証済み
 
+## 進行中の翻訳作業(japanese-localization ブランチ)
+
+`Strings.ja.rc` は現在 **388/2665件** 翻訳済み(abyss.c, aux1.c, aux2.c, aux3.c,
+char.c, command1.c)。残り約2,277件。
+
+**重要: `Strings.ja.rc` を編集する際の手順**
+1. 通常のテキストエディタ/Read・Editツールで作業する前に、ファイルが
+   UTF-8になっていることを確認する(`git log`で見て直前のコミットが
+   CP932保存だった場合、`python3 -c "open('Strings.ja.rc','w',encoding='utf-8',newline='').write(open('Strings.ja.rc','rb').read().decode('cp932'))"`
+   のように一度UTF-8に戻してから編集する。CP932のままEdit系ツールで
+   触ると文字化けする)
+2. 翻訳が終わったら、**一時ファイル経由**でCP932に変換する(直接
+   `open(path,'w',encoding='cp932')`で書くと、変換失敗時にファイルが
+   0バイトに壊れる事故が起きた実績があるので避けること):
+   ```python
+   import shutil
+   text = open('Strings.ja.rc', encoding='utf-8').read()
+   encoded = text.encode('cp932')  # 失敗時はここで例外、ファイルはまだ無事
+   open('Strings.ja.rc.tmp', 'wb').write(encoded)
+   shutil.move('Strings.ja.rc.tmp', 'Strings.ja.rc')
+   ```
+3. MSBuildでビルド確認 → コミット、の順で進める(詳細は本ファイル下部の
+   ビルド方法を参照)
+
+## 未解決のバグ: 日本語テキストが実機で文字化けする
+
+`Strings.ja.rc` のリソース自体は正しい(`LoadStringA`で直接読むと完全に
+正しいJapanese文字列が返る)。しかし実際にゲーム画面に描画すると文字化けする
+(例: 「キャラクターを操作しますか [c]、それとも自分自身をプレイしますか
+[p]？」が「LN^[ [c]AgvC [p]H」のように表示される)。
+
+調査で分かったこと:
+- `WinOmega.cpp:664`付近で `fontSetup.lfCharSet` は `GetACP()==932` により
+  正しく `SHIFTJIS_CHARSET` になっている(確認済み)
+- レジストリ(`HKCU\Software\David Kinder\Omega`)の `Font Name` には
+  「ＭＳ ゴシック」が正しく保存されている(セットアップダイアログで
+  ユーザーが選択済み)
+- `impl_wprintw()`(`WinOmega.cpp`)に一時的なデバッグログ
+  (`OMEGA_JA_DEBUG`マクロ、`ja_debug.log`に出力)を仕込んで検証した結果、
+  `vsprintf`直後の`buffer`の中身は**元の`fmt`と完全に同一バイト列**であり、
+  文字列データは`waddch()`に渡る直前まで一切壊れていないことを確認済み
+- 描画コード(`WinOmega.cpp`の`redraw`相当の関数、`TextOut`→`ExtTextOut`に
+  変更しDBCS文字に明示的な2倍幅の`lpDx`を指定する修正を試したが、
+  **見た目は変化しなかった**(ビルド・実行して確認済み)
+
+→ **原因はGDIの実描画(`CreateFontIndirect`〜`ExtTextOut`)のどこかに
+まだ残っている。** データもフォント選択も正しいはずなのに文字化けする、
+という状況なので、Visual Studioでブレークポイントを張って
+`ExtTextOut`呼び出し時点の`font`(HFONTハンドル)や`drawDC`の状態を
+直接確認するなど、対話的デバッグが必要な段階。試すと良さそうな仮説:
+- `CreateFontIndirect`が実際に「ＭＳ ゴシック」を取得できているか
+  (`GetObject(font, sizeof(LOGFONT), &actual)`等で確認)
+- `drawDC`が24bpp DIBセクション上のメモリDCであることが、CJKグリフの
+  レンダリングに何か影響していないか
+- Windows自体のクリップボードや`GetGlyphOutline`等で、この特定の
+  `HFONT`がどの物理フォントに実際にマッピングされているか確認
+  (フォントリンキング/代替が起きていないか)
+
+デバッグ用のログ出力コードは`WinOmega.cpp`の`impl_wprintw()`内に
+`#ifdef OMEGA_JA_DEBUG`で残してある。再度有効にする場合は
+`Omega.vcxproj`のReleaseビルドの`PreprocessorDefinitions`に
+`OMEGA_JA_DEBUG;`を追加してビルドし、`%APPDATA%\Omega\ja_debug.log`
+を確認する。
+
 ## 未着手のタスク
 
 ### 1. 本命: `Strings.ja.rc` の翻訳(2,665件)
