@@ -2888,6 +2888,22 @@ BEGIN
     IDS_MSG_23130    "is terrorized!"
 END
 
+// ==================== effect1.c (gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23131    "The "
+    IDS_MSG_23132    " was blasted by a firebolt!"
+    IDS_MSG_23133    " was zapped by lightning!"
+    IDS_MSG_23134    " was hit by a missile!"
+    IDS_MSG_23135    " was missed by a firebolt!"
+    IDS_MSG_23136    " was missed by lightning!"
+    IDS_MSG_23137    " was missed by a missile!"
+    IDS_MSG_23138    " was zorched by a fireball!"
+    IDS_MSG_23139    " was blasted by a snowball!"
+    IDS_MSG_23140    " was zapped by ball lightning!"
+    IDS_MSG_23141    " was nuked by a manastorm!"
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN

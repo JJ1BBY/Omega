@@ -280,14 +280,14 @@ int fx,fy,tx,ty,hit,dmg,dtype;
   else if (NULL != (target = Level->site[xx][yy].creature)) {
     if (hitp(hit,target->ac)) {
       if (target->uniqueness == COMMON) {
-	strcpy(Str1,"The ");
+	strcpy(Str1,LS(IDS_MSG_23131));
 	strcat(Str1,target->monstring);
       }
       else strcpy(Str1,target->monstring);
       switch (dtype) {
-      case FLAME:strcat(Str1," was blasted by a firebolt!");break;
-      case ELECTRICITY:strcat(Str1," was zapped by lightning!");break;
-      case NORMAL_DAMAGE:strcat(Str1," was hit by a missile!"); break;
+      case FLAME:strcat(Str1,LS(IDS_MSG_23132));break;
+      case ELECTRICITY:strcat(Str1,LS(IDS_MSG_23133));break;
+      case NORMAL_DAMAGE:strcat(Str1,LS(IDS_MSG_23134)); break;
       }
       mprint(Str1);
       m_status_set(target,HOSTILE);
@@ -295,14 +295,14 @@ int fx,fy,tx,ty,hit,dmg,dtype;
     }
     else {
       if (target->uniqueness == COMMON) {
-	strcpy(Str1,"The ");
+	strcpy(Str1,LS(IDS_MSG_23131));
 	strcat(Str1,target->monstring);
       }
       else strcpy(Str1,target->monstring);
       switch (dtype) {
-      case FLAME:strcat(Str1," was missed by a firebolt!");break;
-      case ELECTRICITY:strcat(Str1," was missed by lightning!");break;
-      case NORMAL_DAMAGE:strcat(Str1," was missed by a missile!"); break;
+      case FLAME:strcat(Str1,LS(IDS_MSG_23135));break;
+      case ELECTRICITY:strcat(Str1,LS(IDS_MSG_23136));break;
+      case NORMAL_DAMAGE:strcat(Str1,LS(IDS_MSG_23137)); break;
       }
       mprint(Str1);
     }
@@ -395,15 +395,15 @@ int fx,fy,tx,ty,dmg,dtype;
     if (NULL != (target = Level->site[ex][ey].creature)) {
       if (los_p(Player.x,Player.y,target->x,target->y)) {
       if (target->uniqueness == COMMON) {
-	strcpy(Str1,"The ");
+	strcpy(Str1,LS(IDS_MSG_23131));
 	strcat(Str1,target->monstring);
       }
       else strcpy(Str1,target->monstring);
 	switch(dtype) {
-	  case FLAME:strcat(Str1," was zorched by a fireball!"); break;
-	  case COLD:strcat(Str1," was blasted by a snowball!"); break;
-	  case ELECTRICITY:strcat(Str1," was zapped by ball lightning!");break;
-	  case UNSTOPPABLE:strcat(Str1," was nuked by a manastorm!");break;
+	  case FLAME:strcat(Str1,LS(IDS_MSG_23138)); break;
+	  case COLD:strcat(Str1,LS(IDS_MSG_23139)); break;
+	  case ELECTRICITY:strcat(Str1,LS(IDS_MSG_23140));break;
+	  case UNSTOPPABLE:strcat(Str1,LS(IDS_MSG_23141));break;
 	}
 	mprint(Str1);
       }
