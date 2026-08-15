@@ -2965,6 +2965,16 @@ BEGIN
     IDS_MSG_23182    "retired, an Adept of Omega."
 END
 
+// ==================== mmove.c (gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23183    "The "
+    IDS_MSG_23184    " drops its treasure and flees!"
+    IDS_MSG_23185    " flees!"
+    IDS_MSG_23186    " vanishes in the twinkling of an eye!"
+    IDS_MSG_23187    " releases the dog's chain!"
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN

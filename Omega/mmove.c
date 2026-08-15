@@ -33,15 +33,15 @@ struct monster *m;
     dy = - dy;
     m->movef = M_MOVE_SCAREDY;
     if (m->uniqueness == COMMON) {
-      strcpy(Str2,"The ");
+      strcpy(Str2,LS(IDS_MSG_23183));
       strcat(Str2,m->monstring);
     }
     else strcpy(Str2,m->monstring);
     if (m->possessions != NULL) {
-      strcat(Str2," drops its treasure and flees!");
+      strcat(Str2,LS(IDS_MSG_23184));
       m_dropstuff(m);
     }
-    else strcat(Str2," flees!");
+    else strcat(Str2,LS(IDS_MSG_23185));
     mprint(Str2);
     m->speed = min(2,m->speed-1);
   }
@@ -229,11 +229,11 @@ void m_vanish(m)
 struct monster *m;
 {
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_23183));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
-  strcat(Str2," vanishes in the twinkling of an eye!");
+  strcat(Str2,LS(IDS_MSG_23186));
   mprint(Str2);
   Level->site[m->x][m->y].creature = NULL;
   erase_monster(m);
@@ -265,12 +265,12 @@ struct monster *m;
     if (Level->site[m->aux1][m->aux2].creature != NULL) {
       /* some other monster is where the chain starts */
       if (Level->site[m->aux1][m->aux2].creature->uniqueness == COMMON) {
-	strcpy(Str1, "The ");
+	strcpy(Str1, LS(IDS_MSG_23183));
 	strcat(Str1, Level->site[m->aux1][m->aux2].creature->monstring);
       }
       else
 	strcpy(Str1, Level->site[m->aux1][m->aux2].creature->monstring);
-      strcat(Str1, " releases the dog's chain!");
+      strcat(Str1, LS(IDS_MSG_23187));
       mprint(Str1);
       m->movef = M_MOVE_NORMAL;
       m->aux1 = m->x;

@@ -2852,6 +2852,13 @@
 #define IDS_MSG_23181                   23181
 #define IDS_MSG_23182                   23182
 
+// ---- mmove.c (gap-fill) ----
+#define IDS_MSG_23183                   23183
+#define IDS_MSG_23184                   23184
+#define IDS_MSG_23185                   23185
+#define IDS_MSG_23186                   23186
+#define IDS_MSG_23187                   23187
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222
