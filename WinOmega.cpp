@@ -96,6 +96,7 @@ TEXTMETRIC fontMetrics;
 // to restore "system default" behaviour.
 DWORD uiLanguage = MAKELANGID(LANG_ENGLISH,SUBLANG_ENGLISH_UK);
 LCID originalLocale = 0;
+LANGID originalUILanguage = 0;
 
 // Whether the language selection should be written to the registry so it
 // persists to the next run; mirrors the "Remember this selection"
@@ -1260,14 +1261,20 @@ LRESULT CALLBACK savedListProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 }
 
 // Switches which LANGUAGE block in WinOmega.rc subsequent resource lookups
-// (LoadStringA via LS(), DialogBox, etc.) resolve to, by adjusting the
-// current thread's locale -- the standard mechanism the Win32 resource
-// loader consults when a binary has more than one LANGUAGE block for the
-// same resource. A lang of 0 restores whatever locale was in effect
-// before any override (ie. the OS default, the prior behaviour).
+// (LoadStringA via LS(), DialogBox, etc.) resolve to. SetThreadUILanguage
+// is what actually controls this on Vista+ -- LoadString/FindResourceEx's
+// MUI-style language fallback follows the thread's *UI* language, not its
+// locale, so SetThreadLocale alone (the previous implementation) silently
+// had no effect on which LANGUAGE block got picked, always falling back to
+// the OS's default UI language regardless of what was selected here.
+// SetThreadLocale is also kept in sync for anything that reads locale
+// (date/number formatting, isJapaneseUILanguage() below) since the two are
+// independent settings. A lang of 0 restores whatever was in effect before
+// any override (ie. the OS default, the prior behaviour).
 void applyUILanguage(DWORD lang)
 {
   SetThreadLocale(lang != 0 ? MAKELCID(lang,SORT_DEFAULT) : originalLocale);
+  SetThreadUILanguage(lang != 0 ? (LANGID)lang : originalUILanguage);
 }
 
 // Lets portable C code (file.c) pick a translated copy of a plain-text
@@ -1439,9 +1446,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
   // Don't display horrible old error dialogs
   SetErrorMode(SEM_FAILCRITICALERRORS|SEM_NOOPENFILEERRORBOX);
 
-  // Remember the OS-determined thread locale so an explicit language
-  // override can later be reverted back to "system default"
+  // Remember the OS-determined thread locale/UI language so an explicit
+  // language override can later be reverted back to "system default"
   originalLocale = GetThreadLocale();
+  originalUILanguage = GetThreadUILanguage();
 
   // Initialize COM and controls
   CoInitialize(NULL);
