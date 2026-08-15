@@ -685,17 +685,17 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
   GetModuleFileName(0,OMEGALIB,_MAX_PATH);
   char* pathLib = strrchr(OMEGALIB,'\\');
   if (pathLib == NULL)
-    fatal("Failed to set up OMEGALIB path");
+    fatal(LS(IDS_UI_OMEGALIB_PATH));
   strcpy(pathLib+1,"OmegaLib\\");
 
   // Create the directory for Omega to store files in
   char omegaDir[_MAX_PATH];
   if (FAILED(SHGetFolderPath(0,CSIDL_APPDATA,0,SHGFP_TYPE_CURRENT,omegaDir)))
-    fatal("Failed to get CSIDL_APPDATA path");
+    fatal(LS(IDS_UI_APPDATA_PATH));
   strcat(omegaDir,"\\Omega");
   CreateDirectory(omegaDir,NULL);
   if (SetCurrentDirectory(omegaDir) == 0)
-    fatal("Failed to set current directory");
+    fatal(LS(IDS_UI_SET_CURRENT_DIR));
   copyLibFile("omega.hi");
   copyLibFile("omega.log");
   strcat(omegaDir,"\\Save");
@@ -748,7 +748,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
   // Open the registry key that settings are stored under
   if (RegCreateKeyEx(HKEY_CURRENT_USER,"Software\\David Kinder\\Omega",0,NULL,
     REG_OPTION_NON_VOLATILE,KEY_ALL_ACCESS,NULL,&settings,NULL) != ERROR_SUCCESS)
-    fatal("Failed to open settings registry key");
+    fatal(LS(IDS_UI_SETTINGS_REGISTRY));
 
   // Read the user's settings, if present
   BYTE setData[256];
@@ -813,7 +813,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
   void* drawBits;
   drawBmp = CreateDIBSection(drawDC,&bi,DIB_RGB_COLORS,&drawBits,0,0);
   if (drawBmp == 0)
-    fatal("Failed to create bitmap");
+    fatal(LS(IDS_UI_CREATE_BITMAP));
 
   // Initialize the display bitmap
   SelectObject(drawDC,drawBmp);
@@ -832,13 +832,13 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
     GetModuleFileName(0,bitmapPath,_MAX_PATH);
     char* bitmapFile = strrchr(bitmapPath,'\\');
     if (bitmapFile == NULL)
-      fatal("Failed to set up bitmap path");
+      fatal(LS(IDS_UI_BITMAP_PATH));
     strcpy(bitmapFile+1,"32x32.bmp");
     gfxBmp = (HBITMAP)LoadImage(NULL,bitmapPath,IMAGE_BITMAP,0,0,
       LR_CREATEDIBSECTION|LR_LOADFROMFILE);
     if (gfxBmp == 0)
     {
-      MessageBox(0,"Graphics file not loaded.","Omega",MB_ICONERROR|MB_OK);
+      MessageBox(0,LS(IDS_UI_GRAPHICS_NOT_LOADED),"Omega",MB_ICONERROR|MB_OK);
       graphics = false;
     }
 
@@ -872,7 +872,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
   wnd = CreateWindowEx(WS_EX_CLIENTEDGE,"Omega","Omega",
     WS_OVERLAPPED|WS_CAPTION|WS_SYSMENU|WS_CLIPCHILDREN|WS_MINIMIZEBOX,0,0,100,100,0,0,instance,NULL);
   if (wnd == 0)
-    fatal("Failed to create window");
+    fatal(LS(IDS_UI_CREATE_WINDOW));
 
   // Get the size of the window frame
   RECT rectW,rectC;

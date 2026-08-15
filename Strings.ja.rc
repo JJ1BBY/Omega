@@ -2949,3 +2949,16 @@ BEGIN
     IDS_MSG_22663    "確認しますが、よろしいですか？ [yn] "
     IDS_MSG_22664    "メモリ不足です！保存して終了します。"
 END
+
+// ==================== WinOmega.cpp (UI / fatal-error strings) ====================
+STRINGTABLE
+BEGIN
+    IDS_UI_OMEGALIB_PATH       "OMEGALIBパスの設定に失敗しました"
+    IDS_UI_APPDATA_PATH        "CSIDL_APPDATAパスの取得に失敗しました"
+    IDS_UI_SET_CURRENT_DIR     "カレントディレクトリの設定に失敗しました"
+    IDS_UI_SETTINGS_REGISTRY   "設定用レジストリキーを開けませんでした"
+    IDS_UI_CREATE_BITMAP       "ビットマップの作成に失敗しました"
+    IDS_UI_BITMAP_PATH         "ビットマップパスの設定に失敗しました"
+    IDS_UI_GRAPHICS_NOT_LOADED "グラフィックファイルを読み込めませんでした。"
+    IDS_UI_CREATE_WINDOW       "ウィンドウの作成に失敗しました"
+END

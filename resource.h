@@ -2846,6 +2846,18 @@
 #define IDS_MSG_22663                   22663
 #define IDS_MSG_22664                   22664
 
+// UI / fatal-error strings used directly by WinOmega.cpp (dialog boxes
+// shown before the game itself is running). Separate range from the
+// gameplay message strings above.
+#define IDS_UI_OMEGALIB_PATH            23000
+#define IDS_UI_APPDATA_PATH             23001
+#define IDS_UI_SET_CURRENT_DIR          23002
+#define IDS_UI_SETTINGS_REGISTRY        23003
+#define IDS_UI_CREATE_BITMAP            23004
+#define IDS_UI_BITMAP_PATH              23005
+#define IDS_UI_GRAPHICS_NOT_LOADED      23006
+#define IDS_UI_CREATE_WINDOW            23007
+
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED

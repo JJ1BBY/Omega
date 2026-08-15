@@ -2949,3 +2949,16 @@ BEGIN
     IDS_MSG_22663    "Confirm that, would you? [yn] "
     IDS_MSG_22664    "Out of memory!  Saving and quitting."
 END
+
+// ==================== WinOmega.cpp (UI / fatal-error strings) ====================
+STRINGTABLE
+BEGIN
+    IDS_UI_OMEGALIB_PATH       "Failed to set up OMEGALIB path"
+    IDS_UI_APPDATA_PATH        "Failed to get CSIDL_APPDATA path"
+    IDS_UI_SET_CURRENT_DIR     "Failed to set current directory"
+    IDS_UI_SETTINGS_REGISTRY   "Failed to open settings registry key"
+    IDS_UI_CREATE_BITMAP       "Failed to create bitmap"
+    IDS_UI_BITMAP_PATH         "Failed to set up bitmap path"
+    IDS_UI_GRAPHICS_NOT_LOADED "Graphics file not loaded."
+    IDS_UI_CREATE_WINDOW       "Failed to create window"
+END
