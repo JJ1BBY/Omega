@@ -160,7 +160,9 @@ void help()
 #if defined(MSDOS) || defined(AMIGA) || defined(_WIN32)
   while ((c < 'a' || c > 'm') && c != ESCAPE);
   if (c != ESCAPE) {
-    sprintf(filestr, "%shelp%d.txt", Omegalib, c+1-'a');
+    char helpname[32];
+    sprintf(helpname, "help%d.txt", c+1-'a');
+    omegalibFile(filestr, helpname);
     displayfile(filestr);
   }
 #else

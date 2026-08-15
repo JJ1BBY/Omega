@@ -895,6 +895,8 @@ void mnumprint ARGS((int));
 void morewait ARGS((void));
 void mprint ARGS((char *));
 char *LS ARGS((int));
+int isJapaneseUILanguage ARGS((void));
+void omegalibFile ARGS((char *, char *));
 void nprint1 ARGS((char *));
 void nprint2 ARGS((char *));
 void nprint3 ARGS((char *));

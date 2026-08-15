@@ -18,9 +18,45 @@
 # endif
 # include <fcntl.h>
 # include <errno.h>
+# ifdef _WIN32
+#  include <io.h>
+#  include <stdlib.h>
+# endif
 #endif
 
 #include "glob.h"
+
+/* Builds the full path to a plain-text OmegaLib file (help*.txt,
+   motd.txt, ...), substituting a "name.ja.txt" translation for
+   "name.txt" when the current UI language is Japanese and that
+   translated copy actually exists on disk. Falls back to the plain
+   English file otherwise -- this is how untranslated or not-yet-
+   provided files stay playable instead of erroring out. */
+void omegalibFile(dest,name)
+char *dest,*name;
+{
+#ifdef _WIN32
+  if (isJapaneseUILanguage())
+  {
+    char jaName[_MAX_PATH], jaPath[_MAX_PATH], *dot;
+    strcpy(jaName,name);
+    dot = strrchr(jaName,'.');
+    if (dot != NULL)
+      strcpy(dot,".ja.txt");
+    else
+      strcat(jaName,".ja");
+    strcpy(jaPath,Omegalib);
+    strcat(jaPath,jaName);
+    if (_access(jaPath,0) == 0)
+    {
+      strcpy(dest,jaPath);
+      return;
+    }
+  }
+#endif
+  strcpy(dest,Omegalib);
+  strcat(dest,name);
+}
 
 FILE *checkfopen(filestring,optionstring)
 char *filestring,*optionstring;
@@ -51,10 +87,9 @@ char *filestring,*optionstring;
 
 void commandlist()
 {
-  strcpy(Str1,Omegalib);
   if (Current_Environment == E_COUNTRYSIDE)
-    strcat(Str1,"help13.txt");
-  else strcat(Str1,"help12.txt");
+    omegalibFile(Str1,"help13.txt");
+  else omegalibFile(Str1,"help12.txt");
   displayfile(Str1);
   xredraw();
 }
@@ -90,8 +125,7 @@ void abyss_file()
 
 void inv_help()
 {
-  strcpy(Str1,Omegalib);
-  strcat(Str1,"help3.txt");
+  omegalibFile(Str1,"help3.txt");
   displayfile(Str1);
   xredraw();
 }
@@ -100,8 +134,7 @@ void inv_help()
 
 void combat_help()
 {
-  strcpy(Str1,Omegalib);
-  strcat(Str1,"help5.txt");
+  omegalibFile(Str1,"help5.txt");
   displayfile(Str1);
   menuclear();
 }
@@ -145,8 +178,7 @@ void theologyfile()
 
 void showmotd()
 {
-  strcpy(Str1,Omegalib);
-  strcat(Str1,"motd.txt");
+  omegalibFile(Str1,"motd.txt");
   displayfile(Str1);
 }
 

@@ -519,6 +519,15 @@ void applyUILanguage(DWORD lang)
   SetThreadLocale(lang != 0 ? MAKELCID(lang,SORT_DEFAULT) : originalLocale);
 }
 
+// Lets portable C code (file.c) pick a translated copy of a plain-text
+// file (help*.txt, motd.txt, ...) when one exists, without needing to
+// know anything about LANGUAGE blocks or the registry setting itself --
+// it just reflects whatever applyUILanguage() last put in effect.
+extern "C" int isJapaneseUILanguage()
+{
+  return PRIMARYLANGID(LANGIDFROMLCID(GetThreadLocale())) == LANG_JAPANESE;
+}
+
 // Called by Windows with any messages for the setup dialog
 INT_PTR CALLBACK dlgProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
