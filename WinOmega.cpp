@@ -1481,13 +1481,17 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
   int scrWidth = workArea.right-workArea.left;
   int scrHeight = workArea.bottom-workArea.top;
 
-  // Get all fixed width fonts. The charset must match the system's default
-  // ANSI codepage (CP_ACP), since all text in this app -- resource strings,
-  // MultiByteToWideChar(CP_ACP,...) calls, etc -- is encoded that way. On a
-  // Japanese-locale system (CP932) this picks Shift-JIS capable fonts so
-  // double-byte characters get shaped correctly instead of rendering as tofu.
+  // Get all fixed width fonts. DEFAULT_CHARSET makes EnumFontFamiliesEx
+  // return every charset variant each font family supports, so both
+  // ANSI-only fonts (Consolas, Courier New, ...) and Shift-JIS capable
+  // ones (MS Gothic, ...) show up in the picker regardless of the
+  // system's default ANSI codepage -- filtering to a single charset here
+  // used to hide the ANSI-only fonts entirely on a Japanese-locale
+  // system. DEFAULT_CHARSET is kept on fontSetup afterwards (see
+  // CreateFontIndirect below), which lets GDI pick the correct charset
+  // for whichever face name ends up selected instead of forcing one.
   ZeroMemory(&fontSetup,sizeof fontSetup);
-  fontSetup.lfCharSet = (GetACP() == 932) ? SHIFTJIS_CHARSET : ANSI_CHARSET;
+  fontSetup.lfCharSet = DEFAULT_CHARSET;
   EnumFontFamiliesEx(desktopDC,&fontSetup,(FONTENUMPROC)fontProc,0,0);
 
   // Get the Omega icon
@@ -1496,11 +1500,11 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
   // Choose the initial font name. On a Japanese system EnumFontFamiliesEx
   // (ANSI) reports the localized face name for "MS Gothic" as Shift-JIS
   // bytes (full-width "MS Gothic"), not the English name, so both are checked.
-  if (fontSetup.lfCharSet == SHIFTJIS_CHARSET && fontNames.count("\x82\x6c\x82\x72\x20\x83\x53\x83\x56\x83\x62\x83\x4e") == 1)
+  if (GetACP() == 932 && fontNames.count("\x82\x6c\x82\x72\x20\x83\x53\x83\x56\x83\x62\x83\x4e") == 1)
     strcpy(fontSetup.lfFaceName,"\x82\x6c\x82\x72\x20\x83\x53\x83\x56\x83\x62\x83\x4e");
-  else if (fontSetup.lfCharSet == SHIFTJIS_CHARSET && fontNames.count("MS Gothic") == 1)
+  else if (GetACP() == 932 && fontNames.count("MS Gothic") == 1)
     strcpy(fontSetup.lfFaceName,"MS Gothic");
-  else if (fontSetup.lfCharSet == SHIFTJIS_CHARSET && fontNames.count("MS UI Gothic") == 1)
+  else if (GetACP() == 932 && fontNames.count("MS UI Gothic") == 1)
     strcpy(fontSetup.lfFaceName,"MS UI Gothic");
   else if (fontNames.count("Consolas") == 1)
     strcpy(fontSetup.lfFaceName,"Consolas");
