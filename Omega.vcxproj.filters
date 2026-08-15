@@ -183,4 +183,12 @@
       <Filter>Resources</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Strings.en.rc">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Strings.ja.rc">
+      <Filter>Resources</Filter>
+    </None>
+  </ItemGroup>
 </Project>

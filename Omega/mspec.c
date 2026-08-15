@@ -9,13 +9,13 @@ void m_sp_mp(m)
 struct monster *m;
 {
   if (m->attacked && (random_range(3) == 1)) {
-    mprint("You feel cursed!");
+    mprint(LS(IDS_MSG_21937));
     p_damage(10,UNSTOPPABLE,"a mendicant priest's curse");
     m_vanish(m);
   }
   else if (! m_statusp(m,NEEDY)) {
-    mprint("The mendicant priest makes a mystical gesture....");
-    mprint("You feel impressed...");
+    mprint(LS(IDS_MSG_21938));
+    mprint(LS(IDS_MSG_21939));
     Player.alignment += 5;
     if (Player.alignment > 20)
       Player.hp = max(Player.hp,Player.maxhp);
@@ -30,10 +30,10 @@ struct monster *m;
 {
   if (distance(m->x,m->y,Player.x,Player.y) < 2)
     if ((random_range(5) == 1) || (Player.status[VULNERABLE]>0)) {
-      mprint("The night gaunt grabs you and carries you off!");
-      mprint("Its leathery wings flap and flap, and it giggles insanely.");
-      mprint("It tickles you cunningly to render you incapable of escape.");
-      mprint("Finally, it deposits you in a strange place.");
+      mprint(LS(IDS_MSG_21940));
+      mprint(LS(IDS_MSG_21941));
+      mprint(LS(IDS_MSG_21942));
+      mprint(LS(IDS_MSG_21943));
       p_teleport(0);
     }
 }
@@ -46,9 +46,9 @@ void m_sp_poison_cloud(m)
 struct monster *m;
 {
   if (distance(m->x,m->y,Player.x,Player.y) < 3) {
-    mprint("A cloud of poison gas surrounds you!");
+    mprint(LS(IDS_MSG_21944));
     if (Player.status[BREATHING] > 0)
-      mprint("You can breathe freely, however.");
+      mprint(LS(IDS_MSG_21945));
     else p_poison(7);
   }
 }
@@ -75,14 +75,14 @@ struct monster *m;
 	los_p(m->x,m->y,Player.x,Player.y) &&
 	(random_range(30) > Player.level+10) &&
 	(Player.status[AFRAID] == 0)) {
-      mprint("You are stricken with fear!");
+      mprint(LS(IDS_MSG_21946));
       if (! p_immune(FEAR)) Player.status[AFRAID] += m->level;
-      else mprint("You master your reptile brain and stand fast.");
+      else mprint(LS(IDS_MSG_21947));
     }
     else m_sp_spell(m);
   }
   if ((m->hp < (m->level * 5)) && (m->hp > 1)) {
-    mprint("The demon uses its waning lifeforce to summon help!");
+    mprint(LS(IDS_MSG_21948));
     m->hp = 1;
     switch(m->level) {
     case 3: mid = ML2+1; break; /* night gaunt */
@@ -120,11 +120,11 @@ void m_sp_ghost(m)
 struct monster *m;
 {
   if (m_statusp(m,HOSTILE)) {
-    mprint("The ghost moans horribly....");
+    mprint(LS(IDS_MSG_21949));
     p_damage(1,FEAR,"a ghost-inspired heart attack");
-    mprint("You've been terrorized!");
+    mprint(LS(IDS_MSG_21950));
     if (! p_immune(FEAR)) Player.status[AFRAID] += m->level;
-    else mprint("You master your reptile brain and stand fast.");
+    else mprint(LS(IDS_MSG_21947));
   }
 }
 
@@ -147,7 +147,7 @@ struct monster *m;
       nbolt(m->x,m->y,Player.x,Player.y,m->hit,10);
       break;
     case 1:
-      mprint("It seems stronger..."); 
+      mprint(LS(IDS_MSG_21951)); 
       m->hp += random_range(m->level*m->level);
       break;
     case 2:
@@ -216,16 +216,16 @@ struct monster *m;
       if (! Player.status[ALERT]) {
 	switch(random_range(4)) {
 	case 0: 
-	  mprint("You are surprised by a sudden treacherous attack!");
+	  mprint(LS(IDS_MSG_21952));
 	  break;
 	case 1: 
-	  mprint("You are shocked out of your reverie by the scream of battle!");
+	  mprint(LS(IDS_MSG_21953));
 	  break;
 	case 2: 
-	  mprint("Suddenly, from out of the shadows, a surprise attack!");
+	  mprint(LS(IDS_MSG_21954));
 	  break;
 	case 3: 
-	  mprint("A shriek of hatred causes you to momentarily freeze up!");
+	  mprint(LS(IDS_MSG_21955));
 	  break;
 	}
 	morewait();
@@ -233,7 +233,7 @@ struct monster *m;
 	m_status_reset(m,M_INVISIBLE);
       }
       else {
-	mprint("You alertly sense the presence of an attacker!");
+	mprint(LS(IDS_MSG_21956));
 	m_status_reset(m,M_INVISIBLE);
       }	
     }
@@ -285,7 +285,7 @@ struct monster *m;
   if (Player.rank[COLLEGE]) m_status_set(m,HOSTILE);
   if (m_statusp(m,HOSTILE))
     if (los_p(m->x,m->y,Player.x,Player.y)) {
-      mprint("A strange numbing sensation comes over you...");
+      mprint(LS(IDS_MSG_21957));
       morewait();
       Player.mana = Player.mana / 2;
       if (random_range(4)) enchant(-1);
@@ -294,7 +294,7 @@ struct monster *m;
       if (--Player.pow < 1) p_death("the Eater of Magic");
     }
   if (m->hp < 10) {
-    mprint("The Eater explodes in a burst of mana!");
+    mprint(LS(IDS_MSG_21958));
     manastorm(m->x,m->y,1000);
   }
 }
@@ -306,24 +306,24 @@ struct monster *m;
   if (m_statusp(m,HOSTILE)) {
     if (distance(m->x,m->y,Player.x,Player.y)<2) {
       if (! Player.status[IMMOBILE]) {
-	mprint("A gust of wind from the Dragonlord's wings knocks you down!");
+	mprint(LS(IDS_MSG_21959));
 	p_damage(25,NORMAL_DAMAGE,"a gust of wind");
 	setgamestatus(SKIP_PLAYER);
 	Player.status[IMMOBILE]+=2;
       }
       else if (! Constriction) {
-	mprint("The Dragonlord grabs you with his tail!");
+	mprint(LS(IDS_MSG_21960));
 	Constriction = 25;
 	Player.status[IMMOBILE]+=1;
       }
       else if (random_range(2)) {
-	mprint("The coils squeeze tighter and tighter...");
+	mprint(LS(IDS_MSG_21961));
 	p_damage(Constriction,NORMAL_DAMAGE,"the Dragonlord");
 	Player.status[IMMOBILE]+=1;
 	Constriction *=2;
       }
       else {
-	mprint("The dragonlord hurls you to the ground!");
+	mprint(LS(IDS_MSG_21962));
 	p_damage(2*Constriction,NORMAL_DAMAGE,"the Dragonlord");
 	Constriction = 0;
       }
@@ -333,7 +333,7 @@ struct monster *m;
       Constriction = 0;
       if (view_los_p(m->x,m->y,Player.x,Player.y)) {
 	if ((! Player.immunity[FEAR]) && (! Player.status[AFRAID])) {
-	  mprint("You are awestruck at the sight of the Dragonlord.");
+	  mprint(LS(IDS_MSG_21963));
 	  Player.status[AFRAID]+=5;
 	}
 	if (random_range(3)) {
@@ -344,7 +344,7 @@ struct monster *m;
     }
   }
   else if (distance(m->x,m->y,Player.x,Player.y)<2)
-    mprint("You are extremely impressed at the sight of the Dragonlord.");
+    mprint(LS(IDS_MSG_21964));
 }
 
 
@@ -353,13 +353,13 @@ struct monster *m;
 {
   if ((distance(m->x,m->y,Player.x,Player.y) < 4) &&
       (Player.status[BLINDED] == 0)) {
-    mprint("The fungus emits a burst of black spores. You've been blinded!");
-    if (Player.status[TRUESIGHT] > 0) mprint("The blindness quickly passes.");
+    mprint(LS(IDS_MSG_21965));
+    if (Player.status[TRUESIGHT] > 0) mprint(LS(IDS_MSG_21966));
     else Player.status[BLINDED]+=4;
   }
   if (loc_statusp(m->x,m->y,LIT)) {
-    mprint("The fungus chirps.... ");
-    mprint("The area is plunged into darkness.");
+    mprint(LS(IDS_MSG_21967));
+    mprint(LS(IDS_MSG_21968));
     torch_check();torch_check();torch_check();
     torch_check();torch_check();torch_check();
     spreadroomdark(m->x,m->y,Level->site[m->x][m->y].roomnumber);
@@ -374,14 +374,14 @@ struct monster *m;
   if (Player.status[IMMOBILE] && 
       (distance(Player.x,Player.y,m->x,m->y) < 2)) {
     if (! Player.status[AFRAID]) {
-      mprint("As the bogthing touches you, you feel a frisson of terror....");
-      if (Player.immunity[FEAR]) mprint("which you shake off.");
+      mprint(LS(IDS_MSG_21969));
+      if (Player.immunity[FEAR]) mprint(LS(IDS_MSG_21970));
       else Player.status[AFRAID]+=2;
     }
     else {
-      mprint("The bogthing's touch causes you scream in agony!");
+      mprint(LS(IDS_MSG_21971));
       p_damage(50,UNSTOPPABLE,"fright");
-      mprint("Your struggles grow steadily weaker....");
+      mprint(LS(IDS_MSG_21972));
       Player.con--;
       Player.str--;
       if ((Player.con < 3) || (Player.str < 3))
@@ -422,8 +422,8 @@ struct monster *m;
     m->corpsestr = salloc(Str2);
     m->immunity += pow2(NORMAL_DAMAGE);
     if (los_p(m->x,m->y,Player.x,Player.y)) 
-      mprint("You witness a hideous transformation!");
-    else mprint("You hear a distant howl.");
+      mprint(LS(IDS_MSG_21973));
+    else mprint(LS(IDS_MSG_21974));
   }
 }    
 
@@ -442,7 +442,7 @@ void m_sp_av(m)
 struct monster *m;
 {
   if (Player.mana > 0) {
-    mprint("You feel a sudden loss of mana!");
+    mprint(LS(IDS_MSG_21975));
     Player.mana -= (max(0,10-distance(m->x,m->y,Player.x,Player.y)));
     dataprint();
   }
@@ -486,7 +486,7 @@ struct monster *m;
   if (hostile)
     m_status_set(m,HOSTILE);
   if (m_statusp(m,HOSTILE)) {
-    mprint("The angel summons a heavenly host!");
+    mprint(LS(IDS_MSG_21976));
     switch(m->level) {
     case 9: mid = ML8+11; break; /* high angel */
     case 8: mid = ML6+11; break; /* angel */
@@ -508,8 +508,8 @@ struct monster *m;
 {
   if (random_range(5)==1) {
     if (view_los_p(m->x,m->y,Player.x,Player.y))
-      mprint("The swarm expands!");
-    else mprint("You hear an aggravating humming noise.");
+      mprint(LS(IDS_MSG_21977));
+    else mprint(LS(IDS_MSG_21978));
     summon(-1,ML4+14);
   }
 }
@@ -528,7 +528,7 @@ struct monster *m;
       if (inbounds(x,y)) 
 	if (Level->site[x][y].things != NULL)
 	  if (Level->site[x][y].things->thing->id == CORPSEID) {
-	    mprint("The Zombie Overlord makes a mystical gesture...");
+	    mprint(LS(IDS_MSG_21979));
 	    summon(-1,Level->site[x][y].things->thing->charge);
 	    t = Level->site[x][y].things;
 	    Level->site[x][y].things = Level->site[x][y].things->next;
@@ -543,11 +543,11 @@ void m_sp_mb(m)
 struct monster *m;
 {
   if (distance(m->x,m->y,Player.x,Player.y)==1) {
-    mprint("The manaburst explodes!");
+    mprint(LS(IDS_MSG_21980));
     if (m_statusp(m,HOSTILE)) {
-      mprint("You get blasted!");
+      mprint(LS(IDS_MSG_21981));
       p_damage(random_range(100),UNSTOPPABLE,"a manaburst");
-      mprint("You feel cold all over!");
+      mprint(LS(IDS_MSG_21982));
       Player.pow-=3;
       Player.iq--;
       Player.con--;
@@ -557,7 +557,7 @@ struct monster *m;
       dispel(-1);
     }
     else {
-      mprint("You feel toasty warm inside!");
+      mprint(LS(IDS_MSG_21983));
       Player.pow++;
       Player.mana = max(Player.mana,calcmana());
       Player.hp = max(Player.hp,++Player.maxhp);
@@ -574,7 +574,7 @@ struct monster *m;
   if (view_los_p(m->x,m->y,Player.x,Player.y)) {
     if (random_range(20)+6 < m->level) {
       summon(-1,m->id);
-      mprint("You hear the sound of a mirror shattering!");
+      mprint(LS(IDS_MSG_21984));
     }
     else for(i=0;i<5;i++) {
       x = m->x + random_range(13)-6;
@@ -613,7 +613,7 @@ struct monster *m;
   if (m_statusp(m,AWAKE) &&
       (! los_p(m->x,m->y,Player.x,Player.y)) &&
       (random_range(10) == 1))
-    mprint("The dungeon shakes!");
+    mprint(LS(IDS_MSG_21985));
 }
 
 
@@ -625,16 +625,16 @@ struct monster *m;
   if (random_range(3) == 1) {
     if (distance(Player.x,Player.y,m->x,m->y) < 2) {
       if (p_immune(THEFT) || (Player.level > (m->level*2)+random_range(20))) 
-	mprint("You feel secure.");
+	mprint(LS(IDS_MSG_21986));
       else {
 	if (i == ABORT)
-	  mprint("You feel fortunate.");
+	  mprint(LS(IDS_MSG_20085));
 	else if ((Player.possessions[i]->used) || 
 		 (Player.dex < m->level*random_range(10))) {
-	  mprint("You feel a sharp tug.... You hold on!");
+	  mprint(LS(IDS_MSG_21987));
 	}
 	else {
-	  mprint("You feel uneasy for a moment.");
+	  mprint(LS(IDS_MSG_21988));
 	  if (m->uniqueness == COMMON) {
 	    strcpy(Str2,"The ");
 	    strcat(Str2,m->monstring);
@@ -691,8 +691,8 @@ struct monster *m;
   pml ml;
   if (m_statusp(m,HOSTILE))
     if (Current_Environment == E_VILLAGE) {
-      mprint("The merchant screams: 'Help! Murder! Guards! Help!'");
-      mprint("You hear the sound of police whistles and running feet.");
+      mprint(LS(IDS_MSG_21989));
+      mprint(LS(IDS_MSG_21990));
       for (ml=Level->mlist;ml!=NULL;ml=ml->next) {
 	m_status_set(ml->m,AWAKE);
 	m_status_set(ml->m,HOSTILE);
@@ -708,7 +708,7 @@ struct monster *m;
 {
   pml ml;
   if (m_statusp(m,HOSTILE)) {
-    mprint("A storm of spells hits you!");
+    mprint(LS(IDS_MSG_21991));
     for(ml=Level->mlist;ml!=NULL;ml=ml->next) {
       m_status_set(ml->m,HOSTILE);
       m_sp_spell(ml->m);
@@ -725,8 +725,8 @@ struct monster *m;
 {
   pml ml;
   if (m_statusp(m,HOSTILE)) {
-    mprint("You notice a number of dragons waking up....");
-    mprint("You are struck by a quantity of firebolts.");
+    mprint(LS(IDS_MSG_21992));
+    mprint(LS(IDS_MSG_21993));
     morewait();
     for(ml=Level->mlist;ml!=NULL;ml=ml->next)
       if (ml->m->hp > 0 && ml->m->specialf == M_SP_LAIR) {
@@ -745,8 +745,8 @@ void m_sp_prime(m)
 struct monster *m;
 {
   if (m_statusp(m,HOSTILE)) {
-    mprint("The prime sorceror gestures and a pentacular gate opens!");
-    mprint("You are surrounded by demons!");
+    mprint(LS(IDS_MSG_21994));
+    mprint(LS(IDS_MSG_21995));
     summon(-1,ML9+7);
     summon(-1,ML9+7);
     summon(-1,ML9+7);

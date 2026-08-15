@@ -32,14 +32,14 @@ char *filestring,*optionstring;
   fd = fopen(filestring,optionstring);
   clearmsg();
   while (fd == NULL) {
-    print3("Warning! Error opening file:");
+    print3(LS(IDS_MSG_21029));
     nprint3(filestring);
-    print1(" Abort or Retry? [ar] ");
+    print1(LS(IDS_MSG_21030));
     do response = (char) mcigetc();
     while ((response != 'a') && (response != 'r'));
     if (response == 'r') fd = fopen(filestring,optionstring);
     else {
-      print2("Sorry 'bout that.... Saving character, then quitting.");
+      print2(LS(IDS_MSG_21031));
       morewait();
       save(optionp(COMPRESS_OPTION), TRUE);
       endgraf();
@@ -380,7 +380,7 @@ int behavior;
       Hilevel = Player.level;
       Hibehavior = behavior;
       save_hiscore_npc(0);
-      mprint("Yow! A new high score!");
+      mprint(LS(IDS_MSG_21032));
       morewait();
     }
     if (Player.alignment < Chaos) {
@@ -389,7 +389,7 @@ int behavior;
       Chaos = Player.alignment;
       Chaoslordbehavior = behavior;
       save_hiscore_npc(13);
-      mprint("Criminy! A new Lord of Chaos!");
+      mprint(LS(IDS_MSG_21033));
       morewait();
     }
     if (Player.alignment > Law) {
@@ -398,7 +398,7 @@ int behavior;
       Law = Player.alignment;
       Lawlordbehavior = behavior;
       save_hiscore_npc(14);
-      mprint("Gosh! A new Lord of Law!");
+      mprint(LS(IDS_MSG_21034));
       morewait();
     }
   }
@@ -633,10 +633,10 @@ char *srcstr;
   char buffer[STRING_LEN];
   FILE *in, *out;
 
-  print1("Enter name of file to create: ");
+  print1(LS(IDS_MSG_21035));
   strcpy(deststr,msgscanstring());
   if (strlen(deststr) == 0) {
-    print2("Aborting...");
+    print2(LS(IDS_MSG_21036));
     morewait();
     return;
   }
@@ -651,12 +651,12 @@ char *srcstr;
     fclose(in);
     return;
   }
-  print2("Copying file....");
+  print2(LS(IDS_MSG_21037));
   while (fgets(buffer, STRING_LEN, in))
     fputs(buffer, out);
   fclose(in);
   fclose(out);
   change_to_game_perms();
-  print3("Done.");
+  print3(LS(IDS_MSG_21038));
 }    
 

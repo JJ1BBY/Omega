@@ -165,6 +165,10 @@ copy 32x32.bmp $(OutDir)
   <ItemGroup>
     <ResourceCompile Include="WinOmega.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Strings.en.rc" />
+    <None Include="Strings.ja.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

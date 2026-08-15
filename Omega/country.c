@@ -130,7 +130,7 @@ int populate;
   FILE *fd;
 
   if (empty) {
-    mprint("The Lair is now devoid of inhabitants and treasure.");
+    mprint(LS(IDS_MSG_20701));
     morewait();
   }
 
@@ -259,7 +259,7 @@ int populate;
   FILE *fd;
 
   if (empty) {
-    mprint("The peak is now devoid of inhabitants and treasure.");
+    mprint(LS(IDS_MSG_20702));
     morewait();
   }
 
@@ -384,7 +384,7 @@ int populate;
   FILE *fd;
 
   if (empty) {
-    mprint("The isle is now devoid of inhabitants and treasure.");
+    mprint(LS(IDS_MSG_20703));
     morewait();
   }
 

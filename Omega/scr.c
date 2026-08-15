@@ -1422,7 +1422,7 @@ int x,y,roomno;
 void display_pack()
 {
   int i;
-  if (Player.packptr < 1) print3("Pack is empty.");
+  if (Player.packptr < 1) print3(LS(IDS_MSG_22220));
   else {
     menuclear();
     menuprint("Items in Pack:\n");

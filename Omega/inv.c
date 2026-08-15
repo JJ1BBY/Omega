@@ -22,8 +22,8 @@ void drop_money()
   money = detach_money();
   if (money != NULL) {
     if (Current_Environment == E_CITY) {
-      print1("As soon as the money leaves your hand,");
-      print2("a horde of scrofulous beggars snatch it up and are gone!");
+      print1(LS(IDS_MSG_21301));
+      print2(LS(IDS_MSG_21302));
     }
     else drop_at(Player.x,Player.y,money);
   }
@@ -54,10 +54,10 @@ long get_money(limit)
 long limit;
 {
   long c;
-  print1("How much? ");
+  print1(LS(IDS_MSG_21303));
   c = parsenum();
   if (c > limit) {
-    print3("Forget it, buddy.");
+    print3(LS(IDS_MSG_21304));
     return(ABORT);
   }
   else return(c);
@@ -83,9 +83,9 @@ int x,y;
   while (ol != NULL) {
     if (! quit) {
       clearmsg1();
-      print1("Pick up: ");
+      print1(LS(IDS_MSG_21305));
       nprint1(itemid(ol->thing));
-      nprint1(" [ynq]: ");
+      nprint1(LS(IDS_MSG_21306));
       response = ynq1();
       quit = (response == 'q');
     }
@@ -140,7 +140,7 @@ pob o;
       *(tmp->thing) = *o;
       tmp->thing->used = FALSE;
       tmp->thing->number = n;
-      print2("Dropped ");
+      print2(LS(IDS_MSG_21307));
       nprint2(itemid(tmp->thing));
       morewait();
       tmp->next = Level->site[x][y].things;
@@ -314,16 +314,16 @@ struct object *o;
   /* special case -- give gem to LawBringer */
   if ((m->id == ML10+2) && (o->id == ARTIFACTID+21)) {
     clearmsg();
-    print1("The LawBringer accepts the gem reverently.");
-    print2("He raises it above his head, where it bursts into lambent flame!");
+    print1(LS(IDS_MSG_21308));
+    print2(LS(IDS_MSG_21309));
     morewait();
-    print1("You are bathed in a shimmering golden light.");
-    print2("You feel embedded in an infinite matrix of ordered energy.");
+    print1(LS(IDS_MSG_21310));
+    print2(LS(IDS_MSG_21311));
     morewait();
     if (Imprisonment > 0)
       Imprisonment = 0;
     if (Player.rank[ORDER] == -1) {
-      print2("You have been forgiven. You feel like a Paladin....");
+      print2(LS(IDS_MSG_21312));
       Player.rank[ORDER] = 1;
     }
     Player.alignment += 200;
@@ -344,12 +344,12 @@ struct object *o;
       print1(Str3);
       Player.alignment++;
       if (m_statusp(m,GREEDY) && (true_item_value(o) < (long) m->level*100))
-      nprint1("...but does not appear satisfied.");
+      nprint1(LS(IDS_MSG_21313));
       else if (m_statusp(m,NEEDY) && 
 	       (true_item_value(o) < (long) Level->depth*Level->depth))
-	nprint1("...and looks chasteningly at you.");
+	nprint1(LS(IDS_MSG_21314));
       else {
-	nprint1("...and seems happy with it.");
+	nprint1(LS(IDS_MSG_21315));
 	m_status_reset(m,HOSTILE);
 	m_status_reset(m,GREEDY);
 	m_status_reset(m,NEEDY);
@@ -366,12 +366,12 @@ struct object *o;
 	m_status_reset(m,HOSTILE);
 	if  (o->usef == I_POISON_FOOD) {
 	  Player.alignment -= 2;
-	  nprint1("...and chokes on the poisoned ration!");
+	  nprint1(LS(IDS_MSG_21316));
 	  morewait();
 	  m_status_set(m,HOSTILE);
 	  m_damage(m,100,POISON);
 	}
-	else nprint1("...and now seems satiated.");
+	else nprint1(LS(IDS_MSG_21317));
 	morewait();
 	free((char *)o);
       }
@@ -500,13 +500,13 @@ short itype;
     invstr[k] = 0;
   }
   if (! found) {
-    print3("Nothing appropriate.");
+    print3(LS(IDS_MSG_21318));
     return(ABORT);
   }
   else {
-    print2("Select an item [");
+    print2(LS(IDS_MSG_21319));
     nprint2(invstr);
-    nprint2(",?] ");
+    nprint2(LS(IDS_MSG_21320));
     while (! ok) {
       index = (char) mcigetc();
       if (index == '?') {
@@ -524,12 +524,12 @@ short itype;
       else if (index == (CASH&0xff)) {
 	if (itype == CASH) ok = TRUE;
 	else {
-	  print3("You cannot select cash now.");
+	  print3(LS(IDS_MSG_21321));
 	  ok = FALSE;
 	}
       }
       else if (badobject(index) || (! strmem(index,invstr)))
-	print3("Nope! Try again [? for inventory, ESCAPE to quit]:");
+	print3(LS(IDS_MSG_21322));
       else ok = TRUE;
     }
     if (drewmenu) xredraw();
@@ -570,7 +570,7 @@ struct object *o;
   if (o->uniqueness == UNIQUE_MADE)
     Objects[o->id].uniqueness = UNIQUE_TAKEN;
   if (o->objchar == CASH) {
-    print2("You gained some cash.");
+    print2(LS(IDS_MSG_21323));
     Player.cash += o->basevalue;
     free((char *)o);
     dataprint();
@@ -593,12 +593,12 @@ void add_to_pack(o)
 pob o;
 {
   if (Player.packptr >= MAXPACK) {
-    print3("Your pack is full. The item drops to the ground.");
+    print3(LS(IDS_MSG_21324));
     drop_at(Player.x,Player.y,o);
   }
   else {
     Player.pack[Player.packptr++] = o;
-    print3("Putting item in pack.");
+    print3(LS(IDS_MSG_21325));
   }
 }
 
@@ -608,13 +608,13 @@ int get_to_pack(o)
 pob o;
 {
   if (Player.packptr >= MAXPACK) {
-    print3("Your pack is full.");
+    print3(LS(IDS_MSG_21326));
     morewait();
     return(FALSE);
   }
   else {
     Player.pack[Player.packptr++] = o;
-    print3("Putting item in pack.");
+    print3(LS(IDS_MSG_21325));
     return(TRUE);
   }
 }
@@ -632,13 +632,13 @@ int slot,display;
   if (Player.possessions[slot] != NULL) 
     slot = O_UP_IN_AIR;
   if (Player.possessions[slot] != NULL) 
-    print3("slot is not empty!");
+    print3(LS(IDS_MSG_21327));
   else if (Player.packptr == 0)
-    print3("Pack is empty!");
+    print3(LS(IDS_MSG_21328));
   else {
     do {
       ok = TRUE;
-      print1("Enter pack slot letter, or ? to show pack, or ESCAPE to quit.");
+      print1(LS(IDS_MSG_21329));
       response = mgetc();
       if (response == '?') {
 	display_pack();
@@ -653,16 +653,16 @@ int slot,display;
     } while (! ok);
     if (! quit) {
       if (response - 'A' > 10) {
-	print1("You begin to rummage through your pack.");
+	print1(LS(IDS_MSG_21330));
 	morewait();
 	Command_Duration += 10;
       }
       if (response - 'A' > 5) {
-	print1("You search your pack for the item.");
+	print1(LS(IDS_MSG_21331));
 	Command_Duration += 5;
 	morewait();
       }
-      print1("You take the item from your pack.");
+      print1(LS(IDS_MSG_21332));
       morewait();
       Command_Duration += 2;
       item = Player.possessions[slot] = Player.pack[response-'A'];
@@ -732,7 +732,7 @@ void inventory_control()
 #endif
   clearmsg3();
   checkclear();
-  print1("Action [d,e,l,p,s,t,x,>,<,?,ESCAPE]:");
+  print1(LS(IDS_MSG_21333));
   show_inventory_slot(slot,FALSE);
   display_inventory_slot(O_UP_IN_AIR,FALSE);
   do {
@@ -755,7 +755,7 @@ void inventory_control()
 	drop_from_slot(slot);
 	show_inventory_slot(slot, FALSE);
       }
-      else print3("Nothing in selected slot!");
+      else print3(LS(IDS_MSG_21334));
       Command_Duration++;
       break; 
     case 'l':
@@ -763,7 +763,7 @@ void inventory_control()
       if (Player.possessions[slot] != NULL) {
 	if (!strcmp(itemid(Player.possessions[slot]),
 	  Player.possessions[slot]->objstr))
-	  print3("You notice nothing new about it.");
+	  print3(LS(IDS_MSG_21335));
 	else {
 	  if (Player.possessions[slot]->uniqueness == COMMON)
 	    strcat(Str1, "Your ");
@@ -784,7 +784,7 @@ void inventory_control()
 	  print3(Str1);
 	}
       }
-      else print3("Nothing in selected slot!");
+      else print3(LS(IDS_MSG_21334));
       break;
     case 'p': 
       if (Player.possessions[slot] != NULL) 
@@ -858,7 +858,7 @@ void inventory_control()
       menuprint("ESCAPE:\texit\n");
       showmenu();
       clearmsg();
-      print1("Display full help? (y/n)");
+      print1(LS(IDS_MSG_21336));
       if (ynq1() == 'y')
 	  inv_help();
       display_possessions();
@@ -867,7 +867,7 @@ void inventory_control()
       if (Player.possessions[O_UP_IN_AIR] != NULL) {
 	drop_at(Player.x,Player.y,Player.possessions[O_UP_IN_AIR]);
 	Player.possessions[O_UP_IN_AIR] = NULL;
-	print3("Object 'up in air' dropped.");
+	print3(LS(IDS_MSG_21337));
       }
       done = TRUE;
       break;
@@ -900,9 +900,9 @@ void top_inventory_control()
   clearmsg3();
   do {
     clearmsg1();
-    print1("Action [d,e,l,p,s,t,x,~,?,ESCAPE]:");
-    print2("'Up in air': ");
-    if (Player.possessions[O_UP_IN_AIR] == NULL) nprint2("NOTHING");
+    print1(LS(IDS_MSG_21338));
+    print2(LS(IDS_MSG_21339));
+    if (Player.possessions[O_UP_IN_AIR] == NULL) nprint2(LS(IDS_MSG_21340));
     else nprint2(itemid(Player.possessions[O_UP_IN_AIR]));
     response = (char) mcigetc();
 
@@ -914,7 +914,7 @@ void top_inventory_control()
 	slot = get_inventory_slot();
 	if (Player.possessions[slot] != NULL) 
 	  drop_from_slot(slot);
-	else print3("Nothing in selected slot!");
+	else print3(LS(IDS_MSG_21334));
       }
       Command_Duration++;
       break; 
@@ -924,7 +924,7 @@ void top_inventory_control()
       if (Player.possessions[slot] != NULL) {
 	if (!strcmp(itemid(Player.possessions[slot]),
 	  Player.possessions[slot]->objstr))
-	  print3("You notice nothing new about it.");
+	  print3(LS(IDS_MSG_21335));
 	else {
 	  if (Player.possessions[slot]->uniqueness == COMMON)
 	    strcat(Str1, "Your ");
@@ -945,7 +945,7 @@ void top_inventory_control()
 	  print3(Str1);
 	}
       }
-      else print3("Nothing in selected slot!");
+      else print3(LS(IDS_MSG_21334));
       break;
     case 'p': 
       if (Player.possessions[O_UP_IN_AIR] == NULL)
@@ -995,7 +995,7 @@ void top_inventory_control()
       menuprint("ESCAPE:\texit\n");
       showmenu();
       clearmsg();
-      print1("Display full help? (y/n)");
+      print1(LS(IDS_MSG_21336));
       if (ynq1() == 'y')
 	  inv_help();
       usedmenu=TRUE;
@@ -1004,7 +1004,7 @@ void top_inventory_control()
       if (Player.possessions[O_UP_IN_AIR] != NULL) {
 	drop_at(Player.x,Player.y,Player.possessions[O_UP_IN_AIR]);
 	Player.possessions[O_UP_IN_AIR] = NULL;
-	print3("Object 'up in air' dropped.");
+	print3(LS(IDS_MSG_21337));
       }
       done = TRUE;
       break;
@@ -1025,7 +1025,7 @@ int get_inventory_slot()
   char response;
   do {
     clearmsg1();
-    print1("Which inventory slot [a..o,*='up-in-air' slot]?");
+    print1(LS(IDS_MSG_21341));
     response = (char) mcigetc(); 
     ok = ((response == '*') ||
 	  ((response >= 'a') && (response < 'a' + MAXITEMS - 1)));
@@ -1044,11 +1044,11 @@ pob o;
     return 1;
   do {
     clearmsg();
-    print1("How many? -- max ");
+    print1(LS(IDS_MSG_21342));
     mnumprint(o->number);
-    nprint1(" :");
+    nprint1(LS(IDS_MSG_21343));
     n = (int) parsenum();
-    if (n>o->number) print3("Too many!");
+    if (n>o->number) print3(LS(IDS_MSG_21344));
     else if (n<1) n = 0;
   } while (n > o->number);
   if (n < 1) n = 0;
@@ -1061,7 +1061,7 @@ int slot;
   int n,waitflag;
   if (Player.possessions[slot] != NULL) {
     if(cursed(Player.possessions[slot]) == TRUE + TRUE)
-      print3("It sticks to your fingers!");
+      print3(LS(IDS_MSG_21345));
     else {
       n = get_item_number(Player.possessions[slot]);
       if (n > 0) {
@@ -1071,10 +1071,10 @@ int slot;
 	conform_lost_objects(n,Player.possessions[slot]);
 	if (waitflag) morewait();
       }
-      else print3("Didn't drop anything.");
+      else print3(LS(IDS_MSG_21346));
     }
   }
-  else print3("Didn't drop anything.");
+  else print3(LS(IDS_MSG_21346));
 }
 
 
@@ -1084,9 +1084,9 @@ int slot;
   int waitflag,num = 1;
   pob temp,oslot = Player.possessions[slot];
   if (oslot == NULL) 
-    print3("Slot is empty!");
+    print3(LS(IDS_MSG_21347));
   else if (cursed(oslot) == TRUE+TRUE)
-    print3("Item is cursed!");
+    print3(LS(IDS_MSG_21348));
   else {
     num = get_item_number(oslot);
     if (num > 0) {
@@ -1137,9 +1137,9 @@ int slot;
 
   /* ie, is cursed and in use */
   if (slot == O_UP_IN_AIR)
-    print3("This action makes no sense!");
+    print3(LS(IDS_MSG_21349));
   else if (cursed(oslot)==TRUE+TRUE)
-    print3("The object in that slot is cursed -- you can't get rid of it!");
+    print3(LS(IDS_MSG_21350));
   else {
 
     slotnull = (oslot == NULL); 
@@ -1281,31 +1281,31 @@ int slot;
   if (o == NULL) ok = FALSE;
   else if (slot == O_ARMOR) {
     if (o->objchar != ARMOR) {
-      print3("Only armor can go in the armor slot!");
+      print3(LS(IDS_MSG_21351));
       ok = FALSE;
     }
   }
   else if (slot == O_SHIELD) {
     if (o->objchar != SHIELD) {
-      print3("Only a shield can go in the shield slot!");
+      print3(LS(IDS_MSG_21352));
       ok = FALSE;
     }
   }
   else if (slot == O_BOOTS) {
     if (o->objchar != BOOTS) {
-      print3("Only boots can go in the boots slot!");
+      print3(LS(IDS_MSG_21353));
       ok = FALSE;
     }
   }
   else if (slot == O_CLOAK) {
     if (o->objchar != CLOAK) {
-      print3("Only a cloak can go in the cloak slot!");
+      print3(LS(IDS_MSG_21354));
       ok = FALSE;
     }
   }
   else if (slot >= O_RING1) {
     if (o->objchar != RING) {
-      print3("Only a ring can go in a ring slot!");
+      print3(LS(IDS_MSG_21355));
       ok = FALSE;
     }
   }
@@ -1339,13 +1339,13 @@ int slot;
 	((slot==O_READY_HAND)||(slot==O_WEAPON_HAND))) {
       if (Player.possessions[O_READY_HAND] == 
 	  Player.possessions[O_WEAPON_HAND]) {
-	print1("You heft the weapon and find you must use both hands.");
+	print1(LS(IDS_MSG_21356));
 	morewait();
 	return(TRUE);
       }
       else {
-	print1("This weapon is two-handed, so at the moment, ");
-	print2("you are just lugging it around....");
+	print1(LS(IDS_MSG_21357));
+	print2(LS(IDS_MSG_21358));
 	morewait();
 	return(FALSE);
       }	
@@ -1448,7 +1448,7 @@ int id,chargeval;
 void lose_all_items()
 {
   int i;
-  print1("You notice that you are completely devoid of all possessions.");
+  print1(LS(IDS_MSG_21359));
   morewait();
   for(i=0;i<MAXITEMS;i++)
     if (Player.possessions[i] != NULL) {
@@ -1477,16 +1477,16 @@ pob item;
   extra->used = FALSE;
   item->number = 1;
   if (Player.packptr < MAXPACK) {
-    print3("Putting extra items back in pack.");
+    print3(LS(IDS_MSG_21360));
     morewait();
     Player.pack[Player.packptr++] = extra;
   }
   else if (Player.possessions[O_UP_IN_AIR] == NULL) {
-    print3("Extra copies of item are 'up in the air'");
+    print3(LS(IDS_MSG_21361));
     Player.possessions[O_UP_IN_AIR] = extra;
   }
   else {
-    print3("No room for extra copies of item -- dropping them.");
+    print3(LS(IDS_MSG_21362));
     drop_at(Player.x,Player.y,extra);
   }
   calc_melee();

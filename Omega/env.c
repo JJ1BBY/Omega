@@ -70,7 +70,7 @@ void load_arena()
   Level->mlist->m = Arena_Monster;
   Level->mlist->next = NULL;
   /* hehehehe cackled the dungeon master.... */
-  print2("Your opponent holds the only way you can leave!");
+  print2(LS(IDS_MSG_20926));
   Arena_Monster->hp += Arena_Monster->level*10;
   Arena_Monster->hit += Arena_Monster->hit;
   Arena_Monster->dmg += Arena_Monster->dmg/2;

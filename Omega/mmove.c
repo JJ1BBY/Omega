@@ -278,10 +278,10 @@ struct monster *m;
       /* otherwise, we'd lose either the dog or the other monster. */
     }
     else if (los_p(Player.x,Player.y,m->x,m->y)) {
-      mprint("You see the dog jerked back by its chain!");
+      mprint(LS(IDS_MSG_21601));
       plotspot(m->x, m->y, FALSE);
     }
-    else mprint("You hear a strangled sort of yelp!");
+    else mprint(LS(IDS_MSG_21602));
     Level->site[m->x][m->y].creature = NULL;
     m->x = m->aux1;
     m->y = m->aux2;

@@ -55,12 +55,12 @@ struct monster *m;
     strcat(Str2," gazes at you menacingly");
     mprint(Str2);
     if (! p_immune(GAZE)) {
-      mprint("You've been blinded!");
+      mprint(LS(IDS_MSG_20875));
       Player.status[BLINDED] = random_range(4)+1;
       for(ml=Level->mlist;ml!=NULL;ml=ml->next) 
 	plotspot(ml->m->x,ml->m->y,FALSE);
     }
-    else mprint("You gaze steadily back....");
+    else mprint(LS(IDS_MSG_21996));
   }
 }
 

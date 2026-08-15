@@ -115,7 +115,7 @@ char fromlevel,tolevel,rewrite_level;
       case 2: maze_level(); break;
       }
       break;
-    default: print3("This dungeon not implemented!"); break;
+    default: print3(LS(IDS_MSG_21039)); break;
     }
     install_traps();
     install_specials();

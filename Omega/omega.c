@@ -294,9 +294,9 @@ char *argv[];
     strcpy(Password,"");
     initplayer();
     init_world();
-    mprint("'?' for help or commandlist, 'Q' to quit.");
+    mprint(LS(IDS_MSG_22107));
   }
-  else mprint("Your adventure continues....");
+  else mprint(LS(IDS_MSG_22108));
 
   timeprint();
   calc_melee();
@@ -326,13 +326,13 @@ char *argv[];
 void signalexit()
 {
   clearmsg();
-  mprint("Yikes!");
+  mprint(LS(IDS_MSG_22109));
   morewait();
-  mprint("Sorry, caught a core-dump signal.");
-  mprint("Want to try and save the game?");
+  mprint(LS(IDS_MSG_22110));
+  mprint(LS(IDS_MSG_22111));
   if (ynq()=='y')
     save(FALSE, TRUE); /* don't compress, force save */
-  mprint("Bye!");
+  mprint(LS(IDS_MSG_20507));
   endgraf();
   exit(0);
 }
@@ -359,7 +359,7 @@ void init_world()
   Player.y = 21;
   Level = City;
   Current_Environment = E_CITY;
-  print1("You pass through the massive gates of Rampart, the city.");  
+  print1(LS(IDS_MSG_20143));  
 }
 
 /* set variable item names */

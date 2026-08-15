@@ -15,7 +15,7 @@ int dtype;
   }
   else strcpy(Str3,m->monstring);
   if ((Player.status[DISPLACED] > 0) && (random_range(2) == 1))
-    mprint("The attack was displaced!");
+    mprint(LS(IDS_MSG_21592));
   else  p_damage(random_range(m->dmg),dtype,Str3);
 }
 
@@ -58,7 +58,7 @@ char hitloc;
 int bonus;
 {
   if (player_on_sanctuary())
-    print1("The aegis of your deity protects you!");
+    print1(LS(IDS_MSG_21593));
   else {
     /* It's lawful to wait to be attacked */
     if (m->attacked==0) Player.alignment++;
@@ -111,7 +111,7 @@ int bonus;
 	mprint(Str2);
 	m_hit(m,NORMAL_DAMAGE);
 	if (random_range(10) < m->level) {
-	  mprint("You've been poisoned!");
+	  mprint(LS(IDS_MSG_21594));
 	  p_poison(m->dmg);
 	}
 	break;
@@ -132,7 +132,7 @@ int bonus;
 	mprint(Str2);
 	m_hit(m,NORMAL_DAMAGE);
 	if (random_range(10) < m->level) {
-	  mprint("You've been infected!");
+	  mprint(LS(IDS_MSG_21595));
 	  disease(m->level);
 	}
 	break;
@@ -141,7 +141,7 @@ int bonus;
 	mprint(Str2);
 	m_hit(m,NORMAL_DAMAGE);
 	if (random_range(10) < m->level) {
-	  mprint("You feel drowsy");
+	  mprint(LS(IDS_MSG_21596));
 	  sleep_player(m->level);
 	}
 	break;
@@ -205,14 +205,14 @@ int bonus;
   if (! blocks) goodblocks = -1;
   hit = hitp(m->hit+bonus,Player.defense+goodblocks*10);
   if ((! hit) && (goodblocks > 0)) {
-    if (Verbosity == VERBOSE) mprint("You blocked it!");
+    if (Verbosity == VERBOSE) mprint(LS(IDS_MSG_21597));
     if (riposte) {
-      if (Verbosity != TERSE) mprint("You got a riposte!");
+      if (Verbosity != TERSE) mprint(LS(IDS_MSG_21598));
       if (hitp(Player.hit,m->ac)) {
-	mprint("You hit!");
+	mprint(LS(IDS_MSG_21599));
 	weapon_use(0,Player.possessions[O_WEAPON_HAND],m);
       }
-      else mprint("You missed.");
+      else mprint(LS(IDS_MSG_21600));
     }
   }
   return(hit);

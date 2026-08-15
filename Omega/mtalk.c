@@ -13,17 +13,17 @@ struct monster *m;
   pml curr;
 
   if (! m_statusp(m,HOSTILE)) {
-    print1("The Archdruid raises a hand in greeting.");
+    print1(LS(IDS_MSG_21997));
     if (! gamestatusp(SPOKE_TO_DRUID)) {
       setgamestatus(SPOKE_TO_DRUID);
       morewait();
-      print1("The Archdruid congratulates you on reaching his sanctum.");
-      print2("You feel competent.");
+      print1(LS(IDS_MSG_21998));
+      print2(LS(IDS_MSG_21999));
       morewait();
       gain_experience(300);
       if (Player.patron == DRUID) {
-	print1("The Archdruid conveys to you the wisdom of nature....");
-	print2("You feel like a sage.");
+	print1(LS(IDS_MSG_22000));
+	print2(LS(IDS_MSG_22001));
 	morewait();
 	for(i=0;i<NUMRANKS;i++) {
 	  if (Player.guildxp[i] > 0)
@@ -31,17 +31,17 @@ struct monster *m;
 	}
       }
     }
-    mprint("Do you request a ritual of neutralization? [yn] ");
+    mprint(LS(IDS_MSG_22002));
     if (ynq() == 'y') {
       if (Phase/2 == 6 || Phase/2 == 0) {	/* full or new moon */
-	mprint("\"Unfortunately, I cannot perform a ritual of balance on");
+	mprint(LS(IDS_MSG_22003));
 	if (Phase/2 == 6)
-	  mprint("this lawful day.\"");
+	  mprint(LS(IDS_MSG_22004));
 	else
-	  mprint("this chaotic day.\"");
+	  mprint(LS(IDS_MSG_22005));
       }
       else if (Phase/2 == 3 || Phase/2 == 9) {	/* half moon */
-	mprint("You take part in today's holy celebration of balance...");
+	mprint(LS(IDS_MSG_22006));
 	Player.alignment = 0;
 	Player.mana = calcmana();
 	if (Player.patron == DRUID)
@@ -60,7 +60,7 @@ struct monster *m;
 	hourly_check();
       }
       else {
-	mprint("The ArchDruid conducts a sacred rite of balance...");
+	mprint(LS(IDS_MSG_22007));
 	if (Player.patron == DRUID) {
 	  Player.alignment = 0;
 	  Player.mana = calcmana();
@@ -75,18 +75,18 @@ struct monster *m;
     }
   }
   else {
-    mprint("The ArchDruid looks at you and cries: 'Unclean! Unclean!'");
+    mprint(LS(IDS_MSG_22008));
     disrupt(Player.x,Player.y,100);
-    mprint("This seems to have satiated his desire for vengeance.");
-    mprint("'Have you learned your lesson?' The ArchDruid asks. [yn] ");
+    mprint(LS(IDS_MSG_22009));
+    mprint(LS(IDS_MSG_22010));
     if (ynq()) {
-      mprint("'I certainly hope so!' says the ArchDruid.");
+      mprint(LS(IDS_MSG_22011));
       for (curr = Level->mlist; curr; curr = curr->next)
 	m_status_reset(curr->m, HOSTILE);
       m_vanish(m);
     }
     else {
-      mprint("'Idiot.' mutters the ArchDruid.");
+      mprint(LS(IDS_MSG_22012));
       p_damage(500,UNSTOPPABLE,"the ArchDruid's Vengeance");
     }
   }
@@ -175,39 +175,39 @@ void m_talk_guard(m)
 struct monster *m;
 {
   if (m_statusp(m,HOSTILE)) {
-    print1("'Surrender in the name of the Law!'");
-    print2("Do it? [yn] ");
+    print1(LS(IDS_MSG_22013));
+    print2(LS(IDS_MSG_22014));
     if (ynq2()=='y') {
       Player.alignment++;
       if (Current_Environment == E_CITY) {
-	print1("Go directly to jail. Do not pass go, do not collect 200Au.");
-	print2("You are taken to the city gaol.");
+	print1(LS(IDS_MSG_22015));
+	print2(LS(IDS_MSG_22016));
 	morewait();
 	send_to_jail();
 	drawvision(Player.x,Player.y);
       }
       else {
 	clearmsg();
-	print1("Mollified, the guard disarms you and sends you away.");
+	print1(LS(IDS_MSG_22017));
 	dispose_lost_objects(1,Player.possessions[O_WEAPON_HAND]);
 	pacify_guards();
       }
     }
     else {
       clearmsg();
-      print1("All right, you criminal scum, you asked for it!");
+      print1(LS(IDS_MSG_22018));
     }
   }
   else if (Player.rank[ORDER]>0) 
-    print1("'Greetings comrade! May you always tread the paths of Law.'");
-  else print1("Move it right along, stranger!");
+    print1(LS(IDS_MSG_22019));
+  else print1(LS(IDS_MSG_22020));
 }
 
 
 void m_talk_mp(m)
 struct monster *m;
 {
-  mprint("The mendicant priest asks you to spare some treasure for the needy");
+  mprint(LS(IDS_MSG_22021));
 }
 
 
@@ -228,8 +228,8 @@ struct monster *m;
 void m_talk_ninja(m)
 struct monster *m;
 {
-  mprint("The black-garbed figure says apologetically:");
-  mprint("'Situree simasita, wakarimasen.'");
+  mprint(LS(IDS_MSG_22022));
+  mprint(LS(IDS_MSG_22023));
 }
 
 
@@ -242,9 +242,9 @@ struct monster *m;
     if (m->level == 2) 
       m->monstring = "sneak thief";
     else m->monstring = "master thief";
-    print1("The cloaked figure makes a gesture which you recognize...");
-    print2("...the thieves' guild recognition signal!");
-    print3("'Sorry, mate, thought you were a mark....'");
+    print1(LS(IDS_MSG_22024));
+    print2(LS(IDS_MSG_22025));
+    print3(LS(IDS_MSG_22026));
     morewait();
     m_vanish(m);
   }
@@ -258,8 +258,8 @@ void m_talk_assassin(m)
 struct monster *m;
 {
   m->monstring = "master assassin";
-  print1("The ominous figure does not reply, but hands you an embossed card:");
-  print2("'Guild of Assassins Ops are forbidden to converse with targets.'");
+  print1(LS(IDS_MSG_22027));
+  print2(LS(IDS_MSG_22028));
 }
     
 
@@ -270,34 +270,34 @@ struct monster *m;
     m->monstring = "itinerant merchant";
   }
   if (m->possessions == NULL)
-    mprint("The merchant says: Alas! I have nothing to sell!");
+    mprint(LS(IDS_MSG_22029));
   else {
     m->possessions->thing->known = 2;
     clearmsg();
-    mprint("I have a fine");
+    mprint(LS(IDS_MSG_22030));
     mprint(itemid(m->possessions->thing));
-    mprint("for only");
+    mprint(LS(IDS_MSG_22031));
     mlongprint(max(10,4*true_item_value(m->possessions->thing)));
-    mprint("Au.");
-    mprint("Want it? [yn] ");
+    mprint(LS(IDS_MSG_21143));
+    mprint(LS(IDS_MSG_22032));
     if (ynq()=='y') {
       if (Player.cash < (max(10,4*true_item_value(m->possessions->thing)))) {
 	if (Player.alignment > 10) {
-	  mprint("Well, I'll let you have it for what you've got.");
+	  mprint(LS(IDS_MSG_22033));
 	  Player.cash = 0;
 	  gain_item(m->possessions->thing);
 	  m->possessions = NULL;
 	}
-	else mprint("Beat it, you deadbeat!");
+	else mprint(LS(IDS_MSG_22034));
       }
       else {
-	mprint("Here you are. Have a good day.");
+	mprint(LS(IDS_MSG_22035));
 	Player.cash -= max(10,(4*item_value(m->possessions->thing)));
 	gain_item(m->possessions->thing);
 	m->possessions = NULL;
       }
     }
-    else mprint("Well then, I must be off. Good day.");
+    else mprint(LS(IDS_MSG_22036));
     m_vanish(m);
   }
 }
@@ -377,14 +377,14 @@ struct monster *m;
 void m_talk_slithy(m)
 struct monster *m;
 {
-  mprint("It can't talk -- it's too slithy!");
+  mprint(LS(IDS_MSG_22037));
 }
 
 
 void m_talk_mimsy(m)
 struct monster *m;
 {
-  mprint("It can't talk -- it's too mimsy!");
+  mprint(LS(IDS_MSG_22038));
 }
 
 
@@ -441,33 +441,33 @@ struct monster *m;
 void m_talk_gf(m)
 struct monster *m;
 {
-  mprint("The good fairy glints: Would you like a wish?");
+  mprint(LS(IDS_MSG_22039));
   if (ynq()=='y') {
-    mprint("The good fairy glows: Are you sure?");
+    mprint(LS(IDS_MSG_22040));
     if (ynq()=='y') {
-      mprint("The good fairy radiates: Really really sure?");
+      mprint(LS(IDS_MSG_22041));
       if (ynq()=='y') {
-	mprint("The good fairy beams: I mean, like, sure as sure can be?");
+	mprint(LS(IDS_MSG_22042));
 	if (ynq()=='y') {
-	  mprint("The good fairy dazzles: You don't want a wish, right?");
-	  if (ynq()=='y') mprint("The good fairy laughs: I thought not.");
+	  mprint(LS(IDS_MSG_22043));
+	  if (ynq()=='y') mprint(LS(IDS_MSG_22044));
 	  else wish(0);
 	}
       }
     }
   }
-  mprint("In a flash of sweet-smelling light, the fairy vanishes....");
+  mprint(LS(IDS_MSG_22045));
   Player.hp = max(Player.hp,Player.maxhp);
   Player.mana = max(Player.mana,calcmana());
-  mprint("You feel mellow.");
+  mprint(LS(IDS_MSG_22046));
   m_vanish(m);
 }
 
 void m_talk_ef(m)
 struct monster *m;
 {
-  mprint("The evil fairy roils: Eat my pixie dust!");
-  mprint("She waves her black-glowing wand, which screams thinly....");
+  mprint(LS(IDS_MSG_22047));
+  mprint(LS(IDS_MSG_22048));
   m->movef=M_MOVE_SMART;
   m->meleef=M_MELEE_POISON;
   m->specialf=M_SP_THIEF;
@@ -498,9 +498,9 @@ struct monster *m;
   {
     strcat(Str2," beckons seductively...");
     mprint(Str2);
-    mprint("Flee? [yn] ");
+    mprint(LS(IDS_MSG_22049));
     if (ynq()=='y') {
-      mprint("You feel stupid.");
+      mprint(LS(IDS_MSG_20752));
     }
     else {
       strcpy(Str2,"The ");
@@ -533,9 +533,9 @@ struct monster *m;
   {
     strcat(Str2," beckons seductively...");
     mprint(Str2);
-    mprint("Flee? [yn] ");
+    mprint(LS(IDS_MSG_22049));
     if (ynq()=='y') 
-      mprint("You feel fortunate....");
+      mprint(LS(IDS_MSG_22050));
     else {
       if (m->uniqueness == COMMON) {
 	strcpy(Str2,"The ");
@@ -545,7 +545,7 @@ struct monster *m;
       strcat(Str2," shows you a good time....");
       mprint(Str2);
       morewait();
-      mprint("You feel your life energies draining...");
+      mprint(LS(IDS_MSG_22051));
       level_drain(random_range(3)+1,"a demon's kiss");
       morewait();
     }
@@ -569,7 +569,7 @@ struct monster *m;
   else strcpy(Str2,m->monstring);
   strcat(Str2," laughs insanely.");
   mprint(Str2);
-  mprint("You now notice the fangs, claws, batwings...");
+  mprint(LS(IDS_MSG_22052));
 }
 
 
@@ -577,22 +577,22 @@ void m_talk_horse(m)
 struct monster *m;
 {
   if (m_statusp(m,HOSTILE)) 
-    mprint("The horse neighs angrily at you.");
+    mprint(LS(IDS_MSG_22053));
   else if (m_statusp(m,HUNGRY))
-    mprint("The horse noses curiously at your pack.");
+    mprint(LS(IDS_MSG_22054));
   else if (gamestatusp(MOUNTED))
-    mprint("The horse and your steed don't seem to get along.");
+    mprint(LS(IDS_MSG_22055));
   else if (Current_Environment == Current_Dungeon)
-    mprint("The horse shies; maybe he doesn't like the dungeon air....");
+    mprint(LS(IDS_MSG_22056));
   else {
-    mprint("The horse lets you pat his nose. Want to ride him? [yn] ");
+    mprint(LS(IDS_MSG_22057));
     if (ynq()=='y') {
       m->hp = -1;
       Level->site[m->x][m->y].creature = NULL;
       putspot(m->x,m->y,getspot(m->x,m->y,FALSE));
       setgamestatus(MOUNTED);
       calc_melee();
-      mprint("You are now equitating!");
+      mprint(LS(IDS_MSG_22058));
     }
   }
 }
@@ -600,13 +600,13 @@ struct monster *m;
 void m_talk_hyena(m)
 struct monster *m;
 {
-  mprint("The hyena only laughs at you...");
+  mprint(LS(IDS_MSG_22059));
 }
 
 void m_talk_parrot(m)
 struct monster *m;
 {
-  mprint("Polly wanna cracker?");
+  mprint(LS(IDS_MSG_22060));
 }
 
 
@@ -616,23 +616,23 @@ struct monster *m;
   int target,x=Player.x,y=Player.y;
   if (m->id == ML4+12) {
     target = ML4+13;
-    mprint("The Servant of Law pauses in thought for a moment.");
-    mprint("You are asked: Are there any Servants of Chaos hereabouts? [yn] ");
+    mprint(LS(IDS_MSG_22061));
+    mprint(LS(IDS_MSG_22062));
   }
   else {
     target = ML4+12;
-    mprint("The Servant of Chaos grins mischievously at you.");
-    mprint("You are asked: Are there any Servants of Law hereabouts? [yn] ");
+    mprint(LS(IDS_MSG_22063));
+    mprint(LS(IDS_MSG_22064));
   }
   if (ynq()=='y') {
-    print1("Show me.");
+    print1(LS(IDS_MSG_22065));
     show_screen();
     drawmonsters(TRUE);
     setspot(&x,&y);
     if (Level->site[x][y].creature != NULL) {
       if (Level->site[x][y].creature->id == target) {
-	mprint("The Servant launches itself towards its enemy.");
-	mprint("In a blaze of combat, the Servants annihilate each other!");
+	mprint(LS(IDS_MSG_22066));
+	mprint(LS(IDS_MSG_22067));
 	gain_experience(m->xpv);
 	m_death(Level->site[x][y].creature);
 	Level->site[m->x][m->y].creature = NULL;
@@ -641,11 +641,11 @@ struct monster *m;
 	Level->site[x][y].creature = m;
 	m_death(Level->site[x][y].creature);
       }
-      else mprint("Right. Tell me about it. Idiot!");
+      else mprint(LS(IDS_MSG_22068));
     }
-    else mprint("Right. Tell me about it. Idiot!");
+    else mprint(LS(IDS_MSG_22068));
   }
-  else mprint("The servant shrugs and turns away.");
+  else mprint(LS(IDS_MSG_22069));
 }
 
 
@@ -658,21 +658,21 @@ struct monster *m;
   }
   else strcpy(Str2,m->monstring);
   mprint(Str2);
-  mprint("shows you a scholarly paper by Dolittle, D. Vet.");
-  mprint("which demonstrates that animals don't have speech centers");
-  mprint("complex enough to communicate in higher languages.");
-  mprint("It giggles softly to itself and takes back the paper.");
+  mprint(LS(IDS_MSG_22070));
+  mprint(LS(IDS_MSG_22071));
+  mprint(LS(IDS_MSG_22072));
+  mprint(LS(IDS_MSG_22073));
 }
 
 
 void m_talk_scream(m)
 struct monster *m;
 {
-  mprint("A thinly echoing scream reaches your ears....");
+  mprint(LS(IDS_MSG_22074));
   morewait();
-  mprint("You feel doomed....");
+  mprint(LS(IDS_MSG_22075));
   morewait();
-  mprint("A bird appears and flies three times widdershins around your head.");
+  mprint(LS(IDS_MSG_22076));
   summon(-1,QUAIL);
   m->talkf = M_TALK_EVIL;
 }
@@ -682,24 +682,24 @@ void m_talk_archmage(m)
 struct monster *m;
 {
   if (m_statusp(m,HOSTILE)) {
-    mprint("The Archmage ignores your attempt at conversation");
-    mprint("and concentrates on his spellcasting....");
+    mprint(LS(IDS_MSG_22077));
+    mprint(LS(IDS_MSG_22078));
   }
   else if (Current_Environment == E_COURT) {
-    mprint("The Archmage congratulates you on getting this far.");
-    mprint("He invites you to attempt the Throne of High Magic");
-    mprint("but warns you that it is important to wield the Sceptre");
-    mprint("before sitting on the throne.");
+    mprint(LS(IDS_MSG_22079));
+    mprint(LS(IDS_MSG_22080));
+    mprint(LS(IDS_MSG_22081));
+    mprint(LS(IDS_MSG_22082));
     if (Level->site[m->x][m->y].p_locf == L_THRONE) {
-      mprint("The Archmage smiles and makes an arcane gesture....");
+      mprint(LS(IDS_MSG_22083));
       m_vanish(m);
     }
   }
   else {
-    mprint("The Archmage tells you to find him again in his");
-    mprint("Magical Court at the base of his castle in the mountains");
-    mprint("of the far North-East; if you do he will give you some");
-    mprint("important information.");
+    mprint(LS(IDS_MSG_22084));
+    mprint(LS(IDS_MSG_22085));
+    mprint(LS(IDS_MSG_22086));
+    mprint(LS(IDS_MSG_22087));
   }
 }
 
@@ -709,31 +709,31 @@ struct monster *m;
 {
   if (! m_statusp(m,HOSTILE)) {
     if (Current_Environment == E_VILLAGE) {
-      mprint("The merchant asks you if you want to buy a horse for 250GP.");
-      mprint("Pay the merchant? [yn] ");
+      mprint(LS(IDS_MSG_22088));
+      mprint(LS(IDS_MSG_22089));
       if (ynq()=='y') {
 	if (Player.cash < 250) 
-	  mprint("The merchant says: 'Come back when you've got the cash!'");
+	  mprint(LS(IDS_MSG_22090));
 	else {
 	  Player.cash -= 250;
-	  mprint("The merchant takes your money and tells you to select");
-	  mprint("any horse you want in the stables.");
-	  mprint("He says: 'You'll want to get to know him before trying to");
-	  mprint("ride him. By the way, food for the horse is not included.'");
-	  mprint("The merchant runs off toward the bank, cackling gleefully.");
+	  mprint(LS(IDS_MSG_22091));
+	  mprint(LS(IDS_MSG_22092));
+	  mprint(LS(IDS_MSG_22093));
+	  mprint(LS(IDS_MSG_22094));
+	  mprint(LS(IDS_MSG_22095));
 	  m_vanish(m);
 	}
       }
-      else mprint("The merchant tells you to stop wasting his time.");
+      else mprint(LS(IDS_MSG_22096));
     }
     else {
-      mprint("The merchant tells you to visit his stables at his village");
-      mprint("for a great deal on a horse.");
+      mprint(LS(IDS_MSG_22097));
+      mprint(LS(IDS_MSG_22098));
     }
   }
   else {
-    mprint("The merchant ignores you and screams:");
-    mprint("'Help! Help! I'm being oppressed!'");
+    mprint(LS(IDS_MSG_22099));
+    mprint(LS(IDS_MSG_22100));
   }
 }
   
@@ -743,19 +743,19 @@ struct monster *m;
 {
   if (!m_statusp(m,HOSTILE)) {
     if (Current_Environment == E_CIRCLE) {
-      print1("The Prime nods brusquely at you, removes a gem from his");
-      print2("sleeve, places it on the floor, and vanishes wordlessly.");
+      print1(LS(IDS_MSG_22101));
+      print2(LS(IDS_MSG_22102));
       morewait();
       m_dropstuff(m);
       m_vanish(m);
     }
     else {
-      print1("The Prime makes an intricate gesture, which leaves behind");
-      print2("glowing blue sparks... He winks mischievously at you....");
+      print1(LS(IDS_MSG_22103));
+      print2(LS(IDS_MSG_22104));
       if (Player.rank[CIRCLE] > 0) {
 	morewait();
-	print1("The blue sparks strike you! You feel enhanced!");
-	print2("You feel more experienced....");
+	print1(LS(IDS_MSG_22105));
+	print2(LS(IDS_MSG_22106));
 	Player.pow+=Player.rank[CIRCLE];
 	Player.mana += calcmana();
 	gain_experience(1000);

@@ -75,7 +75,7 @@ short terrain;
   default: make_plains(); break;
   }
   if (nighttime()) {
-    print3("Night's gloom shrouds your sight.");    
+    print3(LS(IDS_MSG_21040));    
     for(i=0;i<WIDTH;i++)
       for(j=0;j<LENGTH;j++) {
 	Level->site[i][j].showchar = SPACE;    

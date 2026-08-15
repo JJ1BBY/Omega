@@ -894,6 +894,7 @@ void mlongprint ARGS((long));
 void mnumprint ARGS((int));
 void morewait ARGS((void));
 void mprint ARGS((char *));
+char *LS ARGS((int));
 void nprint1 ARGS((char *));
 void nprint2 ARGS((char *));
 void nprint3 ARGS((char *));

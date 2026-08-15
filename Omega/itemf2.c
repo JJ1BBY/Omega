@@ -49,11 +49,11 @@ pob o;
   
   if (o->used) {
     o->weight = 1000;
-    mprint("You feel heavier.");
+    mprint(LS(IDS_MSG_21443));
   }
   else {
     o->weight = 1;
-    mprint("Phew. What a relief.");
+    mprint(LS(IDS_MSG_21444));
   }
   Player.itemweight = 0;
   for (i=0;i<MAXITEMS;i++) {
@@ -88,7 +88,7 @@ pob o;
     else {
       Player.immunity[POISON]++;
       if (Player.status[POISONED] > 0) {
-	mprint("You feel much better now.");
+	mprint(LS(IDS_MSG_21445));
 	Player.status[POISONED] = 0;
       }
     }
@@ -111,13 +111,13 @@ pob o;
   if (o->blessing > -1)
     Objects[o->id].known = 1;
   if (o->used) {
-    mprint("You seem abnormally healthy.");
+    mprint(LS(IDS_MSG_21446));
     Player.status[REGENERATING] += 1500;
   }
   else {
     Player.status[REGENERATING] -= 1500;
     if (Player.status[REGENERATING] < 1) {
-      mprint("Your vitality is back to normal");
+      mprint(LS(IDS_MSG_21447));
       Player.status[REGENERATING] = 0;
     }
   }
@@ -132,7 +132,7 @@ pob o;
 void i_normal_armor(o)
 pob o;
 {
-  if (o->used) mprint("You put on your suit of armor.");
+  if (o->used) mprint(LS(IDS_MSG_21448));
 }
 
 void i_perm_energy_resist(o)
@@ -159,7 +159,7 @@ pob o;
     Player.immunity[FEAR]++;
     if (o->blessing < 0) {
       Player.status[BERSERK] += 1500;
-      mprint("You feel blood-simple!");
+      mprint(LS(IDS_MSG_21449));
     }
   }
   else {
@@ -167,7 +167,7 @@ pob o;
     if (o->blessing < 0) {
       Player.status[BERSERK] -= 1500;
       if (Player.status[BERSERK] < 1) {
-	mprint("You feel less rabid now.");
+	mprint(LS(IDS_MSG_21450));
       Player.status[BERSERK] = 0;
       }
     }
@@ -185,13 +185,13 @@ pob o;
 
   if (o->blessing > -1) {
     if (o->used) {
-      mprint("Your breath is energized!");
+      mprint(LS(IDS_MSG_20784));
       Player.status[BREATHING] += 1500;
     }
     else  {
       Player.status[BREATHING] -= 1500;
       if (Player.status[BREATHING] < 1) {
-	mprint("Your breathing is back to normal.");
+	mprint(LS(IDS_MSG_21451));
 	Player.status[BREATHING] = 0;
       }
     }
@@ -199,7 +199,7 @@ pob o;
   else if (o->used) {
     Player.status[BREATHING] = 0;
     p_drown();
-    print1("Water pours from the broken suit.");
+    print1(LS(IDS_MSG_21452));
   }
 }
 
@@ -213,7 +213,7 @@ pob o;
 struct monster *m;
 {
   if ((random_range(2) == 1) && (! m_immunityp(m,NORMAL_DAMAGE))) {
-    mprint("You entangle the monster!");
+    mprint(LS(IDS_MSG_21453));
     m_status_reset(m,MOBILE);
   }
   p_hit(m,Player.dmg+dmgmod,ACID);
@@ -225,11 +225,11 @@ int dmgmod;
 pob o;
 struct monster *m;
 {
-  mprint("Slice!");
+  mprint(LS(IDS_MSG_21454));
   m_death(m);
   if (! Player.rank[ADEPT]) {
-    mprint("Ooops!");
-    mprint("You accidentally touch yourself on the backswing....");
+    mprint(LS(IDS_MSG_21455));
+    mprint(LS(IDS_MSG_21456));
     p_death("the Scythe of Death");
   }
 }
@@ -240,13 +240,13 @@ pob o;
 struct monster *m;
 { 
   if (o->blessing > -1) {
-    mprint("Demonblade disintegrates with a soft sigh.");
-    mprint("You stop foaming at the mouth.");
+    mprint(LS(IDS_MSG_21457));
+    mprint(LS(IDS_MSG_20112));
     Player.status[BERSERK] = 0;
     conform_lost_object(o);
   }
   else if (m->specialf == M_SP_DEMON) {
-    mprint("The demon flees in terror before your weapon!");
+    mprint(LS(IDS_MSG_21458));
     m_vanish(m);
   }
   else if (m->meleef != M_MELEE_SPIRIT) {
@@ -255,21 +255,21 @@ struct monster *m;
       Player.str++;
       Player.pow = min(Player.maxpow,Player.pow+m->level);
       m_death(m);
-      mprint("You feel a surge of raw power from Demonblade!");
+      mprint(LS(IDS_MSG_21459));
     }
     else p_hit(m,Player.dmg+dmgmod,NORMAL_DAMAGE);
 
   }
   else {
-    mprint("Demonblade howls as it strikes the spirit!");
+    mprint(LS(IDS_MSG_21460));
     if (random_range(10) == 1) {
-      mprint("... and shatters into a thousand lost fragments!");
+      mprint(LS(IDS_MSG_21461));
       morewait();
       p_damage(50,UNSTOPPABLE,"Demonblade exploding");
       conform_lost_object(o);
     }
     else {
-      mprint("You feel your lifeforce draining....");
+      mprint(LS(IDS_MSG_21462));
       p_damage(25,UNSTOPPABLE,"a backlash of negative energies");
       Player.str -= 3;
       Player.con -= 3;
@@ -285,18 +285,18 @@ pob o;
 struct monster *m;
 {
   if (! o->known) {
-    mprint("Fumbling with the cylinder, you press the wrong stud....");
+    mprint(LS(IDS_MSG_21463));
     p_damage(100,UNSTOPPABLE,"fumbling with a lightsabre");
     o->known = 1;
   }
   else {
     /* test prevents confusing immunity messages.... */
     if (! m_immunityp(m,NORMAL_DAMAGE)) {
-      mprint("Vzzzzmmm!");
+      mprint(LS(IDS_MSG_21464));
       m_damage(m,20,NORMAL_DAMAGE);
     }
     if ((m->hp>0) && (! m_immunityp(m,FLAME))) {
-      mprint("Zzzzap!");
+      mprint(LS(IDS_MSG_21465));
       m_damage(m,20,FLAME);
     }
   }
@@ -308,7 +308,7 @@ pob o;
 struct monster *m;
 {
   if ((random_range(2) == 1) && (! m_immunityp(m,NORMAL_DAMAGE))) {
-    mprint("You entangle the monster!");
+    mprint(LS(IDS_MSG_21453));
     m_status_reset(m,MOBILE);
   }
   p_hit(m,Player.dmg+dmgmod,NORMAL_DAMAGE);
@@ -348,7 +348,7 @@ pob o;
 struct monster *m;
 {
   if (m->meleef == M_MELEE_SPIRIT) {
-    mprint("The monster crumbles away to dust!");
+    mprint(LS(IDS_MSG_21466));
     m_death(m);
   }
   else p_hit(m,Player.dmg+dmgmod,UNSTOPPABLE);
@@ -377,14 +377,14 @@ pob o;
 {
   if (o->used) {
     o->known = 2;
-    mprint("Demonblade's fangs open and bury themselves in your wrist!");
-    mprint("You hear evil laughter in the distance....");
-    mprint("You begin to foam at the mouth!");
+    mprint(LS(IDS_MSG_21467));
+    mprint(LS(IDS_MSG_21468));
+    mprint(LS(IDS_MSG_21469));
     Player.status[BERSERK] = 1500;
   }
   else {
-    mprint("You hear a sound like a demon cursing.");
-    mprint("You feel less like biting your shield.");
+    mprint(LS(IDS_MSG_21470));
+    mprint(LS(IDS_MSG_21471));
     Player.status[BERSERK] = 0;
   }
 }
@@ -392,20 +392,20 @@ pob o;
 void i_normal_weapon(o)
 pob o;
 {
-  if (o->used) mprint("You ready your weapon for battle.");
+  if (o->used) mprint(LS(IDS_MSG_21472));
 }
 
 void i_lightsabre(o)
 pob o;
 {
-  if (o->used) mprint("You feel one with the Force.");
-  else mprint("You feel out of touch with the Force.");
+  if (o->used) mprint(LS(IDS_MSG_21473));
+  else mprint(LS(IDS_MSG_21474));
 }
 
 void i_mace_disrupt(o)
 pob o;
 {
-  mprint("That's a damned heavy mace!");
+  mprint(LS(IDS_MSG_21475));
 }
 
 
@@ -418,8 +418,8 @@ struct monster *m;
   if ((random_range(10) < 3) && (! m_immunityp(m,NORMAL_DAMAGE))) {
     o->known = 2;
     if (random_range(2) == 1)
-      mprint("One Two! One Two! And through and through!");
-    else mprint("Your vorpal blade goes snicker-snack!");
+      mprint(LS(IDS_MSG_21476));
+    else mprint(LS(IDS_MSG_21477));
     m_death(m);
   }
   else weapon_normal_hit(dmgmod,o,m);
@@ -432,21 +432,21 @@ struct monster *m;
 {
   o->known = 2;
   if (Player.alignment < 0) {
-    mprint("Your opponent screams in agony!");
+    mprint(LS(IDS_MSG_21478));
     p_hit(m,Player.dmg+dmgmod,UNSTOPPABLE);
     Player.alignment--;
     if (Player.hp < Player.maxhp) {
-      mprint("You feel a thrill of power surging up your blade!");
+      mprint(LS(IDS_MSG_21479));
       Player.hp = min(Player.maxhp,Player.hp+Player.dmg+dmgmod);
     }
   }
   else {
-    mprint("Your blade turns in your hands and hits you!");
-    mprint("You hear evil laughter....");
+    mprint(LS(IDS_MSG_21480));
+    mprint(LS(IDS_MSG_21481));
     level_drain(Player.dmg,"the sword Desecrator");
     Player.alignment-=10;
-    mprint("A strange force spreads from the wound throughout your body...");
-    mprint("You feel much more chaotic now.");
+    mprint(LS(IDS_MSG_21482));
+    mprint(LS(IDS_MSG_21483));
   }
 }
 
@@ -470,10 +470,10 @@ pob o;
 struct monster *m;
 {
   if ((Player.alignment < 0) && (o->blessing > 0)) {
-      mprint("The Holy Defender screams in your hands....");
-      mprint("You stagger before the sound of its rage....");
+      mprint(LS(IDS_MSG_21484));
+      mprint(LS(IDS_MSG_21485));
       p_damage(50,UNSTOPPABLE,"a pissed-off Holy Defender");
-      mprint("The weapon finally quiets. It seems less holy now.");
+      mprint(LS(IDS_MSG_21486));
       o->truename = o->cursestr;
       Player.status[PROTECTION] -= (o->hit);
       o->plus = 0-abs(o->plus);
@@ -482,7 +482,7 @@ struct monster *m;
   if ((o->blessing > 0) &&
       ((m->specialf == M_SP_DEMON) ||
        (m->meleef == M_MELEE_SPIRIT))) {
-    mprint("Your opponent shies back before your holy weapon!");
+    mprint(LS(IDS_MSG_21487));
     m->hit = 0;
     m->speed *=2;
   }
@@ -495,7 +495,7 @@ pob o;
 struct monster *m;
 {
   if (m->meleef == M_MELEE_SPIRIT) {
-    mprint("Your opponent dissipates in a harmless cloud of vapors...");
+    mprint(LS(IDS_MSG_21488));
     m_death(m);
   }
   else weapon_normal_hit(dmgmod,o,m);
@@ -506,7 +506,7 @@ pob o;
 {
   o->known = 2;
   if (o->used) {
-    mprint("You feel under an aegis!");
+    mprint(LS(IDS_MSG_21489));
     Player.status[PROTECTION] += o->hit;
   }
   else Player.status[PROTECTION] -= o->hit;
@@ -536,8 +536,8 @@ pob o;
 {
   if (o->known < 1)  o->known = 2;
   if (o->blessing > 0) {
-    mprint("How weird, a blessed desecrator... ");
-    mprint("The structure of reality cannot permit such a thing....");
+    mprint(LS(IDS_MSG_21490));
+    mprint(LS(IDS_MSG_21491));
     dispose_lost_objects(1,o);
   }
   else if (Level->site[Player.x][Player.y].locchar == ALTAR)
@@ -549,7 +549,7 @@ pob o;
 void i_normal_shield(o)
 pob o;
 {
-  if (o->used) mprint("You sling your shield across a forearm.");
+  if (o->used) mprint(LS(IDS_MSG_21492));
 }
 
 
@@ -559,27 +559,27 @@ pob o;
   if (o->known < 1)  o->known = 2;
   if (o->blessing > -1) {
     if (o->used) {
-      mprint("You feel buffered.");
+      mprint(LS(IDS_MSG_20925));
       Player.status[DEFLECTION] += 1500;
     }
     else {
       Player.status[DEFLECTION] -= 1500;
       if (Player.status[DEFLECTION] < 1) {
-	mprint("You feel less defended");
+	mprint(LS(IDS_MSG_21493));
 	Player.status[DEFLECTION] = 0;
       }
     }
   }
   else {
     if (o->used) {
-      mprint("You feel naked.");
+      mprint(LS(IDS_MSG_21494));
       Player.status[VULNERABLE] += 1500;
       Player.status[DEFLECTION] = 0;
     }
     else {
       Player.status[VULNERABLE] -= 1500;
       if (Player.status[VULNERABLE] < 1) {
-	mprint("You feel less vulnerable");
+	mprint(LS(IDS_MSG_21495));
 	Player.status[VULNERABLE] = 0;
       }
     }

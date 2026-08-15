@@ -11,6 +11,9 @@
 
 #include "extern.h"
 
+/* IDS_MSG_* string resource IDs, used by LS() to look up localized text */
+#include "resource.h"
+
 /* This string holds the path to the library files */
 char *Omegalib;
 

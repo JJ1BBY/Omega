@@ -105,12 +105,12 @@ int x,y;
   else if (loc_statusp(x,y,SECRET)) {
     if (m->movef == M_MOVE_SMART) {
       if (los_p(x, y, Player.x, Player.y)) {
-	mprint("You see a secret door swing open!");
+	mprint(LS(IDS_MSG_22656));
 	lreset(x, y, SECRET);
 	lset(x, y, CHANGED);
       }
       else
-	mprint("You hear a door creak open, and then close again.");
+	mprint(LS(IDS_MSG_22657));
 	/* smart monsters would close secret doors behind them if the */
 	/* player didn't see them using it */
       return(TRUE);
@@ -132,13 +132,13 @@ int x,y;
 	   m_statusp(m,FLYING));
   else if (Level->site[x][y].locchar == CLOSED_DOOR) {
     if (m->movef==M_MOVE_SMART) {
-      mprint("You hear a door creak open.");
+      mprint(LS(IDS_MSG_22658));
       Level->site[x][y].locchar = OPEN_DOOR;
       lset(x, y, CHANGED);
       return(TRUE);
     }
     else if (random_range(m->dmg) > random_range(100)) {
-      mprint("You hear a door shattering.");
+      mprint(LS(IDS_MSG_22659));
       Level->site[x][y].locchar = RUBBLE;
       lset(x, y, CHANGED);
       return(TRUE);
@@ -622,10 +622,10 @@ char *prefix,*s;
 int confirmation()
 {
   switch(random_range(4)) {
-  case 0:  mprint("Are you sure? [yn] "); break;
-  case 1:  mprint("Certain about that? [yn] "); break;
-  case 2:  mprint("Do you really mean it? [yn] "); break;
-  case 3:  mprint("Confirm that, would you? [yn] "); break;
+  case 0:  mprint(LS(IDS_MSG_22660)); break;
+  case 1:  mprint(LS(IDS_MSG_22661)); break;
+  case 2:  mprint(LS(IDS_MSG_22662)); break;
+  case 3:  mprint(LS(IDS_MSG_22663)); break;
   }
   return(ynq()=='y');
 }
@@ -738,7 +738,7 @@ void *checkmalloc(unsigned int bytes)
   if (ptr)
     return ptr;
   else {
-    print1("Out of memory!  Saving and quitting.");
+    print1(LS(IDS_MSG_22664));
     morewait();
     save(FALSE, TRUE);
     endgraf();

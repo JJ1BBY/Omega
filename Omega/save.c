@@ -47,12 +47,12 @@ char *savestr;
   if (access(savestr, R_OK) == 0)
     if (access(savestr, W_OK) == 0)
     {
-	mprint(" Overwrite old file?");
+	mprint(LS(IDS_MSG_22200));
 	writeok = (ynq() == 'y');
     }
     else
     {
-	mprint(" File already exists.");
+	mprint(LS(IDS_MSG_22201));
 	writeok = FALSE;
     }
   else
@@ -65,7 +65,7 @@ char *savestr;
 	savestr[slashpos] = '\0';
 	if (access(savestr, W_OK) == -1)
 	{
-	    mprint(" Unable to save to that directory.");
+	    mprint(LS(IDS_MSG_22202));
 	    writeok = FALSE;
 	}
 	savestr[slashpos] = '/';
@@ -77,17 +77,17 @@ char *savestr;
     fd = fopen(savestr,"wb");
     if (fd == NULL) {
       writeok = FALSE;
-      mprint(" Error opening file.");
+      mprint(LS(IDS_MSG_22203));
     }
   }
   if (! writeok)
   {
     morewait();
-    print2("Save aborted.");
+    print2(LS(IDS_MSG_22204));
   }
   else {
 
-    print1("Saving Game....");
+    print1(LS(IDS_MSG_22205));
 
     /* write the version number */
     i = VERSION;
@@ -122,12 +122,12 @@ char *savestr;
       writeok &= save_level(fd,Level);	/* put current level last */
     fclose(fd);
     if (writeok)
-	print1("Game Saved.");
+	print1(LS(IDS_MSG_22206));
     else
-	print1("Something didn't work... save aborted.");
+	print1(LS(IDS_MSG_22207));
 #ifdef COMPRESS_SAVE_FILES
     if (writeok && compress) {
-      print2("Compressing Save File....");
+      print2(LS(IDS_MSG_22208));
 # if defined(MSDOS) || defined(AMIGA) || defined(_WIN32)
       do_compression(0, savestr);
       strcpy(temp, savestr);
@@ -162,10 +162,10 @@ void signalsave()
   change_to_user_perms();
   save_game(FALSE, "Omega.Sav");
 #ifdef COMPRESS_SAVE_FILES
-  print1("Signal - Saving uncompressed file 'Omega.Sav'.");
-  print2("You can compress it yourself, if you like.");
+  print1(LS(IDS_MSG_22209));
+  print2(LS(IDS_MSG_22210));
 #else
-  print1("Signal - Saving file 'Omega.Sav'.");
+  print1(LS(IDS_MSG_22211));
 #endif
   morewait();
   endgraf();
@@ -466,7 +466,7 @@ char *savestr;
 #ifndef MSDOS
   if (access(savestr, F_OK|R_OK|W_OK) == -1) /* access uses real uid */
   {
-    print1("Unable to access save file: ");
+    print1(LS(IDS_MSG_22212));
     nprint1(savestr);
     morewait();
     return FALSE;
@@ -476,8 +476,8 @@ char *savestr;
 #ifdef COMPRESS_SAVE_FILES
   fd = fopen(savestr,"rb");
   if (fd == NULL) {
-    print1("Error restoring game -- aborted.");
-    print2("File name was: ");
+    print1(LS(IDS_MSG_22213));
+    print2(LS(IDS_MSG_22214));
     nprint2(savestr);
     morewait();
     change_to_game_perms();
@@ -486,7 +486,7 @@ char *savestr;
   fread((char *)&version,sizeof(int),1,fd);
   fclose(fd);
   if (VERSION != version) {
-    print1("Uncompressing Save File....");
+    print1(LS(IDS_MSG_22215));
 #if defined(MSDOS) || defined(AMIGA) || defined(_WIN32)
     strcpy(temp, savestr);
     strcat(temp, "Z");
@@ -502,7 +502,7 @@ char *savestr;
     strcat(temp,savestr);
     system(temp);
 #endif
-    print2("Save file uncompressed.");
+    print2(LS(IDS_MSG_22216));
     morewait();
   }
 #endif
@@ -510,20 +510,20 @@ char *savestr;
   fd = fopen(savestr,"rb");
 
   if (fd == NULL) {
-    print1("Error restoring game -- aborted.");
-    print2("File name was: ");
+    print1(LS(IDS_MSG_22213));
+    print2(LS(IDS_MSG_22214));
     nprint2(savestr);
     morewait();
     change_to_game_perms();
     return(FALSE);
   }
   else {
-    print1("Restoring...");
+    print1(LS(IDS_MSG_22217));
 
     fread((char *)&version,sizeof(int),1,fd);
 
     if (VERSION != version) {
-      print2(" Sorry, I can't restore an outdated save file!");
+      print2(LS(IDS_MSG_22218));
       morewait();
       change_to_game_perms();
       return(FALSE);
@@ -557,7 +557,7 @@ char *savestr;
 	LENGTH = 64; break;
     }
     fclose(fd);
-    print3("Restoration complete.");
+    print3(LS(IDS_MSG_22219));
     ScreenOffset = -1000;	/* to force a redraw */
     setgamestatus(SKIP_MONSTERS);
     change_to_game_perms();
@@ -801,7 +801,7 @@ FILE *fd;
     case E_COURT:
       load_court(FALSE);
       break;
-    default: print3("This dungeon not implemented!"); break;
+    default: print3(LS(IDS_MSG_21039)); break;
   }
   if (Level->depth > 0) {	/* dungeon... */
     install_traps();

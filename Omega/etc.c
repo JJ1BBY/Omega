@@ -8,111 +8,111 @@
 void hint()
 {
   switch(random_range(96)) {
-  case 0:mprint("There is an entrance to the sewers in the Garden.");break;
-  case 1:mprint("Statues can be dangerous.");break;
-  case 2:mprint("Unidentified Artifacts can be dangerous.");break;
-  case 3:mprint("The higher form of mercury is desirable.");break;
-  case 4:mprint("A sense of unease is a good thing to have.");break;
-  case 5:mprint("If you dig too much, you might cause a cave in!.");break;
-  case 6:mprint("Be Lawful: Live and Let Live.");break;
-  case 7:mprint("Be Chaotic: Live and Let Die."); break;
-  case 8:mprint("The world doesn't slow down; you speed up.");break;
-  case 9:mprint("Security is a sense of dislocation.");break;
-  case 10:mprint("Tullimore Dew is a panacea.");break;
-  case 11:mprint("Thieves hide behind closed doors.");break;
-  case 12:mprint("`No jail is escapeproof' -- John Dillinger.");break;
-  case 13:mprint("Oh, to have an apartment of your own!");break;
-  case 14:mprint("Some homes have money and treasure.");break;
-  case 15:mprint("Some homes are defended.");break;
-  case 16:mprint("Sometimes you could just wish for Death."); break;
-  case 17:mprint("A cursed wish can be fatal.");break;
-  case 18:mprint("The way you play, you should wish for Skill."); break;
-  case 19:mprint("A druid might wish for Balance."); break;
-  case 20:mprint("Mages always wish for Knowledge.");break;
-  case 21:mprint("Some fairies are good.");break;
-  case 22:mprint("An affair with a demon can be heartbreaking."); break;
-  case 23:mprint("The Explorer's Club knows a useful spell."); break;
-  case 24:mprint("They say some famous people live in mansions."); break;
-  case 25:mprint("Magic pools are totally random."); break;
-  case 26:mprint("There are five elements, including Void."); break;
-  case 27:mprint("Humans can be good or evil, lawful or chaotic."); break;
-  case 28:mprint("There are many kinds of wishes. Case counts, you know.");
+  case 0:mprint(LS(IDS_MSG_20927));break;
+  case 1:mprint(LS(IDS_MSG_20928));break;
+  case 2:mprint(LS(IDS_MSG_20929));break;
+  case 3:mprint(LS(IDS_MSG_20930));break;
+  case 4:mprint(LS(IDS_MSG_20931));break;
+  case 5:mprint(LS(IDS_MSG_20932));break;
+  case 6:mprint(LS(IDS_MSG_20933));break;
+  case 7:mprint(LS(IDS_MSG_20934)); break;
+  case 8:mprint(LS(IDS_MSG_20935));break;
+  case 9:mprint(LS(IDS_MSG_20936));break;
+  case 10:mprint(LS(IDS_MSG_20937));break;
+  case 11:mprint(LS(IDS_MSG_20938));break;
+  case 12:mprint(LS(IDS_MSG_20939));break;
+  case 13:mprint(LS(IDS_MSG_20940));break;
+  case 14:mprint(LS(IDS_MSG_20941));break;
+  case 15:mprint(LS(IDS_MSG_20942));break;
+  case 16:mprint(LS(IDS_MSG_20943)); break;
+  case 17:mprint(LS(IDS_MSG_20944));break;
+  case 18:mprint(LS(IDS_MSG_20945)); break;
+  case 19:mprint(LS(IDS_MSG_20946)); break;
+  case 20:mprint(LS(IDS_MSG_20947));break;
+  case 21:mprint(LS(IDS_MSG_20948));break;
+  case 22:mprint(LS(IDS_MSG_20949)); break;
+  case 23:mprint(LS(IDS_MSG_20950)); break;
+  case 24:mprint(LS(IDS_MSG_20951)); break;
+  case 25:mprint(LS(IDS_MSG_20952)); break;
+  case 26:mprint(LS(IDS_MSG_20953)); break;
+  case 27:mprint(LS(IDS_MSG_20954)); break;
+  case 28:mprint(LS(IDS_MSG_20955));
     break;
-  case 29:mprint("There are caves due south of Rampart"); break;
-  case 30:mprint("Donaldson's Giants can withstand lava.");break;
-  case 31:mprint("Ritual magic can have many different effects.");break;
-  case 32:mprint("The Mercenaries are the best equipped fighters."); break;
-  case 33:mprint("The Gladiators are the most skilled fighters."); break;
-  case 34:mprint("Rent a flat and lose any bad stati you may have."); break;
-  case 35:mprint("Some junk may be worth a fortune if identified."); break;
-  case 36:mprint("Identify humans by talking to them."); break;
-  case 37:mprint("They say the Duke has a treasure trove."); break;
-  case 38:mprint("If you yield, your opponent will gain experience."); break;
-  case 39:mprint("The Dragon Lord lives in the Waste of Time."); break;
-  case 40:mprint("A full moon bodes well for the followers of Law."); break;
-  case 41:mprint("A new moon omens evil for the Law-abiding."); break;
-  case 42:mprint("Druids revere the half-moon."); break;
-  case 43:mprint("Most grot is useless."); break;
-  case 44:mprint("Cash can sometimes be found in the walls."); break;
-  case 45:mprint("Pointy weapons break often but dig better."); break;
-  case 46:mprint("The DREADED AQUAE MORTIS is invulnerable."); break;
-  case 47:mprint("There must be *some* reason to worship Destiny!"); break;
-  case 48:mprint("Kill a trifid? A puzzle! Try a saline solution!"); break;
-  case 49:mprint("Beware! The Eater of Souls inhabits the abyss!"); break;
-  case 50:mprint("They say there's a red-light district in town."); break;
-  case 51:mprint("The House of the Eclipse is behind a closed door."); break;
-  case 52:mprint("The Orbs may be encountered on the Astral Plane."); break;
-  case 53:mprint("The Champion should never refuse a challenge."); break;
-  case 54:mprint("They say that the autoteller program is buggy."); break;
-  case 55:mprint("It's better not to sleep on the ground."); break;
-  case 56:mprint("Try ritual magic in different kinds of rooms."); break;
-  case 57:mprint("Breaking down a wall by bashing it is a bad idea!"); break;
-  case 58:mprint("Follow the Oracle's advice; she is all-wise."); break;
-  case 59:mprint("The ArchDruid lives in the northern forest.");break;
-  case 60:mprint("A search of the mountains may reveal a secret pass.");break;
-  case 61:mprint("Star Peak is to the far North-East."); break;
-  case 62:mprint("The Archmage lives in the far North-West beyond a pass.");
+  case 29:mprint(LS(IDS_MSG_20956)); break;
+  case 30:mprint(LS(IDS_MSG_20957));break;
+  case 31:mprint(LS(IDS_MSG_20958));break;
+  case 32:mprint(LS(IDS_MSG_20959)); break;
+  case 33:mprint(LS(IDS_MSG_20960)); break;
+  case 34:mprint(LS(IDS_MSG_20961)); break;
+  case 35:mprint(LS(IDS_MSG_20962)); break;
+  case 36:mprint(LS(IDS_MSG_20963)); break;
+  case 37:mprint(LS(IDS_MSG_20964)); break;
+  case 38:mprint(LS(IDS_MSG_20965)); break;
+  case 39:mprint(LS(IDS_MSG_20966)); break;
+  case 40:mprint(LS(IDS_MSG_20967)); break;
+  case 41:mprint(LS(IDS_MSG_20968)); break;
+  case 42:mprint(LS(IDS_MSG_20969)); break;
+  case 43:mprint(LS(IDS_MSG_20970)); break;
+  case 44:mprint(LS(IDS_MSG_20971)); break;
+  case 45:mprint(LS(IDS_MSG_20972)); break;
+  case 46:mprint(LS(IDS_MSG_20973)); break;
+  case 47:mprint(LS(IDS_MSG_20974)); break;
+  case 48:mprint(LS(IDS_MSG_20975)); break;
+  case 49:mprint(LS(IDS_MSG_20976)); break;
+  case 50:mprint(LS(IDS_MSG_20977)); break;
+  case 51:mprint(LS(IDS_MSG_20978)); break;
+  case 52:mprint(LS(IDS_MSG_20979)); break;
+  case 53:mprint(LS(IDS_MSG_20980)); break;
+  case 54:mprint(LS(IDS_MSG_20981)); break;
+  case 55:mprint(LS(IDS_MSG_20982)); break;
+  case 56:mprint(LS(IDS_MSG_20983)); break;
+  case 57:mprint(LS(IDS_MSG_20984)); break;
+  case 58:mprint(LS(IDS_MSG_20985)); break;
+  case 59:mprint(LS(IDS_MSG_20986));break;
+  case 60:mprint(LS(IDS_MSG_20987));break;
+  case 61:mprint(LS(IDS_MSG_20988)); break;
+  case 62:mprint(LS(IDS_MSG_20989));
     break;
-  case 63:mprint("There is a volcano in the southern marshes."); break;
-  case 64:mprint("The Demon Emperor resides in the Volcano."); break;
-  case 65:mprint("The Lawgiver can be found at Star Peak."); break;
-  case 66:mprint("The Temple of Athena is to the North-East."); break;
-  case 67:mprint("The Temple of Set can be found in a desert.");break;
-  case 68:mprint("The Temple of Hecate is in the swamp."); break;
-  case 69:mprint("The Temple of Odin is to the South in some mountains.");
+  case 63:mprint(LS(IDS_MSG_20990)); break;
+  case 64:mprint(LS(IDS_MSG_20991)); break;
+  case 65:mprint(LS(IDS_MSG_20992)); break;
+  case 66:mprint(LS(IDS_MSG_20993)); break;
+  case 67:mprint(LS(IDS_MSG_20994));break;
+  case 68:mprint(LS(IDS_MSG_20995)); break;
+  case 69:mprint(LS(IDS_MSG_20996));
     break;
-  case 70:mprint("There is a curious island off a promontory of the swamp.");
+  case 70:mprint(LS(IDS_MSG_20997));
     break;
-  case 71:mprint("The Eater of Magic can be found on an island.");break;
-  case 72:mprint("The Temple of Destiny is practically inaccessible.");break;
-  case 73:mprint("Each sect has its own main temple outside the city.");break;
-  case 74:mprint("The aligned temples are dangerous to unbelievers.");break;
-  case 75:mprint("If you are poor, maybe you should wish for Wealth.");break;
-  case 76:mprint("Need mana? Wish for Power.");break;
-  case 77:mprint("Wishing for Law, Balance, or Chaos alters alignment.");break;
-  case 78:mprint("Feeling out of sorts? Wish for Health.");break;
-  case 79:mprint("Challenge the abyss at the Temple of Destiny.");break;
-  case 80:mprint("The Circle of Sorcerors has an Astral HQ");break;
-  case 81:mprint("The Star Gem is the only way back from the Astral Plane.");
+  case 71:mprint(LS(IDS_MSG_20998));break;
+  case 72:mprint(LS(IDS_MSG_20999));break;
+  case 73:mprint(LS(IDS_MSG_21000));break;
+  case 74:mprint(LS(IDS_MSG_21001));break;
+  case 75:mprint(LS(IDS_MSG_21002));break;
+  case 76:mprint(LS(IDS_MSG_21003));break;
+  case 77:mprint(LS(IDS_MSG_21004));break;
+  case 78:mprint(LS(IDS_MSG_21005));break;
+  case 79:mprint(LS(IDS_MSG_21006));break;
+  case 80:mprint(LS(IDS_MSG_21007));break;
+  case 81:mprint(LS(IDS_MSG_21008));
     break;
-  case 82:mprint("The Star Gem is guarded by the Circle of Sorcerors.");break;
-  case 83:mprint("The Star Gem is rightfully the property of the LawBringer.");
+  case 82:mprint(LS(IDS_MSG_21009));break;
+  case 83:mprint(LS(IDS_MSG_21010));
     break;
-  case 84:mprint("They say the Demon Emperor owns the Amulet of the Planes.");
+  case 84:mprint(LS(IDS_MSG_21011));
     break;
-  case 85:mprint("An Amulet might get you to the Temple of Destiny.");break;
-  case 86:mprint("A wish for Location might help you become Adept.");break;
-  case 87:mprint("Some Artifacts may be used only once per day.");break;
-  case 88:mprint("Overusing Artifacts can be a bad move."); break;
-  case 89:mprint("You might starve in the Swamp or the Mountains!");break;
-  case 90:mprint("You would have to be very chaotic to attack a guard!");break;
-  case 91:mprint("You would have to be very foolhardy to attack a guard!");
+  case 85:mprint(LS(IDS_MSG_21012));break;
+  case 86:mprint(LS(IDS_MSG_21013));break;
+  case 87:mprint(LS(IDS_MSG_21014));break;
+  case 88:mprint(LS(IDS_MSG_21015)); break;
+  case 89:mprint(LS(IDS_MSG_21016));break;
+  case 90:mprint(LS(IDS_MSG_21017));break;
+  case 91:mprint(LS(IDS_MSG_21018));
     break;
-  case 92:mprint("Only a master of chaos would kill all the city guards!");
+  case 92:mprint(LS(IDS_MSG_21019));
     break;
-  case 93:mprint("The Order depends on the force of the LawGiver");break;
-  case 94:mprint("City Guards are employees of the Order");break;
-  case 95:mprint("Disenchanted Artifacts can be restored"); break;
+  case 93:mprint(LS(IDS_MSG_21020));break;
+  case 94:mprint(LS(IDS_MSG_21021));break;
+  case 95:mprint(LS(IDS_MSG_21022)); break;
   }
 }
 
@@ -120,7 +120,7 @@ void hint()
 void learnclericalspells(deity,level)
 int deity,level;
 {
-  mprint("With your new clerical rank comes knowledge of magic...");
+  mprint(LS(IDS_MSG_21023));
   Player.pow+=level;
   Player.maxpow+=level;
   switch(level) {
@@ -160,7 +160,7 @@ int deity,level;
 	Spells[S_CURE].known = TRUE;
       }
       else if (deity==DESTINY)
-	mprint("An acolyte of the Lords of Destiny. Gee whiz.");
+	mprint(LS(IDS_MSG_21024));
       break;
     case PRIEST: 
       Spells[S_SANCTIFY].known = TRUE;
@@ -186,7 +186,7 @@ int deity,level;
 	Spells[S_CLAIRVOYANCE].known = TRUE;
       }
       else if (deity==DESTINY)
-	mprint("How useless, a new priest of the Lords of Destiny.");
+	mprint(LS(IDS_MSG_21025));
       break;
     case SPRIEST:
       Spells[S_BLESS].known = TRUE;
@@ -203,7 +203,7 @@ int deity,level;
 	Spells[S_LEVITATE].known = TRUE;
       }
       else if (deity == DESTINY)
-	mprint("Wow, a new senior priest of the Lords of Destiny.");
+	mprint(LS(IDS_MSG_21026));
       break;
     case HIGHPRIEST:
       if (deity == ODIN)
@@ -219,8 +219,8 @@ int deity,level;
 	Spells[S_HERO].known = TRUE;
       }
       else if (deity == DESTINY) {
-	mprint("So you're now the high priest of the Lords of Destiny.");
-	mprint("You didn't think you were going to get anything, did you?");
+	mprint(LS(IDS_MSG_21027));
+	mprint(LS(IDS_MSG_21028));
       }
     }
 }

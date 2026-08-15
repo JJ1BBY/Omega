@@ -15,46 +15,46 @@ void l_altar()
 
   switch(deity) {
     default:
-      print1("This rude altar has no markings.");
+      print1(LS(IDS_MSG_22112));
       break;
     case ODIN:
-      print1("This granite altar is graven with a gallows.");
+      print1(LS(IDS_MSG_22113));
       break;
     case SET:
-      print1("This sandstone altar has a black hand drawn on it.");
+      print1(LS(IDS_MSG_22114));
       break;
     case HECATE:
-      print1("This silver altar is inlaid with a black crescent moon.");
+      print1(LS(IDS_MSG_22115));
       break;
     case ATHENA:
-      print1("This golden altar is inscribed with an owl.");
+      print1(LS(IDS_MSG_22116));
       break;
     case DESTINY:
-      print1("This crystal altar is in the form of an omega.");
+      print1(LS(IDS_MSG_22117));
       break;
     case DRUID:
-      print1("This oaken altar is ornately engraved with leaves.");
+      print1(LS(IDS_MSG_22118));
       break;
   }
-  print2("Worship at this altar? [yn] ");
+  print2(LS(IDS_MSG_22119));
   if (ynq2() == 'y') {
     if (Player.rank[PRIESTHOOD] == 0)
       increase_priest_rank(deity);
     else if (! check_sacrilege(deity)) {
-      if (Blessing) print1("You have a sense of immanence.");
-      print2("Request a Blessing, Sacrifice an item, or just Pray [b,s,p] ");
+      if (Blessing) print1(LS(IDS_MSG_22120));
+      print2(LS(IDS_MSG_22121));
       do response = (char) mcigetc();
       while ((response != 'b') && 
 	     (response != 's') && 
 	     (response != 'p') && 
 	     (response != ESCAPE));
       if (response == 'b') {
-	print1("You beg a heavenly benefice.");
-	print2("You hear a gong resonating throughout eternity....");
+	print1(LS(IDS_MSG_22122));
+	print2(LS(IDS_MSG_22123));
 	morewait();
 	if (Blessing) {
-	  print1("A shaft of lucent radiance lances down from the heavens!");
-	  print2("You feel uplifted....");
+	  print1(LS(IDS_MSG_22124));
+	  print2(LS(IDS_MSG_22125));
 	  morewait();
 	  gain_experience(Player.rank[PRIESTHOOD]*Player.rank[PRIESTHOOD]*50);
 	  cleanse(1);
@@ -64,19 +64,19 @@ void l_altar()
 	  increase_priest_rank(deity);
 	}
 	else {
-	  print1("Your ardent plea is ignored.");
-	  print2("You feel ashamed.");
+	  print1(LS(IDS_MSG_22126));
+	  print2(LS(IDS_MSG_21629));
 	  Player.xp -= (Player.xp/4);
 	}
 	calc_melee();
       }
       else if (response == 's') {
-	print1("Which item to Sacrifice?");
+	print1(LS(IDS_MSG_22127));
 	i = getitem(NULL_ITEM);
 	if (i==ABORT) i = 0;
 	if (Player.possessions[i] == NULL) {
-	  print1("You have insulted your deity!");
-	  print2("Not a good idea, as it turns out...");
+	  print1(LS(IDS_MSG_22128));
+	  print2(LS(IDS_MSG_22129));
 	  dispel(-1);
 	  p_damage(Player.hp-1,UNSTOPPABLE,"a god's pique");
 	}
@@ -84,15 +84,15 @@ void l_altar()
 		 (long) (Player.rank[PRIESTHOOD] *
 		  Player.rank[PRIESTHOOD] *
 		  Player.rank[PRIESTHOOD] * 50)) {
-	  print1("With a burst of blue flame, your offering vanishes!");
+	  print1(LS(IDS_MSG_22130));
 	  dispose_lost_objects(1,Player.possessions[i]);
-	  print2("A violet nimbus settles around your head and slowly fades.");
+	  print2(LS(IDS_MSG_22131));
 	  morewait();
 	  Blessing = TRUE;
 	}
 	else {
-	  print1("A darkling glow envelopes your offering!");
-	  print2("The glow slowly fades....");
+	  print1(LS(IDS_MSG_22132));
+	  print2(LS(IDS_MSG_22133));
 	  morewait();
 	  setgamestatus(SUPPRESS_PRINTING);
 	  if (Player.possessions[i]->used) {
@@ -110,7 +110,7 @@ void l_altar()
       }
       else if (response == 'p') {
 	if (deity != Player.patron) 
-	  print1("Nothing seems to happen.");
+	  print1(LS(IDS_MSG_21522));
 	else if (!increase_priest_rank(deity))
 	  answer_prayer();
       }
@@ -131,18 +131,18 @@ int deity;
     Player.maxpow--;
     switch(Player.patron) {
     case ODIN:
-      print1("Odin notices your lack of faith! ");
+      print1(LS(IDS_MSG_22134));
       morewait();
       if (deity == ATHENA) {
-	print2("However, Athena intercedes on your behalf.");
+	print2(LS(IDS_MSG_22135));
 	sacrilege = FALSE;
       }
       else {
-	print2("You are struck by a thunderbolt!");
+	print2(LS(IDS_MSG_22136));
 	p_damage(Player.level*5,UNSTOPPABLE,"Odin's wrath");
 	if (Player.hp > 0) {
 	  morewait();
-	  print2("The bolt warps your feeble frame....");
+	  print2(LS(IDS_MSG_22137));
 	  Player.maxcon = Player.maxcon/2;
 	  Player.con = min(Player.con,Player.maxcon);
 	  Player.maxstr = Player.maxstr/2;
@@ -152,42 +152,42 @@ int deity;
       morewait();
       break;
     case SET:
-      print1("Set notices your lack of faith! ");
+      print1(LS(IDS_MSG_22138));
       morewait();
       if (deity == HECATE) {
-	print1("But since you pray to a friendly deity,");
-	print2("Set decides not to punish you.");
+	print1(LS(IDS_MSG_22139));
+	print2(LS(IDS_MSG_22140));
 	sacrilege = FALSE;
       }
       else {
-	print2("You are blasted by a shaft of black fire!");
+	print2(LS(IDS_MSG_22141));
 	p_damage(Player.level*5,UNSTOPPABLE,"Set's anger");
 	if (Player.hp > 0) {
 	  morewait();
-	  print1("You are wreathed in clouds of smoke.");
+	  print1(LS(IDS_MSG_22142));
 	  for(i=0;i<MAXITEMS;i++) 
 	    if ((Player.possessions[i] != NULL) &&
 		(Player.possessions[i]->blessing > -1))
 	      conform_lost_object(Player.possessions[i]);
 	  morewait();
-	  print2("You feel Set's Black Hand on your heart....");
+	  print2(LS(IDS_MSG_22143));
 	  Player.con = Player.maxcon = Player.maxcon / 4;
 	}
       }
       morewait();
       break;
     case HECATE:
-      print1("Hecate notices your lack of faith! ");
+      print1(LS(IDS_MSG_22144));
       morewait();
       if (deity == SET) {
-	print1("But ignores the affront since she likes Set.");
+	print1(LS(IDS_MSG_22145));
 	sacrilege = FALSE;
       }
       else {
-	print1("You are zapped by dark moonbeams!");
+	print1(LS(IDS_MSG_22146));
 	p_damage(Player.level*5,UNSTOPPABLE,"Hecate's malice");
 	if (Player.hp > 0) {
-	  print2("The beams leach you of magical power!");
+	  print2(LS(IDS_MSG_22147));
 	  Player.maxpow = Player.maxpow/5;
 	  Player.pow = min(Player.pow,Player.maxpow);
 	  for(i=0;i<NUMSPELLS;i++) 
@@ -197,21 +197,21 @@ int deity;
       morewait();
       break;
     case ATHENA:
-      print1("Athena notices your lack of faith! ");
+      print1(LS(IDS_MSG_22148));
       morewait();
       if (deity == ODIN) {
-	print2("But lets you off this time since Odin is also Lawful.");
+	print2(LS(IDS_MSG_22149));
 	sacrilege = FALSE;
       }
       else {
-	print2("You are zorched by godsfire!");
+	print2(LS(IDS_MSG_22150));
 	if (Player.hp > 0) {
 	  morewait();
-	  print1("The fire burns away your worldly experience!");
+	  print1(LS(IDS_MSG_22151));
 		Player.level = 0;
 	  Player.xp = 0;
 	  Player.maxhp = Player.hp = Player.con;
-	  print2("Your power is reduced by the blast!!!");
+	  print2(LS(IDS_MSG_22152));
 	  Player.pow = Player.maxpow = Player.maxpow/3;
 	  Player.mana = min(Player.mana,calcmana());
 	}
@@ -219,12 +219,12 @@ int deity;
       morewait();
       break;
     case DESTINY:
-      print2("The Lords of Destiny ignore your lack of faith.");
+      print2(LS(IDS_MSG_22153));
       sacrilege = FALSE;
       morewait();
       break;
     case DRUID:
-      print2("Your treachery to the ArchDruid has been noted.");
+      print2(LS(IDS_MSG_22154));
       if (random_range(2) == 1)
 	Player.alignment += 40;
       else Player.alignment -= 40;
@@ -244,75 +244,75 @@ int deity;
 {
   if (Player.rank[PRIESTHOOD] == 0) switch(deity) {
   default:
-    print2("Some nameless god blesses you....");
+    print2(LS(IDS_MSG_22155));
     Player.hp = Player.maxhp;
     morewait();
-    print2("The altar crumbles to dust and blows away.");
+    print2(LS(IDS_MSG_22156));
     Level->site[Player.x][Player.y].locchar = FLOOR;
     Level->site[Player.x][Player.y].p_locf = L_NO_OP;
     lset(Player.x, Player.y, CHANGED);
     break;
   case ODIN:
     if (Player.alignment > 0) {
-      print1("Odin hears your prayer!");
+      print1(LS(IDS_MSG_22157));
       print2(Priest[ODIN]);
-      nprint2(" personally blesses you.");
-      nprint2(" You are now a lay devotee of Odin.");
+      nprint2(LS(IDS_MSG_22158));
+      nprint2(LS(IDS_MSG_22159));
       Player.patron = ODIN;
       Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
       morewait();
       learnclericalspells(ODIN,LAY);
     }
-    else print1("Odin ignores you.");
+    else print1(LS(IDS_MSG_22160));
     break;
   case SET:
     if (Player.alignment < 0) {
-      print1("Set hears your prayer!");
+      print1(LS(IDS_MSG_22161));
       print2(Priest[SET]);
-      nprint2(" personally blesses you. ");
-      nprint2(" You are now a lay devotee of Set.");
+      nprint2(LS(IDS_MSG_22162));
+      nprint2(LS(IDS_MSG_22163));
       Player.patron = SET;
       Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
       morewait();
       learnclericalspells(SET,LAY);
     }
-    else print1("Set ignores you.");
+    else print1(LS(IDS_MSG_22164));
     break;
   case ATHENA:
     if (Player.alignment > 0) {
-      print1("Athena hears your prayer!");
+      print1(LS(IDS_MSG_22165));
       print2(Priest[ATHENA]);
-      nprint2(" personally blesses you.");
-      nprint2(" You are now a lay devotee of Athena.");
+      nprint2(LS(IDS_MSG_22158));
+      nprint2(LS(IDS_MSG_22166));
       Player.patron = ATHENA;
       Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
       morewait();
       learnclericalspells(ATHENA,LAY);
     }
-    else print1("Athena ignores you.");
+    else print1(LS(IDS_MSG_22167));
     break;
   case HECATE:
     if (Player.alignment < 0) {
-      print1("Hecate hears your prayer!");
+      print1(LS(IDS_MSG_22168));
       print2(Priest[HECATE]);
-      nprint2(" personally blesses you.");
-      nprint2(" You are now a lay devotee of Hecate.");
+      nprint2(LS(IDS_MSG_22158));
+      nprint2(LS(IDS_MSG_22169));
       Player.patron = HECATE;
       Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
       morewait();
       learnclericalspells(HECATE,LAY);
     }
-    else print1("Hecate ignores you.");
+    else print1(LS(IDS_MSG_22170));
     break;
   case DRUID:
     if (abs(Player.alignment) < 10) {
       print1(Priest[DRUID]);
-      nprint1(" personally blesses you.");
-      print2("You are now a lay devotee of the Druids.");
+      nprint1(LS(IDS_MSG_22158));
+      print2(LS(IDS_MSG_22171));
       Player.patron = DRUID;
       Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
@@ -320,14 +320,14 @@ int deity;
       learnclericalspells(DRUID,LAY);
     }
     else {
-      print1("You hear a voice....");
+      print1(LS(IDS_MSG_22172));
       morewait();
-      print2("'Only those who embody the Balance may become Druids.'");
+      print2(LS(IDS_MSG_22173));
     }
     break;
   case DESTINY:
-    print1("The Lords of Destiny could hardly care less.");
-    print2("But you can consider yourself now to be a lay devotee.");
+    print1(LS(IDS_MSG_22174));
+    print2(LS(IDS_MSG_22175));
     Player.patron = DESTINY;
     Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
@@ -339,8 +339,8 @@ int deity;
 	(((deity == SET) || (deity == HECATE)) && 
 	 (Player.alignment > 1)) ||
 	((deity == DRUID) && (abs(Player.alignment) > 10))) {
-      print1("You have swerved from the One True Path!");
-      print2("Your deity is greatly displeased...");
+      print1(LS(IDS_MSG_22176));
+      print2(LS(IDS_MSG_22177));
       Player.xp -= Player.level*Player.level;
       Player.xp = max(0,Player.xp);
     }
@@ -352,8 +352,8 @@ int deity;
     }
     else if (Player.rank[PRIESTHOOD]==PRIEST) {
       if (Player.guildxp[PRIESTHOOD] >= 4000) {
-	print1("An heavenly fanfare surrounds you!");
-	print2("Your deity raises you to the post of Senior Priest.");
+	print1(LS(IDS_MSG_22178));
+	print2(LS(IDS_MSG_22179));
 	hp_req_print();
 	Player.rank[PRIESTHOOD] = SPRIEST;
       }
@@ -361,8 +361,8 @@ int deity;
     }
     else if (Player.rank[PRIESTHOOD]==ACOLYTE) {
       if (Player.guildxp[PRIESTHOOD] >= 1500) {
-	print1("A trumpet sounds in the distance.");
-	print2("Your deity raises you to the post of Priest.");
+	print1(LS(IDS_MSG_22180));
+	print2(LS(IDS_MSG_22181));
 	Player.rank[PRIESTHOOD] = PRIEST;
 	morewait();
 	learnclericalspells(deity,PRIEST);
@@ -371,8 +371,8 @@ int deity;
     }
     else if (Player.rank[PRIESTHOOD]==LAY) {
       if (Player.guildxp[PRIESTHOOD] >= 400) {
-	print1("A mellifluous chime sounds from above the altar.");
-	print2("Your deity raises you to the post of Acolyte.");
+	print1(LS(IDS_MSG_22182));
+	print2(LS(IDS_MSG_22183));
 	Player.rank[PRIESTHOOD] = ACOLYTE;
 	morewait();
 	learnclericalspells(deity,ACOLYTE);
@@ -388,10 +388,10 @@ void answer_prayer()
 {
   clearmsg();
   switch(random_range(12)) {
-  case 0: print1("You have a revelation!"); break;
-  case 1: print1("You feel pious."); break;
-  case 2: print1("A feeling of sanctity comes over you."); break;
-  default: print1("Nothing unusual seems to happen."); break;
+  case 0: print1(LS(IDS_MSG_22184)); break;
+  case 1: print1(LS(IDS_MSG_22185)); break;
+  case 2: print1(LS(IDS_MSG_22186)); break;
+  default: print1(LS(IDS_MSG_22187)); break;
   }
 }
 
@@ -443,30 +443,30 @@ void hp_req_test()
 void hp_req_print()
 {
   morewait();
-  print1("To advance further, you must obtain the Holy Symbol of ");
+  print1(LS(IDS_MSG_22188));
   switch(Player.patron) {
   case ODIN:
     nprint1(Priest[SET]);
-    print2("who may be found in the main Temple of Set.");
+    print2(LS(IDS_MSG_22189));
     break;
   case SET:
     nprint1(Priest[ODIN]);
-    print2("who may be found in the main Temple of Odin.");
+    print2(LS(IDS_MSG_22190));
     break;
   case ATHENA:
     nprint1(Priest[HECATE]);
-    print2("who may be found in the main Temple of Hecate.");
+    print2(LS(IDS_MSG_22191));
     break;
   case HECATE:
     nprint1(Priest[ATHENA]);
-    print2("who may be found in the main Temple of Athena.");
+    print2(LS(IDS_MSG_22192));
     break;
   case DRUID:
-    print2("any of the aligned priests who may be found in their main Temples.");
+    print2(LS(IDS_MSG_22193));
     break;
   case DESTINY:
     nprint1(Priest[DESTINY]);
-    print2("who may be found in the main Temple of Destiny.");
+    print2(LS(IDS_MSG_22194));
     break;
   }
 }
@@ -474,8 +474,8 @@ void hp_req_print()
 void make_hp(o)
 pob o;
 {
-  print1("A full-scale heavenly choir chants 'Hallelujah' all around you!");
-  print2("You notice a change in the symbol you carry....");
+  print1(LS(IDS_MSG_22195));
+  print2(LS(IDS_MSG_22196));
   switch(Player.patron) {
   case ODIN:
     *o = Objects[ARTIFACTID+14];
@@ -500,9 +500,9 @@ pob o;
   o->charge = 17; /* random hack to convey bit that symbol is functional */
   morewait();
   if (Player.patron == DRUID)
-    print1("Your deity raises you to the post of ArchDruid!");
-  else print1("Your deity raises you to the post of High Priest!");
-  print2("You feel holy.");
+    print1(LS(IDS_MSG_22197));
+  else print1(LS(IDS_MSG_22198));
+  print2(LS(IDS_MSG_22199));
   strcpy(Priest[Player.patron],Player.name);
   Priestlevel[Player.patron] = Player.level;
   Player.rank[PRIESTHOOD] = HIGHPRIEST;

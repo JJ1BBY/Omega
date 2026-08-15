@@ -41,6 +41,24 @@ char OMEGALIB[_MAX_PATH];
 
 #include "resource.h"
 
+// Looks up a localized message string by resource ID (IDS_MSG_*). The
+// resource compiler picks the STRINGTABLE block matching the current
+// thread's locale (see the LANGUAGE blocks in WinOmega.rc), falling back
+// to the first available block if no exact match is found. Uses a small
+// rotating pool of buffers so a handful of LS() calls can be combined
+// (eg. in one sprintf) without clobbering each other.
+extern "C" char *LS(int id)
+{
+  static char buffers[4][512];
+  static int next = 0;
+  char *buf = buffers[next];
+  next = (next + 1) % 4;
+
+  if (LoadStringA(GetModuleHandle(NULL), id, buf, sizeof(buffers[0])) == 0)
+    _snprintf(buf, sizeof(buffers[0]), "[missing string %d]", id);
+  return buf;
+}
+
 // Path to saved file to load at start
 char OmegaSave[_MAX_PATH] = "";
 
@@ -641,16 +659,28 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
   int scrWidth = workArea.right-workArea.left;
   int scrHeight = workArea.bottom-workArea.top;
 
-  // Get all fixed width fonts
+  // Get all fixed width fonts. The charset must match the system's default
+  // ANSI codepage (CP_ACP), since all text in this app -- resource strings,
+  // MultiByteToWideChar(CP_ACP,...) calls, etc -- is encoded that way. On a
+  // Japanese-locale system (CP932) this picks Shift-JIS capable fonts so
+  // double-byte characters get shaped correctly instead of rendering as tofu.
   ZeroMemory(&fontSetup,sizeof fontSetup);
-  fontSetup.lfCharSet = ANSI_CHARSET;
+  fontSetup.lfCharSet = (GetACP() == 932) ? SHIFTJIS_CHARSET : ANSI_CHARSET;
   EnumFontFamiliesEx(desktopDC,&fontSetup,(FONTENUMPROC)fontProc,0,0);
 
   // Get the Omega icon
   icon = LoadIcon(instance,MAKEINTRESOURCE(IDI_OMEGA));
 
-  // Choose the initial font name
-  if (fontNames.count("Consolas") == 1)
+  // Choose the initial font name. On a Japanese system EnumFontFamiliesEx
+  // (ANSI) reports the localized face name for "MS Gothic" as Shift-JIS
+  // bytes (full-width "MS Gothic"), not the English name, so both are checked.
+  if (fontSetup.lfCharSet == SHIFTJIS_CHARSET && fontNames.count("\x82\x6c\x82\x72\x20\x83\x53\x83\x56\x83\x62\x83\x4e") == 1)
+    strcpy(fontSetup.lfFaceName,"\x82\x6c\x82\x72\x20\x83\x53\x83\x56\x83\x62\x83\x4e");
+  else if (fontSetup.lfCharSet == SHIFTJIS_CHARSET && fontNames.count("MS Gothic") == 1)
+    strcpy(fontSetup.lfFaceName,"MS Gothic");
+  else if (fontSetup.lfCharSet == SHIFTJIS_CHARSET && fontNames.count("MS UI Gothic") == 1)
+    strcpy(fontSetup.lfFaceName,"MS UI Gothic");
+  else if (fontNames.count("Consolas") == 1)
     strcpy(fontSetup.lfFaceName,"Consolas");
   else if (fontNames.count("Lucida Console") == 1)
     strcpy(fontSetup.lfFaceName,"Lucida Console");

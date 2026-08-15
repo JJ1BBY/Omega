@@ -81,11 +81,11 @@ void fix_phantom(m)
 struct monster *m;
 {
   if (Level->site[m->x][m->y].creature == NULL) {
-    mprint("You hear a sound like a sigh of relief....");
+    mprint(LS(IDS_MSG_22607));
     Level->site[m->x][m->y].creature = m;
   }
   else {
-    mprint("You hear a puff of displaced air....");
+    mprint(LS(IDS_MSG_22608));
     findspace(&(m->x),&(m->y),-1);
     Level->site[m->x][m->y].creature = m;
     m_death(m);

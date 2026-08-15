@@ -184,7 +184,7 @@ int newenv,newdepth;
 	    fclose(fp);
 	}
 	else
-	    mprint("Cannot save level!!!");
+	    mprint(LS(IDS_MSG_20000));
 	/* Free up monsters and items */
 	free_level(oldlevel);
     }
@@ -206,8 +206,8 @@ int newenv,newdepth;
 void check_memory()
 {
   clear_screen();
-  print1("There should be over 300 K free on the drive.");  
-  print2("Save _before_ the free space gets below 300 K.");
+  print1(LS(IDS_MSG_20001));  
+  print2(LS(IDS_MSG_20002));
   morewait();
   system("dir");
   morewait();

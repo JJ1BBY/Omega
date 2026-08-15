@@ -21,20 +21,20 @@ void examine()
   clearmsg();
 
   setgamestatus(SKIP_MONSTERS);
-  mprint("Examine --");
+  mprint(LS(IDS_MSG_20529));
   setspot(&x,&y);
   if (inbounds(x,y)) {
     clearmsg();
     if (Current_Environment == E_COUNTRYSIDE) {
       if (! c_statusp(x, y, SEEN))
-	print3("How should I know what that is?");
+	print3(LS(IDS_MSG_20530));
       else {
-	mprint("That terrain is:");
+	mprint(LS(IDS_MSG_20531));
 	mprint(countryid(Country[x][y].current_terrain_type));
       }
     } 
     else if (! view_los_p(Player.x,Player.y,x,y))
-      print3("I refuse to examine something I can't see.");
+      print3(LS(IDS_MSG_20532));
     else {
       clearmsg();
       if (Level->site[x][y].creature != NULL) 
@@ -42,66 +42,66 @@ void examine()
       else if ((Player.x == x) && (Player.y ==y)) 
 	describe_player();
       if (loc_statusp(x,y,SECRET))
-	print2("An age-worn stone wall.");
+	print2(LS(IDS_MSG_20533));
       else
 	switch (Level->site[x][y].locchar) {
-	case SPACE: print2("An infinite void."); break;
-	case PORTCULLIS: print2("A heavy steel portcullis"); break;
-	case ABYSS: print2("An entrance to the infinite abyss"); break;
+	case SPACE: print2(LS(IDS_MSG_20534)); break;
+	case PORTCULLIS: print2(LS(IDS_MSG_20535)); break;
+	case ABYSS: print2(LS(IDS_MSG_20536)); break;
 	case FLOOR:
 	  if (Current_Dungeon == Current_Environment)
-	    print2("A dirty stone floor.");
-	  else print2("The ground.");
+	    print2(LS(IDS_MSG_20537));
+	  else print2(LS(IDS_MSG_20538));
 	  break;
 	case WALL:
 	  if (Level->site[x][y].aux == 0)
-	    print2("A totally impervious wall.");
+	    print2(LS(IDS_MSG_20539));
 	  else if (Level->site[x][y].aux < 10)
-	    print2("A pitted concrete wall.");
+	    print2(LS(IDS_MSG_20540));
 	  else if (Level->site[x][y].aux < 30)
-	    print2("An age-worn sandstone wall.");
+	    print2(LS(IDS_MSG_20541));
 	  else if (Level->site[x][y].aux < 50)
-	    print2("A smooth basalt wall.");
+	    print2(LS(IDS_MSG_20542));
 	  else if (Level->site[x][y].aux < 70)
-	    print2("A solid granite wall.");
+	    print2(LS(IDS_MSG_20543));
 	  else if (Level->site[x][y].aux < 90)
-	    print2("A wall of steel.");
+	    print2(LS(IDS_MSG_20544));
 	  else if (Level->site[x][y].aux < 210) {
 	    if (Current_Environment == E_CITY)
-	      print2("A thick wall of Rampart bluestone");
-	    else print2("A magically reinforced wall.");
+	      print2(LS(IDS_MSG_20545));
+	    else print2(LS(IDS_MSG_20546));
 	  }
-	  else print2("An almost totally impervious wall.");
+	  else print2(LS(IDS_MSG_20547));
 	  break;
-	case RUBBLE:print2("A dangerous-looking pile of rubble."); break;
-	case SAFE:print2("A steel safe inset into the floor."); break;
-	case CLOSED_DOOR:print2("A solid oaken door, now closed."); break;
-	case OPEN_DOOR:print2("A solid oaken door, now open."); break;
-	case STATUE:print2("A strange-looking statue."); break;
-	case STAIRS_UP:print2("A stairway leading up."); break;
-	case STAIRS_DOWN:print2("A stairway leading down...."); break;
+	case RUBBLE:print2(LS(IDS_MSG_20548)); break;
+	case SAFE:print2(LS(IDS_MSG_20549)); break;
+	case CLOSED_DOOR:print2(LS(IDS_MSG_20550)); break;
+	case OPEN_DOOR:print2(LS(IDS_MSG_20551)); break;
+	case STATUE:print2(LS(IDS_MSG_20552)); break;
+	case STAIRS_UP:print2(LS(IDS_MSG_20553)); break;
+	case STAIRS_DOWN:print2(LS(IDS_MSG_20554)); break;
 	case TRAP:print2(trapid(Level->site[x][y].p_locf)); break;
 	case HEDGE:
 	  if (Level->site[x][y].p_locf == L_EARTH_STATION)
-	    print2("A weird fibrillation of oozing tendrils.");
-	  else print2("A brambly, thorny hedge."); 
+	    print2(LS(IDS_MSG_20555));
+	  else print2(LS(IDS_MSG_20556)); 
 	  break;
-	case LAVA:print2("A bubbling pool of lava."); break;
-	case LIFT:print2("A strange glowing disk."); break;
-	case ALTAR:print2("An (un?)holy altar."); break;
-	case CHAIR:print2("A chair."); break;
-	case WHIRLWIND:print2("A strange cyclonic electrical storm."); break;
+	case LAVA:print2(LS(IDS_MSG_20557)); break;
+	case LIFT:print2(LS(IDS_MSG_20558)); break;
+	case ALTAR:print2(LS(IDS_MSG_20559)); break;
+	case CHAIR:print2(LS(IDS_MSG_20560)); break;
+	case WHIRLWIND:print2(LS(IDS_MSG_20561)); break;
 	case WATER: 
 	  if (Level->site[x][y].p_locf == L_WATER)
-	    print2("A deep pool of water.");
+	    print2(LS(IDS_MSG_20562));
 	  else if (Level->site[x][y].p_locf == L_CHAOS)
-	    print2("A pool of primal chaos.");
+	    print2(LS(IDS_MSG_20563));
 	  else if (Level->site[x][y].p_locf == L_WATER_STATION)
-	    print2("A bubbling pool of acid.");
-	  else print2("An eerie pool of water.");
+	    print2(LS(IDS_MSG_20564));
+	  else print2(LS(IDS_MSG_20565));
 	  break;
-	case FIRE:print2("A curtain of fire."); break;
-	default:print2("Wow, I haven't the faintest idea!"); break;
+	case FIRE:print2(LS(IDS_MSG_20566)); break;
+	default:print2(LS(IDS_MSG_20567)); break;
 	}
       if ((ol = Level->site[x][y].things) != NULL && !loc_statusp(x,y,SECRET)) {
 	if (ol->next == NULL)
@@ -135,7 +135,7 @@ void help()
 #endif
 
   clearmsg();
-  print1("Please enter the letter indicating what topic you want help on.");
+  print1(LS(IDS_MSG_20568));
   menuclear();
   menuprint("a: Overview\n");
   menuprint("b: Characters\n");
@@ -166,15 +166,15 @@ void help()
 #else
   while ((c < 'a' || c > 'n') && c != ESCAPE);
   if (c == 'n') {
-    print1("Trying to copy all help files to ./omega.doc ");
-    nprint1("Confirm [yn]");
+    print1(LS(IDS_MSG_20569));
+    nprint1(LS(IDS_MSG_20570));
     if (ynq1()=='y') {
       change_to_user_perms();
       out = checkfopen("omega.doc", "w");
-      print2("Copying");
+      print2(LS(IDS_MSG_20571));
       for (n = 1; n <= 13; n++)
       {
-	nprint2(".");
+	nprint2(LS(IDS_MSG_20060));
 	sprintf(Str1, "%shelp%d.txt", Omegalib, n);
 	in = checkfopen(Str1, "r");
 	while (fgets(Str1, STRING_LEN, in))
@@ -183,12 +183,12 @@ void help()
       }
       fclose(out);
       change_to_game_perms();
-      nprint2(" Done.");
+      nprint2(LS(IDS_MSG_20572));
     }
   }
   else if (c != ESCAPE) {
     sprintf(filestr, "%shelp%d.txt", Omegalib, c+1-'a');
-    print1("Display help file, or Copy help file to file in wd. [dc] ");
+    print1(LS(IDS_MSG_20573));
     do 
       c = (char) mcigetc();
     while ((c != 'd') && (c != 'c')&& (c!=ESCAPE));
@@ -204,8 +204,8 @@ void version()
 {
   setgamestatus(SKIP_MONSTERS);
   print3(VERSIONSTRING);
-  nprint3(":");
-  nprint3(" Last Edited: ");
+  nprint3(LS(IDS_MSG_20574));
+  nprint3(LS(IDS_MSG_20575));
   nprint3(LAST_OMEGA_EDIT_DATE);
 }
 
@@ -217,20 +217,20 @@ void fire()
 
   clearmsg();
 
-  print1("Fire/Throw --");
+  print1(LS(IDS_MSG_20576));
   index = getitem(NULL_ITEM);
   if (index == ABORT)
     setgamestatus(SKIP_MONSTERS);
-  else if (index == CASHVALUE) print3("Can't fire money at something!");
+  else if (index == CASHVALUE) print3(LS(IDS_MSG_20577));
   else if (cursed(Player.possessions[index]) && 
 	   Player.possessions[index]->used)
-    print3("You can't seem to get rid of it!");
+    print3(LS(IDS_MSG_20578));
   /* load a crossbow */
   else if ((Player.possessions[O_WEAPON_HAND] != NULL) &&  
 	   (Player.possessions[O_WEAPON_HAND]->id == WEAPONID+27) && 
 	   (Player.possessions[O_WEAPON_HAND]->aux != LOADED) &&
 	   (Player.possessions[index]->id == WEAPONID+29)) {
-	     mprint("You crank back the crossbow and load a bolt.");
+	     mprint(LS(IDS_MSG_20579));
 	     Player.possessions[O_WEAPON_HAND]->aux = LOADED;
 	   }
   else {
@@ -243,18 +243,18 @@ void fire()
     y1 = y2 = Player.y;
     setspot(&x2,&y2);
     if ((x2 == Player.x) && (y2 == Player.y)) 
-      mprint("You practice juggling for a moment or two.");
+      mprint(LS(IDS_MSG_20580));
     else {
       do_object_los(obj->objchar,&x1,&y1,x2,y2);
       if ((m=Level->site[x1][y1].creature) != NULL) {
 	if (obj->dmg == 0) {
 	  if (m->treasure > 0) { /* the monster can have treasure/objects */
-	    mprint("Your gift is caught!");
+	    mprint(LS(IDS_MSG_20581));
 	    givemonster(m,split_item(1,obj));
 	    conform_lost_objects(1,obj);
 	  }
 	  else {
-	    mprint("Your thrown offering is ignored.");
+	    mprint(LS(IDS_MSG_20582));
 	    setgamestatus(SUPPRESS_PRINTING);
 	    p_drop_at(x1,y1,1,obj);
 	    resetgamestatus(SUPPRESS_PRINTING);
@@ -262,7 +262,7 @@ void fire()
 	  }
 	}
 	else if (obj->aux == I_SCYTHE) {
-	  mprint("It isn't very aerodynamic... you miss.");
+	  mprint(LS(IDS_MSG_20583));
 	  setgamestatus(SUPPRESS_PRINTING);
 	  p_drop_at(x1,y1,1,obj);
 	  resetgamestatus(SUPPRESS_PRINTING);
@@ -281,7 +281,7 @@ void fire()
 	  }
 	}
 	else {
-	  mprint("You miss it.");
+	  mprint(LS(IDS_MSG_20584));
 	  setgamestatus(SUPPRESS_PRINTING);
 	  p_drop_at(x1,y1,1,obj);
 	  resetgamestatus(SUPPRESS_PRINTING);
@@ -305,7 +305,7 @@ void quit()
 {
   clearmsg();
   change_to_game_perms();
-  mprint("Quit: Are you sure? [yn] ");
+  mprint(LS(IDS_MSG_20585));
   if (ynq()=='y') {
     if (Player.rank[ADEPT] == 0) display_quit();
     else display_bigwin();
@@ -328,24 +328,24 @@ void nap()
   if (gamestatusp(FAST_MOVE)) {
     if (naptime-- < 1) {
       clearmsg();
-      mprint("Yawn. You wake up.");
+      mprint(LS(IDS_MSG_20586));
       resetgamestatus(FAST_MOVE);
       drawvision(Player.x,Player.y);
     }
   }
   else {
     clearmsg();
-    mprint("Rest for how long? (in minutes) ");
+    mprint(LS(IDS_MSG_20587));
     naptime = (int) parsenum();
     if (naptime > 600) {
-      print3("You can only sleep up to 10 hours (600 minutes)");
+      print3(LS(IDS_MSG_20588));
       naptime = 3600;
     }
     else naptime *= 6;
     if (naptime > 1) {
       clearmsg();
       setgamestatus(FAST_MOVE);
-      mprint("Resting.... ");
+      mprint(LS(IDS_MSG_20589));
     }
   }
 }
@@ -358,7 +358,7 @@ void charid()
   char cstr[80];
 
   clearmsg();
-  mprint("Character to identify: ");
+  mprint(LS(IDS_MSG_20590));
   id = mgetc();
   if (Current_Environment == E_COUNTRYSIDE) {
     countryside = TRUE;
@@ -369,121 +369,121 @@ void charid()
   }
   if (! countryside) {
     if ((id >= 'a' && id <= 'z') || (id >= 'A' && id <= 'Z') || id == '@')
-      mprint("A monster or NPC -- examine (x) to find out exactly.");
+      mprint(LS(IDS_MSG_20591));
     else switch(id) {
     case (SPACE&0xff):
-      mprint(" : An airless void (if seen) or unknown region (if unseen)");
+      mprint(LS(IDS_MSG_20592));
       break;
     case (WALL&0xff):
-      mprint(" : An (impenetrable?) wall");
+      mprint(LS(IDS_MSG_20593));
       break;
     case (OPEN_DOOR&0xff):
-      mprint(" : An open door");
+      mprint(LS(IDS_MSG_20594));
       break;
     case (CLOSED_DOOR&0xff):
-      mprint(" : A closed (possibly locked) door");
+      mprint(LS(IDS_MSG_20595));
       break;
     case (LAVA&0xff):
-      mprint(" : A pool of lava");
+      mprint(LS(IDS_MSG_20596));
       break;
     case (HEDGE&0xff):
-      mprint(" : A dense hedge");
+      mprint(LS(IDS_MSG_20597));
       break;
     case (WATER&0xff):
-      mprint(" : A deep body of water");
+      mprint(LS(IDS_MSG_20598));
       break;
     case (FIRE&0xff):
-      mprint(" : A curtain of fire");
+      mprint(LS(IDS_MSG_20599));
       break;
     case (TRAP&0xff):
-      mprint(" : An uncovered trap");
+      mprint(LS(IDS_MSG_20600));
       break;
     case (STAIRS_UP&0xff):
-      mprint(" : A stairway leading up");
+      mprint(LS(IDS_MSG_20601));
       break;
     case (STAIRS_DOWN&0xff):
-      mprint(" : A stairway leading down");
+      mprint(LS(IDS_MSG_20602));
       break;
     case (FLOOR&0xff):
-      mprint(" : The dungeon floor");
+      mprint(LS(IDS_MSG_20603));
       break;
     case (PORTCULLIS&0xff):
-      mprint(" : A heavy steel portcullis");
+      mprint(LS(IDS_MSG_20604));
       break;
     case (ABYSS&0xff):
-      mprint(" : An entrance to the infinite abyss");
+      mprint(LS(IDS_MSG_20605));
       break;
     case (PLAYER&0xff):
-      mprint(" : You, the player");
+      mprint(LS(IDS_MSG_20606));
       break;
     case (CORPSE&0xff):
-      mprint(" : The remains of some creature");
+      mprint(LS(IDS_MSG_20607));
       break;
     case (THING&0xff):
-      mprint(" : Some random miscellaneous object");
+      mprint(LS(IDS_MSG_20608));
       break;
     case (SAFE&0xff):
-      mprint(" : A steel safe inset into the floor"); 
+      mprint(LS(IDS_MSG_20609)); 
       break;
     case (RUBBLE&0xff):
-      mprint(" : A dangerous-looking pile of rubble");
+      mprint(LS(IDS_MSG_20610));
       break;
     case (STATUE&0xff):
-      mprint(" : A statue");
+      mprint(LS(IDS_MSG_20611));
       break;
     case (ALTAR&0xff):
-      mprint(" : A (un?)holy altar");
+      mprint(LS(IDS_MSG_20612));
       break;
     case (CASH&0xff):
-      mprint(" : Bills, specie, gems: cash");
+      mprint(LS(IDS_MSG_20613));
       break;
     case (PILE&0xff):
-      mprint(" : A pile of objects");
+      mprint(LS(IDS_MSG_20614));
       break;
     case (FOOD&0xff):
-      mprint(" : Something edible");
+      mprint(LS(IDS_MSG_20615));
       break;
     case (WEAPON&0xff):
-      mprint(" : Some kind of weapon");
+      mprint(LS(IDS_MSG_20616));
       break;
     case (MISSILEWEAPON&0xff):
-      mprint(" : Some kind of missile weapon");
+      mprint(LS(IDS_MSG_20617));
       break;
     case (SCROLL&0xff):
-      mprint(" : Something readable");
+      mprint(LS(IDS_MSG_20618));
       break;
     case (POTION&0xff):
-      mprint(" : Something drinkable");
+      mprint(LS(IDS_MSG_20619));
       break;
     case (ARMOR&0xff):
-      mprint(" : A suit of armor");
+      mprint(LS(IDS_MSG_20620));
       break;
     case (SHIELD&0xff):
-      mprint(" : A shield");
+      mprint(LS(IDS_MSG_20621));
       break;
     case (CLOAK&0xff):
-      mprint(" : A cloak");
+      mprint(LS(IDS_MSG_20622));
       break;
     case (BOOTS&0xff):
-      mprint(" : A pair of boots");
+      mprint(LS(IDS_MSG_20623));
       break;
     case (STICK&0xff):
-      mprint(" : A stick");
+      mprint(LS(IDS_MSG_20624));
       break;
     case (RING&0xff):
-      mprint(" : A ring");
+      mprint(LS(IDS_MSG_20625));
       break;
     case (ARTIFACT&0xff):
-      mprint(" : An artifact");
+      mprint(LS(IDS_MSG_20626));
       break;
     case (CHAIR&0xff):
-      mprint(" : A chair");
+      mprint(LS(IDS_MSG_20627));
       break;
     case (WHIRLWIND&0xff):
-      mprint(" : A whirlwind");
+      mprint(LS(IDS_MSG_20628));
       break;
     default:
-      mprint("That character is unused.");
+      mprint(LS(IDS_MSG_20629));
       break;
     }
   }
@@ -498,10 +498,10 @@ void wizard()
 #endif
 
   setgamestatus(SKIP_MONSTERS);
-  if (gamestatusp(CHEATED)) mprint("You're already in wizard mode!");
+  if (gamestatusp(CHEATED)) mprint(LS(IDS_MSG_20630));
   else {
     clearmsg();
-    mprint("Really try to enter wizard mode? [yn] ");
+    mprint(LS(IDS_MSG_20631));
     if (ynq()=='y') {
        lname = getlogin();
 #if !defined(MSDOS) && !defined(_WIN32)
@@ -513,18 +513,18 @@ void wizard()
 #endif
        if (strcmp(lname,WIZARD)==0) {
 	 setgamestatus(CHEATED);
-	 mprint("Wizard mode set.");
+	 mprint(LS(IDS_MSG_20632));
       }
       else {
-	mprint("There is a shrieking sound, as of reality being distorted.");
+	mprint(LS(IDS_MSG_20633));
 	strcpy(Str1,WIZARD);
 	strcat(Str1,", the Wizard of Omega appears before you....");
 	if (Str1[0] >= 'a' && Str1[0] <= 'z')
 	    Str1[0] += 'A'-'a'; /* capitalise 1st letter */
 	mprint(Str1);
-	mprint("'Do not meddle in the affairs of Wizards --");
-	if (random_range(2)) mprint("it makes them soggy and hard to light.'");
-	else mprint("for they are subtle, and swift to anger!'");
+	mprint(LS(IDS_MSG_20634));
+	if (random_range(2)) mprint(LS(IDS_MSG_20635));
+	else mprint(LS(IDS_MSG_20636));
       }
     }
   }
@@ -542,29 +542,29 @@ void vault()
       jumper = 2;
   if (Player.status[IMMOBILE] > 0) {
     resetgamestatus(FAST_MOVE);
-    print3("You are unable to move");
+    print3(LS(IDS_MSG_20514));
   }
   else {
     setgamestatus(SKIP_MONSTERS);
-    mprint("Jump where?");
+    mprint(LS(IDS_MSG_20637));
     setspot(&x,&y);
     if (! los_p(Player.x,Player.y,x,y))
-      print3("The way is obstructed.");
+      print3(LS(IDS_MSG_20638));
     else if (Player.itemweight > Player.maxweight) 
-      print3("You are too burdened to jump anywhere.");
+      print3(LS(IDS_MSG_20639));
     else if (distance(x,y,Player.x,Player.y) > 
 	     max(2,statmod(Player.agi)+2)+jumper)
-      print3("The jump is too far for you.");
+      print3(LS(IDS_MSG_20640));
     else if (Level->site[x][y].creature != NULL)
-      print3("You can't jump on another creature.");
+      print3(LS(IDS_MSG_20641));
     else if (! p_moveable(x,y))
-      print3("You can't jump there.");
+      print3(LS(IDS_MSG_20642));
     else {
       resetgamestatus(SKIP_MONSTERS);
       Player.x = x;
       Player.y = y;
       if ((! jumper) && (random_range(30) > Player.agi)) {
-	mprint("Oops -- took a tumble.");
+	mprint(LS(IDS_MSG_20643));
 	setgamestatus(SKIP_PLAYER);
 	p_damage((Player.itemweight/250),UNSTOPPABLE,"clumsiness");
       }
@@ -600,7 +600,7 @@ void tacoptions()
       draw_again = 0;
     }
     clearmsg();
-    mprint("Maneuvers Left:");
+    mprint(LS(IDS_MSG_20644));
     mnumprint(actionsleft);
     switch(mgetc()) {
     case '?':
@@ -608,7 +608,7 @@ void tacoptions()
       draw_again = 1;
       break;
     case 'a': case 'A':
-      if (actionsleft < 1) print3("No more maneuvers!");
+      if (actionsleft < 1) print3(LS(IDS_MSG_20645));
       else {
 	if (Player.possessions[O_WEAPON_HAND] == NULL) {
 	  Player.meleestr[place] = 'C';
@@ -633,7 +633,7 @@ void tacoptions()
       }
       break;
     case 'b': case 'B':
-      if (actionsleft<1) print3("No more maneuvers!");
+      if (actionsleft<1) print3(LS(IDS_MSG_20645));
       else {
 	Player.meleestr[place] = 'B';
 	if (Player.possessions[O_WEAPON_HAND] == NULL)
@@ -648,7 +648,7 @@ void tacoptions()
       }
       break;
     case 'l': case 'L':
-      if (actionsleft<2) print3("Not enough maneuvers to lunge!");
+      if (actionsleft<2) print3(LS(IDS_MSG_20646));
       else {
 	if (Player.possessions[O_WEAPON_HAND] != NULL) {
 	  if (Player.possessions[O_WEAPON_HAND]->type != MISSILE) {
@@ -660,18 +660,18 @@ void tacoptions()
 	    actionsleft -= 2;
 	  }
 	  else {
-	    print3("Can't lunge with a missile weapon!");
+	    print3(LS(IDS_MSG_20647));
 	    morewait();
 	  }
 	}
 	else {
-	  print3("Can't lunge without a weapon!");
+	  print3(LS(IDS_MSG_20648));
 	  morewait();
 	}
       }
       break;
     case 'r': case 'R':
-      if (actionsleft<2) print3("Not enough maneuvers to riposte!");
+      if (actionsleft<2) print3(LS(IDS_MSG_20649));
       else {
 	if (Player.possessions[O_WEAPON_HAND] != NULL) {
 	  if (Player.possessions[O_WEAPON_HAND]->type == THRUSTING) {
@@ -681,12 +681,12 @@ void tacoptions()
 	    actionsleft -= 2;
 	  }
 	  else {
-	    print3("Can't riposte without a thrusting weapon!");
+	    print3(LS(IDS_MSG_20650));
 	    morewait();
 	  }
 	}
 	else {
-	  print3("Can't riposte without a thrusting weapon!");
+	  print3(LS(IDS_MSG_20650));
 	  morewait();
 	}
       }
@@ -763,7 +763,7 @@ void pickpocket()
 
   clearmsg();
 
-  mprint("Pickpocketing --");
+  mprint(LS(IDS_MSG_20651));
 
   index = getdir();
 
@@ -775,34 +775,34 @@ void pickpocket()
     
     if ((! inbounds(Player.x+dx, Player.y+dy)) ||
 	(Level->site[Player.x+dx][Player.y+dy].creature == NULL)) {
-      print3("There's nothing there to steal from!!!");
+      print3(LS(IDS_MSG_20652));
       setgamestatus(SKIP_MONSTERS);
     }
     else {
       m = Level->site[Player.x+dx][Player.y+dy].creature;
       if (m->id == ML0+3) {
-	mprint("Trying to steal from a guardsman, eh?");
-	mprint("Not a clever idea.");
+	mprint(LS(IDS_MSG_20653));
+	mprint(LS(IDS_MSG_20654));
 	if (Player.cash > 0) {
-	  mprint("As a punitive fine, the guard takes all your money.");
+	  mprint(LS(IDS_MSG_20655));
 	  Player.cash = 0;
 	  dataprint();
 	}
 	else {
-	  mprint("The guardsman places you under arrest.");
+	  mprint(LS(IDS_MSG_20656));
 	  morewait();
 	  send_to_jail();
 	}
       }
       else if (m->possessions == NULL) {
-	mprint("You couldn't find anything worth taking!");
-	mprint("But you managed to annoy it...");
+	mprint(LS(IDS_MSG_20657));
+	mprint(LS(IDS_MSG_20658));
 	m_status_set(m,HOSTILE);
       }
       else if (Player.dex*5+Player.rank[THIEVES]*20+random_range(100) >
 	       random_range(100)+m->level*20) {
-	mprint("You successfully complete your crime!");
-	mprint("You stole:");
+	mprint(LS(IDS_MSG_20659));
+	mprint(LS(IDS_MSG_20660));
 	mprint(itemid(m->possessions->thing));
 	Player.alignment--;
 	gain_experience(m->level*m->level);
@@ -819,7 +819,7 @@ void rename_player()
 {
   setgamestatus(SKIP_MONSTERS);
   clearmsg();
-  mprint("Rename Character: ");
+  mprint(LS(IDS_MSG_20661));
   strcpy(Str1,msgscanstring());
   if (strlen(Str1) == 0)
     mprint(Player.name);
@@ -837,12 +837,12 @@ void abortshadowform()
 {
   setgamestatus(SKIP_MONSTERS);
   if (Player.status[SHADOWFORM] && (Player.status[SHADOWFORM]<1000)) {
-    mprint("You abort your spell of Shadow Form.");
+    mprint(LS(IDS_MSG_20662));
     Player.immunity[NORMAL_DAMAGE]--;
     Player.immunity[ACID]--;
     Player.immunity[THEFT]--;
     Player.immunity[INFECTION]--;
-    mprint("You feel less shadowy now.");
+    mprint(LS(IDS_MSG_20102));
     Player.status[SHADOWFORM] = 0;
   }
 }
@@ -852,7 +852,7 @@ void tunnel()
   int dir,ox,oy,aux;
 
   clearmsg();
-  mprint("Tunnel -- ");
+  mprint(LS(IDS_MSG_20663));
   dir = getdir();
   if (dir == ABORT)
     setgamestatus(SKIP_MONSTERS);
@@ -860,59 +860,59 @@ void tunnel()
     ox = Player.x + Dirs[0][dir];
     oy = Player.y + Dirs[1][dir];
     if (loc_statusp(ox,oy,SECRET))
-      mprint("You have no success as yet.");
+      mprint(LS(IDS_MSG_20664));
     else if (Level->site[ox][oy].locchar != WALL) {
-      print3("You can't tunnel through that!");
+      print3(LS(IDS_MSG_20665));
       setgamestatus(SKIP_MONSTERS);
     }
     else {
       aux = Level->site[ox][oy].aux;
       if (random_range(20)==1){
 	if (Player.possessions[O_WEAPON_HAND] == NULL) {
-	  mprint("Ouch! broke a fingernail...");
+	  mprint(LS(IDS_MSG_20666));
 	  p_damage(Player.str / 6,UNSTOPPABLE,"a broken fingernail");
 	}
 	else if ((Player.possessions[O_WEAPON_HAND]->type == THRUSTING) ||
 		 ((Player.possessions[O_WEAPON_HAND]->type != STRIKING) &&
 		  (Player.possessions[O_WEAPON_HAND]->fragility < 
 		   random_range(20)))) {
-	  mprint("Clang! Uh oh...");
+	  mprint(LS(IDS_MSG_20667));
 	  (void) damage_item(Player.possessions[O_WEAPON_HAND]);
 	}
-	else mprint("Your digging implement shows no sign of breaking.");
+	else mprint(LS(IDS_MSG_20668));
       }
       if (Player.possessions[O_WEAPON_HAND] == NULL) {
 	if ((aux > 0) && ((Player.str/3)+random_range(100) > aux)) {
-	  mprint("You carve a tunnel through the stone!");
+	  mprint(LS(IDS_MSG_20669));
 	  tunnelcheck();
 	  Level->site[ox][oy].locchar = RUBBLE;
 	  Level->site[ox][oy].p_locf = L_RUBBLE;
 	  lset(ox, oy, CHANGED);
 	}
-	else mprint("No joy.");
+	else mprint(LS(IDS_MSG_20670));
       }
       else if (Player.possessions[O_WEAPON_HAND]->type == THRUSTING) {
 	if ((aux > 0) && 
 	    (Player.possessions[O_WEAPON_HAND]->dmg*2+random_range(100) > 
 	     aux)) {
-	  mprint("You carve a tunnel through the stone!");
+	  mprint(LS(IDS_MSG_20669));
 	  tunnelcheck();
 	  Level->site[ox][oy].locchar = RUBBLE;
 	  Level->site[ox][oy].p_locf = L_RUBBLE;
 	  lset(ox, oy, CHANGED);
 	}
-	else mprint("No luck.");
+	else mprint(LS(IDS_MSG_20671));
       }
       else if ((aux > 0) && 
 	       (Player.possessions[O_WEAPON_HAND]->dmg+random_range(100) 
 		> aux)) {
-	mprint("You carve a tunnel through the stone!");
+	mprint(LS(IDS_MSG_20669));
 	tunnelcheck();
 	Level->site[ox][oy].locchar = RUBBLE;
 	Level->site[ox][oy].p_locf = L_RUBBLE;
 	lset(ox, oy, CHANGED);
       }
-      else mprint("You have no success as yet.");
+      else mprint(LS(IDS_MSG_20664));
     }
   }
 }
@@ -926,7 +926,7 @@ short terrain;
   int fertility=0;
   switch(terrain) {
   case SWAMP: 
-    mprint("You hesitate to hunt for food in the marshy wasteland.");
+    mprint(LS(IDS_MSG_20672));
     break;
   case VOLCANO:
   case CASTLE:
@@ -935,56 +935,56 @@ short terrain;
   case STARPEAK:
   case MAGIC_ISLE:
   case DRAGONLAIR:
-    mprint("There is nothing alive here (or so it seems)");
+    mprint(LS(IDS_MSG_20673));
     break;
   case VILLAGE:
   case CITY:
-    mprint("You can find no food here; perhaps if you went inside....");
+    mprint(LS(IDS_MSG_20674));
     break;
   case ROAD:
-    mprint("You feel it would be a better idea to hunt off the road.");
+    mprint(LS(IDS_MSG_20675));
     break;
   case CHAOS_SEA:
-    mprint("Food in the Sea of Chaos? Go on!");
+    mprint(LS(IDS_MSG_20676));
     break;
   case DESERT:
-    mprint("You wander off into the trackless desert in search of food...");
+    mprint(LS(IDS_MSG_20677));
     Time += 100;
     hourly_check();  
     fertility = 10;
     break;
   case JUNGLE:
-    mprint("You search the lush and verdant jungle for game....");
+    mprint(LS(IDS_MSG_20678));
     Time += 100;
     hourly_check();
     fertility = 80;
     break;
   case PLAINS:
-    mprint("You set off through the tall grass; the game is afoot.");
+    mprint(LS(IDS_MSG_20679));
     Time += 100;
     hourly_check();
     fertility = 50;
     break;
   case TUNDRA:
-    mprint("You blaze a trail through the frozen wasteland....");
+    mprint(LS(IDS_MSG_20680));
     Time += 100;
     hourly_check();
     fertility = 30;
     break;
   case FOREST:
-    mprint("You try to follow the many tracks through the forest loam....");
+    mprint(LS(IDS_MSG_20681));
     Time += 100;
     hourly_check();
     fertility = 70;
     break;
   case MOUNTAINS: case PASS:
-    mprint("You search the cliff walls looking for something to eat....");
+    mprint(LS(IDS_MSG_20682));
     Time += 100;
     hourly_check();  
     fertility = 30;
     break;
   case RIVER:
-    mprint("The halcyon river is your hopeful food source...");
+    mprint(LS(IDS_MSG_20683));
     Time += 100;
     hourly_check();  
     fertility = 80;
@@ -993,24 +993,24 @@ short terrain;
   if (((Date % 360 < 60) || (Date % 360 > 300)) && 
       (terrain != DESERT) &&
       (terrain != JUNGLE)) {
-    mprint("The cold weather impedes your hunt....");
+    mprint(LS(IDS_MSG_20684));
     fertility = fertility / 2;
   }
   if (fertility > random_range(100)) {
-    mprint("You have an encounter...");
+    mprint(LS(IDS_MSG_20685));
     change_environment(E_TACTICAL_MAP);
   }
-  else mprint("Your hunt is fruitless.");
+  else mprint(LS(IDS_MSG_20686));
 }
 
 void dismount_steed()
 {
   pml ml;
   if (! gamestatusp(MOUNTED))
-    print3("You're on foot already!");
+    print3(LS(IDS_MSG_20687));
   else if (Current_Environment == E_COUNTRYSIDE) {
-    mprint("If you leave your steed here he will wander away!");
-    mprint("Do it anyway? [yn] ");
+    mprint(LS(IDS_MSG_20688));
+    mprint(LS(IDS_MSG_20689));
     if (ynq()=='y') resetgamestatus(MOUNTED);
   }
   else {
@@ -1034,22 +1034,22 @@ void city_move()
   int site,x=Player.x,y=Player.y,toggle=FALSE;
   clearmsg();
   if (Current_Environment != E_CITY) {
-    print3("This command only works in the city!");
+    print3(LS(IDS_MSG_20690));
     setgamestatus(SKIP_MONSTERS);
   }
   else if (Player.status[IMMOBILE] > 0) 
-    print3("You can't even move!");
+    print3(LS(IDS_MSG_20691));
   else if (hostilemonstersnear()) {
     setgamestatus(SKIP_MONSTERS);
-    print3("You can't move this way with hostile monsters around!");
+    print3(LS(IDS_MSG_20692));
   }
   else if (Level->site[Player.x][Player.y].aux == NOCITYMOVE)
-    print3("You can't use the 'M' command from this location.");
+    print3(LS(IDS_MSG_20693));
   else {
-    print1("Move to which establishment [? for help, ESCAPE to quit]");
+    print1(LS(IDS_MSG_20694));
     site = parsecitysite();
     if (site != ABORT) {
-      mprint("You're on your way...");
+      mprint(LS(IDS_MSG_20695));
       morewait();
       while ((x != CitySiteList[site][1]) || (y != CitySiteList[site][2])) {
 	toggle = ! toggle;
@@ -1066,7 +1066,7 @@ void city_move()
       Player.x = x;
       Player.y = y;
       screencheck(Player.y);
-      mprint("Made it!");
+      mprint(LS(IDS_MSG_20696));
       drawvision(Player.x, Player.y);
       morewait();
       p_movefunction(Level->site[x][y].p_locf);
@@ -1080,21 +1080,21 @@ void frobgamestatus()
 {
   char response;
   long num;
-  mprint("Set or Reset or Forget it [s,r,ESCAPE]:");
+  mprint(LS(IDS_MSG_20697));
   do response = (char) mcigetc();
   while ((response != 'r') && (response != 's') && (response != ESCAPE));
   if (response != ESCAPE) {
-    mprint("Enter log2 of flag:");
+    mprint(LS(IDS_MSG_20698));
     num = (int) parsenum();
     if (num > -1) {
       num = pow2(num);
       if (num == CHEATED) {
-	mprint("Can't alter Wizard flag.");
+	mprint(LS(IDS_MSG_20699));
 	return;
       }
       if (response == 's') setgamestatus(num);
       else resetgamestatus(num);
-      mprint("Done....");
+      mprint(LS(IDS_MSG_20700));
     }
   }
 }

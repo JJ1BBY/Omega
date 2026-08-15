@@ -55,54 +55,54 @@ void indoors_random_event()
   pol ol;
   switch(random_range(1000)) {
     case 0: 
-      print3("You feel an unexplainable elation.");
+      print3(LS(IDS_MSG_20160));
       morewait();
       break;
     case 1:
-      print3("You hear a distant rumbling.");
+      print3(LS(IDS_MSG_20161));
       morewait();
       break;
     case 2:
-      print3("You realize your fly is open.");
+      print3(LS(IDS_MSG_20162));
       morewait();
       break;
     case 3:
-      print3("You have a sudden craving for a pecan twirl.");
+      print3(LS(IDS_MSG_20163));
       morewait();
       break;
     case 4:
-      print3("A mysterious healing flux settles over the level.");
+      print3(LS(IDS_MSG_20164));
       morewait();
       for (ml=Level->mlist;ml!=NULL;ml=ml->next)
 	if (ml->m->hp > 0) ml->m->hp = Monsters[ml->m->id].hp;
       Player.hp = max(Player.hp,Player.maxhp);
       break;
     case 5:
-      print3("You discover an itch just where you can't scratch it.");
+      print3(LS(IDS_MSG_20165));
       morewait();
       break;
     case 6:
-      print3("A cosmic ray strikes!");
+      print3(LS(IDS_MSG_20166));
       p_damage(10,UNSTOPPABLE,"a cosmic ray");
       morewait();
       break;
     case 7:
-      print3("You catch your second wind....");
+      print3(LS(IDS_MSG_20167));
       Player.hp = ++Player.maxhp;
       Player.mana = max(Player.mana, calcmana());
       morewait();
       break;
     case 8:
-      print3("You find some spare change in a hidden pocket.");
+      print3(LS(IDS_MSG_20168));
       morewait();
       Player.cash += Player.level*Player.level+1;
       break;
     case 9:
-      print3("You feel strangely lucky.");
+      print3(LS(IDS_MSG_20169));
       morewait();
       break;
     case 10:
-      print3("You trip over something hidden in a shadow...");
+      print3(LS(IDS_MSG_20170));
       morewait();
       ol = ((pol) checkmalloc(sizeof(oltype)));
       do ol->thing = create_object(difficulty());
@@ -112,24 +112,24 @@ void indoors_random_event()
       pickup();
       break;
     case 11: 
-      print3("A mysterious voice echoes all around you....");
+      print3(LS(IDS_MSG_20171));
       morewait();
       hint();
       morewait();
       break;
     case 12:
       if (Balance > 0) {
-	print3("You get word of the failure of your bank!");
+	print3(LS(IDS_MSG_20172));
 	Balance = 0;
       }
-      else print3("You feel lucky.");
+      else print3(LS(IDS_MSG_20173));
       break;
     case 13:
       if (Balance > 0) {
-	print3("You get word of a bank error in your favor!");
+	print3(LS(IDS_MSG_20174));
 	Balance += 5000;
       }
-      else print3("You feel unlucky.");
+      else print3(LS(IDS_MSG_20175));
       break;
     }
   dataprint();
@@ -147,37 +147,37 @@ void outdoors_random_event()
   case 0:
     switch(Country[Player.x][Player.y].current_terrain_type) {
     case TUNDRA: 
-      mprint("It begins to snow. Heavily.");
+      mprint(LS(IDS_MSG_20176));
       break;
     case DESERT:
-      mprint("A sandstorm swirls around you.");
+      mprint(LS(IDS_MSG_20177));
       break;
     default:
       if ((Date > 75) && (Date < 330))
-	mprint("You are drenched by a sudden downpour!");
-      else mprint("It begins to snow. Heavily.");
+	mprint(LS(IDS_MSG_20178));
+      else mprint(LS(IDS_MSG_20176));
     }
     morewait();
-    mprint("Due to the inclement weather conditions, you have become lost.");
+    mprint(LS(IDS_MSG_20179));
     morewait();
     Precipitation+=random_range(12)+1;
     setgamestatus(LOST);
     break;
   case 1:
-    mprint("You enter a field of brightly colored flowers...");
-    mprint("Wow, man! These are some pretty poppies...");
+    mprint(LS(IDS_MSG_20180));
+    mprint(LS(IDS_MSG_20181));
     morewait();
-    mprint("poppies...");
+    mprint(LS(IDS_MSG_20182));
     morewait();
-    mprint("poppies...");
+    mprint(LS(IDS_MSG_20182));
     morewait();
-    print3("You become somewhat disoriented...");
+    print3(LS(IDS_MSG_20183));
     setgamestatus(LOST);
     break;
   case 2:
-    mprint("You discover a sprig of athelas growing lonely in the wild.");
+    mprint(LS(IDS_MSG_20184));
     morewait();
-    mprint("Using your herbalist lore you cook a cake of lembas....");
+    mprint(LS(IDS_MSG_20185));
     morewait();
     ob = ((pob) checkmalloc(sizeof(objtype)));
     *ob = Objects[FOODID+1];
@@ -185,34 +185,34 @@ void outdoors_random_event()
     break;
   case 3:
     if (Precipitation > 0) {
-      mprint("You are struck by a bolt of lightning!");
+      mprint(LS(IDS_MSG_20186));
       p_damage(random_range(25),ELECTRICITY,"a lightning strike");
       morewait();
     }
-    else mprint("You feel static cling");
+    else mprint(LS(IDS_MSG_20187));
     break;
   case 4:
-    mprint("You find a fast-food establishment.");
+    mprint(LS(IDS_MSG_20188));
     morewait();
     l_commandant();
     break;
   case 5:
-    mprint("A weird howling tornado hits from out of the West!");
+    mprint(LS(IDS_MSG_20189));
     morewait();
-    mprint("You've been caught in a chaos storm!");
+    mprint(LS(IDS_MSG_20190));
     morewait();
     num = random_range(300);
     if (num <10) {
-      mprint("Your cell-structure was disrupted!");
+      mprint(LS(IDS_MSG_20191));
       p_damage(random_range(100),UNSTOPPABLE,"a chaos storm");
       morewait();
     }
     else if (num < 20) {
-      mprint("The chaos storm warps your frame!");
+      mprint(LS(IDS_MSG_20192));
       morewait();
-      mprint("Your statistical entropy has been maximized.");
+      mprint(LS(IDS_MSG_20193));
       morewait();
-      mprint("You feel average...");
+      mprint(LS(IDS_MSG_20194));
       morewait();
       Player.str = Player.maxstr = Player.con = Player.maxcon =
 	Player.dex = Player.maxdex = Player.agi = Player.maxagi =
@@ -221,7 +221,7 @@ void outdoors_random_event()
 	      Player.maxiq+Player.maxpow+12)/6);
     }
     else if (num < 30) {
-      mprint("Your entire body glows with an eerie flickering light.");
+      mprint(LS(IDS_MSG_20195));
       morewait();
       for(i=1;i<MAXITEMS;i++)
 	if (Player.possessions[i] != NULL) {
@@ -231,12 +231,12 @@ void outdoors_random_event()
 	  Player.possessions[i]->blessing+=10;
 	}
       cleanse(1);
-      mprint("You feel filled with energy!");
+      mprint(LS(IDS_MSG_20196));
       morewait();
       Player.maxpow += 5;
       Player.pow += 5;
       Player.mana = Player.maxmana = calcmana() * 5;
-      mprint("You also feel weaker. Paradoxical, no?");
+      mprint(LS(IDS_MSG_20197));
       morewait();
       Player.con -= 5;
       Player.maxcon -= 5;
@@ -244,7 +244,7 @@ void outdoors_random_event()
 	p_death("congestive heart failure");
     }
     else if (num < 40) {
-      mprint("Your entire body glows black.");
+      mprint(LS(IDS_MSG_20198));
       morewait();
       dispel(-1);
       dispel(-1);
@@ -252,14 +252,14 @@ void outdoors_random_event()
       Player.mana=0;
     }
     else if (num < 60) {
-      mprint("The storm deposits you in a strange place....");
+      mprint(LS(IDS_MSG_20199));
       morewait();
       Player.x = random_range(WIDTH);
       Player.y = random_range(LENGTH);
       screencheck(Player.y);
     }
     else if (num < 70) {
-      mprint("A tendril of the storm condenses and falls into your hands.");
+      mprint(LS(IDS_MSG_20200));
       morewait();
       ob = ((pob) checkmalloc(sizeof(objtype)));
       make_artifact(ob,-1);
@@ -267,33 +267,33 @@ void outdoors_random_event()
     }
     else if (num < 80) {
       if (gamestatusp(MOUNTED)) {
-	mprint("Your horse screams as he is transformed into an");
+	mprint(LS(IDS_MSG_20201));
 	morewait();
-	mprint("imaginary unseen dead tortoise.");
+	mprint(LS(IDS_MSG_20202));
 	morewait();
-	mprint("You are now on foot.");
+	mprint(LS(IDS_MSG_20203));
 	morewait();
 	resetgamestatus(MOUNTED);
       }
       else {
-	mprint("You notice you are riding a horse. Odd. Very odd....");
+	mprint(LS(IDS_MSG_20204));
 	morewait();
-	mprint("Now that's a horse of a different color!");
+	mprint(LS(IDS_MSG_20205));
 	morewait();
 	setgamestatus(MOUNTED);
       }
     }
     else if (num < 90) {
-      mprint("You feel imbued with godlike power....");
+      mprint(LS(IDS_MSG_20206));
       morewait();
       wish(1);
     }
     else if (num < 100) {
-      mprint("The chaos storm has wiped your memory!");
+      mprint(LS(IDS_MSG_20207));
       morewait();
-      mprint("You feel extraordinarily naive....");
+      mprint(LS(IDS_MSG_20208));
       morewait();
-      mprint("You can't remember a thing! Not even your name.");
+      mprint(LS(IDS_MSG_20209));
       morewait();
       Player.xp = 0;
       Player.level = 0;
@@ -302,24 +302,24 @@ void outdoors_random_event()
       rename_player();
     }
     else {
-      mprint("You survive the chaos storm relatively unscathed.");
+      mprint(LS(IDS_MSG_20210));
       morewait();
-      mprint("It was a learning experience.");
+      mprint(LS(IDS_MSG_20211));
       morewait();
       gain_experience(1000);
     }
     break;
   case 6: case 7: case 8: case 9: case 10:
-    mprint("An encounter!");
+    mprint(LS(IDS_MSG_20212));
     morewait();
     change_environment(E_TACTICAL_MAP);
     break;
   case 11:
-    mprint("You find a Traveller's Aid station with maps of the local area.");
+    mprint(LS(IDS_MSG_20213));
     morewait();
     if (gamestatusp(LOST)) {
       resetgamestatus(LOST);
-      mprint("You know where you are now.");
+      mprint(LS(IDS_MSG_20214));
     }
     for(i=Player.x-5;i<Player.x+6;i++)
       for(j=Player.y-5;j<Player.y+6;j++)
@@ -336,23 +336,23 @@ void outdoors_random_event()
     break;
   case 12:
     if (! gamestatusp(MOUNTED)) {
-      mprint("You develop blisters....");
+      mprint(LS(IDS_MSG_20215));
       p_damage(1,UNSTOPPABLE,"blisters");
     }
     break;
   case 13:
-    mprint("You discover an itch just where you can't scratch it.");
+    mprint(LS(IDS_MSG_20165));
     break;
   case 14:
-    mprint("A cosmic ray strikes!");
+    mprint(LS(IDS_MSG_20166));
     morewait();
     p_damage(10,UNSTOPPABLE,"a cosmic ray");
     break;
   case 15:
-    mprint("You feel strangely lucky.");
+    mprint(LS(IDS_MSG_20169));
     break;
   case 16:
-    mprint("The west wind carries with it a weird echoing voice....");
+    mprint(LS(IDS_MSG_20216));
     morewait();
     hint();
     morewait();
@@ -394,7 +394,7 @@ int hostile_magic;
       (Player.level/2 + random_range(20) >
        hostile_magic + random_range(20))) {
     if (Player.mana > hostile_magic * hostile_magic) {
-      mprint("Thinking fast, you defend youself with a counterspell!");
+      mprint(LS(IDS_MSG_20217));
       Player.mana -= hostile_magic * hostile_magic;
       dataprint();
       return(TRUE);
@@ -402,7 +402,7 @@ int hostile_magic;
   }
   if (Player.level/4 + Player.status[PROTECTION] + random_range(20) > 
       hostile_magic + random_range(30)) {
-    mprint("You resist the spell!");
+    mprint(LS(IDS_MSG_20218));
     return(TRUE);
   }
   else return(FALSE);
@@ -420,40 +420,40 @@ int takestime;
   if (Player.patron == DRUID) {
     faster = 1;
     switch(random_range(32)) {
-      case 0:print2("Along the many paths of nature..."); break;
-      case 1:print2("You move swiftly through the wilderness."); break;
+      case 0:print2(LS(IDS_MSG_20219)); break;
+      case 1:print2(LS(IDS_MSG_20220)); break;
     }
   }
   else if (gamestatusp(MOUNTED)) {
     faster = 1;
     switch(random_range(32)) {
       case 0:
-      case 1:print2("Clippity Clop.");break;
-      case 2:print2("....my spurs go jingle jangle jingle....");break;
-      case 3:print2("....as I go riding merrily along....");break;
+      case 1:print2(LS(IDS_MSG_20221));break;
+      case 2:print2(LS(IDS_MSG_20222));break;
+      case 3:print2(LS(IDS_MSG_20223));break;
     }
   }
   else if (Player.possessions[O_BOOTS] &&
       Player.possessions[O_BOOTS]->usef == I_BOOTS_7LEAGUE) {
     takestime = 0;
     switch(random_range(32)) {
-      case 0:print2("Boingg!"); break;
-      case 1:print2("Whooosh!"); break;
-      case 2:print2("Over hill, over dale...."); break;
-      case 3:print2("...able to leap over 7 leagues in a single bound....");
+      case 0:print2(LS(IDS_MSG_20224)); break;
+      case 1:print2(LS(IDS_MSG_20225)); break;
+      case 2:print2(LS(IDS_MSG_20226)); break;
+      case 3:print2(LS(IDS_MSG_20227));
 	break;
     }
   }
   else if (Player.status[SHADOWFORM]) {
     faster = 1;
     switch(random_range(32)) {
-      case 0:print2("As swift as a shadow."); break;
-      case 1:print2("\"I walk through the trees...\""); break;
+      case 0:print2(LS(IDS_MSG_20228)); break;
+      case 1:print2(LS(IDS_MSG_20229)); break;
     }
   }
   else switch(random_range(32)) {
-    case 0:print2("Trudge. Trudge."); break;
-    case 1:print2("The road goes ever onward...."); break;
+    case 0:print2(LS(IDS_MSG_20230)); break;
+    case 1:print2(LS(IDS_MSG_20231)); break;
   }
   switch(Country[Player.x][Player.y].current_terrain_type) {
   case RIVER:
@@ -591,7 +591,7 @@ int takestime;
       Time += 60;
       hourly_check();
     }
-    mprint("You have entered the sea of chaos...");
+    mprint(LS(IDS_MSG_20232));
     morewait();
     l_chaos();
     break;
@@ -621,14 +621,14 @@ int takestime;
   case CITY:
     if (gamestatusp(LOST)) {
       resetgamestatus(LOST); 
-      mprint("Well, I guess you know where you are now....");
+      mprint(LS(IDS_MSG_20233));
     }
     locprint("Outside Rampart, the city.");
     break;
   case VILLAGE:
     if (gamestatusp(LOST)) {
       resetgamestatus(LOST); 
-      mprint("The village guards let you know where you are....");
+      mprint(LS(IDS_MSG_20234));
     }
     locprint("Outside a small village.");
     break;
@@ -638,7 +638,7 @@ int takestime;
       Time += 60;
       hourly_check();
     }
-    mprint("You notice a concealed entrance into the hill.");
+    mprint(LS(IDS_MSG_20235));
     break;
   case CASTLE:
     locprint("Near a fortified castle.");
@@ -646,7 +646,7 @@ int takestime;
       Time += 60;
       hourly_check();
     }
-    mprint("The castle is hewn from solid granite. The drawbridge is down.");
+    mprint(LS(IDS_MSG_20236));
     break;
   case TEMPLE:
     switch(Country[Player.x][Player.y].aux) {
@@ -661,7 +661,7 @@ int takestime;
       Time += 60;
       hourly_check();
     }
-    mprint("You notice an entrance conveniently at hand.");
+    mprint(LS(IDS_MSG_20237));
     break;
   case MAGIC_ISLE:
     locprint("A strange island in the midst of the Sea of Chaos.");
@@ -669,7 +669,7 @@ int takestime;
       Time += 60;
       hourly_check();
     }
-    mprint("There is a narrow causeway to the island from here.");
+    mprint(LS(IDS_MSG_20238));
     break;
   case STARPEAK:
     locprint("Star Peak.");
@@ -677,7 +677,7 @@ int takestime;
       Time += 60;
       hourly_check();
     }
-    mprint("The top of the mountain seems to glow with a allochroous aura.");
+    mprint(LS(IDS_MSG_20239));
     break;
   case DRAGONLAIR:
     locprint("A rocky chasm.");
@@ -685,7 +685,7 @@ int takestime;
       Time += 60;
       hourly_check();
     }
-    mprint("You are at a cave entrance from which you see the glint of gold.");
+    mprint(LS(IDS_MSG_20240));
     break;
   case VOLCANO:
     locprint("HellWell Volcano.");
@@ -693,7 +693,7 @@ int takestime;
       Time += 60;
       hourly_check();
     }
-    mprint("A shimmer of heat lightning plays about the crater rim.");
+    mprint(LS(IDS_MSG_20241));
     break;
   default:
     locprint("I haven't any idea where you are!!!");
@@ -715,10 +715,10 @@ void countrysearch()
 	if (Country[x][y].current_terrain_type !=
 	    Country[x][y].base_terrain_type) {
 	  clearmsg();
-	  mprint("Your search was fruitful!");
+	  mprint(LS(IDS_MSG_20242));
 	  Country[x][y].current_terrain_type=Country[x][y].base_terrain_type;
 	  c_set(x, y, CHANGED);
-	  mprint("You discovered:");
+	  mprint(LS(IDS_MSG_20243));
 	  mprint(countryid(Country[x][y].base_terrain_type));
 	}
       }
@@ -836,7 +836,7 @@ int parsecitysite()
   first = 0;
   last = NUMCITYSITES - 1;
   pos = 0;
-  print2("");
+  print2(LS(IDS_MSG_20244));
   do {
     byte = mgetc();
     if (byte == BACKSPACE || byte == DELETE) {
@@ -863,7 +863,7 @@ int parsecitysite()
 	first = 0;
 	last = NUMCITYSITES - 1;
 	found = 0;
-	print2("");
+	print2(LS(IDS_MSG_20244));
       }
     }
     else if (byte == ESCAPE) {
@@ -903,7 +903,7 @@ int parsecitysite()
   if (found)
     return sitenums[first] - CITYSITEBASE;
   else {
-    print3("That is an ambiguous abbreviation!");
+    print3(LS(IDS_MSG_20245));
     return ABORT;
   }
 }
@@ -946,13 +946,13 @@ int alignment;
   switch((*stone)++) {
   case 0:case 2:case 4:case 6:case 8:case 10:case 12:case 14:case 16:case 18:
   case 20:case 22:case 24:case 26:case 28:case 30:case 32:case 34:case 36:
-  case 38:case 40: print1("The stone glows grey.");
-    print2("Not much seems to happen this time."); 
+  case 38:case 40: print1(LS(IDS_MSG_20246));
+    print2(LS(IDS_MSG_20247)); 
     (*stone)--;
     break;
-  case 1: print1("The stone glows black"); 
-    print2("A burden has been removed from your shoulders.....");
-    print3("Your pack has disintegrated!");
+  case 1: print1(LS(IDS_MSG_20248)); 
+    print2(LS(IDS_MSG_20249));
+    print3(LS(IDS_MSG_20250));
     for(i=0;i<MAXPACK;i++) 
       if (Player.pack[i] != NULL) {
 	free((char *) Player.pack[i]);
@@ -960,108 +960,108 @@ int alignment;
       }
     Player.packptr = 0;
     break;
-  case 3: print1("The stone glows microwave");
-    print2("A vortex of antimana spins about you!");
+  case 3: print1(LS(IDS_MSG_20251));
+    print2(LS(IDS_MSG_20252));
     morewait();
     dispel(-1);
     break;
-  case 5: print1("The stone glows infrared");
-    print2("A portal opens nearby and an obviously confused monster appears!");
+  case 5: print1(LS(IDS_MSG_20253));
+    print2(LS(IDS_MSG_20254));
     summon(-1,-1);
     morewait();
     break;
-  case 7: print1("The stone glows brick red");
-    print2("A gold piece falls from the heavens into your money pouch!");
+  case 7: print1(LS(IDS_MSG_20255));
+    print2(LS(IDS_MSG_20256));
     Player.cash++;
     break;
-  case 9: print1("The stone glows cherry red");
-    print2("A flush of warmth spreads through your body.");
+  case 9: print1(LS(IDS_MSG_20257));
+    print2(LS(IDS_MSG_20258));
     augment(1);
     break;
-  case 11: print1("The stone glows orange");
-    print2("A flux of energy blasts you!"); 
+  case 11: print1(LS(IDS_MSG_20259));
+    print2(LS(IDS_MSG_20260)); 
     manastorm(Player.x,Player.y,random_range(Player.maxhp)+1);
     break;
-  case 13: print1("The stone glows lemon yellow");
-    print2("You're surrounded by enemies! You begin to foam at the mouth.");
+  case 13: print1(LS(IDS_MSG_20261));
+    print2(LS(IDS_MSG_20262));
     Player.status[BERSERK] += 10;
     break;
-  case 15: print1("The stone glows yellow");
-    print2("Oh no! The DREADED AQUAE MORTIS!");
+  case 15: print1(LS(IDS_MSG_20263));
+    print2(LS(IDS_MSG_20264));
     morewait();
-    print2("No, wait, it's just your imagination.");
+    print2(LS(IDS_MSG_20265));
     break;
-  case 17: print1("The stone glows chartreuse");
-    print2("Your joints stiffen up.");
+  case 17: print1(LS(IDS_MSG_20266));
+    print2(LS(IDS_MSG_20267));
     Player.agi -= 3;
     break;
-  case 19: print1("The stone glows green");
-    print2("You come down with an acute case of Advanced Leprosy.");
+  case 19: print1(LS(IDS_MSG_20268));
+    print2(LS(IDS_MSG_20269));
     Player.status[DISEASED] = 1100;
     Player.hp = 1;
     Player.dex -= 5;
     break;
-  case 21: print1("The stone glows forest green");
-    print2("You feel wonderful!");
+  case 21: print1(LS(IDS_MSG_20270));
+    print2(LS(IDS_MSG_20271));
     Player.status[HERO]+=10;
     break;
-  case 23: print1("The stone glows cyan");
-    print2("You feel a strange twisting sensation....");
+  case 23: print1(LS(IDS_MSG_20272));
+    print2(LS(IDS_MSG_20273));
     morewait();
     strategic_teleport(-1);
     break;
-  case 25: print1("The stone glows blue");
+  case 25: print1(LS(IDS_MSG_20274));
     morewait();
-    print1("You feel a tingle of an unearthly intuition:");
+    print1(LS(IDS_MSG_20275));
     morewait();
     hint();
     break;
-  case 27: print1("The stone glows navy blue");
-    print2("A sudden shock of knowledge overcomes you.");
+  case 27: print1(LS(IDS_MSG_20276));
+    print2(LS(IDS_MSG_20277));
     morewait();
     clearmsg();
     identify(1);
     knowledge(1);
     break;
-  case 29: print1("The stone glows blue-violet");
-    print2("You feel forgetful.");
+  case 29: print1(LS(IDS_MSG_20278));
+    print2(LS(IDS_MSG_20279));
     for(i=0;i<NUMSPELLS;i++) 
       if (Spells[i].known) {
 	Spells[i].known = FALSE;
 	break;
       }
     break;
-  case 31: print1("The stone glows violet");
+  case 31: print1(LS(IDS_MSG_20280));
     morewait();
     acquire(0);
     break;
-  case 33: print1("The stone glows deep purple");
-    print2("You vanish.");
+  case 33: print1(LS(IDS_MSG_20281));
+    print2(LS(IDS_MSG_20282));
     Player.status[INVISIBLE]+=10;
     break;
-  case 35: print1("The stone glows ultraviolet");
-    print2("All your hair rises up on end.... A bolt of lightning hits you!");
+  case 35: print1(LS(IDS_MSG_20283));
+    print2(LS(IDS_MSG_20284));
     p_damage(random_range(Player.maxhp),ELECTRICITY,"mystic lightning");
     break;
-  case 37: print1("The stone glows roentgen");
-    print2("You feel more experienced.");
+  case 37: print1(LS(IDS_MSG_20285));
+    print2(LS(IDS_MSG_20286));
     gain_experience((Player.level+1)*250);
     break;
-  case 39: print1("The stone glows gamma"); 
-    print2("Your left hand shines silvery, and your right emits a golden aura."); 
+  case 39: print1(LS(IDS_MSG_20287)); 
+    print2(LS(IDS_MSG_20288)); 
     morewait();
     enchant(1);
     bless(1);
-    print3("Your hands stop glowing.");
+    print3(LS(IDS_MSG_20289));
     break;
   case 41:case 42:case 43:case 44:case 45:case 46:case 47:case 48:case 49:
-    print1("The stone glows cosmic!");
-    print2("The stone's energy field quiets for a moment...");
+    print1(LS(IDS_MSG_20290));
+    print2(LS(IDS_MSG_20291));
     *stone = 50;
     cycle = TRUE;
     break;  
-  default: print1("The stone glows polka-dot (?!?!?!?)");
-    print2("You feel a strange twisting sensation....");
+  default: print1(LS(IDS_MSG_20292));
+    print2(LS(IDS_MSG_20273));
     morewait();
     *stone = 0;
     strategic_teleport(-1);
@@ -1085,7 +1085,7 @@ void alert_guards()
       m_status_set(ml->m,HOSTILE);
     }
   if (foundguard) {
-    mprint("You hear a whistle and the sound of running feet!");
+    mprint(LS(IDS_MSG_20293));
     if (Current_Environment == E_CITY)
       Level->site[40][60].p_locf = L_NO_OP; /* pacify_guards restores this */
   }
@@ -1093,34 +1093,34 @@ void alert_guards()
       !gamestatusp(DESTROYED_ORDER)) {
     suppress = gamestatusp(SUPPRESS_PRINTING);
     resetgamestatus(SUPPRESS_PRINTING);
-    print2("The last member of the Order of Paladins dies....");
+    print2(LS(IDS_MSG_20294));
     morewait();
     gain_experience(1000);
     Player.alignment -= 250;
     if (! gamestatusp(KILLED_LAWBRINGER)) {
-      print1("A chime sounds from far away.... The sound grows stronger....");
-      print2("Suddenly the great shadowy form of the LawBringer appears over");
-      print3("the city. He points his finger at you....");
+      print1(LS(IDS_MSG_20295));
+      print2(LS(IDS_MSG_20296));
+      print3(LS(IDS_MSG_20297));
       morewait();
-      print1("\"Cursed art thou, minion of chaos! May thy strength fail thee");
-      print2("in thy hour of need!\" You feel an unearthly shiver as the");
-      print3("LawBringer waves his palm across the city skies....");
+      print1(LS(IDS_MSG_20298));
+      print2(LS(IDS_MSG_20299));
+      print3(LS(IDS_MSG_20300));
       morewait();
       Player.str /= 2;
       dataprint();
-      print1("You hear a bell tolling, and eerie moans all around you....");
-      print2("Suddenly, the image of the LawBringer is gone.");
-      print3("You hear a guardsman's whistle in the distance!");
+      print1(LS(IDS_MSG_20301));
+      print2(LS(IDS_MSG_20302));
+      print3(LS(IDS_MSG_20303));
       morewait();
       resurrect_guards();
     }
     else {
-      print1("The Order's magical defenses have dropped, and the");
-      print2("Legions of Chaos strike....");
+      print1(LS(IDS_MSG_20304));
+      print2(LS(IDS_MSG_20305));
       morewait();
-      print1("The city shakes! An earthquake has struck!");
-      print2("Cracks open in the street, and a chasm engulfs the Order HQ!");
-      print3("Flames lick across the sky and you hear wild laughter....");
+      print1(LS(IDS_MSG_20306));
+      print2(LS(IDS_MSG_20307));
+      print3(LS(IDS_MSG_20308));
       morewait();
       gain_experience(5000);
       destroy_order();
@@ -1136,7 +1136,7 @@ void destroy_order()
 {
   int i,j;
   setgamestatus(DESTROYED_ORDER);
-  if (Level != City) print1("Zounds! A Serious Mistake!");
+  if (Level != City) print1(LS(IDS_MSG_20309));
   else 
     for(i=35;i<46;i++)
       for(j=60;j<63;j++) {
@@ -1184,8 +1184,8 @@ void default_maneuvers()
   int i;
   morewait();
   clearmsg();
-  print1("Warning, resetting your combat options to the default.");
-  print2("Use the 'F' command to select which options you prefer.");
+  print1(LS(IDS_MSG_20310));
+  print2(LS(IDS_MSG_20311));
   morewait();
   for(i=0;i<maneuvers();i+=2) {
     Player.meleestr[i*2]='A';

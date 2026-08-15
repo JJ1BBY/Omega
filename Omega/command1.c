@@ -216,7 +216,7 @@ void p_process()
       Cmd = mgetc2(); // _WIN32 fix
       while ((Cmd != ESCAPE) &&
 	     ((Cmd < '1') || (Cmd > '9') || (Cmd=='5'))) {
-	print3("Run in keypad direction [ESCAPE to abort]: ");
+	print3(LS(IDS_MSG_20388));
 	Cmd = mgetc2(); // _WIN32 fix
       }
       if (Cmd != ESCAPE) setgamestatus(FAST_MOVE);

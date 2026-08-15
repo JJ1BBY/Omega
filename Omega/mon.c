@@ -152,39 +152,39 @@ struct monster *m;
   }
   m_dropstuff(m);
   if (m->id == ML10+0) { /* Death */
-    mprint("Death lies sprawled out on the ground......");
-    mprint("Death laughs ironically and gets back to its feet.");
-    mprint("It gestures and another scythe appears in its hands.");
+    mprint(LS(IDS_MSG_21603));
+    mprint(LS(IDS_MSG_21604));
+    mprint(LS(IDS_MSG_21605));
     switch(random_range(10)) {
     case 0:
-      mprint("Death performs a little bow and goes back on guard."); 
+      mprint(LS(IDS_MSG_21606)); 
       break;
     case 1:
-      mprint("'A hit! A palpable hit!' Death goes back on the attack."); 
+      mprint(LS(IDS_MSG_21607)); 
       break;
     case 2:
-      mprint("'Ah, if only it could be so simple!' snickers Death.");
+      mprint(LS(IDS_MSG_21608));
       break;
     case 3:
-      mprint("'You think Death can be slain?  What a jest!' says Death.");
+      mprint(LS(IDS_MSG_21609));
       break;
     case 4:
-      mprint("'Your point is well taken.' says Death, attacking again.");
+      mprint(LS(IDS_MSG_21610));
       break;
     case 5:
-      mprint("'Oh, come now, stop delaying the inevitable.' says Death.");
+      mprint(LS(IDS_MSG_21611));
       break;
     case 6:
-      mprint("'Your destiny ends here with me.' says Death, scythe raised.");
+      mprint(LS(IDS_MSG_21612));
       break;
     case 7:
-      mprint("'I almost felt that.' says Death, smiling.");
+      mprint(LS(IDS_MSG_21613));
       break;
     case 8:
-      mprint("'Timeo Mortis?' asks Death quizzically, 'Not me!'");
+      mprint(LS(IDS_MSG_21614));
       break;
     case 9:
-      mprint("Death sighs theatrically. 'They never learn.'");
+      mprint(LS(IDS_MSG_21615));
       break;
     }
     strengthen_death(m);
@@ -203,56 +203,56 @@ struct monster *m;
     case ML0+8: /* hiscore npc */
       switch(m->aux2) {
       case 0:
-	mprint("You hear a faroff dirge. You feel a sense of triumph.");
+	mprint(LS(IDS_MSG_21616));
 	break;
       case 1:case 2: case 3:case 4:case 5:case 6:
-	mprint("You hear a faroff sound like angels crying....");
+	mprint(LS(IDS_MSG_21617));
 	strcpy(Priest[m->aux2],nameprint());
 	Priestbehavior[m->aux2] = 2933;
 	break;
       case 7:
-      mprint("A furtive figure dashes out of the shadows, takes a look at");
-	mprint("the corpse, and runs away!");
+      mprint(LS(IDS_MSG_21618));
+	mprint(LS(IDS_MSG_21619));
 	strcpy(Shadowlord,nameprint());
 	Shadowlordbehavior = 2912;
 	break;
       case 8:
-	mprint("An aide-de-camp approaches, removes the corpse's insignia,");
-	mprint("and departs.");
+	mprint(LS(IDS_MSG_21620));
+	mprint(LS(IDS_MSG_21621));
 	strcpy(Commandant,nameprint());
 	Commandantbehavior = 2912;
 	break;
       case 9:
-	mprint("An odd glow surrounds the corpse, and slowly fades.");
+	mprint(LS(IDS_MSG_21622));
 	strcpy(Archmage,nameprint());
 	Archmagebehavior = 2933;
 	break;
       case 10:
-	mprint("A demon materializes, takes a quick look at the corpse,");
-	mprint("and teleports away with a faint popping noise.");
+	mprint(LS(IDS_MSG_21623));
+	mprint(LS(IDS_MSG_21624));
 	strcpy(Prime,nameprint());
 	Primebehavior = 2932;
 	break;
       case 11:
-	mprint("A sports columnist rushes forward and takes a quick photo");
-	mprint("of the corpse and rushes off muttering about a deadline.");
+	mprint(LS(IDS_MSG_21625));
+	mprint(LS(IDS_MSG_21626));
 	strcpy(Champion,nameprint());
 	Championbehavior = 2913;
 	break;
       case 12:
-	mprint("You hear a fanfare in the distance, and feel dismayed.");
+	mprint(LS(IDS_MSG_21627));
 	strcpy(Duke,nameprint());
 	Dukebehavior = 2911;
 	break;
       case 13:
-	if (Player.alignment > 10) mprint("You feel smug.");
-	else if (Player.alignment < 10) mprint("You feel ashamed.");
+	if (Player.alignment > 10) mprint(LS(IDS_MSG_21628));
+	else if (Player.alignment < 10) mprint(LS(IDS_MSG_21629));
 	strcpy(Chaoslord,nameprint());
 	Chaoslordbehavior = 2912;
 	break;
       case 14:
-	if (Player.alignment < 10) mprint("You feel smug.");
-	else if (Player.alignment > 10) mprint("You feel ashamed.");
+	if (Player.alignment < 10) mprint(LS(IDS_MSG_21628));
+	else if (Player.alignment > 10) mprint(LS(IDS_MSG_21629));
 	strcpy(Lawlord,nameprint());
 	Lawlordbehavior = 2911;
 	break;
@@ -268,7 +268,7 @@ struct monster *m;
 	  }
 	  strcpy(Justiciar,nameprint());
 	  Justiciarbehavior = 2911;
-	  mprint("In the distance you hear a trumpet. A Servant of Law");
+	  mprint(LS(IDS_MSG_21630));
 	  /* promote one of the city guards to be justiciar */
 	  ml = City->mlist;
 	  while ((! found) && (ml != NULL)) {
@@ -277,7 +277,7 @@ struct monster *m;
 	  }
 	  if (ml != NULL) {
 	    if (curr) {
-	      mprint("materializes, sheds a tear, picks up the badge, and leaves.");
+	      mprint(LS(IDS_MSG_21631));
 	      m_pickup(ml->m, curr->thing);
 	      if (prev)
 		prev->next = curr->next;
@@ -286,8 +286,8 @@ struct monster *m;
 	      free(curr);
 	    }
 	    else
-	      mprint("materializes, sheds a tear, and leaves.");
-	    mprint("A new justiciar has been promoted!");
+	      mprint(LS(IDS_MSG_21632));
+	    mprint(LS(IDS_MSG_21633));
 	    x = ml->m->x; y = ml->m->y;
 	    make_hiscore_npc(ml->m,15);
 	    ml->m->x = x;
@@ -297,15 +297,15 @@ struct monster *m;
 	    m_status_reset(ml->m,HOSTILE);
 	  }
 	  else {
-	    mprint("materializes, sheds a tear, and leaves.");
+	    mprint(LS(IDS_MSG_21632));
 	    morewait();
 	  }
 	  alert_guards(); 
 	  /* will cause order to be destroyed if no guards or justiciar*/
 	}
 	else {
-	  mprint("A Servant of Chaos materializes, grabs the corpse,");
-	  mprint("snickers a bit, and vanishes.");
+	  mprint(LS(IDS_MSG_21634));
+	  mprint(LS(IDS_MSG_21635));
 	}
 	break;
       }
@@ -319,15 +319,15 @@ struct monster *m;
       break;
     case ML3+5: 
       if (! gamestatusp(ATTACKED_ORACLE)) {
-	mprint("You seem to hear a woman's voice from far off:");
-	mprint("'Well done! Come to me now....'");
+	mprint(LS(IDS_MSG_21636));
+	mprint(LS(IDS_MSG_21637));
       }
       setgamestatus(COMPLETED_CAVES); 
       break; /* gob king */
     case ML7+5: 
       if (! gamestatusp(ATTACKED_ORACLE)) {
-	mprint("A female voice sounds from just behind your ear:");
-	mprint("'Well fought! I have some new advice for you....'");
+	mprint(LS(IDS_MSG_21638));
+	mprint(LS(IDS_MSG_21639));
       }
       setgamestatus(COMPLETED_SEWERS); 
       break; /*grt worm */
@@ -343,16 +343,16 @@ struct monster *m;
     case ML10+4:
       setgamestatus(COMPLETED_VOLCANO);
       if (! gamestatusp(ATTACKED_ORACLE)) {
-	mprint("You feel a soft touch on your shoulder...");
-	mprint("You turn around but there is no one there!");
-	mprint("You turn back and see a note: 'See me soon.'");
-	mprint("The note vanishes in a burst of blue fire!");
+	mprint(LS(IDS_MSG_21640));
+	mprint(LS(IDS_MSG_21641));
+	mprint(LS(IDS_MSG_21642));
+	mprint(LS(IDS_MSG_21643));
       }
       break;
     case ML10+9: 
       if (! gamestatusp(ATTACKED_ORACLE)) {
-	mprint("Words appear before you, traced in blue flame!");
-	mprint("'Return to the Prime Plane via the Circle of Sorcerors....'");
+	mprint(LS(IDS_MSG_21644));
+	mprint(LS(IDS_MSG_21645));
       }
       break; /* elem mast */
     }
@@ -389,7 +389,7 @@ void monster_strike(m)
 struct monster *m;
 {
   if (player_on_sanctuary())
-    print1("The aegis of your deity protects you!");
+    print1(LS(IDS_MSG_21593));
   else {
   /* It's lawful to wait to be attacked */
     if (m->attacked==0) Player.alignment++;
@@ -678,7 +678,7 @@ int level,behavior;
     case 3: npc->talkf = M_TALK_HINT; break;
     case 4: npc->talkf = M_TALK_BEG; break;
     case 5: npc->talkf = M_TALK_SILENT; break;
-    default: mprint("Say Whutt? (npc talk weirdness)"); break;
+    default: mprint(LS(IDS_MSG_21646)); break;
     }
   npc->uniqueness = UNIQUE_MADE;
 }
@@ -1079,21 +1079,21 @@ struct monster *m;
   switch (reaction) {
     case -1:
       if (visible) {
-	mprint("Your deity is angry!");
-	mprint("A bolt of godsfire strikes the monster....");
+	mprint(LS(IDS_MSG_21647));
+	mprint(LS(IDS_MSG_21648));
       }
       disrupt(m->x,m->y,Player.rank[PRIESTHOOD]*50);
       break;
     case 1:
       if (visible) {
-	mprint("The deity of the altar smiles on the monster....");
-	mprint("A shaft of light zaps the altar...");
+	mprint(LS(IDS_MSG_21649));
+	mprint(LS(IDS_MSG_21650));
       }
       m->hp = Monsters[m->id].hp*2;
       break;
     default:
       if (visible)
-	mprint("but nothing much seems to happen");
+	mprint(LS(IDS_MSG_21651));
       break;
   }
 }

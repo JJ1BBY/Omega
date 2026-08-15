@@ -14,13 +14,13 @@ void tunnelcheck()
     return;
   Level->tunnelled++;
   if ((Level->tunnelled) > LENGTH/4)
-    mprint("Dust and stone fragments fall on you from overhead.");
+    mprint(LS(IDS_MSG_20003));
   if ((Level->tunnelled) > LENGTH/2)
-    mprint("You hear groaning and creaking noises.");
+    mprint(LS(IDS_MSG_20004));
   if ((Level->tunnelled) > 3*LENGTH/4) 
-    mprint("The floor trembles and you hear a loud grinding screech.");
+    mprint(LS(IDS_MSG_20005));
   if ((Level->tunnelled) > LENGTH) {
-    mprint("With a scream of tortured stone, the entire dungeon caves in!!!");
+    mprint(LS(IDS_MSG_20006));
     gain_experience(5000);
     if (Player.status[SHADOWFORM]) {
       change_environment(E_COUNTRYSIDE);
@@ -42,10 +42,10 @@ void tunnelcheck()
       Country[Player.x][Player.y].base_terrain_type = 
 	  Country[Player.x][Player.y].current_terrain_type;
       c_set(Player.x, Player.y, CHANGED);
-      print1("In your shadowy state, you float back up to the surface.");
+      print1(LS(IDS_MSG_20007));
       return;
     }
-    mprint("You are flattened into an unpleasant jellylike substance.");
+    mprint(LS(IDS_MSG_20008));
     p_death("dungeon cave-in");
   }
 }
@@ -158,7 +158,7 @@ int x,y;
     }
   }
   else if (loc_statusp(x,y,SECRET)) {
-    if (!gamestatusp(FAST_MOVE)) print3("Ouch!");
+    if (!gamestatusp(FAST_MOVE)) print3(LS(IDS_MSG_20009));
     return(FALSE);
   }
   else if (Level->site[x][y].creature != NULL) {
@@ -183,7 +183,7 @@ int x,y;
 	     (Level->site[x][y].locchar == WATER) ||
 	     (Level->site[x][y].locchar == LIFT) ||
 	     (Level->site[x][y].locchar == TRAP)))) {
-    if (! gamestatusp(FAST_MOVE)) print3("Ouch!");
+    if (! gamestatusp(FAST_MOVE)) print3(LS(IDS_MSG_20009));
     return(FALSE);
   }
   else if (optionp(CONFIRM)) {
@@ -201,7 +201,7 @@ int x,y;
       if (gamestatusp(MOUNTED)) {
 	if (Level->site[x][y].locchar != WATER ||
 	  Level->site[x][y].p_locf != L_WATER) {
-	  print1("You can't convince your steed to continue.");
+	  print1(LS(IDS_MSG_20010));
 	  setgamestatus(SKIP_MONSTERS);
 	  return(FALSE);
 	}
@@ -253,13 +253,13 @@ int x,y;
       lset(x, y, CHANGED);
       if ((Level->site[x][y].locchar==OPEN_DOOR) ||
 	  (Level->site[x][y].locchar==CLOSED_DOOR)) {
-	mprint("You find a secret door!");
+	mprint(LS(IDS_MSG_20011));
 	for(i=0;i<8;i++) {
 	  lset(x+Dirs[0][i],y+Dirs[1][i],STOPS);
 	  lset(x+Dirs[0][i], y+Dirs[1][i], CHANGED);
 	}
       }
-      else mprint("You find a secret passage!");
+      else mprint(LS(IDS_MSG_20012));
       drawvision(Player.x,Player.y);
     }
     if ((Level->site[x][y].p_locf >= TRAP_BASE) &&
@@ -267,7 +267,7 @@ int x,y;
 	(Level->site[x][y].p_locf <= TRAP_BASE+NUMTRAPS)) {
       Level->site[x][y].locchar = TRAP;
       lset(x, y, CHANGED);
-      mprint("You find a trap!");
+      mprint(LS(IDS_MSG_20013));
       drawvision(Player.x,Player.y);
       resetgamestatus(FAST_MOVE);
     }
@@ -358,15 +358,15 @@ struct monster *m;
   int reallyfight = TRUE;
 
   if (Player.status[AFRAID]) {
-    print3("You are much too afraid to fight!");
+    print3(LS(IDS_MSG_20014));
     reallyfight = FALSE;
   }
   else if (player_on_sanctuary()) {
-    print3("You restrain yourself from desecrating this holy place.");
+    print3(LS(IDS_MSG_20015));
     reallyfight = FALSE;
   }
   else if (Player.status[SHADOWFORM]) {
-    print3("Your attack has no effect in your shadowy state.");
+    print3(LS(IDS_MSG_20016));
     reallyfight = FALSE;
   }
   else if ((Player.status[BERSERK]<1) && (! m_statusp(m,HOSTILE))) {
@@ -399,19 +399,19 @@ pob o;
 {
   /* special case -- break star gem */
   if (o->id == ARTIFACTID+21) {
-    print1("The Star Gem shatters into a million glistening shards....");
+    print1(LS(IDS_MSG_20017));
     if (Current_Environment == E_STARPEAK) {
       if (! gamestatusp(KILLED_LAWBRINGER))
-	print2("You hear an agonizing scream of anguish and despair.");
+	print2(LS(IDS_MSG_20018));
       morewait();
-      print1("A raging torrent of energy escapes in an explosion of magic!");
-      print2("The energy flows to the apex of Star Peak where there is");
+      print1(LS(IDS_MSG_20019));
+      print2(LS(IDS_MSG_20020));
       morewait();
       clearmsg();
-      print1("an enormous explosion!");
+      print1(LS(IDS_MSG_20021));
       morewait();
       annihilate(1);
-      print3("You seem to gain strength in the chaotic glare of magic!");
+      print3(LS(IDS_MSG_20022));
       Player.str = Player.maxstr + 5;
       Player.pow = Player.maxpow + 5;
       Player.alignment -= 200;
@@ -419,8 +419,8 @@ pob o;
     }
     else {
       morewait();
-      print1("The shards coalesce back together again, and vanish");
-      print2("with a muted giggle.");
+      print1(LS(IDS_MSG_20023));
+      print2(LS(IDS_MSG_20024));
       dispose_lost_objects(1,o);
     }
     return 1;
@@ -434,9 +434,9 @@ pob o;
 	print1(Str1);
 	morewait();
 	if (o->charge < 1)
-	  nprint1(" Fzzz... Out of Power... Oh well...");
+	  nprint1(LS(IDS_MSG_20025));
 	else {
-	  nprint1(" Ka-Blamm!!!");
+	  nprint1(LS(IDS_MSG_20026));
 	  /* general case. Some sticks will eventually do special things */
 	  morewait();
 	  manastorm(Player.x, Player.y, o->charge*o->level*10);
@@ -466,8 +466,8 @@ pob o;
 	return 0;
       }
       else {
-	if (o->blessing > 0) print1("You hear a faint despairing cry!");
-	else if (o->blessing < 0) print1("You hear an agonized scream!");
+	if (o->blessing > 0) print1(LS(IDS_MSG_20027));
+	else if (o->blessing < 0) print1(LS(IDS_MSG_20028));
 	strcpy(Str1,"Your ");
 	strcat(Str1,itemid(o));
 	strcat(Str1," shatters in a thousand lost fragments!");
@@ -501,7 +501,7 @@ char *fromstring;
     else Player.hp -= dmg;
     if (Player.hp < 1) p_death(fromstring);
   }
-  else mprint("You resist the effects!");
+  else mprint(LS(IDS_MSG_20029));
   dataprint();
 }
 
@@ -510,7 +510,7 @@ void p_death(fromstring)
 char *fromstring;
 {
   Player.hp = -1;
-  print3("You died!");
+  print3(LS(IDS_MSG_20030));
   morewait();
   display_death(fromstring);
 #ifdef SAVE_LEVELS
@@ -527,7 +527,7 @@ void setspot(x,y)
 int *x,*y;
 {
   char c = ' ';
-  mprint("Targeting.... ? for help");
+  mprint(LS(IDS_MSG_20031));
   target_on = 1; // _WIN32
   omshowcursor(*x,*y);
   while ((c != '.') && (c != ESCAPE)) {
@@ -543,8 +543,8 @@ int *x,*y;
       case 'u':case '9': movecursor(x,y,1,-1);  break;
       case '?':
 	clearmsg();
-	mprint("Use vi keys or numeric keypad to move cursor to target.");
-	mprint("Hit the '.' key when done, or ESCAPE to abort.");
+	mprint(LS(IDS_MSG_20032));
+	mprint(LS(IDS_MSG_20033));
 	break;
     }
   }
@@ -558,7 +558,7 @@ int *x,*y;
 int getdir()
 {
   while (1) {
-    mprint("Select direction [hjklyubn, ESCAPE to quit]: ");
+    mprint(LS(IDS_MSG_20034));
     switch (mgetc()) {
     case '4':
     case 'h':
@@ -585,7 +585,7 @@ int getdir()
     case 'n':
     case 'N': return(0);
     case ESCAPE: return(ABORT);
-    default: print3("That's not a direction! ");
+    default: print3(LS(IDS_MSG_20035));
     }
   }
 }
@@ -632,21 +632,21 @@ struct monster *m;
 void describe_player()
 {
   if (Player.hp < (Player.maxhp /5))
-    print1("A grievously injured ");
+    print1(LS(IDS_MSG_20036));
   else if (Player.hp < (Player.maxhp /2))
-    print1("A seriously wounded ");
+    print1(LS(IDS_MSG_20037));
   else if (Player.hp < Player.maxhp)
-    print1("A somewhat bruised ");
-  else print1("A fit ");
+    print1(LS(IDS_MSG_20038));
+  else print1(LS(IDS_MSG_20039));
 
   if (Player.status[SHADOWFORM])
-    nprint1("shadow");
+    nprint1(LS(IDS_MSG_20040));
   else
     nprint1(levelname(Player.level));
-  nprint1(" named ");
+  nprint1(LS(IDS_MSG_20041));
   nprint1(Player.name);
   if (gamestatusp(MOUNTED))
-    nprint1(" (riding a horse.)");
+    nprint1(LS(IDS_MSG_20042));
 }
 
 
@@ -712,17 +712,17 @@ int trapno;
 void foodcheck()
 {
   if (Player.food > 48) {
-    print3("You vomit up your huge meal.");
+    print3(LS(IDS_MSG_20043));
     Player.food = 12;
   }
   else if (Player.food == 30) 
-    print3("Time for a smackerel of something.");
+    print3(LS(IDS_MSG_20044));
   else if (Player.food == 20) 
-    print3("You feel hungry.");
+    print3(LS(IDS_MSG_20045));
   else if (Player.food == 12) 
-    print3("You are ravenously hungry.");
+    print3(LS(IDS_MSG_20046));
   else if (Player.food == 3) {
-    print3("You feel weak.");
+    print3(LS(IDS_MSG_20047));
     if (gamestatusp(FAST_MOVE)) {
       drawvision(Player.x,Player.y);
       resetgamestatus(FAST_MOVE);
@@ -733,7 +733,7 @@ void foodcheck()
       drawvision(Player.x,Player.y);
       resetgamestatus(FAST_MOVE);
     }
-    print3("You're starving!");
+    print3(LS(IDS_MSG_20048));
     p_damage(-5*Player.food,UNSTOPPABLE,"starvation");
   }
   showflags();
@@ -796,31 +796,31 @@ struct monster *m;
   long bestitem,bestvalue;
 
   switch(random_range(4)) {
-  case 0: print1("You grovel at the monster's feet..."); break;
-  case 1: print1("You cry 'uncle'!"); break;
-  case 2: print1("You beg for mercy."); break;
-  case 3: print1("You yield to the monster."); break;
+  case 0: print1(LS(IDS_MSG_20049)); break;
+  case 1: print1(LS(IDS_MSG_20050)); break;
+  case 2: print1(LS(IDS_MSG_20051)); break;
+  case 3: print1(LS(IDS_MSG_20052)); break;
   }
   if (m->id == ML0+3) {
     if (m_statusp(m,HOSTILE))
       monster_talk(m);
     else {
-      print2("The guard (bored): Have you broken a law? [yn] ");
+      print2(LS(IDS_MSG_20053));
       if (ynq2() == 'y') {
-	print2("The guard grabs you, and drags you to court.");
+	print2(LS(IDS_MSG_20054));
 	morewait();
 	send_to_jail();
       }
-      else print2("Then don't bother me. Scat!");
+      else print2(LS(IDS_MSG_20055));
     }
   }
   else if ((m->talkf==M_NO_OP) ||
 	   (m->talkf==M_TALK_STUPID))
-    print3("Your plea is ignored.");
+    print3(LS(IDS_MSG_20056));
   else  {
     morewait();
-    print1("Your surrender is accepted.");
-    if (Player.cash > 0) nprint1(" All your gold is taken....");
+    print1(LS(IDS_MSG_20057));
+    if (Player.cash > 0) nprint1(LS(IDS_MSG_20058));
     Player.cash = 0;
     bestvalue = 0;
     bestitem = ABORT;
@@ -831,18 +831,18 @@ struct monster *m;
           bestvalue = true_item_value(Player.possessions[i]);
         }
     if (bestitem != ABORT) {
-      print2("You also give away your best item... ");
+      print2(LS(IDS_MSG_20059));
       nprint2(itemid(Player.possessions[bestitem]));
-      nprint2(".");
+      nprint2(LS(IDS_MSG_20060));
       morewait();
       givemonster(m,Player.possessions[bestitem]);
       morewait(); /* msgs come from givemonster */
       conform_unused_object(Player.possessions[bestitem]);
       Player.possessions[bestitem] = NULL;
     }
-    print2("You feel less experienced... ");
+    print2(LS(IDS_MSG_20061));
     Player.xp = max(0,Player.xp - m->xpv);
-    nprint2("The monster seems more experienced!");
+    nprint2(LS(IDS_MSG_20062));
     m->level = (min(10,m->level+1));
     m->hp += m->level*20;
     m->hit += m->level;
@@ -852,14 +852,14 @@ struct monster *m;
     morewait();
     clearmsg();
     if ((m->talkf == M_TALK_EVIL) && random_range(10)) {
-      print1("It continues to attack you, laughing evilly!");
+      print1(LS(IDS_MSG_20063));
       m_status_set(m,HOSTILE);
       m_status_reset(m,GREEDY);
     }
     else if (m->id == ML0+0 || m->id == ML0+3)
-      print1("It continues to attack you. ");
+      print1(LS(IDS_MSG_20064));
     else {
-      print1("The monster leaves, chuckling to itself....");
+      print1(LS(IDS_MSG_20065));
       m_teleport(m);
     }
   }
@@ -873,18 +873,18 @@ struct monster *m;
 {
   char response;
   switch(random_range(4)) {
-  case 0:mprint("You demand that your opponent surrender!"); break;
-  case 1:mprint("You threaten to do bodily harm to it."); break;
-  case 2:mprint("You attempt to bluster it into submission."); break;
-  case 3:mprint("You try to cow it with your awesome presence."); break;
+  case 0:mprint(LS(IDS_MSG_20066)); break;
+  case 1:mprint(LS(IDS_MSG_20067)); break;
+  case 2:mprint(LS(IDS_MSG_20068)); break;
+  case 3:mprint(LS(IDS_MSG_20069)); break;
   }
   if (! m_statusp(m,HOSTILE)) {
-    print3("You only annoy it with your futile demand.");
+    print3(LS(IDS_MSG_20070));
     m_status_set(m,HOSTILE);
   }
   else if (((m->level*2 > Player.level) && (m->hp > Player.dmg)) || 
 	   (m->uniqueness != COMMON))
-    print1("It sneers contemptuously at you.");
+    print1(LS(IDS_MSG_20071));
   else if ((m->talkf != M_TALK_GREEDY) &&
 	   (m->talkf != M_TALK_HUNGRY) &&
 	   (m->talkf != M_TALK_EVIL) &&
@@ -893,21 +893,21 @@ struct monster *m;
 	   (m->talkf != M_TALK_THIEF) &&
 	   (m->talkf != M_TALK_MERCHANT) &&
 	   (m->talkf != M_TALK_IM)) 
-    print1("Your demand is ignored");
+    print1(LS(IDS_MSG_20072));
   else {
-    print1("It yields to your mercy.");
+    print1(LS(IDS_MSG_20073));
     Player.alignment+=3;
-    print2("Kill it, rob it, or free it? [krf] ");
+    print2(LS(IDS_MSG_20074));
     do response = (char) mcigetc();
     while ((response != 'k')&&(response != 'r')&&(response !='f'));
     if (response == 'k') {
       m_death(m);
-      print2("You treacherous rogue!");
+      print2(LS(IDS_MSG_20075));
       Player.alignment -= 13;
     }
     else if (response == 'r') {
       Player.alignment-=2;
-      print2("It drops its treasure and flees.");
+      print2(LS(IDS_MSG_20076));
       m_dropstuff(m);
       m->hp = -1;
       Level->site[m->x][m->y].creature = NULL;
@@ -915,12 +915,12 @@ struct monster *m;
     }
     else {
       Player.alignment+=2;
-      print2("'If you love something set it free ... '");
+      print2(LS(IDS_MSG_20077));
       if (random_range(100)==13) {
 	morewait();
-	print2("'...If it doesn't come back, hunt it down and kill it.'");
+	print2(LS(IDS_MSG_20078));
       }
-      print3("It departs with a renewed sense of its own mortality.");
+      print3(LS(IDS_MSG_20079));
       m->hp = -1;
       Level->site[m->x][m->y].creature = NULL;
       putspot(m->x,m->y,getspot(m->x,m->y,FALSE));

@@ -8,8 +8,8 @@
 void s_wish()
 {
   if (random_range(100) > Player.iq+Player.pow+Player.level) {
-    mprint("Your concentration is flawed!");
-    mprint("The spell energy backfires!");
+    mprint(LS(IDS_MSG_22569));
+    mprint(LS(IDS_MSG_22570));
     p_damage(random_range(Spells[S_WISH].powerdrain),
 	     UNSTOPPABLE,
 	     "a backfired wish spell");
@@ -17,8 +17,8 @@ void s_wish()
   else {
     wish(0);
     if (Spells[S_WISH].known) {
-      mprint("The power of the spell is too much for you to withstand!");
-      mprint("All memory of the spell is expunged from your brain.");
+      mprint(LS(IDS_MSG_22571));
+      mprint(LS(IDS_MSG_22572));
       Spells[S_WISH].known = FALSE;
     }
   }
@@ -142,7 +142,7 @@ void s_hero()
 /* spell takes longer and longer to work deeper into dungeon */
 void s_return()
 {
-  mprint("You hear a whine as your spell begins to charge up.");
+  mprint(LS(IDS_MSG_22573));
   Player.status[RETURNING] = 
     ((Current_Environment == Current_Dungeon) ? difficulty() : 1);
 }
@@ -197,8 +197,8 @@ void s_ritual()
   int i,roomno;
   int x,y;
 
-  mprint("You begin your ritual....");
-  mprint("You enter a deep trance. Time Passes...");
+  mprint(LS(IDS_MSG_22574));
+  mprint(LS(IDS_MSG_22575));
   setgamestatus(SKIP_PLAYER);
   time_clock(FALSE);
   setgamestatus(SKIP_PLAYER);
@@ -210,12 +210,12 @@ void s_ritual()
   setgamestatus(SKIP_PLAYER);
   time_clock(FALSE);
   if (RitualHour == hour())
-    mprint("Your mental fatigue prevents from completing the ritual!");
+    mprint(LS(IDS_MSG_22576));
   else if (random_range(100) > Player.iq+Player.pow+Player.level)
-    mprint("Your concentration was broken -- the ritual fails!");
+    mprint(LS(IDS_MSG_22577));
   else {
-    mprint("You charge the ritual with magical energy and focus your will.");
-    mprint("Time Passes...");
+    mprint(LS(IDS_MSG_22578));
+    mprint(LS(IDS_MSG_22579));
     setgamestatus(SKIP_PLAYER);
     time_clock(FALSE);
     setgamestatus(SKIP_PLAYER);
@@ -229,19 +229,19 @@ void s_ritual()
     RitualHour = hour();
     /* set of random conditions for different ritual effects */
     if (Current_Environment == E_CITY) {
-      mprint("Flowing waves of mystical light congeal all around you.");
-      mprint("'Like wow, man! Colors!'");
-      mprint("Appreciative citizens throw you spare change.");
+      mprint(LS(IDS_MSG_22580));
+      mprint(LS(IDS_MSG_22581));
+      mprint(LS(IDS_MSG_22582));
       Player.cash +=random_range(50);
     }
     else if ((roomno=Level->site[Player.x][Player.y].roomnumber) >= 0) {
       if (RitualRoom == roomno)
-	mprint("For some reason the ritual doesn't work this time...");
+	mprint(LS(IDS_MSG_22583));
       else {
 	RitualRoom = roomno;
 	switch (RitualRoom) {
 	case ROOMBASE+9: /* ransacked treasure chamber */
-	  mprint("Your spell sets off frenetic growth all around you!");
+	  mprint(LS(IDS_MSG_22584));
 	  for(i=0;i<8;i++){
 	    Level->site[Player.x+Dirs[0][i]][Player.y+Dirs[1][i]].locchar =
 	      HEDGE;
@@ -252,18 +252,18 @@ void s_ritual()
 	  break;
 	case ROOMBASE+13: /* harem */
 	case ROOMBASE+22: /* boudoir */
-	  mprint("A secret panel opens next to the bed....");
+	  mprint(LS(IDS_MSG_22585));
 	  if (random_range(2))
 	    summon(0,ML4+6); /* succubus/incubus */
 	  else summon(0,ML4+7); /* satyr/nymph */
 	  break;
 	case ROOMBASE+26: /*shrine to high magic */
-	  mprint("A storm of mana coaelesces around you.");
-	  mprint("You are buffeted by bursts of random magic.");
+	  mprint(LS(IDS_MSG_22586));
+	  mprint(LS(IDS_MSG_22587));
 	  p_damage(random_range(Player.pow),UNSTOPPABLE,"high magic");
-	  mprint("Continue ritual? Could be dangerous.... [yn] ");
+	  mprint(LS(IDS_MSG_22588));
 	  if (ynq()=='y') s_wish();
-	  else mprint("The mana fades away to nothingness.");
+	  else mprint(LS(IDS_MSG_22589));
 	  x = Player.x;
 	  y = Player.y;
 	  while (x >= 0 && Level->site[x - 1][y].roomnumber == ROOMBASE+26)
@@ -283,25 +283,25 @@ void s_ritual()
 	  lset(Player.x, Player.y, CHANGED);
 	  break;
 	case ROOMBASE+27: /* magician's lab */
-	  mprint("Your magical activity sets off a latent spell in the lab!");
+	  mprint(LS(IDS_MSG_22590));
 	  cast_spell(random_range(NUMSPELLS));
 	  break;
 	case ROOMBASE+28: /* pentagram room */
-	  mprint("A smoky form begins to coalesce....");
+	  mprint(LS(IDS_MSG_22591));
 	  summon(-1,-1);
-	  mprint("Fortunately, it seems confined to the pentagram.");
+	  mprint(LS(IDS_MSG_22592));
 	  m_status_reset(Level->mlist->m,MOBILE);
 	  break;
 	case ROOMBASE+29: /* blue omega room */
-	  mprint("The Lords of Destiny look upon you....");
+	  mprint(LS(IDS_MSG_22593));
 	  if (Player.level > 10) {
-	    mprint("A curtain of blue flames leaps up from the omega.");
+	    mprint(LS(IDS_MSG_22594));
 	    morewait();
 	    l_adept();
 	  }
 	  else {
 	    if (Player.patron == DESTINY) {
-	      mprint("Your patrons take pity on you.");
+	      mprint(LS(IDS_MSG_22595));
 	      if ((Player.rank[PRIESTHOOD]<SPRIEST) &&
 		  (! find_item(&symbol,ARTIFACTID+19,-1))) {
 		symbol = ((pob) checkmalloc(sizeof(objtype)));
@@ -309,26 +309,26 @@ void s_ritual()
 		symbol->known = 2;
 		symbol->charge = 17;
 		gain_item(symbol);
-		mprint("You feel uplifted.");
+		mprint(LS(IDS_MSG_22596));
 	      }
 	      else gain_experience(min(1000,Player.xp));
 	    }
 	    else if (random_range(3)==1) {
-	      mprint("You feel Fated.");
+	      mprint(LS(IDS_MSG_22597));
 	      gain_experience(Player.level*Player.level*10);
 	      Player.hp = Player.maxhp;
 	    }
 	    else if (random_range(2)) {
-	      mprint("You feel Doomed.");
+	      mprint(LS(IDS_MSG_22598));
 	      Player.hp = 1;
 	      Player.mana = 0;
 	      Player.xp = 0;
 	    }
-	    else mprint("The Lords of Destiny laugh at you!");
+	    else mprint(LS(IDS_MSG_22599));
 	  }
 	  break;
 	default:
-	  mprint("Well, not much effect. Chalk it up to experience.");
+	  mprint(LS(IDS_MSG_22600));
 	  gain_experience(Player.level*5);
 	  break;
 	}
@@ -336,9 +336,9 @@ void s_ritual()
     }
     else {
       if (RitualRoom == Level->site[Player.x][Player.y].roomnumber)
-	mprint("The ritual fails for some unexplainable reason.");
+	mprint(LS(IDS_MSG_22601));
       else {
-	mprint("The ritual seems to be generating some spell effect.");
+	mprint(LS(IDS_MSG_22602));
 	RitualRoom = Level->site[Player.x][Player.y].roomnumber;
 	switch (RitualRoom) {
 	case RS_WALLSPACE:
@@ -354,7 +354,7 @@ void s_ritual()
 	  hero(1);
 	  break;
 	default:
-	  mprint("The ritual doesn't seem to produce any tangible results...");
+	  mprint(LS(IDS_MSG_22603));
 	  gain_experience(Player.level*6);
 	}
       }
@@ -435,7 +435,7 @@ int getspell()
   int spell= ABORT - 1;
 
   do {
-    mprint("Cast Spell: [type spell abbrev, ?, or ESCAPE]: ");
+    mprint(LS(IDS_MSG_22604));
     spell = spellparse();
   } while (spell < ABORT);
   return(spell);
@@ -716,7 +716,7 @@ int spell;
     break;
   case S_WISH:s_wish();
     break;
-  default: mprint("Your odd spell fizzles with a small 'sput'.");
+  default: mprint(LS(IDS_MSG_22605));
     break;
   }
 }
@@ -774,12 +774,12 @@ int spellparse()
   while (first < NUMSPELLS && !Spells[spell_ids[first]].known)
     first++;
   if (first == NUMSPELLS) {
-    print1("You don't know any spells!");
+    print1(LS(IDS_MSG_22606));
     return ABORT;
   }
   last = NUMSPELLS - 1;
   pos = 0;
-  print2("");
+  print2(LS(IDS_MSG_20244));
   do {
     byte = mgetc();
     if (byte == BACKSPACE || byte == DELETE) {
@@ -806,7 +806,7 @@ int spellparse()
 	first = 0;
 	last = NUMSPELLS - 1;
 	found = 0;
-	print2("");
+	print2(LS(IDS_MSG_20244));
       }
     }
     else if (byte == ESCAPE) {
@@ -846,7 +846,7 @@ int spellparse()
   if (found)
     return spell_ids[first];
   else {
-    print3("That is an ambiguous abbreviation!");
+    print3(LS(IDS_MSG_20245));
     return ABORT;
   }
 }

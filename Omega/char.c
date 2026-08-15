@@ -55,9 +55,9 @@ void initplayer()
     fread((char *)&i,sizeof(int),1,fd);
     if (i != VERSION) {
 #if defined(MSDOS) || defined(AMIGA) || defined(_WIN32)
-      print1("Out of date omega.rc! Make another!");
+      print1(LS(IDS_MSG_20312));
 #else
-      print1("Out of date .omegarc! Make another!");
+      print1(LS(IDS_MSG_20313));
 #endif
       morewait();
     }
@@ -99,11 +99,11 @@ FILE *omegarc_check()
   FILE *fd;
 #if defined(MSDOS) || defined(AMIGA) || defined(_WIN32)
   if ((fd = fopen("omega.rc","rb")) != NULL) {
-    print2("Use omega.rc in current directory? [yn] ");
+    print2(LS(IDS_MSG_20314));
 #else
   sprintf(Str1, "%s/.omegarc", getenv("HOME"));
   if ((fd = fopen(Str1,"r")) != NULL) {
-    print2("Use .omegarc in home directory? [yn] ");
+    print2(LS(IDS_MSG_20315));
 #endif
     if (ynq2()!='y') {
       fclose(fd);
@@ -117,16 +117,16 @@ FILE *omegarc_check()
 void initstats()
 {
   char response;
-  print1("Do you want to run a character [c] or play yourself [p]?");
+  print1(LS(IDS_MSG_20316));
   do response = (char) mcigetc(); while ((response!='c')&&(response != 'p'));
   if (response == 'c') omegan_character_stats();
   else {
     user_character_stats();
     user_intro();
 #if defined(MSDOS) || defined(AMIGA) || defined(_WIN32)
-    print1("Do you want to save this set-up to omega.rc in this directory? [yn] ");
+    print1(LS(IDS_MSG_20317));
 #else
-    print1("Do you want to save this set-up to .omegarc in your home directory? [yn] ");
+    print1(LS(IDS_MSG_20318));
 #endif
     if (ynq1()=='y')
       save_omegarc();
@@ -147,13 +147,13 @@ void save_omegarc()
 #endif
   if (fd == NULL)
 #if defined(MSDOS) || defined(AMIGA) || defined(_WIN32)
-    print1("Sorry, couldn't save omega.rc for some reason.");
+    print1(LS(IDS_MSG_20319));
 #else
-    print1("Sorry, couldn't save .omegarc for some reason.");
+    print1(LS(IDS_MSG_20320));
 #endif
   else {
     fwrite((char *)&i,sizeof(int),1,fd);
-    print1("First, set options.");
+    print1(LS(IDS_MSG_20321));
     setoptions();
     fwrite((char *)&Player,sizeof(Player),1,fd);
     fwrite((char *)&Searchnum,sizeof(int),1,fd);
@@ -288,26 +288,26 @@ int attack;
 void user_character_stats()
 {
   int num,iqpts=0,numints=0,ok,agipts=0,dexpts=0,powpts=0,conpts=0;
-  print1("OK, now try to answer the following questions honestly:");
+  print1(LS(IDS_MSG_20322));
   morewait();
-  print1("How many pounds can you bench press? ");
+  print1(LS(IDS_MSG_20323));
   num = (int) parsenum();
   if (num < 30) Player.str = Player.maxstr = 3;
   else if (num < 90) Player.str = Player.maxstr = num/10;
   else Player.str = Player.maxstr = 9+((num-120)/30);
   if (Player.str > 18) {
-    print2("Even if it's true, I don't believe it.");
+    print2(LS(IDS_MSG_20324));
     morewait();
     clearmsg();
     Player.str = Player.maxstr = 18;
   }
   
-  print1("Took an official IQ test? [yn] ");
+  print1(LS(IDS_MSG_20325));
   if (ynq1()=='y') {
-    print1("So, whadja get? ");
+    print1(LS(IDS_MSG_20326));
     num = (int) parsenum()/10;
     if (num > 18) {
-      print2("Even if it's true, I don't believe it.");
+      print2(LS(IDS_MSG_20324));
       morewait();
       clearmsg();
       num = 18;
@@ -316,14 +316,14 @@ void user_character_stats()
     numints++;
   }
 
-  print1("Took Undergraduate entrance exams? [yn] ");
+  print1(LS(IDS_MSG_20327));
   if (ynq1()=='y') {
     do {
-      print1("So, what percentile? ");
+      print1(LS(IDS_MSG_20328));
       num = (int) parsenum();
       ok = (num < 100);
       if (! ok) {
-	print2("That's impossible!");
+	print2(LS(IDS_MSG_20329));
 	morewait();
 	clearmsg();
       }
@@ -331,14 +331,14 @@ void user_character_stats()
     iqpts += (num - 49)*9/50 + 9;
     numints++;
   }
-  print1("Took Graduate entrance exams? [yn] ");
+  print1(LS(IDS_MSG_20330));
   if (ynq1()=='y') {
     do {
-      print1("So, what percentile? ");
+      print1(LS(IDS_MSG_20328));
       num = (int) parsenum();
       ok = (num < 100);
       if (! ok) {
-	print2("That's impossible!");
+	print2(LS(IDS_MSG_20329));
 	morewait();
 	clearmsg();
       }
@@ -348,14 +348,14 @@ void user_character_stats()
   }
 
   if (numints == 0) {
-    print1("Pretty dumb, aren't you? [yn] ");
+    print1(LS(IDS_MSG_20331));
     if (ynq1()=='y') {
       Player.iq = random_range(3)+3;      
-      print2("I thought so....");
+      print2(LS(IDS_MSG_20332));
     }
     else {
       Player.iq = random_range(6)+8;
-      print2("Well, not *that* dumb.");
+      print2(LS(IDS_MSG_20333));
     }
     morewait();
     clearmsg();
@@ -363,111 +363,111 @@ void user_character_stats()
   else Player.iq = iqpts/numints;
   Player.maxiq = Player.iq;
   agipts = 0;
-  print1("Can you dance? [yn] ");
+  print1(LS(IDS_MSG_20334));
   if (ynq1()=='y') {
     agipts++;
-    nprint1(" Well? [yn] ");
+    nprint1(LS(IDS_MSG_20335));
     if (ynq1()=='y') agipts+=2;
   }
-  print1("Do you have training in a martial art or gymnastics? [yn] ");
+  print1(LS(IDS_MSG_20336));
   if (ynq1()=='y') {
     agipts+=2;
-    print2("Do you have dan rank or equivalent? [yn] ");
+    print2(LS(IDS_MSG_20337));
     if (ynq2()=='y') agipts+=4;
   }
   clearmsg();
-  print1("Do you play some field sport? [yn] ");
+  print1(LS(IDS_MSG_20338));
   if (ynq1()=='y') {
     agipts++;
-    nprint1(" Are you good? [yn] ");
+    nprint1(LS(IDS_MSG_20339));
     if (ynq1()=='y') agipts++;
   }
-  print1("Do you cave, mountaineer, etc.? [yn] ");
+  print1(LS(IDS_MSG_20340));
   if (ynq1()=='y')
     agipts+=3;
-  print1("Do you skate or ski? [yn] ");
+  print1(LS(IDS_MSG_20341));
   if (ynq1()=='y') {
     agipts+=2;
-    nprint1(" Well? [yn] ");
+    nprint1(LS(IDS_MSG_20335));
     if (ynq1()=='y') agipts+=2;
   }
-  print1("Are you physically handicapped? [yn] ");
+  print1(LS(IDS_MSG_20342));
   if (ynq1()=='y')
     agipts-=4;
-  print1("Are you accident prone? [yn] ");
+  print1(LS(IDS_MSG_20343));
   if (ynq1()=='y')
     agipts-=4;
-  print1("Can you use a bicycle? [yn] ");
+  print1(LS(IDS_MSG_20344));
   if (ynq1()!='y')
     agipts-=4;
   Player.agi = Player.maxagi = 9 + agipts/2;
-  print1("Do you play video games? [yn] ");
+  print1(LS(IDS_MSG_20345));
   if (ynq1()=='y') {
     dexpts+=2;
-    print2("Do you get high scores? [yn] ");
+    print2(LS(IDS_MSG_20346));
     if (ynq2()=='y') dexpts+=4;
   }
   clearmsg();
-  print1("Are you an archer, fencer, or marksman? [yn] ");
+  print1(LS(IDS_MSG_20347));
   if (ynq1()=='y') {
     dexpts+=2;
-    print2("A good one? [yn] ");
+    print2(LS(IDS_MSG_20348));
     if (ynq2()=='y') dexpts+=4;
   }
   clearmsg();
-  print1("Have you ever picked a lock? [yn] ");
+  print1(LS(IDS_MSG_20349));
   if (ynq1()=='y') {
     dexpts+=2;
-    print2("Really. Well, the police are being notified.");
+    print2(LS(IDS_MSG_20350));
   }
   morewait();
   clearmsg();
-  print1("What's your typing speed (words per minute) ");
+  print1(LS(IDS_MSG_20351));
   num = (int) parsenum();
   if (num > 125) {
-    print2("Tell me another one....");
+    print2(LS(IDS_MSG_20352));
     morewait();
     clearmsg();
     num = 125;
   }
   dexpts += num/25;
-  print1("Hold your arm out. Tense your fist. Hand shaking? [yn] ");
+  print1(LS(IDS_MSG_20353));
   if (ynq1()=='y')
     dexpts-=3;
-  print1("Ambidextrous, are you? [yn] ");
+  print1(LS(IDS_MSG_20354));
   if (ynq1()=='y')
     dexpts+=4;
-  print1("Can you cut a deck of cards with one hand? [yn] ");
+  print1(LS(IDS_MSG_20355));
   if (ynq1()=='y')
     dexpts+=2;
-  print1("Can you tie your shoes blindfolded? [yn] ");
+  print1(LS(IDS_MSG_20356));
   if (ynq1()!='y')
     dexpts-=3;
   Player.dex = Player.maxdex = 6 + dexpts/2;
-  print1("Do you ever get colds? [yn] ");
+  print1(LS(IDS_MSG_20357));
   if (ynq1()!='y') 
     conpts+=4;
   else {
-    nprint1(" Frequently? [yn] ");
+    nprint1(LS(IDS_MSG_20358));
     if (ynq1() == 'y') conpts -=4;
   }
-  print1("Had any serious accident or illness this year? [yn] ");
+  print1(LS(IDS_MSG_20359));
   if (ynq1()=='y') conpts -=4;
   else conpts +=4;
-  print1("Have a chronic disease? [yn] ");
+  print1(LS(IDS_MSG_20360));
   if (ynq1() =='y') conpts -=4;
-  print1("Overweight or underweight by more than 20 percent? [yn] ");
+  print1(LS(IDS_MSG_20361));
   if (ynq1() =='y') conpts -=2;
-  print1("High Blood Pressure? [yn] ");
+  print1(LS(IDS_MSG_20362));
   if (ynq1() =='y') conpts -=2;
-  print1("Smoke? [yn] ");
+  print1(LS(IDS_MSG_20363));
   if (ynq1() =='y') conpts -=3;
-  print1("Take aerobics classes? [yn] ");
+  print1(LS(IDS_MSG_20364));
   if (ynq1() =='y') conpts +=2;
-  print1("How many miles can you run? ");
+  print1(LS(IDS_MSG_20365));
   num = (int) parsenum();
   if (num > 25) {
-    print2("Right. Sure. Give me a break.");
+    print2(LS(IDS_MSG_20366));
     morewait();
     clearmsg();
     conpts += 8;
@@ -477,66 +477,66 @@ void user_character_stats()
   else if (num < 10) conpts += 4;
   else conpts += 8;
   Player.con = Player.maxcon = 12 + conpts/3;
-  print1("Do animals react oddly to your presence? [yn] ");
+  print1(LS(IDS_MSG_20367));
   if (ynq1()=='y') {
-    print2("How curious that must be.");
+    print2(LS(IDS_MSG_20368));
     morewait();
     clearmsg();
     powpts += 2;
   }
-  print1("Can you see auras? [yn] ");
+  print1(LS(IDS_MSG_20369));
   if (ynq1()=='y') {
-    nprint1(" How strange.");
+    nprint1(LS(IDS_MSG_20370));
     morewait();
     powpts += 3;
   }
-  print1("Ever have an out-of-body experience? [yn] ");
+  print1(LS(IDS_MSG_20371));
   if (ynq1()=='y') {
-    print2("Wow, man. Fly the friendly skies....");
+    print2(LS(IDS_MSG_20372));
     morewait();
     clearmsg();
     powpts += 3;
   }
-  print1("Did you ever cast a spell? [yn] ");
+  print1(LS(IDS_MSG_20373));
   if (ynq1()=='y') {
     powpts += 3;
-    nprint1(" Did it work? [yn] ");
+    nprint1(LS(IDS_MSG_20374));
     if (ynq1()=='y') {
       powpts+=7;
-      print2("Sure it did.");
+      print2(LS(IDS_MSG_20375));
       morewait();
       clearmsg();
     }
   }
-  print1("Do you have ESP? [yn] ");
+  print1(LS(IDS_MSG_20376));
   if (ynq1()=='y') {
     powpts += 3;
-    print2("Somehow, I knew you were going to say that.");
+    print2(LS(IDS_MSG_20377));
     morewait();
     clearmsg();
   }
-  print1("Do you have PK? [yn] ");
+  print1(LS(IDS_MSG_20378));
   if (ynq1()=='y') {
     powpts+= 6;
-    print2("I can't tell you how much that moves me.");
+    print2(LS(IDS_MSG_20379));
     morewait();
     clearmsg();
   }
-  print1("Do you believe in ghosts? [yn] ");
+  print1(LS(IDS_MSG_20380));
   if (ynq1()=='y') {
     powpts+=2;
-    print2("I do! I do! I do believe in ghosts!");
+    print2(LS(IDS_MSG_20381));
     morewait();
     clearmsg();
   }
-  print1("Are you Irish? [yn] ");
+  print1(LS(IDS_MSG_20382));
   if (ynq1()=='y') {
     powpts+=2;
-    nprint1(" Is that blarney or what?");
+    nprint1(LS(IDS_MSG_20383));
     morewait();
   }
   Player.pow = Player.maxpow = 3 + powpts/2;
-  print1("Are you sexually interested in males or females? [mf] ");
+  print1(LS(IDS_MSG_20384));
   do Player.preference = (char) mcigetc();
   while ((Player.preference != 'm') && (Player.preference != 'f') &&
 	(Player.preference != 'y') && (Player.preference != 'n')); /* :-) */
@@ -547,7 +547,7 @@ void user_character_stats()
 void omegan_character_stats()
 {
   int share1,share2,i=0;
-  print1("To reroll hit ESCAPE; hit any other key to accept these stats.");
+  print1(LS(IDS_MSG_20385));
   do {
     i++;
     sprintf(Str1, "You have only %d chance%s to reroll... ", 11 - i,
@@ -568,11 +568,11 @@ void omegan_character_stats()
     dataprint();
   } while ((i < 11) && (mgetc() == ESCAPE));
   clearmsg();
-  print1("Please enter your character's name: ");
+  print1(LS(IDS_MSG_20386));
   strcpy(Player.name,msgscanstring());
   if (Player.name[0] >= 'a' && Player.name[0] <= 'z')
     Player.name[0] += 'A'-'a'; /* capitalise 1st letter */
-  print1("Is your character sexually interested in males or females? [mf] ");
+  print1(LS(IDS_MSG_20387));
   do Player.preference = (char) mcigetc();
   while ((Player.preference != 'm') && (Player.preference != 'f') &&
 	(Player.preference != 'y') && (Player.preference != 'n')); /* :-) */

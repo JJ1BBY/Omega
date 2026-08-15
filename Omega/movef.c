@@ -207,146 +207,146 @@ int x,y,signp;
     CitySiteList[Level->site[x][y].p_locf - CITYSITEBASE][0] = TRUE;
   switch(Level->site[x][y].p_locf) {
   case L_CHARITY:
-    print1("You notice a sign: The Rampart Orphanage And Hospice For The Needy.");
+    print1(LS(IDS_MSG_21907));
     break;
   case L_MANSION:
-    print1("You notice a sign:");
-    print2("This edifice protected by DeathWatch Devices, Ltd.");
+    print1(LS(IDS_MSG_21908));
+    print2(LS(IDS_MSG_21909));
     morewait();
     break;
   case L_GRANARY:  
-    print1("You notice a sign:");
-    print2("Public Granary: Entrance Strictly Forbidden.");
+    print1(LS(IDS_MSG_21908));
+    print2(LS(IDS_MSG_21910));
     break;
   case L_PORTCULLIS:
     if (Level->site[x][y].locchar == FLOOR)
-      print1("You see a groove in the floor and slots above you.");
+      print1(LS(IDS_MSG_21911));
     break;
   case L_STABLES:
-    print1("You notice a sign:");
-    print2("Village Stables");
+    print1(LS(IDS_MSG_21908));
+    print2(LS(IDS_MSG_21912));
     break;
   case L_COMMONS:
-    print1("You notice a sign:");
-    print2("Village Commons: No wolves allowed.");
+    print1(LS(IDS_MSG_21908));
+    print2(LS(IDS_MSG_21913));
     break;
   case L_MAZE:
-    print1("You notice a sign:");
-    print2("Hedge maze closed for trifid extermination.");
+    print1(LS(IDS_MSG_21908));
+    print2(LS(IDS_MSG_21914));
     break;
   case L_BANK:
     if (signp) {
-      print1("You notice a sign:");
-      print2("First Bank of Omega: Autoteller Carrel.");
+      print1(LS(IDS_MSG_21908));
+      print2(LS(IDS_MSG_21915));
     }
     break;
   case L_TEMPLE:
-    print1("You see the ornate portico of the Rampart Pantheon");
+    print1(LS(IDS_MSG_21916));
     break;
   case L_ARMORER:
     if (signp) {
-      print1("You notice a sign:");
-      print2("Julie's Armor of Proof and Weapons of Quality");
+      print1(LS(IDS_MSG_21908));
+      print2(LS(IDS_MSG_21917));
     }
     break;
   case L_CLUB:
     if (signp) {
-      print1("You notice a sign:");
-      print2("Rampart Explorers' Club.");
+      print1(LS(IDS_MSG_21908));
+      print2(LS(IDS_MSG_21918));
     }
     break;
   case L_GYM:
     if (signp) {
-      print1("You notice a sign:");
-      print2("The Rampart Gymnasium, (affil. Rampart Coliseum).");
+      print1(LS(IDS_MSG_21908));
+      print2(LS(IDS_MSG_21919));
     }
     break;
   case L_HEALER:
     if (signp) {
-      print1("You notice a sign:");
-      print2("Rampart Healers. Member RMA.");
+      print1(LS(IDS_MSG_21908));
+      print2(LS(IDS_MSG_21920));
     }
     break;
   case L_CASINO:
     if (signp) {
-      print1("You notice a sign:");
-      print2("Rampart Mithril Nugget Casino.");
+      print1(LS(IDS_MSG_21908));
+      print2(LS(IDS_MSG_21921));
     }
     break;
   case L_SEWER:
-    print1("A sewer entrance. You don't want to go down THERE, do you?");
+    print1(LS(IDS_MSG_21922));
     break;
   case L_COMMANDANT:
     if (signp) {
-      print1("You notice a sign:");
-      print2("Commandant Sonder's Rampart-fried Lyzzard partes. Open 24 hrs.");
+      print1(LS(IDS_MSG_21908));
+      print2(LS(IDS_MSG_21923));
     }
     break;
   case L_DINER:
     if (signp) {
-      print1("You notice a sign:");
-      print2("The Rampart Diner. All you can eat, 25Au.");
+      print1(LS(IDS_MSG_21908));
+      print2(LS(IDS_MSG_21924));
     }
     break;
   case L_CRAP:
     if (signp) {
-      print1("You notice a sign:"); 
-      print2("Les Crapeuleaux. (****)");
+      print1(LS(IDS_MSG_21908)); 
+      print2(LS(IDS_MSG_21925));
     }
     break;
   case L_TAVERN:
     if (signp) {
-      print1("You notice a sign:"); 
-      print2("The Centaur and Nymph -- J. Riley, prop.");
+      print1(LS(IDS_MSG_21908)); 
+      print2(LS(IDS_MSG_21926));
     }
     break;
   case L_ALCHEMIST:
     if (signp) {
-      print1("You notice a sign:"); 
-      print2("Ambrosias' Potions et cie.");
+      print1(LS(IDS_MSG_21908)); 
+      print2(LS(IDS_MSG_21927));
     }
     break;
   case L_DPW:
     if (signp) {
-      print1("You notice a sign:"); 
-      print2("Rampart Department of Public Works.");
+      print1(LS(IDS_MSG_21908)); 
+      print2(LS(IDS_MSG_21928));
     }
     break;
   case L_LIBRARY:
     if (signp) {
-      print1("You notice a sign:"); 
-      print2("Rampart Public Library.");
+      print1(LS(IDS_MSG_21908)); 
+      print2(LS(IDS_MSG_21929));
     }
     break;
   case L_CONDO:
     if (signp) {
-      print1("You notice a sign:"); 
+      print1(LS(IDS_MSG_21908)); 
       if (gamestatusp(SOLD_CONDO)) 
-	print2("Home Sweet Home");
-      else print2("Luxury Condominium For Sale; Inquire Within");
+	print2(LS(IDS_MSG_21930));
+      else print2(LS(IDS_MSG_21931));
     }
     break;
   case L_PAWN_SHOP:
     if (signp) {
-      print1("You notice a sign:"); 
-      print2("Knight's Pawn Shop.");
+      print1(LS(IDS_MSG_21908)); 
+      print2(LS(IDS_MSG_21932));
     }
     break;
   case L_CEMETARY:
-    print1("You notice a sign:"); 
-    print2("Rampart City Cemetary. Closed -- Full.");
+    print1(LS(IDS_MSG_21908)); 
+    print2(LS(IDS_MSG_21933));
     break;
   case L_GARDEN:
-    print1("You notice a sign:"); 
-    print2("Rampart Botanical Gardens---Do not deface statues.");
+    print1(LS(IDS_MSG_21908)); 
+    print2(LS(IDS_MSG_21934));
     break;
   case L_JAIL:
-    print1("You notice a sign:"); 
-    print2("Rampart City Gaol -- always room for more.");
+    print1(LS(IDS_MSG_21908)); 
+    print2(LS(IDS_MSG_21935));
     break;
   case L_ORACLE:
-    print1("You notice a sign:");
-    print2("The Oracle of the Cyan Flames");
+    print1(LS(IDS_MSG_21908));
+    print2(LS(IDS_MSG_21936));
     morewait();
     break;
   }

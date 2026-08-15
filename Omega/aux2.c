@@ -58,10 +58,10 @@ int dtype;
   strcat(Str3,m->monstring);
   strcat(Str3,". ");
   if (Verbosity != TERSE) mprint(Str3);
-  else mprint("You hit it.");
+  else mprint(LS(IDS_MSG_20080));
   m_damage(m,dmult * random_range(dmg),dtype);
   if ((Verbosity != TERSE) && (random_range(10)==3) && (m->hp > 0))
-    mprint("It laughs at the injury and fights on!");
+    mprint(LS(IDS_MSG_20081));
 }
 
 /* and effects of missing */
@@ -86,7 +86,7 @@ int dtype;
       strcat(Str3,". ");
       mprint(Str3);
     }
-    else mprint("You missed it.");
+    else mprint(LS(IDS_MSG_20082));
   }  
 }
 
@@ -94,7 +94,7 @@ int dtype;
 void p_fumble(dtype)
 int dtype;
 {
-  mprint("Ooops! You fumbled....");
+  mprint(LS(IDS_MSG_20083));
   switch(random_range(10)) {
     case 0:
     case 1:
@@ -105,7 +105,7 @@ int dtype;
     case 6:
     case 7:
     case 8: break_weapon(); break;
-    case 9: mprint("Oh No! You hit yourself!");
+    case 9: mprint(LS(IDS_MSG_20084));
 	    p_damage(Player.dmg,dtype,"stupidity");
 	    break;
   }
@@ -122,7 +122,7 @@ void drop_weapon()
     p_drop_at(Player.x,Player.y,1,Player.possessions[O_WEAPON_HAND]);
     conform_lost_objects(1,Player.possessions[O_WEAPON_HAND]);
   }
-  else mprint("You feel fortunate.");
+  else mprint(LS(IDS_MSG_20085));
 }
 
 
@@ -145,7 +145,7 @@ void p_win()
 {
   morewait();
   clearmsg();
-  print1("You won!");
+  print1(LS(IDS_MSG_20086));
   morewait();
   display_win();
   endgraf();
@@ -191,7 +191,7 @@ void minute_status_check()
     if (Player.status[HASTED] < 1000) {
       Player.status[HASTED]--;
       if (Player.status[HASTED]==0) {
-	mprint("The world speeds up.");
+	mprint(LS(IDS_MSG_20087));
 	calc_melee();
       }
     }
@@ -203,7 +203,7 @@ void minute_status_check()
     p_damage(3,POISON,"poison");
     if (Player.status[POISONED] == 0) {
       showflags();
-      mprint("You feel better now.");
+      mprint(LS(IDS_MSG_20088));
     }
   }
 
@@ -212,21 +212,21 @@ void minute_status_check()
     for(i=0;i<NUMIMMUNITIES;i++)
     Player.immunity[i]--;
     if (Player.immunity[UNSTOPPABLE]==1)
-      mprint("You feel vincible again.");
+      mprint(LS(IDS_MSG_20089));
   }
 
 
   if (Player.status[IMMOBILE]>0) {
     Player.status[IMMOBILE]--;
     if (Player.status[IMMOBILE] == 0) 
-      mprint("You can move again.");
+      mprint(LS(IDS_MSG_20090));
   }
 
 
   if (Player.status[SLEPT]>0) {
     Player.status[SLEPT]--;
     if (Player.status[SLEPT] == 0) {
-      mprint("You woke up.");
+      mprint(LS(IDS_MSG_20091));
     }
   }
 
@@ -239,7 +239,7 @@ void minute_status_check()
     if (Player.status[REGENERATING] < 1000) {
       Player.status[REGENERATING]--;
       if (Player.status[REGENERATING] == 0) {
-	mprint("You feel less homeostatic.");
+	mprint(LS(IDS_MSG_20092));
       }
     }
   }
@@ -248,7 +248,7 @@ void minute_status_check()
     if (Player.status[SLOWED] < 1000) {
       Player.status[SLOWED]--;
       if (Player.status[SLOWED] == 0) {
-	mprint("You feel quicker now.");
+	mprint(LS(IDS_MSG_20093));
 	calc_melee();
       }
     }
@@ -257,13 +257,13 @@ void minute_status_check()
   if (Player.status[RETURNING]>0) {
     Player.status[RETURNING]--;
     if (Player.status[RETURNING] == 10)
-      mprint("Your return spell slowly hums towards activation...");
+      mprint(LS(IDS_MSG_20094));
     else if (Player.status[RETURNING] == 8)
-      mprint("There is an electric tension in the air!");
+      mprint(LS(IDS_MSG_20095));
     else if (Player.status[RETURNING] == 5)
-      mprint("A vortex of mana begins to form around you!");
+      mprint(LS(IDS_MSG_20096));
     else if (Player.status[RETURNING] == 1)
-      mprint("Your surroundings start to warp and fade!");
+      mprint(LS(IDS_MSG_20097));
     if (Player.status[RETURNING] == 0)
       level_return();
   }
@@ -272,7 +272,7 @@ void minute_status_check()
     if (Player.status[AFRAID] < 1000) {
       Player.status[AFRAID]--;
       if (Player.status[AFRAID] == 0) {
-	mprint("You feel bolder now.");
+	mprint(LS(IDS_MSG_20098));
       }
     }
   }
@@ -291,14 +291,14 @@ void moon_check()
   if (((Player.patron == DRUID) && ((Phase/2 == 3) || (Phase/2 == 9))) ||
       ((Player.alignment > 10) && (Phase/2 == 6)) ||
       ((Player.alignment < -10) && (Phase/2 == 0))) {
-    mprint("As the moon rises you feel unusually vital!");
+    mprint(LS(IDS_MSG_20099));
     Lunarity = 1;
   }
   else
   if (((Player.patron == DRUID) && ((Phase/2 == 0) || (Phase/2 == 6))) ||
       ((Player.alignment > 10) && (Phase/2 == 0)) ||
       ((Player.alignment < -10) && (Phase/2 == 6))) {
-    mprint("The rise of the moon tokens a strange enervation!");
+    mprint(LS(IDS_MSG_20100));
     Lunarity = -1;
   }
 
@@ -316,7 +316,7 @@ void torch_check()
 	  (Player.possessions[i]->aux > 0)) {
 	Player.possessions[i]->aux--;
 	if (Player.possessions[i]->aux==0) {
-	  mprint("Your torch goes out!!!");
+	  mprint(LS(IDS_MSG_20101));
 	  conform_unused_object(Player.possessions[i]);
 	  if (Player.possessions[i]->number > 1) {
 	    Player.possessions[i]->number--;
@@ -346,14 +346,14 @@ void tenminute_status_check()
       Player.immunity[ACID]--;
       Player.immunity[THEFT]--;
       Player.immunity[INFECTION]--;
-      mprint("You feel less shadowy now.");
+      mprint(LS(IDS_MSG_20102));
     }
   }
 
   if ((Player.status[ILLUMINATION]>0) && (Player.status[ILLUMINATION]<1000)) {
     Player.status[ILLUMINATION]--;
     if (Player.status[ILLUMINATION] == 0) {
-      mprint("Your light goes out!");
+      mprint(LS(IDS_MSG_20103));
     }
   }
 
@@ -361,42 +361,42 @@ void tenminute_status_check()
   if ((Player.status[VULNERABLE]>0) && (Player.status[VULNERABLE]<1000)){
     Player.status[VULNERABLE]--;
     if (Player.status[VULNERABLE] == 0)
-      mprint("You feel less endangered.");
+      mprint(LS(IDS_MSG_20104));
   }
 
 
   if ((Player.status[DEFLECTION]>0) && (Player.status[DEFLECTION]<1000)){
     Player.status[DEFLECTION]--;
     if (Player.status[DEFLECTION] == 0)
-      mprint("You feel less well defended.");
+      mprint(LS(IDS_MSG_20105));
   }
 
   if ((Player.status[ACCURATE]>0) && (Player.status[ACCURACY]<1000)){
     Player.status[ACCURATE]--;
     if (Player.status[ACCURATE] == 0) {
       calc_melee();
-      mprint("The bulls' eyes go away.");
+      mprint(LS(IDS_MSG_20106));
     }
   }
   if ((Player.status[HERO]>0) && (Player.status[HERO]<1000)){
     Player.status[HERO]--;
     if (Player.status[HERO] == 0) {
       calc_melee();
-      mprint("You feel less than super.");
+      mprint(LS(IDS_MSG_20107));
     }
   }
 
   if ((Player.status[LEVITATING]>0) && (Player.status[LEVITATING]<1000)){
     Player.status[LEVITATING]--;
     if (Player.status[LEVITATING] == 0)
-      mprint("You're no longer walking on air.");
+      mprint(LS(IDS_MSG_20108));
   }
 
   if (Player.status[DISEASED]>0) {
     Player.status[DISEASED]--;
     if (Player.status[DISEASED] == 0) {
       showflags();
-      mprint("You feel better now.");
+      mprint(LS(IDS_MSG_20088));
     }
   }
 
@@ -404,43 +404,43 @@ void tenminute_status_check()
   if ((Player.status[INVISIBLE] > 0) && (Player.status[INVISIBLE]<1000)){
     Player.status[INVISIBLE]--;
     if (Player.status[INVISIBLE] == 0)
-      mprint("You feel more opaque now.");
+      mprint(LS(IDS_MSG_20109));
   }
 
   if ((Player.status[BLINDED]>0) && (Player.status[BLINDED]<1000)) {
     Player.status[BLINDED]--;
     if (Player.status[BLINDED] == 0) 
-      mprint("You can see again.");
+      mprint(LS(IDS_MSG_20110));
   }
 
   if ((Player.status[TRUESIGHT]>0) && (Player.status[TRUESIGHT]<1000)) {
     Player.status[TRUESIGHT]--;
     if (Player.status[TRUESIGHT] == 0) 
-      mprint("You feel less keen now.");
+      mprint(LS(IDS_MSG_20111));
   }
 
   if ((Player.status[BERSERK]>0) && (Player.status[BERSERK]<1000)) {
     Player.status[BERSERK]--;
     if (Player.status[BERSERK] == 0) 
-      mprint("You stop foaming at the mouth.");
+      mprint(LS(IDS_MSG_20112));
   }
 
   if ((Player.status[ALERT]>0) && (Player.status[ALERT] < 1000)) {
     Player.status[ALERT]--;
     if (Player.status[ALERT] == 0) 
-      mprint("You feel less alert now.");
+      mprint(LS(IDS_MSG_20113));
   }
 
   if ((Player.status[BREATHING]>0) && (Player.status[BREATHING] < 1000)) {
     Player.status[BREATHING]--;
     if (Player.status[BREATHING] == 0) 
-      mprint("You feel somewhat congested."); 
+      mprint(LS(IDS_MSG_20114)); 
   }
 
   if ((Player.status[DISPLACED]>0) && (Player.status[DISPLACED] < 1000)) {
     Player.status[DISPLACED]--;
     if (Player.status[DISPLACED]==0) 
-      mprint("You feel a sense of position.");
+      mprint(LS(IDS_MSG_20115));
   }
   timeprint();
   dataprint();
@@ -459,8 +459,8 @@ void gain_level()
       morewait();
     gained = TRUE;
     Player.level++;
-    print1("You have attained a new experience level!");
-    print2("You are now ");
+    print1(LS(IDS_MSG_20116));
+    print2(LS(IDS_MSG_20117));
     nprint2(getarticle(levelname(Player.level)));
     nprint2(levelname(Player.level));
     Player.maxhp += random_range(Player.con)+1;
@@ -529,14 +529,14 @@ void p_drown()
   int attempts = 3, i;
 
   if (Player.status[BREATHING] > 0)
-    mprint("Your breathing is unaffected!");
+    mprint(LS(IDS_MSG_20118));
   else while (Player.possessions[O_ARMOR] ||
       Player.itemweight > ((int) (Player.maxweight / 2))) {
     menuclear();
     switch (attempts--) {
-      case 3: print3("You try to hold your breath..."); break;
-      case 2: print3("You try to hold your breath... You choke..."); break;
-      case 1: print3("You try to hold your breath... You choke... Your lungs fill..."); break;
+      case 3: print3(LS(IDS_MSG_20119)); break;
+      case 2: print3(LS(IDS_MSG_20120)); break;
+      case 1: print3(LS(IDS_MSG_20121)); break;
       case 0: p_death("drowning");
     }
     morewait();
@@ -549,7 +549,7 @@ void p_drown()
 	drop();
 	if (Level->site[Player.x][Player.y].p_locf == L_WATER && Level->site[Player.x][Player.y].things)
 	{
-	    mprint("It sinks without a trace.");
+	    mprint(LS(IDS_MSG_20122));
 	    free_objlist(Level->site[Player.x][Player.y].things);
 	    Level->site[Player.x][Player.y].things = NULL;
 	}
@@ -567,7 +567,7 @@ void p_drown()
 	  Player.pack[i] = NULL;
 	}
 	if (Level->site[Player.x][Player.y].p_locf == L_WATER)
-	  mprint("It sinks without a trace.");
+	  mprint(LS(IDS_MSG_20122));
 	Player.packptr = 0;
 	resetgamestatus(SUPPRESS_PRINTING);
 	calc_melee();
@@ -681,7 +681,7 @@ struct monster *m;
 {
   int i=0,blocks=FALSE,goodblocks=0,hit;
   if (m->hp < 1) {
-    mprint("Unfortunately, your opponent is already dead!");
+    mprint(LS(IDS_MSG_20123));
     return(FALSE);
   }
   else {
@@ -767,7 +767,7 @@ short site;
   case DRAGONLAIR: change_environment(E_DLAIR); break;
   case STARPEAK: change_environment(E_STARPEAK); break;
   case MAGIC_ISLE: change_environment(E_MAGIC_ISLE); break;
-  default:print3("There's nothing to enter here!"); break;
+  default:print3(LS(IDS_MSG_20124)); break;
   }
 }
 
@@ -841,35 +841,35 @@ char new_environment;
     Player.y = 14;
     load_circle(TRUE);
     if (Objects[ARTIFACTID+21].uniqueness == UNIQUE_TAKEN) {
-      print1("A bemused voice says:");
-      print2("'Why are you here? You already have the Star Gem!'");
+      print1(LS(IDS_MSG_20125));
+      print2(LS(IDS_MSG_20126));
       morewait();
     }
     else if (Player.rank[CIRCLE] > 0) {
-      print1("You hear the voice of the Prime Sorceror:");
-      print2("'Congratulations on your attainment of the Circle's Demesne.'");
+      print1(LS(IDS_MSG_20127));
+      print2(LS(IDS_MSG_20128));
       morewait();
-      print1("For the honor of the Circle, you may take the Star Gem");
-      print2("and destroy it on the acme of Star Peak.");
+      print1(LS(IDS_MSG_20129));
+      print2(LS(IDS_MSG_20130));
       morewait();
-      print1("Beware the foul LawBringer who resides there...");
-      print2("By the way, some of the members of the Circle seem to");
+      print1(LS(IDS_MSG_20131));
+      print2(LS(IDS_MSG_20132));
       morewait();
-      print1("have become a bit jealous of your success --");
-      print2("I'd watch out for them too if I were you.");
+      print1(LS(IDS_MSG_20133));
+      print2(LS(IDS_MSG_20134));
       morewait();
     }
     else if (Player.alignment > 0) {
-      print1("A mysterious ghostly image materializes in front of you.");
-      print2("It speaks: 'Greetings, fellow abider in Law. I am called");
+      print1(LS(IDS_MSG_20135));
+      print2(LS(IDS_MSG_20136));
       morewait();
-      print1("The LawBringer. If you wish to advance our cause, obtain");
-      print2("the mystic Star Gem and return it to me on Star Peak.");
+      print1(LS(IDS_MSG_20137));
+      print2(LS(IDS_MSG_20138));
       morewait();
-      print1("Beware the power of the evil Circle of Sorcerors and the");
-      print2("forces of Chaos which guard the gem.'");
+      print1(LS(IDS_MSG_20139));
+      print2(LS(IDS_MSG_20140));
       morewait();
-      print1("The strange form fades slowly.");
+      print1(LS(IDS_MSG_20141));
       morewait();
     }
     ScreenOffset = 0;
@@ -953,11 +953,11 @@ char new_environment;
     WIDTH = 64;
     LENGTH = 64;
     if (emerging) {
-      print1("You emerge onto the street.");
+      print1(LS(IDS_MSG_20142));
       emerging = FALSE;
     }
     else {
-      print1("You pass through the massive gates of Rampart, the city.");
+      print1(LS(IDS_MSG_20143));
       Player.x = 62;
       Player.y = 21;
     }
@@ -982,7 +982,7 @@ char new_environment;
 	Villagenum = 1;
 	break;
       default: 
-	print3("Very strange, a nonexistent village.");
+	print3(LS(IDS_MSG_20144));
       case 2:
 	Player.x = 39;
 	Player.y = 15;
@@ -1021,23 +1021,23 @@ char new_environment;
       }
 #endif
     if (emerging) {
-      print1("You emerge onto the street.");
+      print1(LS(IDS_MSG_20142));
       emerging = FALSE;
     }
     else
-      print1("You enter a small rural village.");
+      print1(LS(IDS_MSG_20145));
     ScreenOffset = 0;
     show_screen();
     break;
   case E_CAVES:
     WIDTH = 64;
     LENGTH = 64;
-    print1("You enter a dark cleft in a hillside;");
-    print2("You note signs of recent passage in the dirt nearby.");
+    print1(LS(IDS_MSG_20146));
+    print2(LS(IDS_MSG_20147));
     if (gamestatusp(MOUNTED)) {
       morewait();
-      print1("Seeing as you might not be coming back, you feel compelled");
-      print2("to let your horse go, rather than keep him hobbled outside.");
+      print1(LS(IDS_MSG_20148));
+      print2(LS(IDS_MSG_20149));
       resetgamestatus(MOUNTED);
       calc_melee();
     }
@@ -1056,11 +1056,11 @@ char new_environment;
   case E_VOLCANO:
     WIDTH = 64;
     LENGTH = 64;
-    print1("You pass down through the glowing crater.");
+    print1(LS(IDS_MSG_20150));
     if (gamestatusp(MOUNTED)) {
       morewait();
-      print1("Seeing as you might not be coming back, you feel compelled");
-      print2("to let your horse go, rather than keep him hobbled outside.");
+      print1(LS(IDS_MSG_20148));
+      print2(LS(IDS_MSG_20149));
       resetgamestatus(MOUNTED);
       calc_melee();
     }
@@ -1079,9 +1079,9 @@ char new_environment;
   case E_ASTRAL:
     WIDTH = 64;
     LENGTH = 64;
-    print1("You are in a weird flickery maze.");
+    print1(LS(IDS_MSG_20151));
     if (gamestatusp(MOUNTED)) {
-      print2("Your horse doesn't seem to have made it....");
+      print2(LS(IDS_MSG_20152));
       resetgamestatus(MOUNTED);
       calc_melee();
     }
@@ -1100,11 +1100,11 @@ char new_environment;
   case E_CASTLE:
     WIDTH = 64;
     LENGTH = 64;
-    print1("You cross the drawbridge. Strange forms move beneath the water.");
+    print1(LS(IDS_MSG_20153));
     if (gamestatusp(MOUNTED)) {
       morewait();
-      print1("Seeing as you might not be coming back, you feel compelled");
-      print2("to let your horse go, rather than keep him hobbled outside.");
+      print1(LS(IDS_MSG_20148));
+      print2(LS(IDS_MSG_20149));
       resetgamestatus(MOUNTED);
     }
     MaxDungeonLevels = CASTLELEVELS;
@@ -1122,9 +1122,9 @@ char new_environment;
   case E_SEWERS:
     WIDTH = 64;
     LENGTH = 64;
-    print1("You pry open a manhole and descend into the sewers below.");
+    print1(LS(IDS_MSG_20154));
     if (gamestatusp(MOUNTED)) {
-      print2("You horse waits patiently outside the sewer entrance....");
+      print2(LS(IDS_MSG_20155));
       dismount_steed();
     }
     MaxDungeonLevels = SEWERLEVELS;
@@ -1142,7 +1142,7 @@ char new_environment;
   case E_COUNTRYSIDE:
     WIDTH = 64;
     LENGTH = 64;
-    print1("You return to the fresh air of the open countryside.");
+    print1(LS(IDS_MSG_20156));
     if (Last_Environment == E_CITY) {
       Player.x = 27;
       Player.y = 19;
@@ -1159,7 +1159,7 @@ char new_environment;
   case E_TACTICAL_MAP:
     WIDTH = 64;
     LENGTH = 16;
-    print1("You are now on the tactical screen; exit off any side to leave");
+    print1(LS(IDS_MSG_20157));
     make_country_screen(Country[Player.x][Player.y].current_terrain_type);
     make_country_monsters(Country[Player.x][Player.y].current_terrain_type);
     Player.x = WIDTH/2;
@@ -1181,8 +1181,8 @@ char new_environment;
     show_screen();
     break;
   case E_NEVER_NEVER_LAND: default:
-    print1("There must be some mistake. You don't look like Peter Pan.");
-    print2("(But here you are in Never-Never Land)");
+    print1(LS(IDS_MSG_20158));
+    print2(LS(IDS_MSG_20159));
     ScreenOffset = Player.y - (ScreenLength/2);
     show_screen();
     break;
