@@ -81,6 +81,22 @@ char.c, command1.c)。残り約2,277件。
 `PreprocessorDefinitions`に`OMEGA_JA_DEBUG;`を追加してビルドし、
 `%APPDATA%\Omega\ja_debug.log`を確認する。)
 
+## 未着手のタスク: 言語切り替えUI
+
+現状、English/Japaneseどちらのリソースブロックが使われるかは**Windowsのリソース
+言語解決に完全に依存**しており、アプリ内に切り替えUIは無い(OSのロケールが
+日本語ならLoadStringAが自動的に日本語ブロックを、英語ロケールなら英語ブロックを
+拾うだけ)。英語ロケールのマシンで日本語表示を選びたい、といったケースに対応
+できない。
+
+対応する場合の方針:
+1. `LS()`の実装(`LoadStringA`)をやめ、`FindResourceEx`+`MAKELANGID`で明示的に
+   言語IDを指定する形に変更(現在の選択言語をグローバル変数で保持)
+2. セットアップダイアログ(`IDD_SETUP`、フォント選択の隣あたり)に言語選択の
+   コンボボックスを追加し、選択結果をレジストリ(`HKCU\Software\David
+   Kinder\Omega`)に保存・次回起動時に復元
+3. `Strings.en.rc`は今後も削除せず残すこと(英語版ユーザー向けに必要)
+
 ## 未着手のタスク
 
 ### 1. 本命: `Strings.ja.rc` の翻訳(2,665件)
