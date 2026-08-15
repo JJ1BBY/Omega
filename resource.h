@@ -2403,6 +2403,42 @@
 #define IDS_MSG_22737                   22737
 #define IDS_MSG_22738                   22738
 
+// ---- aux2.c (gap-fill: strings built via strcpy/strcat into a buffer
+// before being passed to mprint(), missed by the original extraction
+// since it only caught string literals passed directly as arguments) ----
+#define IDS_MSG_22739                   22739
+#define IDS_MSG_22740                   22740
+#define IDS_MSG_22741                   22741
+#define IDS_MSG_22742                   22742
+#define IDS_MSG_22743                   22743
+#define IDS_MSG_22744                   22744
+#define IDS_MSG_22745                   22745
+#define IDS_MSG_22746                   22746
+#define IDS_MSG_22747                   22747
+#define IDS_MSG_22748                   22748
+#define IDS_MSG_22749                   22749
+#define IDS_MSG_22750                   22750
+#define IDS_MSG_22751                   22751
+#define IDS_MSG_22752                   22752
+#define IDS_MSG_22753                   22753
+#define IDS_MSG_22754                   22754
+#define IDS_MSG_22755                   22755
+#define IDS_MSG_22756                   22756
+#define IDS_MSG_22757                   22757
+#define IDS_MSG_22758                   22758
+#define IDS_MSG_22759                   22759
+#define IDS_MSG_22760                   22760
+#define IDS_MSG_22761                   22761
+#define IDS_MSG_22762                   22762
+#define IDS_MSG_22763                   22763
+#define IDS_MSG_22764                   22764
+#define IDS_MSG_22765                   22765
+#define IDS_MSG_22766                   22766
+#define IDS_MSG_22767                   22767
+#define IDS_MSG_22768                   22768
+#define IDS_MSG_22769                   22769
+#define IDS_MSG_22770                   22770
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222

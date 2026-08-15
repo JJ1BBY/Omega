@@ -2476,6 +2476,43 @@ BEGIN
     IDS_MSG_22738    "\n-Done-"
 END
 
+// ==================== aux2.c (gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_22739    "You annihilate "
+    IDS_MSG_22740    "You blast "
+    IDS_MSG_22741    "You smash "
+    IDS_MSG_22742    "You hit "
+    IDS_MSG_22743    "You damage "
+    IDS_MSG_22744    "You inflict bodily harm on "
+    IDS_MSG_22745    "You injure "
+    IDS_MSG_22746    "You molest "
+    IDS_MSG_22747    "the "
+    IDS_MSG_22748    ". "
+    IDS_MSG_22749    "You miss "
+    IDS_MSG_22750    "You flail lamely at "
+    IDS_MSG_22751    "You only amuse "
+    IDS_MSG_22752    "You fail to even come close to "
+    IDS_MSG_22753    "You totally avoid contact with "
+    IDS_MSG_22754    "the "
+    IDS_MSG_22755    ". "
+    IDS_MSG_22756    "You dropped your "
+    IDS_MSG_22757    "Your "
+    IDS_MSG_22758    " vibrates in your hand...."
+    IDS_MSG_22759    "low."
+    IDS_MSG_22760    "center."
+    IDS_MSG_22761    "high."
+    IDS_MSG_22762    "wildly."
+    IDS_MSG_22763    "You punch "
+    IDS_MSG_22764    "You thrust "
+    IDS_MSG_22765    "You cut "
+    IDS_MSG_22766    "You strike "
+    IDS_MSG_22767    "You attack "
+    IDS_MSG_22768    "You lunge "
+    IDS_MSG_22769    "The "
+    IDS_MSG_22770    " blocks it!"
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN

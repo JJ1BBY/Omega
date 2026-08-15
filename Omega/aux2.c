@@ -25,38 +25,38 @@ int dtype;
   int dmult;
 
   /* chance for critical hit..., 3/10 */
-  switch (random_range(10)) {  
+  switch (random_range(10)) {
     case 0:
     if (random_range(100) < Player.level) {
-      strcpy(Str3,"You annihilate ");
+      strcpy(Str3,LS(IDS_MSG_22739));
       dmult = 1000;
     }
     else {
-      strcpy(Str3,"You blast "); 
-      dmult=5; 
+      strcpy(Str3,LS(IDS_MSG_22740));
+      dmult=5;
     }
     break;
     case 1:
-    case 2: 
-    strcpy(Str3,"You smash "); 
+    case 2:
+    strcpy(Str3,LS(IDS_MSG_22741));
     dmult=2; break;
 
-    default: 
+    default:
     dmult=1;
-    if (random_range(10)) strcpy(Str3,"You hit ");
+    if (random_range(10)) strcpy(Str3,LS(IDS_MSG_22742));
     else switch(random_range(4)) {
-    case 0: strcpy(Str3,"You damage "); break;
-    case 1: strcpy(Str3,"You inflict bodily harm on "); break;
-    case 2: strcpy(Str3,"You injure "); break;
-    case 3: strcpy(Str3,"You molest "); break;
+    case 0: strcpy(Str3,LS(IDS_MSG_22743)); break;
+    case 1: strcpy(Str3,LS(IDS_MSG_22744)); break;
+    case 2: strcpy(Str3,LS(IDS_MSG_22745)); break;
+    case 3: strcpy(Str3,LS(IDS_MSG_22746)); break;
     }
     break;
-  } 
+  }
   if (Lunarity == 1) dmult = dmult * 2;
   else if (Lunarity == -1) dmult = dmult / 2;
-  if (m->uniqueness == COMMON) strcat(Str3,"the ");
+  if (m->uniqueness == COMMON) strcat(Str3,LS(IDS_MSG_22747));
   strcat(Str3,m->monstring);
-  strcat(Str3,". ");
+  strcat(Str3,LS(IDS_MSG_22748));
   if (Verbosity != TERSE) mprint(Str3);
   else mprint(LS(IDS_MSG_20080));
   m_damage(m,dmult * random_range(dmg),dtype);
@@ -74,16 +74,16 @@ int dtype;
   else {
     if (Verbosity != TERSE) {
       if (random_range(10))
-	strcpy(Str3,"You miss ");
+	strcpy(Str3,LS(IDS_MSG_22749));
       else switch(random_range(4)) {
-      case 0: strcpy(Str3,"You flail lamely at "); break;
-      case 1: strcpy(Str3,"You only amuse "); break;
-      case 2: strcpy(Str3,"You fail to even come close to "); break;
-      case 3: strcpy(Str3,"You totally avoid contact with "); break;
-      }	
-      if (m->uniqueness == COMMON) strcat(Str3,"the ");
+      case 0: strcpy(Str3,LS(IDS_MSG_22750)); break;
+      case 1: strcpy(Str3,LS(IDS_MSG_22751)); break;
+      case 2: strcpy(Str3,LS(IDS_MSG_22752)); break;
+      case 3: strcpy(Str3,LS(IDS_MSG_22753)); break;
+      }
+      if (m->uniqueness == COMMON) strcat(Str3,LS(IDS_MSG_22754));
       strcat(Str3,m->monstring);
-      strcat(Str3,". ");
+      strcat(Str3,LS(IDS_MSG_22755));
       mprint(Str3);
     }
     else mprint(LS(IDS_MSG_20082));
@@ -115,7 +115,7 @@ int dtype;
 void drop_weapon()
 {
   if (Player.possessions[O_WEAPON_HAND] != NULL) {
-    strcpy(Str1,"You dropped your ");
+    strcpy(Str1,LS(IDS_MSG_22756));
     strcat(Str1,Player.possessions[O_WEAPON_HAND]->objstr);
     mprint(Str1);
     morewait();
@@ -130,9 +130,9 @@ void drop_weapon()
 void break_weapon()
 {
   if (Player.possessions[O_WEAPON_HAND] != NULL) {
-    strcpy(Str1,"Your ");
+    strcpy(Str1,LS(IDS_MSG_22757));
     strcat(Str1,itemid(Player.possessions[O_WEAPON_HAND]));
-    strcat(Str1," vibrates in your hand....");
+    strcat(Str1,LS(IDS_MSG_22758));
     mprint(Str1);
     (void) damage_item(Player.possessions[O_WEAPON_HAND]);
     morewait();
@@ -612,10 +612,10 @@ char *actionlocstr(dir)
 char dir;
 {
   switch(dir) {
-  case 'L': strcpy(Str3,"low."); break;
-  case 'C': strcpy(Str3,"center."); break;
-  case 'H': strcpy(Str3,"high."); break;
-  default: strcpy(Str3,"wildly."); break;
+  case 'L': strcpy(Str3,LS(IDS_MSG_22759)); break;
+  case 'C': strcpy(Str3,LS(IDS_MSG_22760)); break;
+  case 'H': strcpy(Str3,LS(IDS_MSG_22761)); break;
+  default: strcpy(Str3,LS(IDS_MSG_22762)); break;
   }
   return(Str3);
 }
@@ -631,9 +631,9 @@ struct monster *m;
     if (m->hp > 0) {
       switch(Player.meleestr[i]) {
       case 't': case 'T':
-	if (Player.possessions[O_WEAPON_HAND] == NULL) 
-	  strcpy(Str1,"You punch ");
-	else strcpy(Str1,"You thrust ");
+	if (Player.possessions[O_WEAPON_HAND] == NULL)
+	  strcpy(Str1,LS(IDS_MSG_22763));
+	else strcpy(Str1,LS(IDS_MSG_22764));
 	strcat(Str1,actionlocstr(Player.meleestr[i+1]));
 	if (Verbosity == VERBOSE) mprint(Str1);
 	if (player_hit(2*statmod(Player.dex),Player.meleestr[i+1],m))
@@ -641,13 +641,13 @@ struct monster *m;
 	else player_miss(m,NORMAL_DAMAGE);
 	break;
       case 'c': case 'C':
-	if (Player.possessions[O_WEAPON_HAND] == NULL) 
-	  strcpy(Str1,"You punch ");
-	else if (Player.possessions[O_WEAPON_HAND]->type == CUTTING) 
-	  strcpy(Str1,"You cut ");
-	else if (Player.possessions[O_WEAPON_HAND]->type == STRIKING) 
-	  strcpy(Str1,"You strike ");
-	else strcpy(Str1,"You attack ");
+	if (Player.possessions[O_WEAPON_HAND] == NULL)
+	  strcpy(Str1,LS(IDS_MSG_22763));
+	else if (Player.possessions[O_WEAPON_HAND]->type == CUTTING)
+	  strcpy(Str1,LS(IDS_MSG_22765));
+	else if (Player.possessions[O_WEAPON_HAND]->type == STRIKING)
+	  strcpy(Str1,LS(IDS_MSG_22766));
+	else strcpy(Str1,LS(IDS_MSG_22767));
 	strcat(Str1,actionlocstr(Player.meleestr[i+1]));
 	if (Verbosity == VERBOSE) mprint(Str1);
 	if (player_hit(0,Player.meleestr[i+1],m))
@@ -657,7 +657,7 @@ struct monster *m;
 	else player_miss(m,NORMAL_DAMAGE);
 	break;
       case 'l': case 'L':
-	strcpy(Str1,"You lunge ");
+	strcpy(Str1,LS(IDS_MSG_22768));
 	strcat(Str1,actionlocstr(Player.meleestr[i+1]));
 	if (Verbosity == VERBOSE) mprint(Str1);
 	if (player_hit(Player.level+Player.dex,Player.meleestr[i+1],m))
@@ -702,11 +702,11 @@ struct monster *m;
     hit = hitp(Player.hit+hitmod,m->ac+goodblocks*10);
     if ((! hit) && (goodblocks > 0)) {
       if (m->uniqueness == COMMON) {
-	strcpy(Str1,"The ");
+	strcpy(Str1,LS(IDS_MSG_22769));
 	strcat(Str1,m->monstring);
       }
       else strcpy(Str1,m->monstring);
-      strcat(Str1," blocks it!");
+      strcat(Str1,LS(IDS_MSG_22770));
       if (Verbosity == VERBOSE) mprint(Str1);
     }
     return(hit);
