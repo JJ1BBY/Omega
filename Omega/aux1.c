@@ -58,51 +58,51 @@ int i;
   strcpy(Str2,"");
   switch(Current_Environment) {
     case E_MANSION:
-      strcpy(Str2,"A luxurious mansion: ");
+      strcpy(Str2,LS(IDS_MSG_22888));
       break;
     case E_HOUSE:
-      strcpy(Str2,"A house: ");
+      strcpy(Str2,LS(IDS_MSG_22889));
       break;
     case E_HOVEL:
-      strcpy(Str2,"A hovel: ");
+      strcpy(Str2,LS(IDS_MSG_22890));
       break;
     case E_CITY:
-      strcpy(Str2,"The City of Rampart");
+      strcpy(Str2,LS(IDS_MSG_22891));
       break;
     case E_VILLAGE:
       switch(Villagenum) {
-      case 1: strcpy(Str2,"The Village of Star View"); break;
-      case 2: strcpy(Str2,"The Village of Woodmere"); break;
-      case 3: strcpy(Str2,"The Village of Stormwatch"); break;
-      case 4: strcpy(Str2,"The Village of Thaumaris"); break;
-      case 5: strcpy(Str2,"The Village of Skorch"); break;
-      case 6: strcpy(Str2,"The Village of Whorfen"); break;
+      case 1: strcpy(Str2,LS(IDS_MSG_22892)); break;
+      case 2: strcpy(Str2,LS(IDS_MSG_22893)); break;
+      case 3: strcpy(Str2,LS(IDS_MSG_22894)); break;
+      case 4: strcpy(Str2,LS(IDS_MSG_22895)); break;
+      case 5: strcpy(Str2,LS(IDS_MSG_22896)); break;
+      case 6: strcpy(Str2,LS(IDS_MSG_22897)); break;
       }
       break;
     case E_CAVES:
-      strcpy(Str2,"The Goblin Caves: ");
+      strcpy(Str2,LS(IDS_MSG_22898));
       break;
     case E_CASTLE:
-      strcpy(Str2,"The Archmage's Castle: ");
+      strcpy(Str2,LS(IDS_MSG_22899));
       break;
     case E_ASTRAL:
-      strcpy(Str2,"The Astral Plane: ");
+      strcpy(Str2,LS(IDS_MSG_22900));
       break;
     case E_VOLCANO:
-      strcpy(Str2,"The Volcano: ");
+      strcpy(Str2,LS(IDS_MSG_22901));
       break;
     case E_SEWERS:
-      strcpy(Str2,"The Sewers: ");
+      strcpy(Str2,LS(IDS_MSG_22902));
       break;
     case E_TACTICAL_MAP:
-      strcpy(Str2,"The Tactical Map ");
+      strcpy(Str2,LS(IDS_MSG_22903));
       break;
     default:
       strcpy(Str2,"");
       break;
   }
   if (Current_Environment == Current_Dungeon) {
-    strcpy(Str1,"Level ");
+    strcpy(Str1,LS(IDS_MSG_22904));
     if (Level->depth < 10) {
       Str1[6] = Level->depth + '0';
       Str1[7] = 0;
@@ -112,9 +112,9 @@ int i;
       Str1[7] = (Level->depth % 10) + '0';
       Str1[8] = 0;
     }
-    strcat(Str1," (");
+    strcat(Str1,LS(IDS_MSG_22905));
     strcat(Str1,roomname(i));
-    strcat(Str1,")");
+    strcat(Str1,LS(IDS_MSG_22906));
   }
   else if (strlen(Str2) == 0 || Current_Environment == E_MANSION ||
       Current_Environment == E_HOUSE || Current_Environment == E_HOVEL)
@@ -428,9 +428,9 @@ pob o;
   else {
     if (o->fragility < random_range(30)) {
       if (o->objchar == STICK) {
-	strcpy(Str1,"Your ");
+	strcpy(Str1,LS(IDS_MSG_22907));
 	strcat(Str1,(o->blessing >= 0 ? o->truename : o->cursestr));
-	strcat(Str1," explodes!");
+	strcat(Str1,LS(IDS_MSG_22908));
 	print1(Str1);
 	morewait();
 	if (o->charge < 1)
@@ -445,22 +445,22 @@ pob o;
 	return 1;
       }
       else if ((o->blessing > 0) && (o->level > random_range(10))) {
-	strcpy(Str1,"Your ");
+	strcpy(Str1,LS(IDS_MSG_22907));
 	strcat(Str1,itemid(o));
-	strcat(Str1," glows strongly.");
+	strcat(Str1,LS(IDS_MSG_22909));
 	print1(Str1);
 	return 0;
       }
       else if ((o->blessing < -1) && (o->level > random_range(10))) {
-	strcpy(Str1,"You hear an evil giggle from your ");
+	strcpy(Str1,LS(IDS_MSG_22910));
 	strcat(Str1,itemid(o));
 	print1(Str1);
 	return 0;
       }
       else if (o->plus > 0) {
-	strcpy(Str1,"Your ");
+	strcpy(Str1,LS(IDS_MSG_22907));
 	strcat(Str1,itemid(o));
-	strcat(Str1," glows and then fades.");
+	strcat(Str1,LS(IDS_MSG_22911));
 	print1(Str1);
 	o->plus--;
 	return 0;
@@ -468,9 +468,9 @@ pob o;
       else {
 	if (o->blessing > 0) print1(LS(IDS_MSG_20027));
 	else if (o->blessing < 0) print1(LS(IDS_MSG_20028));
-	strcpy(Str1,"Your ");
+	strcpy(Str1,LS(IDS_MSG_22907));
 	strcat(Str1,itemid(o));
-	strcat(Str1," shatters in a thousand lost fragments!");
+	strcat(Str1,LS(IDS_MSG_22912));
 	print2(Str1);
 	morewait();
 	dispose_lost_objects(1,o);
@@ -597,30 +597,30 @@ char *mstatus_string(m)
 struct monster *m;
 {
   if (m_statusp(m, M_INVISIBLE) && !Player.status[TRUESIGHT])
-    strcpy(Str2, "Some invisible creature");
+    strcpy(Str2, LS(IDS_MSG_22913));
   else if (m->uniqueness == COMMON) {
     if (m->hp < Monsters[m->id].hp / 3)
-      strcpy(Str2,"a grievously injured ");
+      strcpy(Str2,LS(IDS_MSG_22914));
     else if (m->hp < Monsters[m->id].hp / 2)
-      strcpy(Str2,"a severely injured ");
+      strcpy(Str2,LS(IDS_MSG_22915));
     else if (m->hp < Monsters[m->id].hp)
-      strcpy(Str2,"an injured ");
+      strcpy(Str2,LS(IDS_MSG_22916));
     else strcpy(Str2,getarticle(m->monstring));
     if (m->level > Monsters[m->id].level) {
-      strcat(Str2," (level ");
+      strcat(Str2,LS(IDS_MSG_22917));
       strcat(Str2,wordnum(m->level+1-Monsters[m->id].level));
-      strcat(Str2,") ");
+      strcat(Str2,LS(IDS_MSG_22918));
     }
     strcat(Str2,m->monstring);
   }
   else {
     strcpy(Str2,m->monstring);
     if (m->hp < Monsters[m->id].hp / 3)
-      strcat(Str2," who is grievously injured ");
+      strcat(Str2,LS(IDS_MSG_22919));
     else if (m->hp < Monsters[m->id].hp / 2)
-      strcat(Str2," who is severely injured ");
+      strcat(Str2,LS(IDS_MSG_22920));
     else if (m->hp < Monsters[m->id].hp)
-      strcat(Str2," who is injured ");
+      strcat(Str2,LS(IDS_MSG_22921));
   }
   return(Str2);
 }
@@ -690,20 +690,20 @@ char *trapid(trapno)
 int trapno;
 {
   switch (trapno) {
-  case L_TRAP_SIREN:return("A siren trap");
-  case L_TRAP_DART:return("A dart trap");
-  case L_TRAP_PIT:return("A pit");
-  case L_TRAP_SNARE:return("A snare");
-  case L_TRAP_BLADE:return("A blade trap");
-  case L_TRAP_FIRE:return("A fire trap");
-  case L_TRAP_TELEPORT:return("A teleport trap");
-  case L_TRAP_DISINTEGRATE:return("A disintegration trap");
-  case L_TRAP_DOOR:return("A trap door");
-  case L_TRAP_MANADRAIN:return("A manadrain trap");
-  case L_TRAP_ACID:return("An acid shower trap");
-  case L_TRAP_SLEEP_GAS:return("A sleep gas trap");
-  case L_TRAP_ABYSS:return("A concealed entrance to the abyss");
-  default: return("A completely inoperative trap.");
+  case L_TRAP_SIREN:return(LS(IDS_MSG_22948));
+  case L_TRAP_DART:return(LS(IDS_MSG_22949));
+  case L_TRAP_PIT:return(LS(IDS_MSG_22950));
+  case L_TRAP_SNARE:return(LS(IDS_MSG_22951));
+  case L_TRAP_BLADE:return(LS(IDS_MSG_22952));
+  case L_TRAP_FIRE:return(LS(IDS_MSG_22953));
+  case L_TRAP_TELEPORT:return(LS(IDS_MSG_22954));
+  case L_TRAP_DISINTEGRATE:return(LS(IDS_MSG_22955));
+  case L_TRAP_DOOR:return(LS(IDS_MSG_22956));
+  case L_TRAP_MANADRAIN:return(LS(IDS_MSG_22957));
+  case L_TRAP_ACID:return(LS(IDS_MSG_22958));
+  case L_TRAP_SLEEP_GAS:return(LS(IDS_MSG_22959));
+  case L_TRAP_ABYSS:return(LS(IDS_MSG_22960));
+  default: return(LS(IDS_MSG_22961));
   }
 }
 
@@ -933,37 +933,37 @@ char *levelname(level)
 int level;
 {
   switch(level) {
-  case 0:strcpy(Str3,"neophyte");break;
-  case 1:strcpy(Str3,"beginner");break;
-  case 2:strcpy(Str3,"tourist");break;
-  case 3:strcpy(Str3,"traveller");break;
-  case 4:strcpy(Str3,"wayfarer");break;
-  case 5:strcpy(Str3,"peregrinator");break;
-  case 6:strcpy(Str3,"wanderer");break;
-  case 7:strcpy(Str3,"hunter");break;
-  case 8:strcpy(Str3,"scout");break;
-  case 9:strcpy(Str3,"trailblazer");break;
-  case 10:strcpy(Str3,"discoverer");break;
-  case 11:strcpy(Str3,"explorer");break;
-  case 12:strcpy(Str3,"senior explorer");break;
-  case 13:strcpy(Str3,"ranger");break;
-  case 14:strcpy(Str3,"ranger captain");break;
-  case 15:strcpy(Str3,"ranger knight");break;
-  case 16:strcpy(Str3,"adventurer");break;
-  case 17:strcpy(Str3,"experienced adventurer");break;
-  case 18:strcpy(Str3,"skilled adventurer");break;
-  case 19:strcpy(Str3,"master adventurer");break;
-  case 20:strcpy(Str3,"hero");break;
-  case 21:strcpy(Str3,"superhero");break;
-  case 22:strcpy(Str3,"demigod");break;
+  case 0:strcpy(Str3,LS(IDS_MSG_22922));break;
+  case 1:strcpy(Str3,LS(IDS_MSG_22923));break;
+  case 2:strcpy(Str3,LS(IDS_MSG_22924));break;
+  case 3:strcpy(Str3,LS(IDS_MSG_22925));break;
+  case 4:strcpy(Str3,LS(IDS_MSG_22926));break;
+  case 5:strcpy(Str3,LS(IDS_MSG_22927));break;
+  case 6:strcpy(Str3,LS(IDS_MSG_22928));break;
+  case 7:strcpy(Str3,LS(IDS_MSG_22929));break;
+  case 8:strcpy(Str3,LS(IDS_MSG_22930));break;
+  case 9:strcpy(Str3,LS(IDS_MSG_22931));break;
+  case 10:strcpy(Str3,LS(IDS_MSG_22932));break;
+  case 11:strcpy(Str3,LS(IDS_MSG_22933));break;
+  case 12:strcpy(Str3,LS(IDS_MSG_22934));break;
+  case 13:strcpy(Str3,LS(IDS_MSG_22935));break;
+  case 14:strcpy(Str3,LS(IDS_MSG_22936));break;
+  case 15:strcpy(Str3,LS(IDS_MSG_22937));break;
+  case 16:strcpy(Str3,LS(IDS_MSG_22938));break;
+  case 17:strcpy(Str3,LS(IDS_MSG_22939));break;
+  case 18:strcpy(Str3,LS(IDS_MSG_22940));break;
+  case 19:strcpy(Str3,LS(IDS_MSG_22941));break;
+  case 20:strcpy(Str3,LS(IDS_MSG_22942));break;
+  case 21:strcpy(Str3,LS(IDS_MSG_22943));break;
+  case 22:strcpy(Str3,LS(IDS_MSG_22944));break;
   default:
     if (level < 100) {
-      strcpy(Str3,"Order ");
+      strcpy(Str3,LS(IDS_MSG_22945));
       Str3[6] = ((level/10)-2) + '0';
       Str3[7] = 0;
-      strcat(Str3," Master of Omega");
+      strcat(Str3,LS(IDS_MSG_22946));
     }
-    else strcpy(Str3,"Ultimate Master of Omega");
+    else strcpy(Str3,LS(IDS_MSG_22947));
     break;
   }
   return(Str3);
