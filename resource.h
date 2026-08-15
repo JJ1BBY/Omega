@@ -2803,6 +2803,15 @@
 #define IDS_MSG_23140                   23140
 #define IDS_MSG_23141                   23141
 
+// ---- mspec.c (gap-fill) ----
+#define IDS_MSG_23142                   23142
+#define IDS_MSG_23143                   23143
+#define IDS_MSG_23144                   23144
+#define IDS_MSG_23145                   23145
+#define IDS_MSG_23146                   23146
+#define IDS_MSG_23147                   23147
+#define IDS_MSG_23148                   23148
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222

@@ -187,7 +187,7 @@ struct monster *m;
       break;
     case 14:
       if (m->uniqueness == COMMON) {
-	strcpy(Str2,"a ");
+	strcpy(Str2,LS(IDS_MSG_23142));
 	strcat(Str2,m->monstring);
       }
       else strcpy(Str2,m->monstring);
@@ -255,11 +255,11 @@ struct monster *m;
 {
   if (m_statusp(m,HOSTILE)) {
     if (m->uniqueness == COMMON) {
-      strcpy(Str2,"The ");
+      strcpy(Str2,LS(IDS_MSG_23143));
       strcat(Str2,m->monstring);
     }
     else strcpy(Str2,m->monstring);
-    strcat(Str2," runs away screaming for help....");
+    strcat(Str2,LS(IDS_MSG_23144));
     mprint(Str2);
     m_vanish(m);
     summon(-1,-1);
@@ -414,9 +414,9 @@ struct monster *m;
     m->meleef = Monsters[mid].meleef;
     m->strikef = Monsters[mid].strikef;
     m->specialf = Monsters[mid].specialf;
-    strcpy(Str1,"were-");
+    strcpy(Str1,LS(IDS_MSG_23145));
     strcat(Str1,Monsters[mid].monstring);
-    strcpy(Str2,"dead were-");
+    strcpy(Str2,LS(IDS_MSG_23146));
     strcat(Str2,Monsters[mid].monstring);
     m->monstring = salloc(Str1);
     m->corpsestr = salloc(Str2);
@@ -636,11 +636,11 @@ struct monster *m;
 	else {
 	  mprint(LS(IDS_MSG_21988));
 	  if (m->uniqueness == COMMON) {
-	    strcpy(Str2,"The ");
+	    strcpy(Str2,LS(IDS_MSG_23143));
 	    strcat(Str2,m->monstring);
 	  }
 	  else strcpy(Str2,m->monstring);
-	  strcat(Str2," suddenly runs away for some reason.");
+	  strcat(Str2,LS(IDS_MSG_23147));
 	  mprint(Str2);
 	  m_teleport(m);
 	  m->movef = M_MOVE_SCAREDY;
@@ -672,11 +672,11 @@ struct monster *m;
 
   if (m_statusp(m,HOSTILE)) {
     if (m->uniqueness == COMMON) {
-      strcpy(Str2,"The ");
+      strcpy(Str2,LS(IDS_MSG_23143));
       strcat(Str2,m->monstring);
     }
     else strcpy(Str2,m->monstring);
-    strcat(Str2," emits an irritating humming sound.");
+    strcat(Str2,LS(IDS_MSG_23148));
     mprint(Str2);
     aggravate();
     m_status_reset(m,HOSTILE);

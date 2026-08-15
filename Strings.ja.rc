@@ -2904,6 +2904,18 @@ BEGIN
     IDS_MSG_23141    " was nuked by a manastorm!"
 END
 
+// ==================== mspec.c (gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23142    "a "
+    IDS_MSG_23143    "The "
+    IDS_MSG_23144    " runs away screaming for help...."
+    IDS_MSG_23145    "were-"
+    IDS_MSG_23146    "dead were-"
+    IDS_MSG_23147    " suddenly runs away for some reason."
+    IDS_MSG_23148    " emits an irritating humming sound."
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN
