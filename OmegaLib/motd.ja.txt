@@ -1,0 +1,20 @@
+                                    *******
+                                 *****   *****
+                              *****         *****
+                             ****  ようこそ  ****
+                            ***     Omega    ***
+                             ***      へ     ***
+                              ****           ****
+                                 ****    ****
+                              *    **    **    *
+                               *****      *****
+
+          Omega version 0.80 is copyright (C) 1987,1988,1989 by:
+                             Laurence R. Brothers
+                Updated by Robert Rendell and Erik Max Francis
+
+                       Windows version by David Kinder
+                          Graphics by David Gervais
+
+     このプロダクトには、University of California, Berkeleyおよびその
+             貢献者によって開発されたソフトウェアが含まれています。

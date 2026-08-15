@@ -1,0 +1,32 @@
+感謝:
+
+バグ報告、プレイテスト、提案、デバッグ、そして数々の助言をくれた
+Ben、Greg、Hammy、Izchak、Nathan、Silverに感謝します。
+
+バージョン0.6と0.7をプレイし、デバッグしてくれた大勢のプレイヤーと
+デバッガーの皆さんに感謝します。今後はもっと多くの作業が待っている
+ことでしょう……
+
+PC移植版、バグ修正などに尽力してくれたNathan Glasserにも改めて感謝
+します。彼の情熱がなければバージョン0.75は存在しませんでした。
+
+バージョン0.78には、多くの方がパッチや建設的な批評を送ってくれました。
+John Green、Daniel Packman、Tero Jyri Michael Pelander、
+Rupert G. Goldie、Chris Herborth、Charles William Swigerに感謝します。
+
+また、0.78.1の問題を報告し0.79を可能にしてくれたGeoff DunbarとMark G.
+Rodenkirchにも感謝します。
+
+0.80を可能にしてくれたバグ報告とパッチを送ってくれた方々のリストは
+かなり長くなります。まず、omega 0.80のプレイテストをしてくれた
+Julian Neilに感謝しなければなりません。「この変更でまたセーブファイル
+が無効になります」と伝えても文句一つ言いませんでした。
+また、Morten V. Christiansen、Stuart Craig、William Flynn、David Gibbs、
+Peter Hill、Ken Iwasa、Stefan Krabbe、Aaron Mandelbaum、Mark Morgan、
+Kent Peterson、Bryan Rendell、Zik Saleeba、Craig Sanders、Jeremy Seip、
+Billy Tanksley、Patrick A Walshにも感謝します。
+
+0.80へのパッチについては、Alan L. Bostick、William Fang、Djuara
+Kurniawan、Alan Light（彼のOmegaスポイラーファイルで言及されたバグ）、
+John O'Hare、Daniel Phillips、Ian Richards、Kevin W. Thomas、John
+Tomicichに感謝します。
