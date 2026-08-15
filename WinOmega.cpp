@@ -1481,18 +1481,24 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
   int scrWidth = workArea.right-workArea.left;
   int scrHeight = workArea.bottom-workArea.top;
 
-  // Get all fixed width fonts. DEFAULT_CHARSET makes EnumFontFamiliesEx
-  // return every charset variant each font family supports, so both
-  // ANSI-only fonts (Consolas, Courier New, ...) and Shift-JIS capable
-  // ones (MS Gothic, ...) show up in the picker regardless of the
-  // system's default ANSI codepage -- filtering to a single charset here
-  // used to hide the ANSI-only fonts entirely on a Japanese-locale
-  // system. DEFAULT_CHARSET is kept on fontSetup afterwards (see
+  // Get all fixed width fonts, from both the ANSI and Shift-JIS charsets,
+  // so the picker offers ANSI-only fonts (Consolas, Courier New, ...) and
+  // Shift-JIS capable ones (MS Gothic, ...) together regardless of the
+  // system's default ANSI codepage. DEFAULT_CHARSET alone doesn't work
+  // for this: per EnumFontFamiliesEx's docs it enumerates only one
+  // representative charset variant per unique face name, and several CJK
+  // fonts (eg. BIZ UDGothic) only report as fixed-pitch under their
+  // Shift-JIS variant, not whichever variant DEFAULT_CHARSET picks as
+  // the representative -- so they silently vanished from the list.
+  // fontSetup.lfCharSet is reset to DEFAULT_CHARSET afterwards (see
   // CreateFontIndirect below), which lets GDI pick the correct charset
   // for whichever face name ends up selected instead of forcing one.
   ZeroMemory(&fontSetup,sizeof fontSetup);
-  fontSetup.lfCharSet = DEFAULT_CHARSET;
+  fontSetup.lfCharSet = ANSI_CHARSET;
   EnumFontFamiliesEx(desktopDC,&fontSetup,(FONTENUMPROC)fontProc,0,0);
+  fontSetup.lfCharSet = SHIFTJIS_CHARSET;
+  EnumFontFamiliesEx(desktopDC,&fontSetup,(FONTENUMPROC)fontProc,0,0);
+  fontSetup.lfCharSet = DEFAULT_CHARSET;
 
   // Get the Omega icon
   icon = LoadIcon(instance,MAKEINTRESOURCE(IDI_OMEGA));
