@@ -449,9 +449,17 @@ void copyLibFile(const char* name)
 // (y/n here), matching that series' own A=decide/B=cancel mapping.
 void pollGamepad()
 {
+  // Scan all four XInput user indices rather than assuming slot 0 --
+  // a controller (especially Bluetooth) isn't guaranteed to land on 0,
+  // particularly if other controllers were connected previously.
   XINPUT_STATE state;
-  ZeroMemory(&state,sizeof state);
-  if (XInputGetState(0,&state) != ERROR_SUCCESS)
+  bool connected = false;
+  for (DWORD i = 0; i < XUSER_MAX_COUNT && !connected; i++)
+  {
+    ZeroMemory(&state,sizeof state);
+    connected = (XInputGetState(i,&state) == ERROR_SUCCESS);
+  }
+  if (!connected)
   {
     gamepadLastDir = 0;
     gamepadLastButtons = 0;
