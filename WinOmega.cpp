@@ -12,6 +12,7 @@
 #include <commctrl.h>
 #include <objbase.h>
 #include <shlobj.h>
+#include <xinput.h>
 
 extern "C"
 {
@@ -121,6 +122,12 @@ COLORREF palette[] =
 bool cursorOn = false;
 bool cursorSolid = false;
 POINT cursorPos = { 0,0 };
+
+// Edge-triggered gamepad state, so a held direction/button produces one
+// queued input per physical press rather than flooding inputKeys every
+// time pollGamepad() runs.
+int gamepadLastDir = 0;
+WORD gamepadLastButtons = 0;
 
 // If true, use graphics
 bool graphics = true;
@@ -423,6 +430,58 @@ void copyLibFile(const char* name)
   SetFileAttributes(name,FILE_ATTRIBUTE_NORMAL);
 }
 
+// Polls gamepad 0 (via XInput) for movement and yes/no confirmation.
+// Directions are mapped to the same numeric-keypad digits ('1'-'9') that
+// the keyboard's numpad and vi-key equivalents already produce (see
+// help4.txt/help12.txt), so no changes are needed anywhere the game
+// itself reads moves. A and B map to 'y'/'n', matching the ynq()
+// prompts used throughout the game.
+void pollGamepad()
+{
+  XINPUT_STATE state;
+  ZeroMemory(&state,sizeof state);
+  if (XInputGetState(0,&state) != ERROR_SUCCESS)
+  {
+    gamepadLastDir = 0;
+    gamepadLastButtons = 0;
+    return;
+  }
+
+  WORD buttons = state.Gamepad.wButtons;
+  int dx = 0, dy = 0;
+  if (buttons & XINPUT_GAMEPAD_DPAD_LEFT) dx -= 1;
+  if (buttons & XINPUT_GAMEPAD_DPAD_RIGHT) dx += 1;
+  if (buttons & XINPUT_GAMEPAD_DPAD_UP) dy -= 1;
+  if (buttons & XINPUT_GAMEPAD_DPAD_DOWN) dy += 1;
+  if (dx == 0 && dy == 0)
+  {
+    // Fall back to the left thumbstick if the d-pad isn't in use
+    SHORT sx = state.Gamepad.sThumbLX;
+    SHORT sy = state.Gamepad.sThumbLY;
+    if (sx > XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) dx = 1;
+    else if (sx < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) dx = -1;
+    if (sy > XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) dy = -1;
+    else if (sy < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) dy = 1;
+  }
+
+  static const int dirDigit[3][3] =
+  {
+    { '1','2','3' },
+    { '4', 0 ,'6' },
+    { '7','8','9' },
+  };
+  int dir = dirDigit[dy+1][dx+1];
+  if (dir != 0 && dir != gamepadLastDir)
+    inputKeys.push_back(dir);
+  gamepadLastDir = dir;
+
+  if ((buttons & XINPUT_GAMEPAD_A) && !(gamepadLastButtons & XINPUT_GAMEPAD_A))
+    inputKeys.push_back('y');
+  if ((buttons & XINPUT_GAMEPAD_B) && !(gamepadLastButtons & XINPUT_GAMEPAD_B))
+    inputKeys.push_back('n');
+  gamepadLastButtons = buttons;
+}
+
 // Called by Windows with any messages for the window
 LRESULT CALLBACK wndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -469,10 +528,17 @@ LRESULT CALLBACK wndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
     break;
 
   case WM_TIMER:
-    // Toggle and redraw the input cursor
-    cursorSolid = !cursorSolid;
-    if (cursorOn)
-      drawCursor();
+    if (wParam == 2)
+    {
+      pollGamepad();
+    }
+    else
+    {
+      // Toggle and redraw the input cursor
+      cursorSolid = !cursorSolid;
+      if (cursorOn)
+        drawCursor();
+    }
     break;
   }
 
@@ -889,6 +955,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
 
   // Start a timer to flash the cursor
   SetTimer(wnd,1,GetCaretBlinkTime(),NULL);
+
+  // Start a timer to poll for gamepad input
+  SetTimer(wnd,2,50,NULL);
 
   // Run Omega
   char* argv[2] = { "omega",OmegaSave };
