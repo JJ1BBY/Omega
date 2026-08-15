@@ -100,15 +100,15 @@ struct monster *m;
   int reply = random_range(4);
   
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
   switch (reply) {
-    case 0:strcat(Str2," does not reply. "); break;
-    case 1:strcat(Str2," shrugs silently. "); break;
-    case 2:strcat(Str2," hold a finger to his mouth. "); break;
-    case 3:strcat(Str2," glares at you but says nothing. "); break;
+    case 0:strcat(Str2,LS(IDS_MSG_22839)); break;
+    case 1:strcat(Str2,LS(IDS_MSG_22840)); break;
+    case 2:strcat(Str2,LS(IDS_MSG_22841)); break;
+    case 3:strcat(Str2,LS(IDS_MSG_22842)); break;
   }      
   mprint(Str2);
 }
@@ -119,15 +119,15 @@ struct monster *m;
 
   int reply = random_range(4);
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
   switch (reply) {
-    case 0:strcat(Str2," looks at you with mute incomprehension."); break;
-    case 1:strcat(Str2," growls menacingly and ignores you."); break;
-    case 2:strcat(Str2," does not seem to have heard you."); break;
-    case 3:strcat(Str2," tries to pretend it didn't hear you."); break;
+    case 0:strcat(Str2,LS(IDS_MSG_22843)); break;
+    case 1:strcat(Str2,LS(IDS_MSG_22844)); break;
+    case 2:strcat(Str2,LS(IDS_MSG_22845)); break;
+    case 3:strcat(Str2,LS(IDS_MSG_22846)); break;
   }      
   mprint(Str2);
 }
@@ -138,15 +138,15 @@ struct monster *m;
 
   int reply = random_range(4);
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
   switch (reply) {
-    case 0:strcat(Str2," says: Give me a treasure.... ");break;
-    case 1:strcat(Str2," says: Stand and deliver, knave! "); break;
-    case 2:strcat(Str2," says: Your money or your life! "); break;
-    case 3:strcat(Str2," says: Yield or Die! "); break;
+    case 0:strcat(Str2,LS(IDS_MSG_22847));break;
+    case 1:strcat(Str2,LS(IDS_MSG_22848)); break;
+    case 2:strcat(Str2,LS(IDS_MSG_22849)); break;
+    case 3:strcat(Str2,LS(IDS_MSG_22850)); break;
   }      
   mprint(Str2);
 }
@@ -157,15 +157,15 @@ struct monster *m;
 
   int reply = random_range(4);
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
   switch (reply) {
-    case 0:strcat(Str2," says: I hunger, foolish adventurer! "); break;
-    case 1:strcat(Str2," drools menacingly at you. "); break;
-    case 2:strcat(Str2," says: You're invited to be lunch! "); break;
-    case 3:strcat(Str2," says: Feeed Meee! "); break;
+    case 0:strcat(Str2,LS(IDS_MSG_22851)); break;
+    case 1:strcat(Str2,LS(IDS_MSG_22852)); break;
+    case 2:strcat(Str2,LS(IDS_MSG_22853)); break;
+    case 3:strcat(Str2,LS(IDS_MSG_22854)); break;
   }      
   mprint(Str2);
 }
@@ -216,11 +216,11 @@ struct monster *m;
 {
 
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
-  strcat(Str2," titters obscenely at you.");
+  strcat(Str2,LS(IDS_MSG_22855));
   mprint(Str2);
 }
 
@@ -308,16 +308,16 @@ struct monster *m;
 {
 
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
   switch (random_range(5)) {
-    case 0:strcat(Str2," asks you for the way home."); break;
-    case 1:strcat(Str2," wishes you a pleasant day."); break;
-    case 2:strcat(Str2," sneers at you contemptuously."); break;
-    case 3:strcat(Str2," smiles and nods."); break;
-    case 4:strcat(Str2," tells you a joke."); break;
+    case 0:strcat(Str2,LS(IDS_MSG_22856)); break;
+    case 1:strcat(Str2,LS(IDS_MSG_22857)); break;
+    case 2:strcat(Str2,LS(IDS_MSG_22858)); break;
+    case 3:strcat(Str2,LS(IDS_MSG_22859)); break;
+    case 4:strcat(Str2,LS(IDS_MSG_22860)); break;
   }
   mprint(Str2);
 }
@@ -328,26 +328,26 @@ struct monster *m;
 {
 
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
   switch (random_range(14)) {
-    case 0:strcat(Str2," says: 'THERE CAN BE ONLY ONE!'"); break;
-    case 1:strcat(Str2," says: 'Prepare to die, Buckwheat!'"); break;
-    case 2:strcat(Str2," says: 'Time to die!'"); break;
-    case 3:strcat(Str2," says: 'There will be no mercy.'"); break;
-    case 4:strcat(Str2," insults your mother-in-law."); break;
-    case 5:strcat(Str2," says: 'Kurav tu ando mul!'");
-    case 6:strcat(Str2," says: '!va al infierno!'"); break;
-    case 7:strcat(Str2," says: 'dame desu, nee.'"); break;
-    case 8:strcat(Str2," spits on your rug and calls your cat a bastard."); 
+    case 0:strcat(Str2,LS(IDS_MSG_22861)); break;
+    case 1:strcat(Str2,LS(IDS_MSG_22862)); break;
+    case 2:strcat(Str2,LS(IDS_MSG_22863)); break;
+    case 3:strcat(Str2,LS(IDS_MSG_22864)); break;
+    case 4:strcat(Str2,LS(IDS_MSG_22865)); break;
+    case 5:strcat(Str2,LS(IDS_MSG_22866));
+    case 6:strcat(Str2,LS(IDS_MSG_22867)); break;
+    case 7:strcat(Str2,LS(IDS_MSG_22868)); break;
+    case 8:strcat(Str2,LS(IDS_MSG_22869)); 
       break;
-    case 9:strcat(Str2," snickers malevolently and draws a weapon."); break;
-    case 10:strcat(Str2," sends 'rm -r *' to your shell!"); break;
-    case 11:strcat(Str2," tweaks your nose and cackles evilly."); break;
-    case 12:strcat(Str2," thumbs you in the eyes."); break;
-    case 13:strcat(Str2," kicks you in the groin."); break;
+    case 9:strcat(Str2,LS(IDS_MSG_22870)); break;
+    case 10:strcat(Str2,LS(IDS_MSG_22871)); break;
+    case 11:strcat(Str2,LS(IDS_MSG_22872)); break;
+    case 12:strcat(Str2,LS(IDS_MSG_22873)); break;
+    case 13:strcat(Str2,LS(IDS_MSG_22874)); break;
   }
   mprint(Str2);
 }
@@ -357,18 +357,18 @@ void m_talk_robot(m)
 struct monster *m;
 {
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
   switch (random_range(4)) {
-    case 0:strcat(Str2," says: 'exterminate...Exterminate...EXTERMINATE!!!'");
+    case 0:strcat(Str2,LS(IDS_MSG_22875));
       break;
-    case 1:strcat(Str2," says: 'Kill ... Crush ... Destroy'");
+    case 1:strcat(Str2,LS(IDS_MSG_22876));
       break;
-    case 2:strcat(Str2," says: 'Danger -- Danger'");
+    case 2:strcat(Str2,LS(IDS_MSG_22877));
       break;
-    case 3:strcat(Str2," says: 'Yo Mama -- core dumped.'");
+    case 3:strcat(Str2,LS(IDS_MSG_22878));
       break;
   }
   mprint(Str2);
@@ -394,11 +394,11 @@ struct monster *m;
 {
 
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
-  strcat(Str2," burbles hatefully at you.");
+  strcat(Str2,LS(IDS_MSG_22879));
   mprint(Str2);
 }
 
@@ -409,11 +409,11 @@ void m_talk_beg(m)
 struct monster *m;
 {
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
-  strcat(Str2," asks you for alms.");
+  strcat(Str2,LS(IDS_MSG_22880));
   mprint(Str2);
 }
 
@@ -422,16 +422,16 @@ void m_talk_hint(m)
 struct monster *m;
 {
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
   if (m_statusp(m,HOSTILE)) {
-    strcat(Str2," only sneers at you. ");
+    strcat(Str2,LS(IDS_MSG_22881));
     mprint(Str2);
   }
   else {
-    strcat(Str2," whispers in your ear: ");
+    strcat(Str2,LS(IDS_MSG_22882));
     mprint(Str2);
     hint();
     m->talkf = M_TALK_SILENT;
@@ -485,27 +485,27 @@ void m_talk_seductor(m)
 struct monster *m;
 {
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
   if (Player.preference == 'n')
   {
-    strcat(Str2, " notices your disinterest and leaves with a pout.");
+    strcat(Str2, LS(IDS_MSG_22883));
     mprint(Str2);
   }
   else
   {
-    strcat(Str2," beckons seductively...");
+    strcat(Str2,LS(IDS_MSG_22884));
     mprint(Str2);
     mprint(LS(IDS_MSG_22049));
     if (ynq()=='y') {
       mprint(LS(IDS_MSG_20752));
     }
     else {
-      strcpy(Str2,"The ");
+      strcpy(Str2,LS(IDS_MSG_22838));
       strcat(Str2,m->monstring);
-      strcat(Str2," shows you a good time....");
+      strcat(Str2,LS(IDS_MSG_22885));
       mprint(Str2);
       gain_experience(500);
       Player.con++;
@@ -519,30 +519,30 @@ void m_talk_demonlover(m)
 struct monster *m;
 {
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
   if (Player.preference == 'n')
   {
-    strcat(Str2, " notices your disinterest and changes with a snarl...");
+    strcat(Str2, LS(IDS_MSG_22886));
     mprint(Str2);
     morewait();
   }
   else
   {
-    strcat(Str2," beckons seductively...");
+    strcat(Str2,LS(IDS_MSG_22884));
     mprint(Str2);
     mprint(LS(IDS_MSG_22049));
     if (ynq()=='y') 
       mprint(LS(IDS_MSG_22050));
     else {
       if (m->uniqueness == COMMON) {
-	strcpy(Str2,"The ");
+	strcpy(Str2,LS(IDS_MSG_22838));
 	strcat(Str2,m->monstring);
       }
       else strcpy(Str2,m->monstring);
-      strcat(Str2," shows you a good time....");
+      strcat(Str2,LS(IDS_MSG_22885));
       mprint(Str2);
       morewait();
       mprint(LS(IDS_MSG_22051));
@@ -563,11 +563,11 @@ struct monster *m;
     m->monstring = "succubus";
   }
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
-  strcat(Str2," laughs insanely.");
+  strcat(Str2,LS(IDS_MSG_22887));
   mprint(Str2);
   mprint(LS(IDS_MSG_22052));
 }
@@ -653,7 +653,7 @@ void m_talk_animal(m)
 struct monster *m;
 {
   if (m->uniqueness == COMMON) {
-    strcpy(Str2,"The ");
+    strcpy(Str2,LS(IDS_MSG_22838));
     strcat(Str2,m->monstring);
   }
   else strcpy(Str2,m->monstring);
