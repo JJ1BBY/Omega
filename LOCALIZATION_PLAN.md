@@ -228,13 +228,27 @@ key = 100 (初期値)
   `LS()`経由に置き換えるのが自然(`IDS_MSG_*`のレンジ20000-22664とは別に、
   例えば23000番台を使うなど)。
 
-### 4. ① プレーンテキストファイルの翻訳
+### 4. ① プレーンテキストファイルの翻訳 — 完了
 
-`OmegaLib/help1.txt`〜`help13.txt`, `license.txt`, `thanks.txt`, `update.txt`,
-`motd.txt` は暗号化なしの生テキスト。日本語版を `OmegaLib/help1.ja.txt` の
-ように別名で用意し、`Omega/Omega/file.c` 側でOS言語判定して読み分ける仕組みが
-必要(現状は決め打ちのファイル名を`strcat`で組み立てているだけなので、
-`GetUserDefaultLangID()` 等で分岐する処理を追加する)。
+`OmegaLib/help1.ja.txt`〜`help13.ja.txt`, `motd.ja.txt`, `thanks.ja.txt`,
+`update.ja.txt`(CP932エンコード、`Strings.ja.rc`と同じ方式)を作成済み。
+
+**実装方式**: `file.c`に`omegalibFile(dest, name)`ヘルパーを追加。現在の
+UI言語(`WinOmega.cpp`の`isJapaneseUILanguage()`、タスク5の`applyUILanguage()`
+が設定するスレッドロケールを参照)が日本語で、かつ`name.ja.txt`が実際に
+ディスク上に存在する場合はそちらを、それ以外は元の英語ファイルを使う。
+
+以下の実際にゲーム内で読み込まれる呼び出し箇所に配線済み:
+- `file.c`: `commandlist()`(help12/13.txt), `inv_help()`(help3.txt),
+  `combat_help()`(help5.txt), `showmotd()`(motd.txt)
+- `command3.c`: `help()`内の`help<n>.txt`汎用ヘルプメニュー
+
+`thanks.txt`/`update.txt`はこのコードベースのどこからも読み込まれていない
+(未使用ファイル)ことを確認済み。翻訳自体は完成させたが配線先が無い。
+
+`license.txt`はゲームのライセンス条項という性質上、翻訳版を正式なものとして
+扱うリスクを避けるためユーザーの判断で意図的に英語版のみ維持することとし、
+`show_license()`は変更していない。
 
 ## ビルド方法
 
