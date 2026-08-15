@@ -97,8 +97,7 @@ void commandlist()
 
 void user_intro()
 {
-  strcpy(Str1,Omegalib);
-  strcat(Str1,"intro.txt");
+  omegalibFile(Str1,"intro.txt");
   displaycryptfile(Str1);
   xredraw();
 }
@@ -115,8 +114,7 @@ void show_license()
 
 void abyss_file()
 {
-  strcpy(Str1,Omegalib);
-  strcat(Str1,"abyss.txt");
+  omegalibFile(Str1,"abyss.txt");
   displaycryptfile(Str1);
 }
 
@@ -144,8 +142,7 @@ void combat_help()
 
 void cityguidefile()
 {
-  strcpy(Str1,Omegalib);
-  strcat(Str1,"scroll2.txt");
+  omegalibFile(Str1,"scroll2.txt");
   displaycryptfile(Str1);
   xredraw();
 }
@@ -153,24 +150,21 @@ void cityguidefile()
 
 void wishfile()
 {
-  strcpy(Str1,Omegalib);
-  strcat(Str1,"scroll3.txt");
+  omegalibFile(Str1,"scroll3.txt");
   displaycryptfile(Str1);
   xredraw();
 }
 
 void adeptfile()
 {
-  strcpy(Str1,Omegalib);
-  strcat(Str1,"scroll4.txt");
+  omegalibFile(Str1,"scroll4.txt");
   displaycryptfile(Str1);
   xredraw();
 }
 
 void theologyfile()
 {
-  strcpy(Str1,Omegalib);
-  strcat(Str1,"scroll1.txt");
+  omegalibFile(Str1,"scroll1.txt");
   displaycryptfile(Str1);
   xredraw();
 }
