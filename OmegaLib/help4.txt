@@ -12,3 +12,13 @@ than usual (say 5KM/move), so a single move can take hours. (Riding a
 horse can reduce the amount of time taken in the country, depending on
 the terrain being travelled). In the city or village environments, the
 scale is such that a move takes about 30 seconds or so of gametime.
+
+GAMEPAD
+=======
+An XInput-compatible gamepad (eg. an Xbox controller, or a Bluetooth
+controller in XInput mode) can also be used. The d-pad or left
+thumbstick move one space at a time, same as the numeric keypad.
+Hold the right shoulder button (R) while pressing a direction to run
+in that direction until something interesting happens, same as the
+capitalized vi-keys mentioned above. A confirms 'yes' and B confirms
+'no' at [yn] prompts.
