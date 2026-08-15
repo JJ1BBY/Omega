@@ -231,25 +231,25 @@ int num;
 {
   switch(num) {
   case 0:
-    return("<Slime Mold>");
+    return(LS(IDS_MSG_23054));
   case 1:
-    return("<Lemon>");
+    return(LS(IDS_MSG_23055));
   case 2:
-    return("<Copper>");
+    return(LS(IDS_MSG_23056));
   case 3:
-    return("<Nymph>");
+    return(LS(IDS_MSG_23057));
   case 4:
-    return("<Sword>");
+    return(LS(IDS_MSG_23058));
   case 5:
-    return("<Shield>");
+    return(LS(IDS_MSG_23059));
   case 6:
-    return("<Chest>");
+    return(LS(IDS_MSG_23060));
   case 7:
-    return("<Bar>");
+    return(LS(IDS_MSG_23061));
   case 8:
-    return("<Orb>");
+    return(LS(IDS_MSG_23062));
   case 9:
-    return("<Mithril Nugget>");
+    return(LS(IDS_MSG_23063));
   }
   return "Error - you should never see this...";
 }
@@ -258,46 +258,46 @@ int num;
 char *nameprint()
 {
   switch(random_range(40)) {
-  case 0:strcpy(Str3,"Orion Splash");break;
-  case 1:strcpy(Str3,"Gorgar");break;
-  case 2:strcpy(Str3,"Hieronymous");break;
-  case 3:strcpy(Str3,"Quantifor Quotron");break;
-  case 4:strcpy(Str3,"Leon");break;
-  case 5:strcpy(Str3,"Joyce");break;
-  case 6:strcpy(Str3,"Leticia Smiley");break;
-  case 7:strcpy(Str3,"Ogilvy the Grim");break;
-  case 8:strcpy(Str3,"Salara Storn");break;
-  case 9:strcpy(Str3,"Murgo");break;
-  case 10:strcpy(Str3,"Jonathan Atwilder");break;
-  case 11:strcpy(Str3,"Xylos the Tan");break;
-  case 12:strcpy(Str3,"Terence");break;
-  case 13:strcpy(Str3,"Toronado");break;
-  case 14:strcpy(Str3,"Kelly");break;
-  case 15:strcpy(Str3,"Cantinflas");break;
-  case 16:strcpy(Str3,"Ixel");break;
-  case 17:strcpy(Str3,"Toto");break;
-  case 18:strcpy(Str3,"Frost");break;
-  case 19:strcpy(Str3,"Aliera Erinyes");break;
-  case 20:strcpy(Str3,"Godel");break;
-  case 21:strcpy(Str3,"Kerst Blackblade");break;
-  case 22:strcpy(Str3,"Ebenezer");break;
-  case 23:strcpy(Str3,"Jeremiah");break;
-  case 24:strcpy(Str3,"Triskelion Shadow");break;
-  case 25:strcpy(Str3,"Eleskir Eremar");break;
-  case 26:strcpy(Str3,"Tyron");break;
-  case 27:strcpy(Str3,"Morgon");break;
-  case 28:strcpy(Str3,"Achmed");break;
-  case 29:strcpy(Str3,"Chin");break;
-  case 30:strcpy(Str3,"Fujimoto");break;
-  case 31:strcpy(Str3,"Dos Santos");break;
-  case 32:strcpy(Str3,"Federico");break;
-  case 33:strcpy(Str3,"Jaime");break;
-  case 34:strcpy(Str3,"Siobhan");break;
-  case 35:strcpy(Str3,"Hans");break;
-  case 36:strcpy(Str3,"Gurkov");break;
-  case 37:strcpy(Str3,"Krilos the Slayer");break;
-  case 38:strcpy(Str3,"Oxxblud");break;
-  case 39:strcpy(Str3,"Dorian");break;
+  case 0:strcpy(Str3,LS(IDS_MSG_23014));break;
+  case 1:strcpy(Str3,LS(IDS_MSG_23015));break;
+  case 2:strcpy(Str3,LS(IDS_MSG_23016));break;
+  case 3:strcpy(Str3,LS(IDS_MSG_23017));break;
+  case 4:strcpy(Str3,LS(IDS_MSG_23018));break;
+  case 5:strcpy(Str3,LS(IDS_MSG_23019));break;
+  case 6:strcpy(Str3,LS(IDS_MSG_23020));break;
+  case 7:strcpy(Str3,LS(IDS_MSG_23021));break;
+  case 8:strcpy(Str3,LS(IDS_MSG_23022));break;
+  case 9:strcpy(Str3,LS(IDS_MSG_23023));break;
+  case 10:strcpy(Str3,LS(IDS_MSG_23024));break;
+  case 11:strcpy(Str3,LS(IDS_MSG_23025));break;
+  case 12:strcpy(Str3,LS(IDS_MSG_23026));break;
+  case 13:strcpy(Str3,LS(IDS_MSG_23027));break;
+  case 14:strcpy(Str3,LS(IDS_MSG_23028));break;
+  case 15:strcpy(Str3,LS(IDS_MSG_23029));break;
+  case 16:strcpy(Str3,LS(IDS_MSG_23030));break;
+  case 17:strcpy(Str3,LS(IDS_MSG_23031));break;
+  case 18:strcpy(Str3,LS(IDS_MSG_23032));break;
+  case 19:strcpy(Str3,LS(IDS_MSG_23033));break;
+  case 20:strcpy(Str3,LS(IDS_MSG_23034));break;
+  case 21:strcpy(Str3,LS(IDS_MSG_23035));break;
+  case 22:strcpy(Str3,LS(IDS_MSG_23036));break;
+  case 23:strcpy(Str3,LS(IDS_MSG_23037));break;
+  case 24:strcpy(Str3,LS(IDS_MSG_23038));break;
+  case 25:strcpy(Str3,LS(IDS_MSG_23039));break;
+  case 26:strcpy(Str3,LS(IDS_MSG_23040));break;
+  case 27:strcpy(Str3,LS(IDS_MSG_23041));break;
+  case 28:strcpy(Str3,LS(IDS_MSG_23042));break;
+  case 29:strcpy(Str3,LS(IDS_MSG_23043));break;
+  case 30:strcpy(Str3,LS(IDS_MSG_23044));break;
+  case 31:strcpy(Str3,LS(IDS_MSG_23045));break;
+  case 32:strcpy(Str3,LS(IDS_MSG_23046));break;
+  case 33:strcpy(Str3,LS(IDS_MSG_23047));break;
+  case 34:strcpy(Str3,LS(IDS_MSG_23048));break;
+  case 35:strcpy(Str3,LS(IDS_MSG_23049));break;
+  case 36:strcpy(Str3,LS(IDS_MSG_23050));break;
+  case 37:strcpy(Str3,LS(IDS_MSG_23051));break;
+  case 38:strcpy(Str3,LS(IDS_MSG_23052));break;
+  case 39:strcpy(Str3,LS(IDS_MSG_23053));break;
   }
   return(Str3);
 }
@@ -308,17 +308,17 @@ char *wordnum(num)
 int num;
 {
   switch(num) {
-  case 0: return("zero ");
-  case 1: return("one ");
-  case 2: return("two ");
-  case 3: return("three ");
-  case 4: return("four ");
-  case 5: return("five ");
-  case 6: return("six ");
-  case 7: return("seven ");
-  case 8: return("eight ");
-  case 9: return("nine ");
-  case 10: return("ten ");
-  default: return("");
+  case 0: return(LS(IDS_MSG_23064));
+  case 1: return(LS(IDS_MSG_23065));
+  case 2: return(LS(IDS_MSG_23066));
+  case 3: return(LS(IDS_MSG_23067));
+  case 4: return(LS(IDS_MSG_23068));
+  case 5: return(LS(IDS_MSG_23069));
+  case 6: return(LS(IDS_MSG_23070));
+  case 7: return(LS(IDS_MSG_23071));
+  case 8: return(LS(IDS_MSG_23072));
+  case 9: return(LS(IDS_MSG_23073));
+  case 10: return(LS(IDS_MSG_23074));
+  default: return(LS(IDS_MSG_23075));
   }
 }
