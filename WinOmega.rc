@@ -68,13 +68,13 @@ END
 // Dialog
 //
 
-IDD_SETUP DIALOGEX 0, 0, 323, 160
+IDD_SETUP DIALOGEX 0, 0, 323, 176
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION |
     WS_SYSMENU
 CAPTION "Omega"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "&Play Omega",IDOK,96,139,131,14
+    DEFPUSHBUTTON   "&Play Omega",IDOK,96,155,131,14
     GROUPBOX        "Display",IDC_STATIC,7,7,198,70
     LTEXT           "&Font name",IDC_STATIC,14,20,43,8
     COMBOBOX        IDC_FONTFACE,14,30,135,91,CBS_DROPDOWNLIST | CBS_SORT |
@@ -87,12 +87,12 @@ BEGIN
     LTEXT           "&Language",IDC_STATIC,14,60,43,8
     COMBOBOX        IDC_LANGUAGE,60,58,89,90,CBS_DROPDOWNLIST | WS_VSCROLL |
                     WS_TABSTOP
-    GROUPBOX        "&Saved games",IDC_STATIC,213,7,103,124
-    LISTBOX         IDC_SAVED,221,20,87,104,LBS_SORT | LBS_NOINTEGRALHEIGHT |
+    GROUPBOX        "&Saved games",IDC_STATIC,213,7,103,140
+    LISTBOX         IDC_SAVED,221,20,87,120,LBS_SORT | LBS_NOINTEGRALHEIGHT |
                     WS_VSCROLL | WS_TABSTOP
-    GROUPBOX        "Credits",IDC_STATIC,7,80,199,51
-    CTEXT           "Omega 0.80 written by Laurence R. Brothers\nUpdated by Robert Rendell and Erik Max Francis\nWindows version by David Kinder\nGraphics by David Gervais",
-                    IDC_STATIC,14,91,184,34
+    GROUPBOX        "Credits",IDC_STATIC,7,80,199,67
+    CTEXT           "Omega 0.80 written by Laurence R. Brothers\nUpdated by Robert Rendell and Erik Max Francis\nWindows version by David Kinder\nGraphics by David Gervais\nJapanese localization, multi-language support and gamepad support by Naoki Ishizaka",
+                    IDC_STATIC,14,91,184,50
 END
 
 
@@ -138,13 +138,13 @@ LANGUAGE LANG_JAPANESE, SUBLANG_JAPANESE_JAPAN
 // Dialog
 //
 
-IDD_SETUP DIALOGEX 0, 0, 323, 160
+IDD_SETUP DIALOGEX 0, 0, 323, 176
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION |
     WS_SYSMENU
 CAPTION "Omega"
 FONT 9, "MS UI Gothic", 400, 0, 0x80
 BEGIN
-    DEFPUSHBUTTON   "オメガを開始(&P)",IDOK,96,139,131,14
+    DEFPUSHBUTTON   "オメガを開始(&P)",IDOK,96,155,131,14
     GROUPBOX        "表示",IDC_STATIC,7,7,198,70
     LTEXT           "フォント名(&F)",IDC_STATIC,14,20,60,8
     COMBOBOX        IDC_FONTFACE,14,30,135,91,CBS_DROPDOWNLIST | CBS_SORT |
@@ -157,12 +157,12 @@ BEGIN
     LTEXT           "言語(&L)",IDC_STATIC,14,60,43,8
     COMBOBOX        IDC_LANGUAGE,60,58,89,90,CBS_DROPDOWNLIST | WS_VSCROLL |
                     WS_TABSTOP
-    GROUPBOX        "セーブデータ(&S)",IDC_STATIC,213,7,103,124
-    LISTBOX         IDC_SAVED,221,20,87,104,LBS_SORT | LBS_NOINTEGRALHEIGHT |
+    GROUPBOX        "セーブデータ(&S)",IDC_STATIC,213,7,103,140
+    LISTBOX         IDC_SAVED,221,20,87,120,LBS_SORT | LBS_NOINTEGRALHEIGHT |
                     WS_VSCROLL | WS_TABSTOP
-    GROUPBOX        "クレジット",IDC_STATIC,7,80,199,51
-    CTEXT           "Omega 0.80  作者: Laurence R. Brothers\n更新: Robert Rendell, Erik Max Francis\nWindows版: David Kinder\nグラフィック: David Gervais",
-                    IDC_STATIC,14,91,184,34
+    GROUPBOX        "クレジット",IDC_STATIC,7,80,199,67
+    CTEXT           "Omega 0.80  作者: Laurence R. Brothers\n更新: Robert Rendell, Erik Max Francis\nWindows版: David Kinder\nグラフィック: David Gervais\n日本語化及び多言語対応、Gamepad対応: Naoki Ishizaka",
+                    IDC_STATIC,14,91,184,50
 END
 
 /////////////////////////////////////////////////////////////////////////////
