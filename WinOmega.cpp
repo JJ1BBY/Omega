@@ -437,14 +437,16 @@ void copyLibFile(const char* name)
 // itself reads moves. A and B map to 'y'/'n', matching the ynq()
 // prompts used throughout the game.
 //
-// Holding X while pressing a direction sends the uppercase vi-key
-// ('H','J','K','L','B','N','Y','U' -- see command1.c's p_process(),
-// which sets FAST_MOVE and lets the main loop keep re-issuing that same
-// move each turn until an obstacle/RUNSTOP condition clears it) instead
-// of the plain digit, so a single button-hold + direction runs until
-// something interesting happens, same as Shift+direction on a keyboard.
-// This mirrors the "hold a face button to dash/move diagonally" scheme
-// used by the Mystery Dungeon (Shiren/Torneko) series.
+// Holding the right shoulder button while pressing a direction sends the
+// uppercase vi-key ('H','J','K','L','B','N','Y','U' -- see command1.c's
+// p_process(), which sets FAST_MOVE and lets the main loop keep
+// re-issuing that same move each turn until an obstacle/RUNSTOP
+// condition clears it) instead of the plain digit, so a single
+// button-hold + direction runs until something interesting happens,
+// same as Shift+direction on a keyboard. Mirrors the "hold R for
+// dash/precise diagonal movement" convention used by the Mystery
+// Dungeon (Shiren/Torneko) series -- A/B are left alone as OK/Cancel
+// (y/n here), matching that series' own A=decide/B=cancel mapping.
 void pollGamepad()
 {
   XINPUT_STATE state;
@@ -488,7 +490,7 @@ void pollGamepad()
     { 'H', 0 ,'L' },
     { 'B','J','N' },
   };
-  bool runHeld = (buttons & XINPUT_GAMEPAD_X) != 0;
+  bool runHeld = (buttons & XINPUT_GAMEPAD_RIGHT_SHOULDER) != 0;
   int dir = (runHeld ? dirRun : dirDigit)[dy+1][dx+1];
   if (dir != 0 && dir != gamepadLastDir)
     inputKeys.push_back(dir);
