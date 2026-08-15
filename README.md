@@ -8,6 +8,14 @@ I've taken Omega 0.80.2 and built it as a "proper" Windows application (rather t
 
 ![Omega in play](omega.png)
 
+## Japanese localization (work in progress)
+
+The `japanese-localization` branch is in progress work towards a Japanese
+translation. Hardcoded in-game message strings have been moved into
+`Strings.en.rc` / `Strings.ja.rc` resource files with a language-switching
+mechanism in `WinOmega.rc`; the actual Japanese translation is not done yet.
+See `LOCALIZATION_PLAN.md` on that branch for details and remaining work.
+
 ## Building
 
 Download and install Visual Studio Community edition from https://visualstudio.microsoft.com/. In the installer, under "Workloads", make sure that "Desktop development with C++" is selected.
