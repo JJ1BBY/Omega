@@ -840,6 +840,21 @@ int impl_wprintw(WINDOW *win, const char *fmt, va_list list)
   char buffer[256];
   vsprintf(buffer,fmt,list);
 
+#ifdef OMEGA_JA_DEBUG
+  {
+    FILE* dbg = fopen("ja_debug.log","a");
+    if (dbg)
+    {
+      fprintf(dbg,"fmt   [%d bytes]:",(int)strlen(fmt));
+      for (const unsigned char* p = (const unsigned char*)fmt; *p; p++) fprintf(dbg," %02X",*p);
+      fprintf(dbg,"\nbuffer[%d bytes]:",(int)strlen(buffer));
+      for (const unsigned char* p = (const unsigned char*)buffer; *p; p++) fprintf(dbg," %02X",*p);
+      fprintf(dbg,"\nACP=%u lfCharSet=%u lfFaceName=%s\n\n",GetACP(),(unsigned)fontSetup.lfCharSet,fontSetup.lfFaceName);
+      fclose(dbg);
+    }
+  }
+#endif
+
   int len = (int)strlen(buffer);
   for (int i = 0; i < len; i++)
     waddch(win,*(buffer+i));
@@ -1175,10 +1190,36 @@ extern "C" int wrefresh(WINDOW *win)
             {
               SetTextColor(drawDC,palette[attr1&0x0F]);
               SetBkColor(drawDC,palette[(attr1&0xF0)>>4]);
-              TextOut(drawDC,
+              // Force every byte cell to advance by exactly one grid column
+              // (two for the lead byte of a Shift-JIS DBCS pair, zero for its
+              // trail byte), rather than letting TextOut space glyphs using
+              // the font's own natural widths. Full-width Japanese glyphs are
+              // rarely exactly 2x the ASCII advance, so without this the
+              // fixed-width grid model (1 byte = 1 waddch = 1 column) and the
+              // actual pixel layout drift apart and characters overlap.
+              int runLen = x2-x1;
+              int* dx = (int*)alloca(runLen*sizeof(int));
+              for (int i = 0; i < runLen; )
+              {
+                unsigned char c = (unsigned char)text[x1+i];
+                bool isLead = ((c >= 0x81 && c <= 0x9F) || (c >= 0xE0 && c <= 0xFC))
+                  && (i+1 < runLen);
+                if (isLead)
+                {
+                  dx[i] = fontMetrics.tmAveCharWidth*2;
+                  dx[i+1] = 0;
+                  i += 2;
+                }
+                else
+                {
+                  dx[i] = fontMetrics.tmAveCharWidth;
+                  i += 1;
+                }
+              }
+              ExtTextOut(drawDC,
                 fontMetrics.tmAveCharWidth*(win->_offx+x1),
                 fontMetrics.tmHeight*(win->_offy+y),
-                text+x1,x2-x1);
+                0,NULL,text+x1,runLen,dx);
 
               attr1 = attr2;
               x1 = x2;
