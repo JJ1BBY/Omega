@@ -163,7 +163,9 @@ copy 32x32.bmp $(OutDir)
     <Manifest Include="WinOmega.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="WinOmega.rc" />
+    <ResourceCompile Include="WinOmega.rc">
+      <AdditionalDependencies>Strings.en.rc;Strings.ja.rc;%(AdditionalDependencies)</AdditionalDependencies>
+    </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Strings.en.rc" />

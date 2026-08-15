@@ -47,45 +47,39 @@ char.c, command1.c)。残り約2,277件。
 3. MSBuildでビルド確認 → コミット、の順で進める(詳細は本ファイル下部の
    ビルド方法を参照)
 
-## 未解決のバグ: 日本語テキストが実機で文字化けする
+## 解決済みのバグ: 日本語テキストが実機で文字化けした件
 
-`Strings.ja.rc` のリソース自体は正しい(`LoadStringA`で直接読むと完全に
-正しいJapanese文字列が返る)。しかし実際にゲーム画面に描画すると文字化けする
-(例: 「キャラクターを操作しますか [c]、それとも自分自身をプレイしますか
-[p]？」が「LN^[ [c]AgvC [p]H」のように表示される)。
+**原因はGDI描画ではなく、MSBuildの増分ビルドだった。**
 
-調査で分かったこと:
-- `WinOmega.cpp:664`付近で `fontSetup.lfCharSet` は `GetACP()==932` により
-  正しく `SHIFTJIS_CHARSET` になっている(確認済み)
-- レジストリ(`HKCU\Software\David Kinder\Omega`)の `Font Name` には
-  「ＭＳ ゴシック」が正しく保存されている(セットアップダイアログで
-  ユーザーが選択済み)
-- `impl_wprintw()`(`WinOmega.cpp`)に一時的なデバッグログ
-  (`OMEGA_JA_DEBUG`マクロ、`ja_debug.log`に出力)を仕込んで検証した結果、
-  `vsprintf`直後の`buffer`の中身は**元の`fmt`と完全に同一バイト列**であり、
-  文字列データは`waddch()`に渡る直前まで一切壊れていないことを確認済み
-- 描画コード(`WinOmega.cpp`の`redraw`相当の関数、`TextOut`→`ExtTextOut`に
-  変更しDBCS文字に明示的な2倍幅の`lpDx`を指定する修正を試したが、
-  **見た目は変化しなかった**(ビルド・実行して確認済み)
+`WinOmega.rc` は `#include "Strings.ja.rc"` / `#include "Strings.en.rc"` で
+文字列テーブルを取り込んでいるが、`.vcxproj` の `ResourceCompile` 項目は
+`WinOmega.rc` 単体しかタイムスタンプを追跡していなかった。そのため
+`Strings.ja.rc` だけを編集して再ビルドしても **rc.exe が再実行されず、
+古い(場合によっては編集途中の壊れた状態の)`.res` が使い回される**
+ことがあった。実際、デバッグログで「vsprintfに渡るバイト列が元の翻訳文と
+1バイトだけ違う」という現象が起きたのはこれが原因(過去のファイル復旧
+作業中の中間状態が`.res`にキャッシュされたまま拾われていた)。
 
-→ **原因はGDIの実描画(`CreateFontIndirect`〜`ExtTextOut`)のどこかに
-まだ残っている。** データもフォント選択も正しいはずなのに文字化けする、
-という状況なので、Visual Studioでブレークポイントを張って
-`ExtTextOut`呼び出し時点の`font`(HFONTハンドル)や`drawDC`の状態を
-直接確認するなど、対話的デバッグが必要な段階。試すと良さそうな仮説:
-- `CreateFontIndirect`が実際に「ＭＳ ゴシック」を取得できているか
-  (`GetObject(font, sizeof(LOGFONT), &actual)`等で確認)
-- `drawDC`が24bpp DIBセクション上のメモリDCであることが、CJKグリフの
-  レンダリングに何か影響していないか
-- Windows自体のクリップボードや`GetGlyphOutline`等で、この特定の
-  `HFONT`がどの物理フォントに実際にマッピングされているか確認
-  (フォントリンキング/代替が起きていないか)
+`Omega.vcxproj` の `ResourceCompile` に以下を追加して解決:
+```xml
+<ResourceCompile Include="WinOmega.rc">
+  <AdditionalDependencies>Strings.en.rc;Strings.ja.rc;%(AdditionalDependencies)</AdditionalDependencies>
+</ResourceCompile>
+```
+これでどちらかのファイルを触ると必ず `rc.exe` が再実行される
+(`touch Strings.ja.rc` して増分ビルドし、`ResourceCompile:` ステップが
+実際に走ることを確認済み)。
 
-デバッグ用のログ出力コードは`WinOmega.cpp`の`impl_wprintw()`内に
-`#ifdef OMEGA_JA_DEBUG`で残してある。再度有効にする場合は
-`Omega.vcxproj`のReleaseビルドの`PreprocessorDefinitions`に
-`OMEGA_JA_DEBUG;`を追加してビルドし、`%APPDATA%\Omega\ja_debug.log`
-を確認する。
+**教訓**: `Strings.*.rc` を編集した後に「見た目が変わらない」場合は、
+まずコードや文字コードを疑う前に **`Release`フォルダを削除してクリーン
+ビルド**し、それでも再現するか確認すること。
+
+(前段の`ExtTextOut`+`lpDx`によるDBCS幅補正の修正自体は無害だが、今回の
+文字化けの直接原因ではなかった。残しても害はないので`WinOmega.cpp`には
+そのまま残してある。`impl_wprintw()`内の`OMEGA_JA_DEBUG`デバッグログも
+同様に残置。再度有効にする場合は`Omega.vcxproj`のReleaseビルドの
+`PreprocessorDefinitions`に`OMEGA_JA_DEBUG;`を追加してビルドし、
+`%APPDATA%\Omega\ja_debug.log`を確認する。)
 
 ## 未着手のタスク
 
