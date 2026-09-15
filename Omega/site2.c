@@ -47,12 +47,12 @@ void l_condo()
   else {
     while (! done) {
       menuclear();
-      menuprint("Home Sweet Home\n");
-      menuprint("a: Leave items in your safe.\n");
-      menuprint("b: Retrieve items.\n");
-      menuprint("c: Take a week off to rest.\n");
-      menuprint("d: Retire permanently.\n");
-      menuprint("ESCAPE: Leave this place.\n");
+      menuprint(LS(IDS_MSG_23419));
+      menuprint(LS(IDS_MSG_23420));
+      menuprint(LS(IDS_MSG_23421));
+      menuprint(LS(IDS_MSG_23422));
+      menuprint(LS(IDS_MSG_23423));
+      menuprint(LS(IDS_MSG_23424));
       showmenu();
       response = (char) mcigetc();
       if (response == 'a') {
@@ -391,12 +391,12 @@ void l_trifid()
       morewait();
       print1(LS(IDS_MSG_22451));
       menuclear();
-      menuprint("a: Try to break free.\n");
-      menuprint("b: Hang limp and hope the tendrils uncoil.\n");
-      menuprint("c: Pray for assistance.\n");
-      menuprint("d: Attempt to bargain with the hedge.\n");
-      menuprint("e: Click your heels together and wish for escape.\n");
-      menuprint("ANYTHING ELSE: writhe and scream hopelessly.\n");
+      menuprint(LS(IDS_MSG_23425));
+      menuprint(LS(IDS_MSG_23426));
+      menuprint(LS(IDS_MSG_23427));
+      menuprint(LS(IDS_MSG_23428));
+      menuprint(LS(IDS_MSG_23429));
+      menuprint(LS(IDS_MSG_23430));
       showmenu();
       switch(menugetc()) {
       case 'a': 
@@ -483,10 +483,10 @@ void l_brothel()
   print1(LS(IDS_MSG_22471));
   if (ynq1()=='y') {
     menuclear();
-    menuprint("a:knock on the door.\n");
-    menuprint("b:try to pick the lock.\n");
-    menuprint("c:bash down the door.\n");
-    menuprint("ESCAPE: Leave this house of ill repute.\n");
+    menuprint(LS(IDS_MSG_23431));
+    menuprint(LS(IDS_MSG_23432));
+    menuprint(LS(IDS_MSG_23433));
+    menuprint(LS(IDS_MSG_23434));
     showmenu();
     do 
       response = menugetc();

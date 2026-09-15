@@ -55,9 +55,9 @@ int itemindex,num;
     menuclear();
     for(i=0;i<num;i++) {
       menunumprint(i+1);
-      menuprint(":");
+      menuprint(LS(IDS_MSG_23385));
       menuprint(Objects[i+itemindex].truename);
-      menuprint("\n");
+      menuprint(LS(IDS_MSG_23386));
     }
     showmenu();
   }
@@ -78,9 +78,9 @@ int monsterlist()
       menuclear();
       for(i=0;i<NUMMONSTERS;i++) {
 	menunumprint(i+1);
-	menuprint(":");
+	menuprint(LS(IDS_MSG_23385));
 	menuprint(Monsters[i].monstring);
-	menuprint("\n");
+	menuprint(LS(IDS_MSG_23386));
       }
       showmenu();
       itemno = (int) parsenum()-1;
@@ -589,21 +589,21 @@ int blessing;
   else {
     mprint(LS(IDS_MSG_20856));
     menuclear();
-    menuprint("a: Rampart\n");
-    menuprint("b: Village of Star View\n");
-    menuprint("c: Village of Woodmere\n");
-    menuprint("d: Village of Stormwatch\n");
-    menuprint("e: Village of Thaumaris\n");
-    menuprint("f: Village of Skorch\n");
-    menuprint("g: Village of Whorfen\n");
-    menuprint("h: Temple of the Noose\n");
-    menuprint("i: The Parthenon\n");
-    menuprint("j: Temple of the Black Hand\n");
-    menuprint("k: Temple of the Hidden Moon\n");
-    menuprint("l: WoodHenge\n");
-    menuprint("m: Temple of Destiny\n");
-    menuprint("n: HellWell Volcano\n");
-    menuprint("ANYTHING ELSE: Avoid entering a portal.");
+    menuprint(LS(IDS_MSG_23387));
+    menuprint(LS(IDS_MSG_23388));
+    menuprint(LS(IDS_MSG_23389));
+    menuprint(LS(IDS_MSG_23390));
+    menuprint(LS(IDS_MSG_23391));
+    menuprint(LS(IDS_MSG_23392));
+    menuprint(LS(IDS_MSG_23393));
+    menuprint(LS(IDS_MSG_23394));
+    menuprint(LS(IDS_MSG_23395));
+    menuprint(LS(IDS_MSG_23396));
+    menuprint(LS(IDS_MSG_23397));
+    menuprint(LS(IDS_MSG_23398));
+    menuprint(LS(IDS_MSG_23399));
+    menuprint(LS(IDS_MSG_23400));
+    menuprint(LS(IDS_MSG_23401));
     showmenu();
     switch((char) mcigetc()) {
     case 'a': 

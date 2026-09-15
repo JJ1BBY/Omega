@@ -845,17 +845,17 @@ void inventory_control()
 #endif
     case '?':
       menuclear();
-      menuprint("d:\tDrop up-in-air or current item\n");
-      menuprint("e:\tExchange current slot with up-in-air slot\n");
-      menuprint("l:\tLook at current item\n");
-      menuprint("p:\tPut up-in-air or current item in pack\n");
-      menuprint("s:\tShow contents of pack\n");
-      menuprint("t:\tTake something from pack into the\n\tcurrent or up-in-air slot\n");
-      menuprint("x:\tAs 'e', but exit if up-in-air slot finishes empty\n");
-      menuprint(">:\tMove down one slot/item\n");
-      menuprint("<:\tMove up one slot/item\n");
-      menuprint("?:\tDisplay help (this message + help file)\n");
-      menuprint("ESCAPE:\texit\n");
+      menuprint(LS(IDS_MSG_23367));
+      menuprint(LS(IDS_MSG_23368));
+      menuprint(LS(IDS_MSG_23369));
+      menuprint(LS(IDS_MSG_23370));
+      menuprint(LS(IDS_MSG_23371));
+      menuprint(LS(IDS_MSG_23372));
+      menuprint(LS(IDS_MSG_23373));
+      menuprint(LS(IDS_MSG_23374));
+      menuprint(LS(IDS_MSG_23375));
+      menuprint(LS(IDS_MSG_23376));
+      menuprint(LS(IDS_MSG_23377));
       showmenu();
       clearmsg();
       print1(LS(IDS_MSG_21336));
@@ -983,16 +983,16 @@ void top_inventory_control()
       break;
     case '?':
       menuclear();
-      menuprint("d:\tDrop an item\n");
-      menuprint("e:\tExchange a slot with up-in-air slot\n");
-      menuprint("l:\tLook at an item\n");
-      menuprint("p:\tPut an item in pack\n");
-      menuprint("s:\tShow contents of pack\n");
-      menuprint("t:\tTake something from pack into a slot\n");
-      menuprint("x:\tAs 'e', above, exit if up-in-air slot finishes empty\n");
-      menuprint("~:\tEnter full-screen inventory mode\n");
-      menuprint("?:\tDisplay help (this message + help file)\n");
-      menuprint("ESCAPE:\texit\n");
+      menuprint(LS(IDS_MSG_23378));
+      menuprint(LS(IDS_MSG_23379));
+      menuprint(LS(IDS_MSG_23380));
+      menuprint(LS(IDS_MSG_23381));
+      menuprint(LS(IDS_MSG_23371));
+      menuprint(LS(IDS_MSG_23382));
+      menuprint(LS(IDS_MSG_23383));
+      menuprint(LS(IDS_MSG_23384));
+      menuprint(LS(IDS_MSG_23376));
+      menuprint(LS(IDS_MSG_23377));
       showmenu();
       clearmsg();
       print1(LS(IDS_MSG_21336));

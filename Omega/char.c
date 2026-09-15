@@ -195,26 +195,26 @@ int status;
     npcbehavior = Behavior;
   else {
     menuclear();
-    menuprint("NPC Behavior Determination Module\n\n");
-    menuprint("Your overall NPC behavior is:");
+    menuprint(LS(IDS_MSG_23402));
+    menuprint(LS(IDS_MSG_23403));
     if (Player.alignment < -10) {
       npcbehavior += CHAOTIC;
-      menuprint("\n\n CHAOTIC");
+      menuprint(LS(IDS_MSG_23404));
     }
     else if (Player.alignment > 10) {
       npcbehavior += LAWFUL;
-      menuprint("\n\n LAWFUL");
+      menuprint(LS(IDS_MSG_23405));
     }
     else {
       npcbehavior += NEUTRAL;
-      menuprint("\n\n NEUTRAL");
+      menuprint(LS(IDS_MSG_23406));
     }
-    menuprint("\n\n1: hand-to-hand combat");
-    menuprint("\n2: missile combat");
-    menuprint("\n3: spellcasting");
-    menuprint("\n4: thieving");
-    menuprint("\n5: escape");
-    menuprint("\n\nEnter NPC response to combat: ");
+    menuprint(LS(IDS_MSG_23407));
+    menuprint(LS(IDS_MSG_23408));
+    menuprint(LS(IDS_MSG_23409));
+    menuprint(LS(IDS_MSG_23410));
+    menuprint(LS(IDS_MSG_23411));
+    menuprint(LS(IDS_MSG_23412));
     showmenu();
     response = '0';
     while ((response != '1') && 
@@ -228,12 +228,12 @@ int status;
     npcbehavior+=100*competence_check(response-'0');
     response = '0';
     menuclear();
-    menuprint("1: threaten");
-    menuprint("\n2: greet");
-    menuprint("\n3: aid");
-    menuprint("\n4: beg");
-    menuprint("\n5: silence");
-    menuprint("\n\nEnter NPC response to conversation: ");
+    menuprint(LS(IDS_MSG_23413));
+    menuprint(LS(IDS_MSG_23414));
+    menuprint(LS(IDS_MSG_23415));
+    menuprint(LS(IDS_MSG_23416));
+    menuprint(LS(IDS_MSG_23417));
+    menuprint(LS(IDS_MSG_23418));
     showmenu();
     while ((response != '1') && 
 	   (response != '2') &&

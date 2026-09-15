@@ -367,13 +367,13 @@ char getlocation()
 {
   char c = '\0';
 
-  menuprint(" (enter location [HCL]) ");
+  menuprint(LS(IDS_MSG_23464));
   showmenu();
   while (c == '\0')
     switch (c = ((char) mcigetc())) {
-      case 'h':menuprint(" High."); break;
-      case 'c':menuprint(" Center."); break;
-      case 'l':menuprint(" Low."); break;
+      case 'h':menuprint(LS(IDS_MSG_23465)); break;
+      case 'c':menuprint(LS(IDS_MSG_23466)); break;
+      case 'l':menuprint(LS(IDS_MSG_23467)); break;
       default: c = '\0'; break;
     }
   showmenu();
@@ -814,15 +814,15 @@ int first, last;
   int i,printed=FALSE;
 
   menuclear();
-  menuprint("\nPossible Sites:\n");
+  menuprint(LS(IDS_MSG_23468));
   for (i = first; i <= last; i++)
     if (CitySiteList[sitenums[i] - CITYSITEBASE][0]) {
       printed = TRUE;
       menuprint(sitenames[i]);
-      menuprint("\n");
+      menuprint(LS(IDS_MSG_23469));
     }
   if (! printed)
-    menuprint("\nNo known sites match that prefix!");
+    menuprint(LS(IDS_MSG_23470));
   showmenu();
 }
 

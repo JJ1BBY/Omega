@@ -3020,6 +3020,182 @@
 #define IDS_MSG_23334                   23334
 #define IDS_MSG_23335                   23335
 
+// ---- command3.c (menuprint gap-fill) ----
+#define IDS_MSG_23336                   23336
+#define IDS_MSG_23337                   23337
+#define IDS_MSG_23338                   23338
+#define IDS_MSG_23339                   23339
+#define IDS_MSG_23340                   23340
+#define IDS_MSG_23341                   23341
+#define IDS_MSG_23342                   23342
+#define IDS_MSG_23343                   23343
+#define IDS_MSG_23344                   23344
+#define IDS_MSG_23345                   23345
+#define IDS_MSG_23346                   23346
+#define IDS_MSG_23347                   23347
+#define IDS_MSG_23348                   23348
+#define IDS_MSG_23349                   23349
+#define IDS_MSG_23350                   23350
+#define IDS_MSG_23351                   23351
+#define IDS_MSG_23352                   23352
+#define IDS_MSG_23353                   23353
+#define IDS_MSG_23354                   23354
+#define IDS_MSG_23355                   23355
+#define IDS_MSG_23356                   23356
+#define IDS_MSG_23357                   23357
+#define IDS_MSG_23358                   23358
+#define IDS_MSG_23359                   23359
+#define IDS_MSG_23360                   23360
+#define IDS_MSG_23361                   23361
+#define IDS_MSG_23362                   23362
+#define IDS_MSG_23363                   23363
+#define IDS_MSG_23364                   23364
+#define IDS_MSG_23365                   23365
+#define IDS_MSG_23366                   23366
+
+// ---- inv.c (menuprint gap-fill) ----
+#define IDS_MSG_23367                   23367
+#define IDS_MSG_23368                   23368
+#define IDS_MSG_23369                   23369
+#define IDS_MSG_23370                   23370
+#define IDS_MSG_23371                   23371
+#define IDS_MSG_23372                   23372
+#define IDS_MSG_23373                   23373
+#define IDS_MSG_23374                   23374
+#define IDS_MSG_23375                   23375
+#define IDS_MSG_23376                   23376
+#define IDS_MSG_23377                   23377
+#define IDS_MSG_23378                   23378
+#define IDS_MSG_23379                   23379
+#define IDS_MSG_23380                   23380
+#define IDS_MSG_23381                   23381
+#define IDS_MSG_23382                   23382
+#define IDS_MSG_23383                   23383
+#define IDS_MSG_23384                   23384
+
+// ---- effect3.c (menuprint gap-fill) ----
+#define IDS_MSG_23385                   23385
+#define IDS_MSG_23386                   23386
+#define IDS_MSG_23387                   23387
+#define IDS_MSG_23388                   23388
+#define IDS_MSG_23389                   23389
+#define IDS_MSG_23390                   23390
+#define IDS_MSG_23391                   23391
+#define IDS_MSG_23392                   23392
+#define IDS_MSG_23393                   23393
+#define IDS_MSG_23394                   23394
+#define IDS_MSG_23395                   23395
+#define IDS_MSG_23396                   23396
+#define IDS_MSG_23397                   23397
+#define IDS_MSG_23398                   23398
+#define IDS_MSG_23399                   23399
+#define IDS_MSG_23400                   23400
+#define IDS_MSG_23401                   23401
+
+// ---- char.c (menuprint gap-fill) ----
+#define IDS_MSG_23402                   23402
+#define IDS_MSG_23403                   23403
+#define IDS_MSG_23404                   23404
+#define IDS_MSG_23405                   23405
+#define IDS_MSG_23406                   23406
+#define IDS_MSG_23407                   23407
+#define IDS_MSG_23408                   23408
+#define IDS_MSG_23409                   23409
+#define IDS_MSG_23410                   23410
+#define IDS_MSG_23411                   23411
+#define IDS_MSG_23412                   23412
+#define IDS_MSG_23413                   23413
+#define IDS_MSG_23414                   23414
+#define IDS_MSG_23415                   23415
+#define IDS_MSG_23416                   23416
+#define IDS_MSG_23417                   23417
+#define IDS_MSG_23418                   23418
+
+// ---- site2.c (menuprint gap-fill) ----
+#define IDS_MSG_23419                   23419
+#define IDS_MSG_23420                   23420
+#define IDS_MSG_23421                   23421
+#define IDS_MSG_23422                   23422
+#define IDS_MSG_23423                   23423
+#define IDS_MSG_23424                   23424
+#define IDS_MSG_23425                   23425
+#define IDS_MSG_23426                   23426
+#define IDS_MSG_23427                   23427
+#define IDS_MSG_23428                   23428
+#define IDS_MSG_23429                   23429
+#define IDS_MSG_23430                   23430
+#define IDS_MSG_23431                   23431
+#define IDS_MSG_23432                   23432
+#define IDS_MSG_23433                   23433
+#define IDS_MSG_23434                   23434
+
+// ---- move.c (menuprint gap-fill) ----
+#define IDS_MSG_23435                   23435
+#define IDS_MSG_23436                   23436
+#define IDS_MSG_23437                   23437
+#define IDS_MSG_23438                   23438
+#define IDS_MSG_23439                   23439
+#define IDS_MSG_23440                   23440
+#define IDS_MSG_23441                   23441
+#define IDS_MSG_23442                   23442
+#define IDS_MSG_23443                   23443
+#define IDS_MSG_23444                   23444
+#define IDS_MSG_23445                   23445
+#define IDS_MSG_23446                   23446
+#define IDS_MSG_23447                   23447
+#define IDS_MSG_23448                   23448
+#define IDS_MSG_23449                   23449
+
+// ---- guild2.c (menuprint gap-fill) ----
+#define IDS_MSG_23450                   23450
+#define IDS_MSG_23451                   23451
+#define IDS_MSG_23452                   23452
+#define IDS_MSG_23453                   23453
+#define IDS_MSG_23454                   23454
+#define IDS_MSG_23455                   23455
+#define IDS_MSG_23456                   23456
+#define IDS_MSG_23457                   23457
+#define IDS_MSG_23458                   23458
+#define IDS_MSG_23459                   23459
+#define IDS_MSG_23460                   23460
+#define IDS_MSG_23461                   23461
+#define IDS_MSG_23462                   23462
+#define IDS_MSG_23463                   23463
+
+// ---- aux3.c (menuprint gap-fill) ----
+#define IDS_MSG_23464                   23464
+#define IDS_MSG_23465                   23465
+#define IDS_MSG_23466                   23466
+#define IDS_MSG_23467                   23467
+#define IDS_MSG_23468                   23468
+#define IDS_MSG_23469                   23469
+#define IDS_MSG_23470                   23470
+
+// ---- spell.c (menuprint gap-fill) ----
+#define IDS_MSG_23471                   23471
+#define IDS_MSG_23472                   23472
+#define IDS_MSG_23473                   23473
+#define IDS_MSG_23474                   23474
+#define IDS_MSG_23475                   23475
+
+// ---- command2.c (menuprint gap-fill) ----
+#define IDS_MSG_23476                   23476
+#define IDS_MSG_23477                   23477
+#define IDS_MSG_23478                   23478
+#define IDS_MSG_23479                   23479
+#define IDS_MSG_23480                   23480
+
+// ---- aux2.c (menuprint gap-fill) ----
+#define IDS_MSG_23481                   23481
+#define IDS_MSG_23482                   23482
+#define IDS_MSG_23483                   23483
+
+// ---- scr.c (menuprint gap-fill) ----
+#define IDS_MSG_23484                   23484
+
+// ---- itemf1.c (menuprint gap-fill) ----
+#define IDS_MSG_23485                   23485
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222

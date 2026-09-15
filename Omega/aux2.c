@@ -540,9 +540,9 @@ void p_drown()
       case 0: p_death("drowning");
     }
     morewait();
-    menuprint("a: Drop an item.\n");
-    menuprint("b: Bash an item.\n");
-    menuprint("c: Drop your whole pack.\n");
+    menuprint(LS(IDS_MSG_23481));
+    menuprint(LS(IDS_MSG_23482));
+    menuprint(LS(IDS_MSG_23483));
     showmenu();
     switch(menugetc()) {
       case 'a':

@@ -50,7 +50,7 @@ pob o;
     case 5:nprint1(LS(IDS_MSG_21369));j = STICKID; k = ARTIFACTID; break;
   }
   menuclear();
-  menuprint("You could probably now recognise:\n");
+  menuprint(LS(IDS_MSG_23485));
   for(i=j;i<k;i++) {
     Objects[i].known = 1;
     v = Objects[i].truename[0];

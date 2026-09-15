@@ -109,9 +109,9 @@ void examine()
 	else {
 	  drewmenu = TRUE;
 	  menuclear();
-	  menuprint("Things on floor:\n");
+	  menuprint(LS(IDS_MSG_23336));
 	  while (ol != NULL) {
-	    menuprint("\n");
+	    menuprint(LS(IDS_MSG_23337));
 	    menuprint(itemid(ol->thing));
 	    ol = ol->next;
 	  }
@@ -137,23 +137,23 @@ void help()
   clearmsg();
   print1(LS(IDS_MSG_20568));
   menuclear();
-  menuprint("a: Overview\n");
-  menuprint("b: Characters\n");
-  menuprint("c: Inventories\n");
-  menuprint("d: Movement\n");
-  menuprint("e: Combat\n");
-  menuprint("f: Bugs\n");
-  menuprint("g: Magic\n");
-  menuprint("h: The Countryside\n");
-  menuprint("i: The Screen Display\n");
-  menuprint("j: Saving and Restoring\n");
-  menuprint("k: Options Settings\n");
-  menuprint("l: Dungeon/City/Other Command List\n");
-  menuprint("m: Countryside Command List\n");
+  menuprint(LS(IDS_MSG_23338));
+  menuprint(LS(IDS_MSG_23339));
+  menuprint(LS(IDS_MSG_23340));
+  menuprint(LS(IDS_MSG_23341));
+  menuprint(LS(IDS_MSG_23342));
+  menuprint(LS(IDS_MSG_23343));
+  menuprint(LS(IDS_MSG_23344));
+  menuprint(LS(IDS_MSG_23345));
+  menuprint(LS(IDS_MSG_23346));
+  menuprint(LS(IDS_MSG_23347));
+  menuprint(LS(IDS_MSG_23348));
+  menuprint(LS(IDS_MSG_23349));
+  menuprint(LS(IDS_MSG_23350));
 #if !defined(MSDOS) && !defined(AMIGA) && !defined(_WIN32)
-  menuprint("n: Everything\n");
+  menuprint(LS(IDS_MSG_23351));
 #endif
-  menuprint("ESCAPE: Forget the whole thing.");
+  menuprint(LS(IDS_MSG_23352));
   showmenu();
   do 
     c = (char) mcigetc();
@@ -595,9 +595,9 @@ void tacoptions()
   do {
     if (draw_again) {
       menuclear();
-      menuprint("Enter a combat maneuvers sequence.\n");
-      menuprint("? for help, ! for default, backspace to start again,\n");
-      menuprint(" RETURN to save sequence\n");
+      menuprint(LS(IDS_MSG_23353));
+      menuprint(LS(IDS_MSG_23354));
+      menuprint(LS(IDS_MSG_23355));
       showmenu();
       draw_again = 0;
     }
@@ -614,18 +614,18 @@ void tacoptions()
       else {
 	if (Player.possessions[O_WEAPON_HAND] == NULL) {
 	  Player.meleestr[place] = 'C';
-	  menuprint("\nPunch:");
+	  menuprint(LS(IDS_MSG_23356));
 	}
 	else if (Player.possessions[O_WEAPON_HAND]->type == THRUSTING) {
 	  Player.meleestr[place] = 'T';
-	  menuprint("\nThrust:");
+	  menuprint(LS(IDS_MSG_23357));
 	}
 	else if (Player.possessions[O_WEAPON_HAND]->type == STRIKING) {
 	  Player.meleestr[place] = 'C';
-	  menuprint("\nStrike:");
+	  menuprint(LS(IDS_MSG_23358));
 	}
 	else {
-	  menuprint("\nCut:");
+	  menuprint(LS(IDS_MSG_23359));
 	  Player.meleestr[place] = 'C';
 	}
 	place++;
@@ -639,10 +639,10 @@ void tacoptions()
       else {
 	Player.meleestr[place] = 'B';
 	if (Player.possessions[O_WEAPON_HAND] == NULL)
-	  menuprint("\nDodge (from):");
+	  menuprint(LS(IDS_MSG_23360));
 	else if (Player.possessions[O_WEAPON_HAND]->type == THRUSTING) 
-	  menuprint("\nParry:");
-	else menuprint("\nBlock:");
+	  menuprint(LS(IDS_MSG_23361));
+	else menuprint(LS(IDS_MSG_23362));
 	place++;
 	Player.meleestr[place]= getlocation();
 	place++;
@@ -654,7 +654,7 @@ void tacoptions()
       else {
 	if (Player.possessions[O_WEAPON_HAND] != NULL) {
 	  if (Player.possessions[O_WEAPON_HAND]->type != MISSILE) {
-	    menuprint("\nLunge:");
+	    menuprint(LS(IDS_MSG_23363));
 	    Player.meleestr[place] = 'L';
 	    place++;
 	    Player.meleestr[place]=getlocation();
@@ -678,7 +678,7 @@ void tacoptions()
 	if (Player.possessions[O_WEAPON_HAND] != NULL) {
 	  if (Player.possessions[O_WEAPON_HAND]->type == THRUSTING) {
 	    Player.meleestr[place++] = 'R';
-	    menuprint("\nRiposte:");
+	    menuprint(LS(IDS_MSG_23364));
 	    Player.meleestr[place++]=getlocation();
 	    actionsleft -= 2;
 	  }
@@ -722,21 +722,21 @@ void tacoptions()
 	defstr = "Parry";
       else defstr = "Block";
       menuclear();
-      menuprint("Enter a combat maneuvers sequence.\n");
-      menuprint("? for help, ! for default, backspace to start again,\n");
-      menuprint(" RETURN to save sequence\n\n");
+      menuprint(LS(IDS_MSG_23353));
+      menuprint(LS(IDS_MSG_23354));
+      menuprint(LS(IDS_MSG_23365));
       for(place=0;place<maneuvers();place++)
 	if (place&1) { /* every 2nd time around */
 	    Player.meleestr[place*2] = 'B';
 	    Player.meleestr[(place*2)+1] = 'C';
 	    menuprint(defstr);
-	    menuprint(" Center.\n");
+	    menuprint(LS(IDS_MSG_23366));
 	}
 	else {
 	    Player.meleestr[place*2] = defatt;
 	    Player.meleestr[(place*2)+1] = 'C';
 	    menuprint(attstr);
-	    menuprint(" Center.\n");
+	    menuprint(LS(IDS_MSG_23366));
 	}
       actionsleft = 0;
       showmenu();

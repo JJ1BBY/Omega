@@ -3153,6 +3153,221 @@ BEGIN
     IDS_MSG_23335    "**************\n*Omegan Adept*\n**************\n"
 END
 
+// ==================== command3.c (menuprint gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23336    "Things on floor:\n"
+    IDS_MSG_23337    "\n"
+    IDS_MSG_23338    "a: Overview\n"
+    IDS_MSG_23339    "b: Characters\n"
+    IDS_MSG_23340    "c: Inventories\n"
+    IDS_MSG_23341    "d: Movement\n"
+    IDS_MSG_23342    "e: Combat\n"
+    IDS_MSG_23343    "f: Bugs\n"
+    IDS_MSG_23344    "g: Magic\n"
+    IDS_MSG_23345    "h: The Countryside\n"
+    IDS_MSG_23346    "i: The Screen Display\n"
+    IDS_MSG_23347    "j: Saving and Restoring\n"
+    IDS_MSG_23348    "k: Options Settings\n"
+    IDS_MSG_23349    "l: Dungeon/City/Other Command List\n"
+    IDS_MSG_23350    "m: Countryside Command List\n"
+    IDS_MSG_23351    "n: Everything\n"
+    IDS_MSG_23352    "ESCAPE: Forget the whole thing."
+    IDS_MSG_23353    "Enter a combat maneuvers sequence.\n"
+    IDS_MSG_23354    "? for help, ! for default, backspace to start again,\n"
+    IDS_MSG_23355    " RETURN to save sequence\n"
+    IDS_MSG_23356    "\nPunch:"
+    IDS_MSG_23357    "\nThrust:"
+    IDS_MSG_23358    "\nStrike:"
+    IDS_MSG_23359    "\nCut:"
+    IDS_MSG_23360    "\nDodge (from):"
+    IDS_MSG_23361    "\nParry:"
+    IDS_MSG_23362    "\nBlock:"
+    IDS_MSG_23363    "\nLunge:"
+    IDS_MSG_23364    "\nRiposte:"
+    IDS_MSG_23365    " RETURN to save sequence\n\n"
+    IDS_MSG_23366    " Center.\n"
+END
+
+// ==================== inv.c (menuprint gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23367    "d:\tDrop up-in-air or current item\n"
+    IDS_MSG_23368    "e:\tExchange current slot with up-in-air slot\n"
+    IDS_MSG_23369    "l:\tLook at current item\n"
+    IDS_MSG_23370    "p:\tPut up-in-air or current item in pack\n"
+    IDS_MSG_23371    "s:\tShow contents of pack\n"
+    IDS_MSG_23372    "t:\tTake something from pack into the\n\tcurrent or up-in-air slot\n"
+    IDS_MSG_23373    "x:\tAs 'e', but exit if up-in-air slot finishes empty\n"
+    IDS_MSG_23374    ">:\tMove down one slot/item\n"
+    IDS_MSG_23375    "<:\tMove up one slot/item\n"
+    IDS_MSG_23376    "?:\tDisplay help (this message + help file)\n"
+    IDS_MSG_23377    "ESCAPE:\texit\n"
+    IDS_MSG_23378    "d:\tDrop an item\n"
+    IDS_MSG_23379    "e:\tExchange a slot with up-in-air slot\n"
+    IDS_MSG_23380    "l:\tLook at an item\n"
+    IDS_MSG_23381    "p:\tPut an item in pack\n"
+    IDS_MSG_23382    "t:\tTake something from pack into a slot\n"
+    IDS_MSG_23383    "x:\tAs 'e', above, exit if up-in-air slot finishes empty\n"
+    IDS_MSG_23384    "~:\tEnter full-screen inventory mode\n"
+END
+
+// ==================== effect3.c (menuprint gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23385    ":"
+    IDS_MSG_23386    "\n"
+    IDS_MSG_23387    "a: Rampart\n"
+    IDS_MSG_23388    "b: Village of Star View\n"
+    IDS_MSG_23389    "c: Village of Woodmere\n"
+    IDS_MSG_23390    "d: Village of Stormwatch\n"
+    IDS_MSG_23391    "e: Village of Thaumaris\n"
+    IDS_MSG_23392    "f: Village of Skorch\n"
+    IDS_MSG_23393    "g: Village of Whorfen\n"
+    IDS_MSG_23394    "h: Temple of the Noose\n"
+    IDS_MSG_23395    "i: The Parthenon\n"
+    IDS_MSG_23396    "j: Temple of the Black Hand\n"
+    IDS_MSG_23397    "k: Temple of the Hidden Moon\n"
+    IDS_MSG_23398    "l: WoodHenge\n"
+    IDS_MSG_23399    "m: Temple of Destiny\n"
+    IDS_MSG_23400    "n: HellWell Volcano\n"
+    IDS_MSG_23401    "ANYTHING ELSE: Avoid entering a portal."
+END
+
+// ==================== char.c (menuprint gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23402    "NPC Behavior Determination Module\n\n"
+    IDS_MSG_23403    "Your overall NPC behavior is:"
+    IDS_MSG_23404    "\n\n CHAOTIC"
+    IDS_MSG_23405    "\n\n LAWFUL"
+    IDS_MSG_23406    "\n\n NEUTRAL"
+    IDS_MSG_23407    "\n\n1: hand-to-hand combat"
+    IDS_MSG_23408    "\n2: missile combat"
+    IDS_MSG_23409    "\n3: spellcasting"
+    IDS_MSG_23410    "\n4: thieving"
+    IDS_MSG_23411    "\n5: escape"
+    IDS_MSG_23412    "\n\nEnter NPC response to combat: "
+    IDS_MSG_23413    "1: threaten"
+    IDS_MSG_23414    "\n2: greet"
+    IDS_MSG_23415    "\n3: aid"
+    IDS_MSG_23416    "\n4: beg"
+    IDS_MSG_23417    "\n5: silence"
+    IDS_MSG_23418    "\n\nEnter NPC response to conversation: "
+END
+
+// ==================== site2.c (menuprint gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23419    "Home Sweet Home\n"
+    IDS_MSG_23420    "a: Leave items in your safe.\n"
+    IDS_MSG_23421    "b: Retrieve items.\n"
+    IDS_MSG_23422    "c: Take a week off to rest.\n"
+    IDS_MSG_23423    "d: Retire permanently.\n"
+    IDS_MSG_23424    "ESCAPE: Leave this place.\n"
+    IDS_MSG_23425    "a: Try to break free.\n"
+    IDS_MSG_23426    "b: Hang limp and hope the tendrils uncoil.\n"
+    IDS_MSG_23427    "c: Pray for assistance.\n"
+    IDS_MSG_23428    "d: Attempt to bargain with the hedge.\n"
+    IDS_MSG_23429    "e: Click your heels together and wish for escape.\n"
+    IDS_MSG_23430    "ANYTHING ELSE: writhe and scream hopelessly.\n"
+    IDS_MSG_23431    "a:knock on the door.\n"
+    IDS_MSG_23432    "b:try to pick the lock.\n"
+    IDS_MSG_23433    "c:bash down the door.\n"
+    IDS_MSG_23434    "ESCAPE: Leave this house of ill repute.\n"
+END
+
+// ==================== move.c (menuprint gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23435    "\nYou discover in a dusty tome some interesting information...."
+    IDS_MSG_23436    "\nThe Star Gem holds a vast amount of mana, usable"
+    IDS_MSG_23437    "\nfor either Law or Chaos. It is magically linked to Star Peak"
+    IDS_MSG_23438    "\nand can either be activated or destroyed there. If destroyed,"
+    IDS_MSG_23439    "\nits power will be used for Chaos, if activated, for Law."
+    IDS_MSG_23440    "\n\nIt is said the LawBringer has waited for an eternity"
+    IDS_MSG_23441    "\nat Star Peak for someone to bring him the gem."
+    IDS_MSG_23442    "\nIt is also rumored that while anyone might destroy the gem,"
+    IDS_MSG_23443    "\nreleasing chaotic energy, only the LawBringer can release"
+    IDS_MSG_23444    "\nthe lawful potential of the gem."
+    IDS_MSG_23445    "\nYou discover in some ancient notes that the Star Gem can be"
+    IDS_MSG_23446    "\nused for transportation, but also read a caution that it must"
+    IDS_MSG_23447    "\nbe allowed to recharge a long time between uses."
+    IDS_MSG_23448    "\nA marginal note says 'if only it could be reset to go somewhere"
+    IDS_MSG_23449    "\nbesides Star Peak, the gem might be useful....'"
+END
+
+// ==================== guild2.c (menuprint gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23450    "a: Join the Thieves' Guild.\n"
+    IDS_MSG_23451    "b: Raise your Guild rank.\n"
+    IDS_MSG_23452    "c: Get an item identified.\n"
+    IDS_MSG_23453    "d: Fence an item.\n"
+    IDS_MSG_23454    "ESCAPE: Leave this Den of Iniquity."
+    IDS_MSG_23455    "May we help you?\n\n"
+    IDS_MSG_23456    "a: Enroll in the College.\n"
+    IDS_MSG_23457    "b: Raise your College rank.\n"
+    IDS_MSG_23458    "c: Do spell research.\n"
+    IDS_MSG_23459    "ESCAPE: Leave these hallowed halls.\n"
+    IDS_MSG_23460    "a: Become an Initiate of the Circle.\n"
+    IDS_MSG_23461    "b: Raise your rank in the Circle.\n"
+    IDS_MSG_23462    "c: Restore mana points\n"
+    IDS_MSG_23463    "ESCAPE: Leave these Chambers of Power.\n"
+END
+
+// ==================== aux3.c (menuprint gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23464    " (enter location [HCL]) "
+    IDS_MSG_23465    " High."
+    IDS_MSG_23466    " Center."
+    IDS_MSG_23467    " Low."
+    IDS_MSG_23468    "\nPossible Sites:\n"
+    IDS_MSG_23469    "\n"
+    IDS_MSG_23470    "\nNo known sites match that prefix!"
+END
+
+// ==================== spell.c (menuprint gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23471    "\nPossible Spells:\n"
+    IDS_MSG_23472    " ("
+    IDS_MSG_23473    " mana)"
+    IDS_MSG_23474    "\n"
+    IDS_MSG_23475    "\nNo spells match that prefix!"
+END
+
+// ==================== command2.c (menuprint gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23476    "\n"
+    IDS_MSG_23477    "\na: Greet."
+    IDS_MSG_23478    "\nb: Threaten."
+    IDS_MSG_23479    "\nc: Surrender."
+    IDS_MSG_23480    "\nESCAPE: Clam up."
+END
+
+// ==================== aux2.c (menuprint gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23481    "a: Drop an item.\n"
+    IDS_MSG_23482    "b: Bash an item.\n"
+    IDS_MSG_23483    "c: Drop your whole pack.\n"
+END
+
+// ==================== scr.c (menuprint gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23484    "Items in Pack:\n"
+END
+
+// ==================== itemf1.c (menuprint gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23485    "You could probably now recognise:\n"
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN

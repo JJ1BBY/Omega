@@ -46,13 +46,13 @@ void l_thieves_guild()
     while (! done) {
       menuclear();
       if (Player.rank[THIEVES] == 0)
-	menuprint("a: Join the Thieves' Guild.\n");
+	menuprint(LS(IDS_MSG_23450));
       else
-	menuprint("b: Raise your Guild rank.\n");
-      menuprint("c: Get an item identified.\n");
+	menuprint(LS(IDS_MSG_23451));
+      menuprint(LS(IDS_MSG_23452));
       if (Player.rank[THIEVES] > 0)
-	menuprint("d: Fence an item.\n");
-      menuprint("ESCAPE: Leave this Den of Iniquity.");
+	menuprint(LS(IDS_MSG_23453));
+      menuprint(LS(IDS_MSG_23454));
       showmenu();
       action = mgetc();
       if (action == ESCAPE) done = TRUE;
@@ -287,11 +287,11 @@ void l_college()
 	save_hiscore_npc(9);
       }
       menuclear();
-      menuprint("May we help you?\n\n");
-      menuprint("a: Enroll in the College.\n");
-      menuprint("b: Raise your College rank.\n");
-      menuprint("c: Do spell research.\n");
-      menuprint("ESCAPE: Leave these hallowed halls.\n");
+      menuprint(LS(IDS_MSG_23455));
+      menuprint(LS(IDS_MSG_23456));
+      menuprint(LS(IDS_MSG_23457));
+      menuprint(LS(IDS_MSG_23458));
+      menuprint(LS(IDS_MSG_23459));
       showmenu();
       action = mgetc();
       if (action == ESCAPE) done = TRUE;
@@ -474,11 +474,11 @@ void l_sorcerors()
       Player.pow += 10;
     }
     menuclear();
-    menuprint("May we help you?\n\n");
-    menuprint("a: Become an Initiate of the Circle.\n");
-    menuprint("b: Raise your rank in the Circle.\n");
-    menuprint("c: Restore mana points\n");
-    menuprint("ESCAPE: Leave these Chambers of Power.\n");
+    menuprint(LS(IDS_MSG_23455));
+    menuprint(LS(IDS_MSG_23460));
+    menuprint(LS(IDS_MSG_23461));
+    menuprint(LS(IDS_MSG_23462));
+    menuprint(LS(IDS_MSG_23463));
     showmenu();
     action = mgetc();
     if (action == ESCAPE) done = TRUE;

@@ -748,18 +748,18 @@ int first, last;
   int i,printed=FALSE;
 
   menuclear();
-  menuprint("\nPossible Spells:\n");
+  menuprint(LS(IDS_MSG_23471));
   for (i = first; i <= last; i++)
     if (Spells[spell_ids[i]].known) {
       printed = TRUE;
       menuprint(spell_names[i]);
-      menuprint(" (");
+      menuprint(LS(IDS_MSG_23472));
       menunumprint(Spells[spell_ids[i]].powerdrain);
-      menuprint(" mana)");
-      menuprint("\n");
+      menuprint(LS(IDS_MSG_23473));
+      menuprint(LS(IDS_MSG_23474));
     }
   if (! printed)
-    menuprint("\nNo spells match that prefix!");
+    menuprint(LS(IDS_MSG_23475));
   showmenu();
 }
 

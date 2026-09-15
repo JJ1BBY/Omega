@@ -201,7 +201,7 @@ void floor_inv()
     if (ol->thing == NULL) print3(LS(IDS_MSG_20414));
     else {
       menuprint(itemid(ol->thing));
-      menuprint("\n");
+      menuprint(LS(IDS_MSG_23476));
     }
     ol = ol->next;
   }
@@ -289,10 +289,10 @@ void talk()
       strcat(Str1,m->monstring);
       strcat(Str1,LS(IDS_MSG_23193));
       menuprint(Str1);
-      menuprint("\na: Greet.");
-      menuprint("\nb: Threaten.");
-      menuprint("\nc: Surrender.");
-      menuprint("\nESCAPE: Clam up.");
+      menuprint(LS(IDS_MSG_23477));
+      menuprint(LS(IDS_MSG_23478));
+      menuprint(LS(IDS_MSG_23479));
+      menuprint(LS(IDS_MSG_23480));
       showmenu();
       do response = menugetc();
       while ((response != 'a') &&

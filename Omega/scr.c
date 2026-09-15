@@ -1425,7 +1425,7 @@ void display_pack()
   if (Player.packptr < 1) print3(LS(IDS_MSG_22220));
   else {
     menuclear();
-    menuprint("Items in Pack:\n");
+    menuprint(LS(IDS_MSG_23484));
     for(i=0;i<Player.packptr;i++) {
       sprintf(Str1, "  %c: %s\n", i + 'A', itemid(Player.pack[i]));
       menuprint(Str1);

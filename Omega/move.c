@@ -804,16 +804,16 @@ void l_circle_library()
 void l_tome1()
 {
   menuclear();
-  menuprint("\nYou discover in a dusty tome some interesting information....");
-  menuprint("\nThe Star Gem holds a vast amount of mana, usable");
-  menuprint("\nfor either Law or Chaos. It is magically linked to Star Peak");
-  menuprint("\nand can either be activated or destroyed there. If destroyed,");
-  menuprint("\nits power will be used for Chaos, if activated, for Law.");
-  menuprint("\n\nIt is said the LawBringer has waited for an eternity");
-  menuprint("\nat Star Peak for someone to bring him the gem.");
-  menuprint("\nIt is also rumored that while anyone might destroy the gem,");
-  menuprint("\nreleasing chaotic energy, only the LawBringer can release");
-  menuprint("\nthe lawful potential of the gem.");
+  menuprint(LS(IDS_MSG_23435));
+  menuprint(LS(IDS_MSG_23436));
+  menuprint(LS(IDS_MSG_23437));
+  menuprint(LS(IDS_MSG_23438));
+  menuprint(LS(IDS_MSG_23439));
+  menuprint(LS(IDS_MSG_23440));
+  menuprint(LS(IDS_MSG_23441));
+  menuprint(LS(IDS_MSG_23442));
+  menuprint(LS(IDS_MSG_23443));
+  menuprint(LS(IDS_MSG_23444));
   showmenu();
   morewait();
   xredraw();
@@ -823,11 +823,11 @@ void l_tome1()
 void l_tome2()
 {
   menuclear();
-  menuprint("\nYou discover in some ancient notes that the Star Gem can be");
-  menuprint("\nused for transportation, but also read a caution that it must");
-  menuprint("\nbe allowed to recharge a long time between uses.");
-  menuprint("\nA marginal note says 'if only it could be reset to go somewhere");
-  menuprint("\nbesides Star Peak, the gem might be useful....'");
+  menuprint(LS(IDS_MSG_23445));
+  menuprint(LS(IDS_MSG_23446));
+  menuprint(LS(IDS_MSG_23447));
+  menuprint(LS(IDS_MSG_23448));
+  menuprint(LS(IDS_MSG_23449));
   showmenu();
   morewait();
   xredraw();
