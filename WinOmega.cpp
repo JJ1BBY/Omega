@@ -58,7 +58,21 @@ extern "C" char *LS(int id)
   next = (next + 1) % 4;
 
   if (LoadStringA(GetModuleHandle(NULL), id, buf, sizeof(buffers[0])) == 0)
-    _snprintf(buf, sizeof(buffers[0]), "[missing string %d]", id);
+  {
+    // LoadStringA returns 0 both when the string genuinely isn't found
+    // and when it's found but legitimately empty -- several Japanese
+    // translations are "" on purpose (dropping an English article that
+    // has no Japanese equivalent, eg. mmelee.c's "a "/"The " prefixes),
+    // so 0 alone can't tell "missing" from "empty by design" apart.
+    // Strings are packed 16 to a bundle (id>>4)+1; if that bundle exists
+    // at all for the resolved language, id's entry is legitimately empty
+    // rather than absent, so only fall back to the placeholder when the
+    // whole bundle is missing.
+    if (FindResourceA(GetModuleHandle(NULL),MAKEINTRESOURCEA((id >> 4) + 1),RT_STRING) == NULL)
+      _snprintf(buf, sizeof(buffers[0]), "[missing string %d]", id);
+    else
+      buf[0] = '\0';
+  }
   return buf;
 }
 
