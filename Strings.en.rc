@@ -3368,6 +3368,36 @@ BEGIN
     IDS_MSG_23485    "You could probably now recognise:\n"
 END
 
+// ==================== scr.c (wprintw gap-fill) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23486    "yes. "
+    IDS_MSG_23487    "no. "
+    IDS_MSG_23488    "quit. "
+    IDS_MSG_23489    "%c : unknown command"
+    IDS_MSG_23490    " the %d"
+    IDS_MSG_23491    "How many? Change with < or >, ESCAPE to select:"
+    IDS_MSG_23492    "-- Object 'up in air':"
+    IDS_MSG_23493    "-- a%c ready hand: "
+    IDS_MSG_23494    "-- b%c weapon hand: "
+    IDS_MSG_23495    "-- c%c left shoulder: "
+    IDS_MSG_23496    "-- d%c right shoulder: "
+    IDS_MSG_23497    "-- e%c belt: "
+    IDS_MSG_23498    "-- f%c belt: "
+    IDS_MSG_23499    "-- g%c belt: "
+    IDS_MSG_23500    "-- h%c shield: "
+    IDS_MSG_23501    "-- i%c armor: "
+    IDS_MSG_23502    "-- j%c boots: "
+    IDS_MSG_23503    "-- k%c cloak: "
+    IDS_MSG_23504    "-- l%c finger: "
+    IDS_MSG_23505    "-- m%c finger: "
+    IDS_MSG_23506    "-- n%c finger: "
+    IDS_MSG_23507    "-- o%c finger: "
+    IDS_MSG_23508    "(slot vacant)"
+    IDS_MSG_23509    "^p for previous message, ^n for next, anything else to quit."
+    IDS_MSG_23510    "^o for last message, ^n for next, anything else to quit."
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN

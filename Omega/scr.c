@@ -145,10 +145,10 @@ char ynq1()
   while ((p != 'n') && (p != 'y') && (p != 'q') && (p != ESCAPE))
     p = wgetch(Msg1w);
   switch (p) {
-    case 'y': wprintw(Msg1w,"yes. "); break;
-    case 'n': wprintw(Msg1w,"no. "); break;
+    case 'y': wprintw(Msg1w,LS(IDS_MSG_23486)); break;
+    case 'n': wprintw(Msg1w,LS(IDS_MSG_23487)); break;
     case ESCAPE: p = 'q';
-    case 'q': wprintw(Msg1w,"quit. "); break;
+    case 'q': wprintw(Msg1w,LS(IDS_MSG_23488)); break;
     }
   wrefresh(Msg1w);
   return(p);
@@ -161,10 +161,10 @@ char ynq2()
   while ((p != 'n') && (p != 'y') && (p != 'q') && (p != ESCAPE))
     p = wgetch(Msg2w);
   switch (p) {
-    case 'y': wprintw(Msg2w,"yes. "); break;
-    case 'n': wprintw(Msg2w,"no. "); break;
+    case 'y': wprintw(Msg2w,LS(IDS_MSG_23486)); break;
+    case 'n': wprintw(Msg2w,LS(IDS_MSG_23487)); break;
     case ESCAPE: p = 'q';
-    case 'q': wprintw(Msg2w,"quit. "); break;
+    case 'q': wprintw(Msg2w,LS(IDS_MSG_23488)); break;
     }
   wrefresh(Msg2w);
   return(p);
@@ -730,7 +730,7 @@ int x,y,showmonster;
 void commanderror()
 {
   wclear(Msg3w);
-  wprintw(Msg3w,"%c : unknown command",Cmd);
+  wprintw(Msg3w,LS(IDS_MSG_23489),Cmd);
   wrefresh(Msg3w);
 }
 
@@ -741,7 +741,7 @@ void timeprint()
   if (showminute()==0) waddch(Timew,'0');
   wprintw(Timew,hour()>11 ? " PM \n" : " AM \n");
   wprintw(Timew,month());
-  wprintw(Timew," the %d",day());
+  wprintw(Timew,LS(IDS_MSG_23490),day());
   wprintw(Timew,ordinal(day()));
   wrefresh(Timew);
 }
@@ -999,7 +999,7 @@ int range;
   if (range==1) return(1);
   else while (! done) {
     clearmsg();
-    wprintw(Msg1w,"How many? Change with < or >, ESCAPE to select:");
+    wprintw(Msg1w,LS(IDS_MSG_23491));
     mnumprint(value);
 #ifndef MSDOS
     do atom=mcigetc();
@@ -1461,56 +1461,56 @@ int topline;
   wclear(W);
   switch(slotnum) {
   case O_UP_IN_AIR:
-    wprintw(W,"-- Object 'up in air':",usechar);
+    wprintw(W,LS(IDS_MSG_23492),usechar);
     break;
   case O_READY_HAND:
-    wprintw(W,"-- a%c ready hand: ",usechar);
+    wprintw(W,LS(IDS_MSG_23493),usechar);
     break;
   case O_WEAPON_HAND:
-    wprintw(W,"-- b%c weapon hand: ",usechar);
+    wprintw(W,LS(IDS_MSG_23494),usechar);
     break;
   case O_LEFT_SHOULDER:
-    wprintw(W,"-- c%c left shoulder: ",usechar);
+    wprintw(W,LS(IDS_MSG_23495),usechar);
     break;
   case O_RIGHT_SHOULDER:
-    wprintw(W,"-- d%c right shoulder: ",usechar);
+    wprintw(W,LS(IDS_MSG_23496),usechar);
     break;
   case O_BELT1:
-    wprintw(W,"-- e%c belt: ",usechar);
+    wprintw(W,LS(IDS_MSG_23497),usechar);
     break;
   case O_BELT2:
-    wprintw(W,"-- f%c belt: ",usechar);
+    wprintw(W,LS(IDS_MSG_23498),usechar);
     break;
   case O_BELT3:
-    wprintw(W,"-- g%c belt: ",usechar);
+    wprintw(W,LS(IDS_MSG_23499),usechar);
     break;
   case O_SHIELD:
-    wprintw(W,"-- h%c shield: ",usechar);
+    wprintw(W,LS(IDS_MSG_23500),usechar);
     break;
   case O_ARMOR:
-    wprintw(W,"-- i%c armor: ",usechar);
+    wprintw(W,LS(IDS_MSG_23501),usechar);
     break;
   case O_BOOTS:
-    wprintw(W,"-- j%c boots: ",usechar);
+    wprintw(W,LS(IDS_MSG_23502),usechar);
     break;
   case O_CLOAK:
-    wprintw(W,"-- k%c cloak: ",usechar);
+    wprintw(W,LS(IDS_MSG_23503),usechar);
     break;
   case O_RING1:
-    wprintw(W,"-- l%c finger: ",usechar);
+    wprintw(W,LS(IDS_MSG_23504),usechar);
     break;
   case O_RING2:
-    wprintw(W,"-- m%c finger: ",usechar);
+    wprintw(W,LS(IDS_MSG_23505),usechar);
     break;
   case O_RING3:
-    wprintw(W,"-- n%c finger: ",usechar);
+    wprintw(W,LS(IDS_MSG_23506),usechar);
     break;
   case O_RING4:
-    wprintw(W,"-- o%c finger: ",usechar);
+    wprintw(W,LS(IDS_MSG_23507),usechar);
     break;
   }
   if (Player.possessions[slotnum]== NULL)
-    wprintw(W,"(slot vacant)");
+    wprintw(W,LS(IDS_MSG_23508));
   else wprintw(W,itemid(Player.possessions[slotnum]));
   wrefresh(W);
 }
@@ -1689,9 +1689,9 @@ void bufferprint()
   int i = bufferpos - 1, c, finished = 0;
   clearmsg();
 #ifndef MSDOS
-  wprintw(Msg1w,"^p for previous message, ^n for next, anything else to quit.");
+  wprintw(Msg1w,LS(IDS_MSG_23509));
 #else
-  wprintw(Msg1w,"^o for last message, ^n for next, anything else to quit.");
+  wprintw(Msg1w,LS(IDS_MSG_23510));
 #endif
   wrefresh(Msg1w);
   do {

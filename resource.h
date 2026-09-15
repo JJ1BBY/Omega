@@ -3196,6 +3196,33 @@
 // ---- itemf1.c (menuprint gap-fill) ----
 #define IDS_MSG_23485                   23485
 
+// ---- scr.c (wprintw gap-fill) ----
+#define IDS_MSG_23486                   23486
+#define IDS_MSG_23487                   23487
+#define IDS_MSG_23488                   23488
+#define IDS_MSG_23489                   23489
+#define IDS_MSG_23490                   23490
+#define IDS_MSG_23491                   23491
+#define IDS_MSG_23492                   23492
+#define IDS_MSG_23493                   23493
+#define IDS_MSG_23494                   23494
+#define IDS_MSG_23495                   23495
+#define IDS_MSG_23496                   23496
+#define IDS_MSG_23497                   23497
+#define IDS_MSG_23498                   23498
+#define IDS_MSG_23499                   23499
+#define IDS_MSG_23500                   23500
+#define IDS_MSG_23501                   23501
+#define IDS_MSG_23502                   23502
+#define IDS_MSG_23503                   23503
+#define IDS_MSG_23504                   23504
+#define IDS_MSG_23505                   23505
+#define IDS_MSG_23506                   23506
+#define IDS_MSG_23507                   23507
+#define IDS_MSG_23508                   23508
+#define IDS_MSG_23509                   23509
+#define IDS_MSG_23510                   23510
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222
