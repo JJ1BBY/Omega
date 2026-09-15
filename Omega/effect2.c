@@ -13,311 +13,311 @@ int blessing;
   else {
     mprint(LS(IDS_MSG_20758));
     menuclear();
-    menuprint("Current Point Total: ");
+    menuprint(LS(IDS_MSG_23235));
     menulongprint(calc_points());
-    menuprint("\nAlignment:");
+    menuprint(LS(IDS_MSG_23236));
     if (Player.alignment == 0)
-      menuprint("Neutral, embodying the Cosmic Balance");
+      menuprint(LS(IDS_MSG_23237));
     else if (abs(Player.alignment) < 10)
-      menuprint("Neutral, tending toward ");
+      menuprint(LS(IDS_MSG_23238));
     else if (abs(Player.alignment) < 50)
-      menuprint("Neutral-");
+      menuprint(LS(IDS_MSG_23239));
     else if (abs(Player.alignment) < 100) ;
     else if (abs(Player.alignment) < 200)
-      menuprint("Servant of ");
+      menuprint(LS(IDS_MSG_23240));
     else if (abs(Player.alignment) < 400)
-      menuprint("Master of ");
+      menuprint(LS(IDS_MSG_23241));
     else if (abs(Player.alignment) < 800)
-      menuprint("The Essence of ");
-    else menuprint("The Ultimate Avatar of ");
-    if (Player.alignment < 0) menuprint("Chaos\n");
-    else if (Player.alignment > 0) menuprint("Law\n");
+      menuprint(LS(IDS_MSG_23242));
+    else menuprint(LS(IDS_MSG_23243));
+    if (Player.alignment < 0) menuprint(LS(IDS_MSG_23244));
+    else if (Player.alignment > 0) menuprint(LS(IDS_MSG_23245));
     showmenu();
     morewait();
     menuclear();
-    menuprint("Current stati:\n");
+    menuprint(LS(IDS_MSG_23246));
     if (Player.status[BLINDED])
-      menuprint("Blinded\n");
+      menuprint(LS(IDS_MSG_23247));
     if (Player.status[SLOWED])
-      menuprint("Slowed\n");
+      menuprint(LS(IDS_MSG_23248));
     if (Player.status[HASTED])
-      menuprint("Hasted\n");
+      menuprint(LS(IDS_MSG_23249));
     if (Player.status[DISPLACED])
-      menuprint("Displaced\n");
+      menuprint(LS(IDS_MSG_23250));
     if (Player.status[SLEPT])
-      menuprint("Slept\n");
+      menuprint(LS(IDS_MSG_23251));
     if (Player.status[DISEASED])
-      menuprint("Diseased\n");
+      menuprint(LS(IDS_MSG_23252));
     if (Player.status[POISONED])
-      menuprint("Poisoned\n");
+      menuprint(LS(IDS_MSG_23253));
     if (Player.status[BREATHING])
-      menuprint("Breathing\n");
+      menuprint(LS(IDS_MSG_23254));
     if (Player.status[INVISIBLE])
-      menuprint("Invisible\n");
+      menuprint(LS(IDS_MSG_23255));
     if (Player.status[REGENERATING])
-      menuprint("Regenerating\n");
+      menuprint(LS(IDS_MSG_23256));
     if (Player.status[VULNERABLE])
-      menuprint("Vulnerable\n");
+      menuprint(LS(IDS_MSG_23257));
     if (Player.status[BERSERK])
-      menuprint("Berserk\n");
+      menuprint(LS(IDS_MSG_23258));
     if (Player.status[IMMOBILE])
-      menuprint("Immobile\n");
+      menuprint(LS(IDS_MSG_23259));
     if (Player.status[ALERT])
-      menuprint("Alert\n");
+      menuprint(LS(IDS_MSG_23260));
     if (Player.status[AFRAID])
-      menuprint("Afraid\n");
+      menuprint(LS(IDS_MSG_23261));
     if (Player.status[ACCURATE])
-      menuprint("Accurate\n");
+      menuprint(LS(IDS_MSG_23262));
     if (Player.status[HERO])
-      menuprint("Heroic\n");
+      menuprint(LS(IDS_MSG_23263));
     if (Player.status[LEVITATING])
-      menuprint("Levitating\n");
+      menuprint(LS(IDS_MSG_23264));
     showmenu();
     morewait();
     menuclear();
-    menuprint("Immunities:\n");
+    menuprint(LS(IDS_MSG_23265));
     if (p_immune(NORMAL_DAMAGE))
-      menuprint("Normal Damage\n");
+      menuprint(LS(IDS_MSG_23266));
     if (p_immune(FLAME))
-      menuprint("Flame\n");
+      menuprint(LS(IDS_MSG_23267));
     if (p_immune(ELECTRICITY))
-      menuprint("Electricity\n");
+      menuprint(LS(IDS_MSG_23268));
     if (p_immune(COLD))
-      menuprint("Cold\n");
+      menuprint(LS(IDS_MSG_23269));
     if (p_immune(POISON))
-      menuprint("Poison\n");
+      menuprint(LS(IDS_MSG_23270));
     if (p_immune(ACID))
-      menuprint("Acid\n");
+      menuprint(LS(IDS_MSG_23271));
     if (p_immune(FEAR))
-      menuprint("Fear\n");
+      menuprint(LS(IDS_MSG_23272));
     if (p_immune(SLEEP))
-      menuprint("Sleep\n");
+      menuprint(LS(IDS_MSG_23273));
     if (p_immune(NEGENERGY))
-      menuprint("Negative Energies\n");
+      menuprint(LS(IDS_MSG_23274));
     if (p_immune(THEFT))
-      menuprint("Theft\n");
+      menuprint(LS(IDS_MSG_23275));
     if (p_immune(GAZE))
-      menuprint("Gaze\n");
+      menuprint(LS(IDS_MSG_23276));
     if (p_immune(INFECTION))
-      menuprint("Infection\n");
+      menuprint(LS(IDS_MSG_23277));
     showmenu();
     morewait();
     menuclear();
-    menuprint("Ranks:\n");
+    menuprint(LS(IDS_MSG_23278));
     switch(Player.rank[LEGION]) {
     case COMMANDANT:
-      menuprint("Commandant of the Legion"); 
+      menuprint(LS(IDS_MSG_23279)); 
       break;
     case COLONEL:    
-      menuprint("Colonel of the Legion");
+      menuprint(LS(IDS_MSG_23280));
       break;
     case FORCE_LEADER:
-      menuprint("Force Leader of the Legion");
+      menuprint(LS(IDS_MSG_23281));
       break;
     case CENTURION:
-      menuprint("Centurion of the Legion");
+      menuprint(LS(IDS_MSG_23282));
       break;
     case LEGIONAIRE:
-      menuprint("Legionaire");
+      menuprint(LS(IDS_MSG_23283));
       break;
     }
     if (Player.rank[LEGION] > 0) {
-      menuprint(" (");
+      menuprint(LS(IDS_MSG_23284));
       menunumprint(Player.guildxp[LEGION]);
-      menuprint(" XP).\n");
+      menuprint(LS(IDS_MSG_23285));
     }
     switch(Player.rank[ARENA]) {
     case -1:
-      menuprint("Ex-gladiator\n");
+      menuprint(LS(IDS_MSG_23286));
       break;
     case CHAMPION:
-      menuprint("Gladiator Champion");
+      menuprint(LS(IDS_MSG_23287));
       break;
     case GLADIATOR:    
-      menuprint("Gladiator of the Arena");
+      menuprint(LS(IDS_MSG_23288));
       break;
     case RETIARIUS:
-      menuprint("Retiarius of the Arena");
+      menuprint(LS(IDS_MSG_23289));
       break;
     case BESTIARIUS:
-      menuprint("Bestiarius of the Arena");
+      menuprint(LS(IDS_MSG_23290));
       break;
     case TRAINEE:
-      menuprint("Gladiator Trainee of the Arena");
+      menuprint(LS(IDS_MSG_23291));
       break;
     }
     if (Player.rank[ARENA] > 0) {
-      menuprint(" (Opponent ");
+      menuprint(LS(IDS_MSG_23292));
       menunumprint(Arena_Opponent);
-      menuprint(")\n");
+      menuprint(LS(IDS_MSG_23293));
     }
     switch(Player.rank[COLLEGE]) {
     case ARCHMAGE:
-      menuprint("Archmage of the Collegium Magii");
+      menuprint(LS(IDS_MSG_23294));
       break;
     case MAGE:
-      menuprint("Collegium Magii: Mage");
+      menuprint(LS(IDS_MSG_23295));
       break;
     case PRECEPTOR:
-      menuprint("Collegium Magii: Preceptor");
+      menuprint(LS(IDS_MSG_23296));
       break;
     case STUDENT:
-      menuprint("Collegium Magii: Student");
+      menuprint(LS(IDS_MSG_23297));
       break;
     case NOVICE:
-      menuprint("Collegium Magii: Novice");
+      menuprint(LS(IDS_MSG_23298));
       break;
     }
     if (Player.rank[COLLEGE] > 0) {
-      menuprint(" (");
+      menuprint(LS(IDS_MSG_23284));
       menunumprint(Player.guildxp[COLLEGE]);
-      menuprint(" XP).\n");
+      menuprint(LS(IDS_MSG_23285));
     }
     switch(Player.rank[NOBILITY]) {
     case DUKE:
-      menuprint("Duke of Rampart");
+      menuprint(LS(IDS_MSG_23299));
       break;
     case LORD:
-      menuprint("Peer of the Realm");
+      menuprint(LS(IDS_MSG_23300));
       break;
     case KNIGHT:
-      menuprint("Order of the Knights of Rampart");
+      menuprint(LS(IDS_MSG_23301));
       break;
     case ESQUIRE:
-      menuprint("Squire of Rampart");
+      menuprint(LS(IDS_MSG_23302));
       break;
     case COMMONER:
-      menuprint("Commoner");
+      menuprint(LS(IDS_MSG_23303));
       break;
     default:
-      menuprint("Lowly Commoner\n");
+      menuprint(LS(IDS_MSG_23304));
       break;
     }
     if (Player.rank[NOBILITY] > 1) {
-      menuprint(" (");
+      menuprint(LS(IDS_MSG_23284));
       menunumprint(Player.rank[NOBILITY] - 1);
       menuprint(ordinal(Player.rank[NOBILITY] - 1));
-      menuprint(" Quest Completed)\n");
+      menuprint(LS(IDS_MSG_23305));
     }
     else if (Player.rank[NOBILITY] == 1) {
-      menuprint(" (1st Quest Undertaken)\n");
+      menuprint(LS(IDS_MSG_23306));
     }
     switch(Player.rank[CIRCLE]) {
     case -1:
-      menuprint("Former member of the Circle.\n");
+      menuprint(LS(IDS_MSG_23307));
       break;
     case PRIME:
-      menuprint("Prime Sorceror of the Inner Circle");
+      menuprint(LS(IDS_MSG_23308));
       break;
     case HIGHSORCEROR:
-      menuprint("High Sorceror of the Inner Circle");
+      menuprint(LS(IDS_MSG_23309));
       break;
     case SORCEROR:
-      menuprint("Member of the Circle of Sorcerors");
+      menuprint(LS(IDS_MSG_23310));
       break;
     case ENCHANTER:
-      menuprint("Member of the Circle of Enchanters");
+      menuprint(LS(IDS_MSG_23311));
       break;
     case INITIATE:
-      menuprint("Member of the Circle of Initiates");
+      menuprint(LS(IDS_MSG_23312));
       break;
     }
     if (Player.rank[CIRCLE] > 0) {
-      menuprint(" (");
+      menuprint(LS(IDS_MSG_23284));
       menunumprint(Player.guildxp[CIRCLE]);
-      menuprint(" XP).\n");
+      menuprint(LS(IDS_MSG_23285));
     }
     switch(Player.rank[ORDER]) {
     case -1:
-      menuprint("Washout from the Order of Paladins\n");
+      menuprint(LS(IDS_MSG_23313));
       break;
     case JUSTICIAR:
-      menuprint("Justiciar of the Order of Paladins");
+      menuprint(LS(IDS_MSG_23314));
       break;
     case PALADIN:
-      menuprint("Paladin of the Order");
+      menuprint(LS(IDS_MSG_23315));
       break;
     case CHEVALIER:
-      menuprint("Chevalier of the Order");
+      menuprint(LS(IDS_MSG_23316));
       break;
     case GUARDIAN:
-      menuprint("Guardian of the Order");
+      menuprint(LS(IDS_MSG_23317));
       break;
     case GALLANT:
-      menuprint("Gallant of the Order");
+      menuprint(LS(IDS_MSG_23318));
       break;
     }
     if (Player.rank[ORDER] > 0) {
-      menuprint(" (");
+      menuprint(LS(IDS_MSG_23284));
       menunumprint(Player.guildxp[ORDER]);
-      menuprint(" XP).\n");
+      menuprint(LS(IDS_MSG_23285));
     }
     switch(Player.rank[THIEVES]) {
     case SHADOWLORD:
-      menuprint("Guild of Thieves: Shadowlord");
+      menuprint(LS(IDS_MSG_23319));
       break;
     case TMASTER:
-      menuprint("Guild of Thieves: Master Thief");
+      menuprint(LS(IDS_MSG_23320));
       break;
     case THIEF:
-      menuprint("Guild of Thieves: Thief");
+      menuprint(LS(IDS_MSG_23321));
       break;
     case ATHIEF:
-      menuprint("Guild of Thieves: Apprentice Thief");
+      menuprint(LS(IDS_MSG_23322));
       break;
     case TMEMBER:
-      menuprint("Guild of Thieves: Candidate Member");
+      menuprint(LS(IDS_MSG_23323));
       break;
     }
     if (Player.rank[THIEVES] > 0) {
-      menuprint(" (");
+      menuprint(LS(IDS_MSG_23284));
       menunumprint(Player.guildxp[THIEVES]);
-      menuprint(" XP).\n");
+      menuprint(LS(IDS_MSG_23285));
     }
     switch(Player.rank[PRIESTHOOD]) {
       case LAY:
-        menuprint("A lay devotee of ");
+        menuprint(LS(IDS_MSG_23324));
 	break;
       case ACOLYTE:
-        menuprint("An Acolyte of ");
+        menuprint(LS(IDS_MSG_23325));
 	break;
       case PRIEST:
-        menuprint("A Priest of ");
+        menuprint(LS(IDS_MSG_23326));
 	break;
       case SPRIEST:
-        menuprint("A Senior Priest of ");
+        menuprint(LS(IDS_MSG_23327));
 	break;
       case HIGHPRIEST:
-        menuprint("The High Priest of ");
+        menuprint(LS(IDS_MSG_23328));
 	break;
       }
     switch(Player.patron) {
       case ODIN:
-        menuprint("Odin");
+        menuprint(LS(IDS_MSG_23329));
 	break;
       case SET:
-        menuprint("Set");
+        menuprint(LS(IDS_MSG_23330));
 	break;
       case ATHENA:
-        menuprint("Athena");
+        menuprint(LS(IDS_MSG_23331));
 	break;
       case HECATE:
-        menuprint("Hecate");
+        menuprint(LS(IDS_MSG_23332));
 	break;
       case DRUID:
-        menuprint("Druidism");
+        menuprint(LS(IDS_MSG_23333));
 	break;
       case DESTINY:
-        menuprint("the Lords of Destiny");
+        menuprint(LS(IDS_MSG_23334));
 	break;
     }
     if (Player.rank[PRIESTHOOD] > 0) {
-      menuprint(" (");
+      menuprint(LS(IDS_MSG_23284));
       menunumprint(Player.guildxp[PRIESTHOOD]);
-      menuprint(" XP).\n");
+      menuprint(LS(IDS_MSG_23285));
     }
     if (Player.rank[ADEPT] > 0) 
-      menuprint("**************\n*Omegan Adept*\n**************\n");
+      menuprint(LS(IDS_MSG_23335));
     showmenu();
     morewait();
     xredraw();
