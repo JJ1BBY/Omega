@@ -104,8 +104,13 @@ LANGID originalUILanguage = 0;
 // (language is always remembered) is unchanged until a user opts out.
 bool saveLanguageChoice = true;
 
-// Set of fixed width TrueType fonts
+// Set of fixed width TrueType fonts. fontNames holds every fixed-width
+// font found (ANSI and Shift-JIS charsets combined); jpFontNames holds
+// only the Shift-JIS-capable subset, used to keep the font picker from
+// offering an ANSI-only font (which can't shape Japanese text at all --
+// see populateFontFaceCombo()) while Japanese is the selected language.
 std::set<std::string> fontNames;
+std::set<std::string> jpFontNames;
 
 // Queue of input key presses
 std::deque<int> inputKeys;
@@ -1286,6 +1291,51 @@ extern "C" int isJapaneseUILanguage()
   return PRIMARYLANGID(LANGIDFROMLCID(GetThreadLocale())) == LANG_JAPANESE;
 }
 
+// Whether the setup dialog's IDC_LANGUAGE selection (0 = System default,
+// 1 = English, 2 = Japanese) will result in Japanese text being drawn, so
+// populateFontFaceCombo() knows whether to restrict the font list to
+// Shift-JIS-capable fonts. For "System default" this follows the OS's own
+// default UI language, same as applyUILanguage(0) would.
+bool needsJapaneseFont(int langSel)
+{
+  if (langSel == 2)
+    return true;
+  if (langSel == 1)
+    return false;
+  return PRIMARYLANGID(originalUILanguage) == LANG_JAPANESE;
+}
+
+// (Re)populates the font face combo from either the full font list or
+// just the Shift-JIS-capable subset (see jpFontNames above), preserving
+// the current selection if it's still offered, or falling back to a
+// Japanese-capable font (mirroring the startup auto-select logic) when
+// switching into Japanese and the current pick can't render it.
+void populateFontFaceCombo(HWND wnd, bool japaneseOnly)
+{
+  HWND fontFaceCtrl = GetDlgItem(wnd,IDC_FONTFACE);
+  char previous[LF_FACESIZE];
+  GetWindowText(fontFaceCtrl,previous,LF_FACESIZE);
+
+  const std::set<std::string>& names = japaneseOnly ? jpFontNames : fontNames;
+
+  SendMessage(fontFaceCtrl,CB_RESETCONTENT,0,0);
+  for (std::set<std::string>::const_iterator it = names.begin(); it != names.end(); ++it)
+    SendMessage(fontFaceCtrl,CB_ADDSTRING,0,(LPARAM)it->c_str());
+
+  if (japaneseOnly && names.count(previous) == 0)
+  {
+    if (names.count("\x82\x6c\x82\x72\x20\x83\x53\x83\x56\x83\x62\x83\x4e") == 1)
+      strcpy(previous,"\x82\x6c\x82\x72\x20\x83\x53\x83\x56\x83\x62\x83\x4e");
+    else if (names.count("MS Gothic") == 1)
+      strcpy(previous,"MS Gothic");
+    else if (names.count("MS UI Gothic") == 1)
+      strcpy(previous,"MS UI Gothic");
+    else if (!names.empty())
+      strcpy(previous,names.begin()->c_str());
+  }
+  SendMessage(fontFaceCtrl,CB_SELECTSTRING,-1,(LPARAM)previous);
+}
+
 // Called by Windows with any messages for the setup dialog
 INT_PTR CALLBACK dlgProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -1296,11 +1346,29 @@ INT_PTR CALLBACK dlgProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
       // Initialize the graphics control
       SendMessage(GetDlgItem(wnd,IDC_GRAPHICS),BM_SETCHECK,graphics ? BST_CHECKED : BST_UNCHECKED,0);
 
-      // Initialize the font face control
+      // Initialize the language control first, since the font face control
+      // (below) needs to know the selected language to decide whether to
+      // restrict itself to Shift-JIS-capable fonts. Language names are
+      // shown in their own language regardless of the current UI
+      // language, which is why these aren't pulled from LS().
+      HWND languageCtrl = GetDlgItem(wnd,IDC_LANGUAGE);
+      SendMessage(languageCtrl,CB_ADDSTRING,0,(LPARAM)"(System default)");
+      SendMessage(languageCtrl,CB_ADDSTRING,0,(LPARAM)"English");
+      SendMessage(languageCtrl,CB_ADDSTRING,0,(LPARAM)"\x93\xFA\x96\x7B\x8C\xEA");
+      int langSel = 0;
+      if (uiLanguage == MAKELANGID(LANG_ENGLISH,SUBLANG_ENGLISH_UK))
+        langSel = 1;
+      else if (uiLanguage == MAKELANGID(LANG_JAPANESE,SUBLANG_JAPANESE_JAPAN))
+        langSel = 2;
+      SendMessage(languageCtrl,CB_SETCURSEL,langSel,0);
+
+      // Initialize the font face control, restricted to Shift-JIS-capable
+      // fonts if the selected language needs them -- an ANSI-only font
+      // (Consolas, Cascadia Mono, ...) can't shape Japanese text at all,
+      // it silently renders as garbled individual-byte glyphs instead.
       HWND fontFaceCtrl = GetDlgItem(wnd,IDC_FONTFACE);
-      for (std::set<std::string>::iterator it = fontNames.begin(); it != fontNames.end(); ++it)
-        SendMessage(fontFaceCtrl,CB_ADDSTRING,0,(LPARAM)it->c_str());
-      SendMessage(fontFaceCtrl,CB_SELECTSTRING,-1,(LPARAM)fontSetup.lfFaceName);
+      SetWindowText(fontFaceCtrl,fontSetup.lfFaceName);
+      populateFontFaceCombo(wnd,needsJapaneseFont(langSel));
 
       // Initialize the font size control
       HWND fontSizeCtrl = GetDlgItem(wnd,IDC_FONTSIZE);
@@ -1312,20 +1380,6 @@ INT_PTR CALLBACK dlgProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
       }
       itoa(fontSize,fontSizeStr,10);
       SendMessage(fontSizeCtrl,CB_SELECTSTRING,-1,(LPARAM)fontSizeStr);
-
-      // Initialize the language control. Language names are shown in
-      // their own language regardless of the current UI language, which
-      // is why these aren't pulled from LS().
-      HWND languageCtrl = GetDlgItem(wnd,IDC_LANGUAGE);
-      SendMessage(languageCtrl,CB_ADDSTRING,0,(LPARAM)"(System default)");
-      SendMessage(languageCtrl,CB_ADDSTRING,0,(LPARAM)"English");
-      SendMessage(languageCtrl,CB_ADDSTRING,0,(LPARAM)"\x93\xFA\x96\x7B\x8C\xEA");
-      int langSel = 0;
-      if (uiLanguage == MAKELANGID(LANG_ENGLISH,SUBLANG_ENGLISH_UK))
-        langSel = 1;
-      else if (uiLanguage == MAKELANGID(LANG_JAPANESE,SUBLANG_JAPANESE_JAPAN))
-        langSel = 2;
-      SendMessage(languageCtrl,CB_SETCURSEL,langSel,0);
 
       // Initialize the "remember this selection" checkbox
       SendMessage(GetDlgItem(wnd,IDC_SAVE_LANGUAGE),BM_SETCHECK,saveLanguageChoice ? BST_CHECKED : BST_UNCHECKED,0);
@@ -1363,6 +1417,14 @@ INT_PTR CALLBACK dlgProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
   case WM_COMMAND:
     switch (LOWORD(wParam))
     {
+    case IDC_LANGUAGE:
+      if (HIWORD(wParam) == CBN_SELCHANGE)
+      {
+        int langSel = SendMessage(GetDlgItem(wnd,IDC_LANGUAGE),CB_GETCURSEL,0,0);
+        populateFontFaceCombo(wnd,needsJapaneseFont(langSel));
+      }
+      break;
+
     case IDOK:
     case IDCANCEL:
       {
@@ -1421,8 +1483,10 @@ INT_PTR CALLBACK dlgProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
   return FALSE;
 }
 
-// Called by Windows when enumerating fronts
-int CALLBACK fontProc(ENUMLOGFONTEX* font, NEWTEXTMETRICEX* metric, DWORD fontType, LPARAM)
+// Called by Windows when enumerating fronts. lParam is nonzero when this
+// pass is enumerating the Shift-JIS charset, so matching fonts also get
+// recorded in jpFontNames (see its declaration above).
+int CALLBACK fontProc(ENUMLOGFONTEX* font, NEWTEXTMETRICEX* metric, DWORD fontType, LPARAM isJapaneseCharsetPass)
 {
   bool allow = false;
   if (fontType & TRUETYPE_FONTTYPE)
@@ -1433,7 +1497,11 @@ int CALLBACK fontProc(ENUMLOGFONTEX* font, NEWTEXTMETRICEX* metric, DWORD fontTy
   if (allow && (font->elfLogFont.lfPitchAndFamily & FIXED_PITCH))
   {
     if (font->elfLogFont.lfFaceName[0] != '@')
+    {
       fontNames.insert(font->elfLogFont.lfFaceName);
+      if (isJapaneseCharsetPass)
+        jpFontNames.insert(font->elfLogFont.lfFaceName);
+    }
   }
   return 1;
 }
@@ -1505,7 +1573,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show)
   fontSetup.lfCharSet = ANSI_CHARSET;
   EnumFontFamiliesEx(desktopDC,&fontSetup,(FONTENUMPROC)fontProc,0,0);
   fontSetup.lfCharSet = SHIFTJIS_CHARSET;
-  EnumFontFamiliesEx(desktopDC,&fontSetup,(FONTENUMPROC)fontProc,0,0);
+  EnumFontFamiliesEx(desktopDC,&fontSetup,(FONTENUMPROC)fontProc,1,0);
   fontSetup.lfCharSet = DEFAULT_CHARSET;
 
   // Get the Omega icon
