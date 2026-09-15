@@ -46,7 +46,7 @@ void tunnelcheck()
       return;
     }
     mprint(LS(IDS_MSG_20008));
-    p_death("dungeon cave-in");
+    p_death(LS(IDS_MSG_23511));
   }
 }
 
@@ -734,7 +734,7 @@ void foodcheck()
       resetgamestatus(FAST_MOVE);
     }
     print3(LS(IDS_MSG_20048));
-    p_damage(-5*Player.food,UNSTOPPABLE,"starvation");
+    p_damage(-5*Player.food,UNSTOPPABLE,LS(IDS_MSG_23512));
   }
   showflags();
 }

@@ -58,7 +58,7 @@ void l_trap_dart()
     mprint(LS(IDS_MSG_22616));
   else {
     mprint(LS(IDS_MSG_22617));
-    p_damage(difficulty(),NORMAL_DAMAGE,"a dart trap");
+    p_damage(difficulty(),NORMAL_DAMAGE,LS(IDS_MSG_23623));
     if (random_range(3)==1) {
       mprint(LS(IDS_MSG_22618));
       morewait();
@@ -86,9 +86,9 @@ void l_trap_pit()
     if (random_range(3) == 1) {
       mprint(LS(IDS_MSG_22623));
       morewait();
-      p_damage(difficulty()*5,NORMAL_DAMAGE,"a spiked pit");
+      p_damage(difficulty()*5,NORMAL_DAMAGE,LS(IDS_MSG_23624));
     }
-    else p_damage(difficulty()*2,NORMAL_DAMAGE,"a pit");
+    else p_damage(difficulty()*2,NORMAL_DAMAGE,LS(IDS_MSG_23625));
     Player.status[IMMOBILE] ++;
   }
 }
@@ -108,7 +108,7 @@ void l_trap_door()
       if (Level->site[Player.x][Player.y].aux != S_DISINTEGRATE) {
 	mprint(LS(IDS_MSG_22627));
 	morewait();
-	p_damage(Level->depth*difficulty(),UNSTOPPABLE,"a rockslide");
+	p_damage(Level->depth*difficulty(),UNSTOPPABLE,LS(IDS_MSG_23626));
       }
       change_level(Level->depth,Level->depth+1,FALSE);
       resetgamestatus(MOUNTED);
@@ -120,11 +120,11 @@ void l_trap_door()
     else {
       mprint(LS(IDS_MSG_22629));
       morewait();
-      p_damage(difficulty(),NORMAL_DAMAGE,"a trap door");
+      p_damage(difficulty(),NORMAL_DAMAGE,LS(IDS_MSG_23627));
       if (Level->site[Player.x][Player.y].aux != S_DISINTEGRATE) {
 	mprint(LS(IDS_MSG_22627));
 	morewait();
-	p_damage(Level->depth*difficulty(),UNSTOPPABLE,"a rockslide");
+	p_damage(Level->depth*difficulty(),UNSTOPPABLE,LS(IDS_MSG_23626));
       }
       change_level(Level->depth,Level->depth+1,FALSE);
       roomcheck();
@@ -182,7 +182,7 @@ void l_trap_fire()
   else {
     mprint(LS(IDS_MSG_22638));
     morewait();
-    p_damage(random_range((difficulty()+1)*5),FLAME,"a fire trap");
+    p_damage(random_range((difficulty()+1)*5),FLAME,LS(IDS_MSG_23628));
   }
   Level->site[Player.x][Player.y].locchar = FIRE;
   Level->site[Player.x][Player.y].p_locf = L_FIRE;
@@ -240,7 +240,7 @@ void l_trap_acid()
       resetgamestatus(MOUNTED);
       showflags();
     }
-    p_damage(random_range(difficulty()*5),ACID,"an acid trap");
+    p_damage(random_range(difficulty()*5),ACID,LS(IDS_MSG_23629));
     if (! p_immune(ACID)) {
       mprint(LS(IDS_MSG_22646));
       morewait();

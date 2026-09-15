@@ -214,7 +214,7 @@ int amount;
     mprint(LS(IDS_MSG_20725));
     Player.hp -= random_range(10*abs(amount)+1);
     if (Player.hp < 0)
-      p_death("magical disruption");
+      p_death(LS(IDS_MSG_23532));
   }
   dataprint();
 }
@@ -264,15 +264,15 @@ int fx,fy,tx,ty,hit,dmg,dtype;
       switch (dtype) {
       case FLAME:
 	mprint(LS(IDS_MSG_20727));
-	p_damage(random_range(dmg),dtype,"a firebolt");
+	p_damage(random_range(dmg),dtype,LS(IDS_MSG_23534));
 	break;
       case ELECTRICITY:
 	mprint(LS(IDS_MSG_20728));
-	p_damage(random_range(dmg),dtype,"a bolt of lightning");
+	p_damage(random_range(dmg),dtype,LS(IDS_MSG_23535));
 	break;
       case NORMAL_DAMAGE:
 	mprint(LS(IDS_MSG_20729));
-	p_damage(random_range(dmg),dtype,"a missile");
+	p_damage(random_range(dmg),dtype,LS(IDS_MSG_23536));
 	break;
       }
     }
@@ -379,16 +379,16 @@ int fx,fy,tx,ty,dmg,dtype;
     if ((ex == Player.x) && (ey == Player.y)) {
       switch(dtype) {
 	case FLAME:mprint(LS(IDS_MSG_20734));
-	  p_damage(random_range(dmg),FLAME,"a fireball");
+	  p_damage(random_range(dmg),FLAME,LS(IDS_MSG_23537));
 	  break;
 	case COLD:mprint(LS(IDS_MSG_20735));
-	  p_damage(random_range(dmg),COLD,"a snowball");
+	  p_damage(random_range(dmg),COLD,LS(IDS_MSG_23538));
 	  break;
 	case ELECTRICITY:mprint(LS(IDS_MSG_20736));
-	  p_damage(random_range(dmg),ELECTRICITY,"ball lightning");
+	  p_damage(random_range(dmg),ELECTRICITY,LS(IDS_MSG_23539));
 	  break;
 	case UNSTOPPABLE:mprint(LS(IDS_MSG_20737));
-	  p_damage(random_range(dmg),UNSTOPPABLE,"a manastorm!");
+	  p_damage(random_range(dmg),UNSTOPPABLE,LS(IDS_MSG_23540));
 	  break;
       }
     }
@@ -556,7 +556,7 @@ int blessing;
     strcpy(wishstr,msgscanstring());
   if (blessing < 0 || strcmp(wishstr,"Death")==0) {
     print2(LS(IDS_MSG_20743));
-    p_death("a deathwish");
+    p_death(LS(IDS_MSG_23533));
   }
   if (strcmp(wishstr,"Power")==0) {
     print2(LS(IDS_MSG_20744));

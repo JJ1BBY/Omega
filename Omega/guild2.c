@@ -539,7 +539,7 @@ void l_sorcerors()
 	enchant(-1);
 	bless(-1);
 	print3(LS(IDS_MSG_21245));
-	p_damage(25,UNSTOPPABLE,"a sorceror's curse");
+	p_damage(25,UNSTOPPABLE,LS(IDS_MSG_23558));
       }
       else if (Player.rank[CIRCLE]==PRIME) 
 	print2(LS(IDS_MSG_21246));

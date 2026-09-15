@@ -10,7 +10,7 @@ struct monster *m;
 {
   if (m->attacked && (random_range(3) == 1)) {
     mprint(LS(IDS_MSG_21937));
-    p_damage(10,UNSTOPPABLE,"a mendicant priest's curse");
+    p_damage(10,UNSTOPPABLE,LS(IDS_MSG_23601));
     m_vanish(m);
   }
   else if (! m_statusp(m,NEEDY)) {
@@ -121,7 +121,7 @@ struct monster *m;
 {
   if (m_statusp(m,HOSTILE)) {
     mprint(LS(IDS_MSG_21949));
-    p_damage(1,FEAR,"a ghost-inspired heart attack");
+    p_damage(1,FEAR,LS(IDS_MSG_23602));
     mprint(LS(IDS_MSG_21950));
     if (! p_immune(FEAR)) Player.status[AFRAID] += m->level;
     else mprint(LS(IDS_MSG_21947));
@@ -291,7 +291,7 @@ struct monster *m;
       if (random_range(4)) enchant(-1);
       else dispel(-1);
       Player.pow--;
-      if (--Player.pow < 1) p_death("the Eater of Magic");
+      if (--Player.pow < 1) p_death(LS(IDS_MSG_23599));
     }
   if (m->hp < 10) {
     mprint(LS(IDS_MSG_21958));
@@ -307,7 +307,7 @@ struct monster *m;
     if (distance(m->x,m->y,Player.x,Player.y)<2) {
       if (! Player.status[IMMOBILE]) {
 	mprint(LS(IDS_MSG_21959));
-	p_damage(25,NORMAL_DAMAGE,"a gust of wind");
+	p_damage(25,NORMAL_DAMAGE,LS(IDS_MSG_23603));
 	setgamestatus(SKIP_PLAYER);
 	Player.status[IMMOBILE]+=2;
       }
@@ -318,13 +318,13 @@ struct monster *m;
       }
       else if (random_range(2)) {
 	mprint(LS(IDS_MSG_21961));
-	p_damage(Constriction,NORMAL_DAMAGE,"the Dragonlord");
+	p_damage(Constriction,NORMAL_DAMAGE,LS(IDS_MSG_23604));
 	Player.status[IMMOBILE]+=1;
 	Constriction *=2;
       }
       else {
 	mprint(LS(IDS_MSG_21962));
-	p_damage(2*Constriction,NORMAL_DAMAGE,"the Dragonlord");
+	p_damage(2*Constriction,NORMAL_DAMAGE,LS(IDS_MSG_23604));
 	Constriction = 0;
       }
       m_sp_spell(m);
@@ -380,12 +380,12 @@ struct monster *m;
     }
     else {
       mprint(LS(IDS_MSG_21971));
-      p_damage(50,UNSTOPPABLE,"fright");
+      p_damage(50,UNSTOPPABLE,LS(IDS_MSG_23605));
       mprint(LS(IDS_MSG_21972));
       Player.con--;
       Player.str--;
       if ((Player.con < 3) || (Player.str < 3))
-	p_death("congestive heart failure");
+	p_death(LS(IDS_MSG_23600));
     }
   }
 }
@@ -546,7 +546,7 @@ struct monster *m;
     mprint(LS(IDS_MSG_21980));
     if (m_statusp(m,HOSTILE)) {
       mprint(LS(IDS_MSG_21981));
-      p_damage(random_range(100),UNSTOPPABLE,"a manaburst");
+      p_damage(random_range(100),UNSTOPPABLE,LS(IDS_MSG_23606));
       mprint(LS(IDS_MSG_21982));
       Player.pow-=3;
       Player.iq--;

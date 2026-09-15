@@ -277,13 +277,13 @@ pob o;
   else if (o->blessing < 1) {
     mprint(LS(IDS_MSG_21374));
     Player.pow = Player.maxpow = ((int) (Player.maxpow / 2));
-    level_drain(random_range(10),"cursed azoth");
+    level_drain(random_range(10),LS(IDS_MSG_23561));
   }
   else {
     mprint(LS(IDS_MSG_21375));
     if (Player.str > Player.maxstr*2) {
       mprint(LS(IDS_MSG_21376));
-      p_death("overdose of azoth");
+      p_death(LS(IDS_MSG_23559));
     }
     else {
       heal(10);
@@ -382,7 +382,7 @@ pob o;
     else Player.immunity[NEGENERGY]--;
   }
   else if (o->used)
-    level_drain(abs(o->blessing),"cursed cloak of level drain");
+    level_drain(abs(o->blessing),LS(IDS_MSG_23562));
 }
 
 /* food functions */
@@ -437,7 +437,7 @@ pob o;
   morewait();
   mprint(LS(IDS_MSG_21393));
   morewait();
-  p_damage(1,UNSTOPPABLE,"a szechuan pepper");
+  p_damage(1,UNSTOPPABLE,LS(IDS_MSG_23560));
   mprint(LS(IDS_MSG_21394));
   mprint(LS(IDS_MSG_21395));
   mprint(LS(IDS_MSG_21396));

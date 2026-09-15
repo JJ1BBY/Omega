@@ -3223,6 +3223,169 @@
 #define IDS_MSG_23509                   23509
 #define IDS_MSG_23510                   23510
 
+// ---- aux1.c (death-cause gap-fill) ----
+#define IDS_MSG_23511                   23511
+#define IDS_MSG_23512                   23512
+
+// ---- aux2.c (death-cause gap-fill) ----
+#define IDS_MSG_23513                   23513
+#define IDS_MSG_23514                   23514
+#define IDS_MSG_23515                   23515
+
+// ---- aux3.c (death-cause gap-fill) ----
+#define IDS_MSG_23516                   23516
+#define IDS_MSG_23517                   23517
+#define IDS_MSG_23518                   23518
+#define IDS_MSG_23519                   23519
+#define IDS_MSG_23520                   23520
+#define IDS_MSG_23521                   23521
+
+// ---- command2.c (death-cause gap-fill) ----
+#define IDS_MSG_23522                   23522
+#define IDS_MSG_23523                   23523
+#define IDS_MSG_23524                   23524
+#define IDS_MSG_23525                   23525
+#define IDS_MSG_23526                   23526
+#define IDS_MSG_23527                   23527
+#define IDS_MSG_23528                   23528
+#define IDS_MSG_23529                   23529
+
+// ---- command3.c (death-cause gap-fill) ----
+#define IDS_MSG_23530                   23530
+#define IDS_MSG_23531                   23531
+
+// ---- effect1.c (death-cause gap-fill) ----
+#define IDS_MSG_23532                   23532
+#define IDS_MSG_23533                   23533
+#define IDS_MSG_23534                   23534
+#define IDS_MSG_23535                   23535
+#define IDS_MSG_23536                   23536
+#define IDS_MSG_23537                   23537
+#define IDS_MSG_23538                   23538
+#define IDS_MSG_23539                   23539
+#define IDS_MSG_23540                   23540
+
+// ---- effect2.c (death-cause gap-fill) ----
+#define IDS_MSG_23541                   23541
+#define IDS_MSG_23542                   23542
+
+// ---- effect3.c (death-cause gap-fill) ----
+#define IDS_MSG_23543                   23543
+#define IDS_MSG_23544                   23544
+#define IDS_MSG_23545                   23545
+#define IDS_MSG_23546                   23546
+#define IDS_MSG_23547                   23547
+#define IDS_MSG_23548                   23548
+#define IDS_MSG_23549                   23549
+#define IDS_MSG_23550                   23550
+#define IDS_MSG_23551                   23551
+#define IDS_MSG_23552                   23552
+#define IDS_MSG_23553                   23553
+#define IDS_MSG_23554                   23554
+#define IDS_MSG_23555                   23555
+#define IDS_MSG_23556                   23556
+
+// ---- guild1.c (death-cause gap-fill) ----
+#define IDS_MSG_23557                   23557
+
+// ---- guild2.c (death-cause gap-fill) ----
+#define IDS_MSG_23558                   23558
+
+// ---- itemf1.c (death-cause gap-fill) ----
+#define IDS_MSG_23559                   23559
+#define IDS_MSG_23560                   23560
+#define IDS_MSG_23561                   23561
+#define IDS_MSG_23562                   23562
+
+// ---- itemf2.c (death-cause gap-fill) ----
+#define IDS_MSG_23563                   23563
+#define IDS_MSG_23564                   23564
+#define IDS_MSG_23565                   23565
+#define IDS_MSG_23566                   23566
+#define IDS_MSG_23567                   23567
+#define IDS_MSG_23568                   23568
+
+// ---- itemf3.c (death-cause gap-fill) ----
+#define IDS_MSG_23569                   23569
+#define IDS_MSG_23570                   23570
+#define IDS_MSG_23571                   23571
+#define IDS_MSG_23572                   23572
+#define IDS_MSG_23573                   23573
+#define IDS_MSG_23574                   23574
+#define IDS_MSG_23575                   23575
+
+// ---- move.c (death-cause gap-fill) ----
+#define IDS_MSG_23576                   23576
+#define IDS_MSG_23577                   23577
+#define IDS_MSG_23578                   23578
+#define IDS_MSG_23579                   23579
+#define IDS_MSG_23580                   23580
+#define IDS_MSG_23581                   23581
+#define IDS_MSG_23582                   23582
+#define IDS_MSG_23583                   23583
+#define IDS_MSG_23584                   23584
+#define IDS_MSG_23585                   23585
+#define IDS_MSG_23586                   23586
+#define IDS_MSG_23587                   23587
+#define IDS_MSG_23588                   23588
+#define IDS_MSG_23589                   23589
+#define IDS_MSG_23590                   23590
+#define IDS_MSG_23591                   23591
+#define IDS_MSG_23592                   23592
+#define IDS_MSG_23593                   23593
+#define IDS_MSG_23594                   23594
+#define IDS_MSG_23595                   23595
+#define IDS_MSG_23596                   23596
+#define IDS_MSG_23597                   23597
+#define IDS_MSG_23598                   23598
+
+// ---- mspec.c (death-cause gap-fill) ----
+#define IDS_MSG_23599                   23599
+#define IDS_MSG_23600                   23600
+#define IDS_MSG_23601                   23601
+#define IDS_MSG_23602                   23602
+#define IDS_MSG_23603                   23603
+#define IDS_MSG_23604                   23604
+#define IDS_MSG_23605                   23605
+#define IDS_MSG_23606                   23606
+
+// ---- mstrike.c (death-cause gap-fill) ----
+#define IDS_MSG_23607                   23607
+
+// ---- mtalk.c (death-cause gap-fill) ----
+#define IDS_MSG_23608                   23608
+#define IDS_MSG_23609                   23609
+
+// ---- priest.c (death-cause gap-fill) ----
+#define IDS_MSG_23610                   23610
+#define IDS_MSG_23611                   23611
+#define IDS_MSG_23612                   23612
+#define IDS_MSG_23613                   23613
+
+// ---- site1.c (death-cause gap-fill) ----
+#define IDS_MSG_23614                   23614
+#define IDS_MSG_23615                   23615
+
+// ---- site2.c (death-cause gap-fill) ----
+#define IDS_MSG_23616                   23616
+#define IDS_MSG_23617                   23617
+#define IDS_MSG_23618                   23618
+#define IDS_MSG_23619                   23619
+#define IDS_MSG_23620                   23620
+#define IDS_MSG_23621                   23621
+
+// ---- spell.c (death-cause gap-fill) ----
+#define IDS_MSG_23622                   23622
+
+// ---- trap.c (death-cause gap-fill) ----
+#define IDS_MSG_23623                   23623
+#define IDS_MSG_23624                   23624
+#define IDS_MSG_23625                   23625
+#define IDS_MSG_23626                   23626
+#define IDS_MSG_23627                   23627
+#define IDS_MSG_23628                   23628
+#define IDS_MSG_23629                   23629
+
 // ---- site1.c ----
 #define IDS_MSG_22221                   22221
 #define IDS_MSG_22222                   22222

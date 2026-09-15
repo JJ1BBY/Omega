@@ -106,7 +106,7 @@ int dtype;
     case 7:
     case 8: break_weapon(); break;
     case 9: mprint(LS(IDS_MSG_20084));
-	    p_damage(Player.dmg,dtype,"stupidity");
+	    p_damage(Player.dmg,dtype,LS(IDS_MSG_23514));
 	    break;
   }
 }	    
@@ -200,7 +200,7 @@ void minute_status_check()
 
   if (Player.status[POISONED]>0) {
     Player.status[POISONED]--;
-    p_damage(3,POISON,"poison");
+    p_damage(3,POISON,LS(IDS_MSG_23515));
     if (Player.status[POISONED] == 0) {
       showflags();
       mprint(LS(IDS_MSG_20088));
@@ -537,7 +537,7 @@ void p_drown()
       case 3: print3(LS(IDS_MSG_20119)); break;
       case 2: print3(LS(IDS_MSG_20120)); break;
       case 1: print3(LS(IDS_MSG_20121)); break;
-      case 0: p_death("drowning");
+      case 0: p_death(LS(IDS_MSG_23513));
     }
     morewait();
     menuprint(LS(IDS_MSG_23481));

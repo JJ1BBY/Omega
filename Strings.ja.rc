@@ -3401,6 +3401,236 @@ BEGIN
     IDS_MSG_23510    "^o for last message, ^n for next, anything else to quit."
 END
 
+
+// ==================== aux1.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23511    "dungeon cave-in"
+    IDS_MSG_23512    "starvation"
+END
+
+// ==================== aux2.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23513    "drowning"
+    IDS_MSG_23514    "stupidity"
+    IDS_MSG_23515    "poison"
+END
+
+// ==================== aux3.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23516    "congestive heart failure"
+    IDS_MSG_23517    "a cosmic ray"
+    IDS_MSG_23518    "a lightning strike"
+    IDS_MSG_23519    "a chaos storm"
+    IDS_MSG_23520    "blisters"
+    IDS_MSG_23521    "mystic lightning"
+END
+
+// ==================== command2.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23522    "a portcullis"
+    IDS_MSG_23523    "a suicidal urge"
+    IDS_MSG_23524    "silliness"
+    IDS_MSG_23525    "a door"
+    IDS_MSG_23526    "an annoyed angel"
+    IDS_MSG_23527    "a failure at vandalism"
+    IDS_MSG_23528    "a cruelly abused horse"
+    IDS_MSG_23529    "a rupture"
+END
+
+// ==================== command3.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23530    "clumsiness"
+    IDS_MSG_23531    "a broken fingernail"
+END
+
+// ==================== effect1.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23532    "magical disruption"
+    IDS_MSG_23533    "a deathwish"
+    IDS_MSG_23534    "a firebolt"
+    IDS_MSG_23535    "a bolt of lightning"
+    IDS_MSG_23536    "a missile"
+    IDS_MSG_23537    "a fireball"
+    IDS_MSG_23538    "a snowball"
+    IDS_MSG_23539    "ball lightning"
+    IDS_MSG_23540    "a manastorm!"
+END
+
+// ==================== effect2.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23541    "drowning"
+    IDS_MSG_23542    "Divine Wrath"
+END
+
+// ==================== effect3.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23543    "self-annihilation"
+    IDS_MSG_23544    "teleportation into a solid object"
+    IDS_MSG_23545    "polymorphing oneself"
+    IDS_MSG_23546    "hellfire"
+    IDS_MSG_23547    "magical disruption"
+    IDS_MSG_23548    "disintegration"
+    IDS_MSG_23549    "an acid cloud"
+    IDS_MSG_23550    "godsfire"
+    IDS_MSG_23551    "divine wrath"
+    IDS_MSG_23552    "a potion of cowardice"
+    IDS_MSG_23553    "indiscriminate use of hellfire"
+    IDS_MSG_23554    "self-vampirism"
+    IDS_MSG_23555    "negative energy conflict"
+    IDS_MSG_23556    "reversed energy drain"
+END
+
+// ==================== guild1.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23557    "castle guards for lese majeste"
+END
+
+// ==================== guild2.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23558    "a sorceror's curse"
+END
+
+// ==================== itemf1.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23559    "overdose of azoth"
+    IDS_MSG_23560    "a szechuan pepper"
+    IDS_MSG_23561    "cursed azoth"
+    IDS_MSG_23562    "cursed cloak of level drain"
+END
+
+// ==================== itemf2.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23563    "the Scythe of Death"
+    IDS_MSG_23564    "a backlash of negative energies"
+    IDS_MSG_23565    "Demonblade exploding"
+    IDS_MSG_23566    "fumbling with a lightsabre"
+    IDS_MSG_23567    "a pissed-off Holy Defender"
+    IDS_MSG_23568    "the sword Desecrator"
+END
+
+// ==================== itemf3.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23569    "the Juggernaut of Karnak"
+    IDS_MSG_23570    "the Holy Hand-Grenade of Antioch"
+    IDS_MSG_23571    "Kolwynia, The Key That Was Lost"
+    IDS_MSG_23572    "the Potion of Death"
+    IDS_MSG_23573    "congestive heart failure"
+    IDS_MSG_23574    "playing with the Orb of Mastery"
+    IDS_MSG_23575    "a Burnt-out Orb"
+END
+
+// ==================== move.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23576    "immersion in raw Chaos"
+    IDS_MSG_23577    "the Eater of Souls"
+    IDS_MSG_23578    "the DREADED AQUAE MORTIS!"
+    IDS_MSG_23579    "total incineration"
+    IDS_MSG_23580    "the Essence of Fire"
+    IDS_MSG_23581    "drowning in acid (ick, what a way to go)"
+    IDS_MSG_23582    "the Essence of Water"
+    IDS_MSG_23583    "being torn apart and then electrocuted"
+    IDS_MSG_23584    "the Essence of Air"
+    IDS_MSG_23585    "being eaten alive"
+    IDS_MSG_23586    "the Essence of Earth"
+    IDS_MSG_23587    "the Power of the Void"
+    IDS_MSG_23588    "the Emptyness of the Void"
+    IDS_MSG_23589    "self-sacrifice"
+    IDS_MSG_23590    "a hedge"
+    IDS_MSG_23591    "slow death in a pool of lava"
+    IDS_MSG_23592    "incineration in a pool of lava"
+    IDS_MSG_23593    "self-immolation"
+    IDS_MSG_23594    "a fall from a great height"
+    IDS_MSG_23595    "a fall through the abyss"
+    IDS_MSG_23596    "rubble and debris"
+    IDS_MSG_23597    "a portcullis"
+    IDS_MSG_23598    "a magic whirlwind"
+END
+
+// ==================== mspec.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23599    "the Eater of Magic"
+    IDS_MSG_23600    "congestive heart failure"
+    IDS_MSG_23601    "a mendicant priest's curse"
+    IDS_MSG_23602    "a ghost-inspired heart attack"
+    IDS_MSG_23603    "a gust of wind"
+    IDS_MSG_23604    "the Dragonlord"
+    IDS_MSG_23605    "fright"
+    IDS_MSG_23606    "a manaburst"
+END
+
+// ==================== mstrike.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23607    "a sonic blast"
+END
+
+// ==================== mtalk.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23608    "the ArchDruid's Vengeance"
+    IDS_MSG_23609    "a demon's kiss"
+END
+
+// ==================== priest.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23610    "a god's pique"
+    IDS_MSG_23611    "Odin's wrath"
+    IDS_MSG_23612    "Set's anger"
+    IDS_MSG_23613    "Hecate's malice"
+END
+
+// ==================== site1.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23614    "a statue"
+    IDS_MSG_23615    "Riley's right cross"
+END
+
+// ==================== site2.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23616    "a vortex of chaos"
+    IDS_MSG_23617    "a trifid"
+    IDS_MSG_23618    "da bouncer"
+    IDS_MSG_23619    "a move worthy of Clouseau"
+    IDS_MSG_23620    "a sturdy door"
+    IDS_MSG_23621    "a safe"
+END
+
+// ==================== spell.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23622    "high magic"
+END
+
+// ==================== trap.c (death-cause gap-fill; untranslated -- English placeholder) ====================
+STRINGTABLE
+BEGIN
+    IDS_MSG_23623    "a dart trap"
+    IDS_MSG_23624    "a spiked pit"
+    IDS_MSG_23625    "a pit"
+    IDS_MSG_23626    "a rockslide"
+    IDS_MSG_23627    "a trap door"
+    IDS_MSG_23628    "a fire trap"
+    IDS_MSG_23629    "an acid trap"
+END
+
 // ==================== site1.c ====================
 STRINGTABLE
 BEGIN

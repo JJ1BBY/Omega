@@ -510,7 +510,7 @@ int blessing;
     }
   else {
     mprint(LS(IDS_MSG_20785));
-    p_damage(50,UNSTOPPABLE,"drowning");
+    p_damage(50,UNSTOPPABLE,LS(IDS_MSG_23541));
   }
 }
 
@@ -574,7 +574,7 @@ int blessing;
       lset(Player.x, Player.y, CHANGED);
       if (Level->site[Player.x][Player.y].aux == Player.patron) {
 	mprint(LS(IDS_MSG_20795));
-	p_damage(Player.hp-1,UNSTOPPABLE,"Divine Wrath");
+	p_damage(Player.hp-1,UNSTOPPABLE,LS(IDS_MSG_23542));
       }
       else if ((Player.patron == ATHENA) || (Player.patron == ODIN)) {
 	if ((Level->site[Player.x][Player.y].aux == SET) ||

@@ -352,7 +352,7 @@ void l_adept()
     print1(LS(IDS_MSG_22442));
     if (Player.patron != DESTINY) {
       print2(LS(IDS_MSG_22443));
-      p_damage(random_range(200),UNSTOPPABLE,"a vortex of chaos");
+      p_damage(random_range(200),UNSTOPPABLE,LS(IDS_MSG_23616));
     }
     else print2(LS(IDS_MSG_22444));
     morewait();
@@ -387,7 +387,7 @@ void l_trifid()
       stuck = FALSE;
     }
     else {
-      p_damage(damage,UNSTOPPABLE,"a trifid");
+      p_damage(damage,UNSTOPPABLE,LS(IDS_MSG_23617));
       morewait();
       print1(LS(IDS_MSG_22451));
       menuclear();
@@ -505,7 +505,7 @@ void l_brothel()
 	  if (Player.cash < 500) {
 	    print1(LS(IDS_MSG_22475));
 	    print2(LS(IDS_MSG_22476));
-	    p_damage(25,UNSTOPPABLE,"da bouncer");
+	    p_damage(25,UNSTOPPABLE,LS(IDS_MSG_23618));
 	  }
 	  else {
 	    Player.cash -= 500;
@@ -612,12 +612,12 @@ void l_brothel()
 	print2(LS(IDS_MSG_22500));
 	morewait();
 	print1(LS(IDS_MSG_22501));
-	p_damage(20,UNSTOPPABLE,"a move worthy of Clouseau");
+	p_damage(20,UNSTOPPABLE,LS(IDS_MSG_23619));
 	print2(LS(IDS_MSG_22497));
       }
       else {
 	print1(LS(IDS_MSG_22502));
-	p_damage(1,UNSTOPPABLE,"a sturdy door");
+	p_damage(1,UNSTOPPABLE,LS(IDS_MSG_23620));
 	morewait();
 	print1(LS(IDS_MSG_22503));
 	print2(LS(IDS_MSG_22504));
@@ -945,7 +945,7 @@ void l_safe()
     }
     else if (attempt == -2) {
       print1(LS(IDS_MSG_22549));
-      p_damage(random_range(25),FLAME,"a safe");
+      p_damage(random_range(25),FLAME,LS(IDS_MSG_23621));
       print2(LS(IDS_MSG_22550));
       Level->site[Player.x][Player.y].locchar = RUBBLE;
       Level->site[Player.x][Player.y].p_locf = L_RUBBLE;
@@ -960,18 +960,18 @@ void l_safe()
       if (Player.possessions[O_CLOAK] != NULL) {
 	print2(LS(IDS_MSG_22553));
 	conform_lost_object(Player.possessions[O_CLOAK]);
-	p_damage(10,ACID,"a safe");
+	p_damage(10,ACID,LS(IDS_MSG_23621));
       }
       else if (Player.possessions[O_ARMOR] != NULL) {
 	print2(LS(IDS_MSG_22554));
 	Player.possessions[O_ARMOR]->dmg-=3;
 	Player.possessions[O_ARMOR]->hit-=3;
 	Player.possessions[O_ARMOR]->aux-=3;
-	p_damage(10,ACID,"a safe");
+	p_damage(10,ACID,LS(IDS_MSG_23621));
       }
       else {
 	print2(LS(IDS_MSG_22555));
-	p_damage(random_range(100),ACID,"a safe");
+	p_damage(random_range(100),ACID,LS(IDS_MSG_23621));
       }
     }
   }

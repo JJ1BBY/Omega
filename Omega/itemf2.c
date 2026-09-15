@@ -230,7 +230,7 @@ struct monster *m;
   if (! Player.rank[ADEPT]) {
     mprint(LS(IDS_MSG_21455));
     mprint(LS(IDS_MSG_21456));
-    p_death("the Scythe of Death");
+    p_death(LS(IDS_MSG_23563));
   }
 }
 
@@ -265,16 +265,16 @@ struct monster *m;
     if (random_range(10) == 1) {
       mprint(LS(IDS_MSG_21461));
       morewait();
-      p_damage(50,UNSTOPPABLE,"Demonblade exploding");
+      p_damage(50,UNSTOPPABLE,LS(IDS_MSG_23565));
       conform_lost_object(o);
     }
     else {
       mprint(LS(IDS_MSG_21462));
-      p_damage(25,UNSTOPPABLE,"a backlash of negative energies");
+      p_damage(25,UNSTOPPABLE,LS(IDS_MSG_23564));
       Player.str -= 3;
       Player.con -= 3;
       if (Player.str < 1 || Player.con < 1)
-	p_death("a backlash of negative energies");
+	p_death(LS(IDS_MSG_23564));
     }
   }
 }
@@ -286,7 +286,7 @@ struct monster *m;
 {
   if (! o->known) {
     mprint(LS(IDS_MSG_21463));
-    p_damage(100,UNSTOPPABLE,"fumbling with a lightsabre");
+    p_damage(100,UNSTOPPABLE,LS(IDS_MSG_23566));
     o->known = 1;
   }
   else {
@@ -443,7 +443,7 @@ struct monster *m;
   else {
     mprint(LS(IDS_MSG_21480));
     mprint(LS(IDS_MSG_21481));
-    level_drain(Player.dmg,"the sword Desecrator");
+    level_drain(Player.dmg,LS(IDS_MSG_23568));
     Player.alignment-=10;
     mprint(LS(IDS_MSG_21482));
     mprint(LS(IDS_MSG_21483));
@@ -472,7 +472,7 @@ struct monster *m;
   if ((Player.alignment < 0) && (o->blessing > 0)) {
       mprint(LS(IDS_MSG_21484));
       mprint(LS(IDS_MSG_21485));
-      p_damage(50,UNSTOPPABLE,"a pissed-off Holy Defender");
+      p_damage(50,UNSTOPPABLE,LS(IDS_MSG_23567));
       mprint(LS(IDS_MSG_21486));
       o->truename = o->cursestr;
       Player.status[PROTECTION] -= (o->hit);

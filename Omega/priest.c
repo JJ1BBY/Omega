@@ -78,7 +78,7 @@ void l_altar()
 	  print1(LS(IDS_MSG_22128));
 	  print2(LS(IDS_MSG_22129));
 	  dispel(-1);
-	  p_damage(Player.hp-1,UNSTOPPABLE,"a god's pique");
+	  p_damage(Player.hp-1,UNSTOPPABLE,LS(IDS_MSG_23610));
 	}
 	else if (true_item_value(Player.possessions[i]) >
 		 (long) (Player.rank[PRIESTHOOD] *
@@ -139,7 +139,7 @@ int deity;
       }
       else {
 	print2(LS(IDS_MSG_22136));
-	p_damage(Player.level*5,UNSTOPPABLE,"Odin's wrath");
+	p_damage(Player.level*5,UNSTOPPABLE,LS(IDS_MSG_23611));
 	if (Player.hp > 0) {
 	  morewait();
 	  print2(LS(IDS_MSG_22137));
@@ -161,7 +161,7 @@ int deity;
       }
       else {
 	print2(LS(IDS_MSG_22141));
-	p_damage(Player.level*5,UNSTOPPABLE,"Set's anger");
+	p_damage(Player.level*5,UNSTOPPABLE,LS(IDS_MSG_23612));
 	if (Player.hp > 0) {
 	  morewait();
 	  print1(LS(IDS_MSG_22142));
@@ -185,7 +185,7 @@ int deity;
       }
       else {
 	print1(LS(IDS_MSG_22146));
-	p_damage(Player.level*5,UNSTOPPABLE,"Hecate's malice");
+	p_damage(Player.level*5,UNSTOPPABLE,LS(IDS_MSG_23613));
 	if (Player.hp > 0) {
 	  print2(LS(IDS_MSG_22147));
 	  Player.maxpow = Player.maxpow/5;

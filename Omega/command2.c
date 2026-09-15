@@ -731,7 +731,7 @@ void opendoor()
       }
       else {
 	print2(LS(IDS_MSG_20461));
-	p_damage(Player.str,UNSTOPPABLE,"a portcullis");
+	p_damage(Player.str,UNSTOPPABLE,LS(IDS_MSG_23522));
       }
     }
     else if ((Level->site[ox][oy].locchar != CLOSED_DOOR) || 
@@ -780,7 +780,7 @@ void bash_location()
     else {
       if (Level->site[ox][oy].locchar == WALL) {
 	print1(LS(IDS_MSG_20470));
-	p_damage(Player.str,NORMAL_DAMAGE,"a suicidal urge");
+	p_damage(Player.str,NORMAL_DAMAGE,LS(IDS_MSG_23523));
       }
       else if (Level->site[ox][oy].locchar == OPEN_DOOR) {
 	print1(LS(IDS_MSG_20471));
@@ -788,7 +788,7 @@ void bash_location()
 	morewait();
 	Player.x = ox;
 	Player.y = oy;
-	p_damage(3,UNSTOPPABLE,"silliness");
+	p_damage(3,UNSTOPPABLE,LS(IDS_MSG_23524));
 	p_movefunction(Level->site[Player.x][Player.y].p_locf);
 	setgamestatus(SKIP_MONSTERS); /* monsters are surprised... */
       }
@@ -819,7 +819,7 @@ void bash_location()
 	  Player.y = oy;
 	  print2(LS(IDS_MSG_20476));
 	  if (random_range(30) > Player.str)
-	    p_damage(1,UNSTOPPABLE,"a door");
+	    p_damage(1,UNSTOPPABLE,LS(IDS_MSG_23525));
 	  Level->site[ox][oy].locchar = OPEN_DOOR;
 	  lset(ox, oy, CHANGED);
 	  p_movefunction(Level->site[Player.x][Player.y].p_locf);
@@ -841,7 +841,7 @@ void bash_location()
 	}
 	else {
 	  print2(LS(IDS_MSG_20480));
-	  p_damage(Player.str,UNSTOPPABLE,"a portcullis");
+	  p_damage(Player.str,UNSTOPPABLE,LS(IDS_MSG_23522));
 	}
       }
       else if (Level->site[ox][oy].locchar == ALTAR) {
@@ -849,7 +849,7 @@ void bash_location()
 	  print1(LS(IDS_MSG_20481));
 	  print2(LS(IDS_MSG_20482));
 	  print3(LS(IDS_MSG_20483));
-	  p_damage(Player.hp-1,UNSTOPPABLE,"an annoyed angel");
+	  p_damage(Player.hp-1,UNSTOPPABLE,LS(IDS_MSG_23526));
 	}
 	else if (Level->site[ox][oy].aux == 0) {
 	  print1(LS(IDS_MSG_20484));
@@ -929,7 +929,7 @@ void bash_item()
       }
       else {
 	print2(LS(IDS_MSG_20499));
-	p_damage(1,UNSTOPPABLE,"a failure at vandalism");
+	p_damage(1,UNSTOPPABLE,LS(IDS_MSG_23527));
       }
     }
   }
@@ -1080,12 +1080,12 @@ int dx,dy;
       if (gamestatusp(MOUNTED)) {
 	print1(LS(IDS_MSG_20515));
 	print2(LS(IDS_MSG_20516));
-	p_damage(10,UNSTOPPABLE,"a cruelly abused horse");
+	p_damage(10,UNSTOPPABLE,LS(IDS_MSG_23528));
 	resetgamestatus(MOUNTED);
 	summon(-1,HORSE);
       }
       else {
-	p_damage(1,UNSTOPPABLE,"a rupture");
+	p_damage(1,UNSTOPPABLE,LS(IDS_MSG_23529));
 	print3(LS(IDS_MSG_20517));
       }
     }
@@ -1139,7 +1139,7 @@ int dx,dy;
     if (gamestatusp(MOUNTED)) {
       print1(LS(IDS_MSG_20515));
       print2(LS(IDS_MSG_20516));
-      p_damage(10,UNSTOPPABLE,"a cruelly abused horse");
+      p_damage(10,UNSTOPPABLE,LS(IDS_MSG_23528));
       resetgamestatus(MOUNTED);
       morewait();
       print1(LS(IDS_MSG_20518));
@@ -1158,7 +1158,7 @@ int dx,dy;
       }
     }
     else {
-      p_damage(1,UNSTOPPABLE,"a rupture");
+      p_damage(1,UNSTOPPABLE,LS(IDS_MSG_23529));
       print3(LS(IDS_MSG_20517));
     }
   }

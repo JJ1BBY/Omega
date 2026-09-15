@@ -83,7 +83,7 @@ void indoors_random_event()
       break;
     case 6:
       print3(LS(IDS_MSG_20166));
-      p_damage(10,UNSTOPPABLE,"a cosmic ray");
+      p_damage(10,UNSTOPPABLE,LS(IDS_MSG_23517));
       morewait();
       break;
     case 7:
@@ -186,7 +186,7 @@ void outdoors_random_event()
   case 3:
     if (Precipitation > 0) {
       mprint(LS(IDS_MSG_20186));
-      p_damage(random_range(25),ELECTRICITY,"a lightning strike");
+      p_damage(random_range(25),ELECTRICITY,LS(IDS_MSG_23518));
       morewait();
     }
     else mprint(LS(IDS_MSG_20187));
@@ -204,7 +204,7 @@ void outdoors_random_event()
     num = random_range(300);
     if (num <10) {
       mprint(LS(IDS_MSG_20191));
-      p_damage(random_range(100),UNSTOPPABLE,"a chaos storm");
+      p_damage(random_range(100),UNSTOPPABLE,LS(IDS_MSG_23519));
       morewait();
     }
     else if (num < 20) {
@@ -241,7 +241,7 @@ void outdoors_random_event()
       Player.con -= 5;
       Player.maxcon -= 5;
       if (Player.con < 3)
-	p_death("congestive heart failure");
+	p_death(LS(IDS_MSG_23516));
     }
     else if (num < 40) {
       mprint(LS(IDS_MSG_20198));
@@ -337,7 +337,7 @@ void outdoors_random_event()
   case 12:
     if (! gamestatusp(MOUNTED)) {
       mprint(LS(IDS_MSG_20215));
-      p_damage(1,UNSTOPPABLE,"blisters");
+      p_damage(1,UNSTOPPABLE,LS(IDS_MSG_23520));
     }
     break;
   case 13:
@@ -346,7 +346,7 @@ void outdoors_random_event()
   case 14:
     mprint(LS(IDS_MSG_20166));
     morewait();
-    p_damage(10,UNSTOPPABLE,"a cosmic ray");
+    p_damage(10,UNSTOPPABLE,LS(IDS_MSG_23517));
     break;
   case 15:
     mprint(LS(IDS_MSG_20169));
@@ -1041,7 +1041,7 @@ int alignment;
     break;
   case 35: print1(LS(IDS_MSG_20283));
     print2(LS(IDS_MSG_20284));
-    p_damage(random_range(Player.maxhp),ELECTRICITY,"mystic lightning");
+    p_damage(random_range(Player.maxhp),ELECTRICITY,LS(IDS_MSG_23521));
     break;
   case 37: print1(LS(IDS_MSG_20285));
     print2(LS(IDS_MSG_20286));

@@ -167,7 +167,7 @@ int blessing;
   }
   else {
     mprint(LS(IDS_MSG_20815));
-    p_death("self-annihilation");
+    p_death(LS(IDS_MSG_23543));
   }
 }
 
@@ -345,7 +345,7 @@ int x,y,amount;
 
   if ((x ==Player.x) && (y==Player.y)) {
     mprint(LS(IDS_MSG_20827));
-    p_damage(amount,NORMAL_DAMAGE,"magical disruption");
+    p_damage(amount,NORMAL_DAMAGE,LS(IDS_MSG_23547));
   }
   else {
     target = Level->site[x][y].creature;
@@ -389,7 +389,7 @@ int x,y;
     else {
       mprint(LS(IDS_MSG_20831));
       mprint(LS(IDS_MSG_20832));
-      p_damage(250,UNSTOPPABLE,"disintegration");
+      p_damage(250,UNSTOPPABLE,LS(IDS_MSG_23548));
     }
   }
   else {
@@ -479,11 +479,11 @@ void acid_cloud()
   if (Player.possessions[O_CLOAK] != NULL) {
     (void) damage_item(Player.possessions[O_CLOAK]);
     mprint(LS(IDS_MSG_20844));
-    p_damage(3,ACID,"an acid cloud");
+    p_damage(3,ACID,LS(IDS_MSG_23549));
   }
   else if (Player.possessions[O_ARMOR] != NULL) {
     mprint(LS(IDS_MSG_20844));
-    p_damage(3,ACID,"an acid cloud");
+    p_damage(3,ACID,LS(IDS_MSG_23549));
     (void) damage_item(Player.possessions[O_ARMOR]);
   }
   else if (p_immune(ACID))
@@ -493,7 +493,7 @@ void acid_cloud()
   }
   else {
     mprint(LS(IDS_MSG_20845));
-    p_damage(25,ACID,"an acid cloud");
+    p_damage(25,ACID,LS(IDS_MSG_23549));
   }
 }
 
@@ -512,7 +512,7 @@ int type;
 	(Level->site[x][y].locchar != OPEN_DOOR)) {
       mprint(LS(IDS_MSG_20846));
       mprint(LS(IDS_MSG_20847));
-      p_death("teleportation into a solid object");
+      p_death(LS(IDS_MSG_23544));
     }
     else {
       Player.x = x;
@@ -711,7 +711,7 @@ int blessing;
     Player.status[HERO]=0;
     calc_melee();
     mprint(LS(IDS_MSG_20859));
-    level_drain(abs(blessing),"a potion of cowardice");
+    level_drain(abs(blessing),LS(IDS_MSG_23552));
   }
 }
 
@@ -898,7 +898,7 @@ int blessing;
     mprint(LS(IDS_MSG_20881));
     mprint(Monsters[random_range(NUMMONSTERS)].monstring);
     mprint(LS(IDS_MSG_20882));
-    p_death("polymorphing oneself");
+    p_death(LS(IDS_MSG_23545));
   }
   else if ((m=Level->site[x][y].creature) == NULL)
     mprint(LS(IDS_MSG_20883));
@@ -961,11 +961,11 @@ int x,y,blessing;
   struct monster *m;
   if ((x==Player.x)&&(y==Player.y)) {
     mprint(LS(IDS_MSG_20884));
-    p_death("hellfire");
+    p_death(LS(IDS_MSG_23546));
   }
   else if ((m=Level->site[x][y].creature) == NULL) {
     mprint(LS(IDS_MSG_20885));
-    level_drain(5,"indiscriminate use of hellfire");
+    level_drain(5,LS(IDS_MSG_23553));
   }
   else {
     mprint(LS(IDS_MSG_20886));
@@ -1004,7 +1004,7 @@ int blessing;
   if ((x==Player.x)&&(y==Player.y)) {
     mprint(LS(IDS_MSG_20892));
     mprint(LS(IDS_MSG_20893));
-    level_drain(Player.level,"self-vampirism");
+    level_drain(Player.level,LS(IDS_MSG_23554));
   }
   else if ((m=Level->site[x][y].creature) != NULL) {
     if ((blessing > -1) && (! m_immunityp(m,NEGENERGY))) {
@@ -1028,12 +1028,12 @@ int blessing;
       m->level++;
       mprint(LS(IDS_MSG_20898));
       Player.mana = min(0,Player.level*Player.level);
-      level_drain(m->level,"negative energy conflict");
+      level_drain(m->level,LS(IDS_MSG_23555));
     }
   }
   else if (blessing < 0) {
     mprint(LS(IDS_MSG_20899));
-    level_drain(3,"reversed energy drain");
+    level_drain(3,LS(IDS_MSG_23556));
   }
   else if (Level->site[x][y].locchar == ALTAR) {
     mprint(LS(IDS_MSG_20900));
@@ -1049,14 +1049,14 @@ int blessing;
     if (Level->site[x][y].aux == Player.patron) {
       mprint(LS(IDS_MSG_20902));
       mprint(LS(IDS_MSG_20903));
-      p_damage(Player.hp-1,UNSTOPPABLE,"godsfire");
+      p_damage(Player.hp-1,UNSTOPPABLE,LS(IDS_MSG_23550));
       mprint(LS(IDS_MSG_20904));
       Player.patron = -1;
       Player.rank[PRIESTHOOD] = 0;
     }
     else {
       mprint(LS(IDS_MSG_20905));
-      p_damage(random_range(Player.level*10),UNSTOPPABLE,"divine wrath");
+      p_damage(random_range(Player.level*10),UNSTOPPABLE,LS(IDS_MSG_23551));
       if (Player.patron != 0) {
 	mprint(LS(IDS_MSG_20906));
 	gain_experience(100);

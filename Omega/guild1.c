@@ -215,7 +215,7 @@ void l_castle()
       else {
 	print1(LS(IDS_MSG_21095));
 	morewait();
-	p_damage(25,UNSTOPPABLE,"castle guards for lese majeste");
+	p_damage(25,UNSTOPPABLE,LS(IDS_MSG_23557));
 	send_to_jail();
       }
     }

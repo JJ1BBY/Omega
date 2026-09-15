@@ -77,6 +77,6 @@ struct monster *m;
   else strcpy(Str2,m->monstring);
   strcat(Str2,LS(IDS_MSG_23190));
   mprint(Str2);
-  p_damage(m->dmg,OTHER_MAGIC,"a sonic blast");
+  p_damage(m->dmg,OTHER_MAGIC,LS(IDS_MSG_23607));
 }
 

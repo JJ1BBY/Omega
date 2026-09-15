@@ -73,7 +73,7 @@ void l_chaos()
     print1(LS(IDS_MSG_21672));
     Player.alignment -= 50;
     gain_experience(1000);
-    p_death("immersion in raw Chaos");
+    p_death(LS(IDS_MSG_23576));
   }
 }
 
@@ -88,13 +88,13 @@ void l_hedge()
     switch(random_range(6)) {
     case 0: 
       print2(LS(IDS_MSG_21675));
-      p_damage(random_range(6),NORMAL_DAMAGE,"a hedge");
+      p_damage(random_range(6),NORMAL_DAMAGE,LS(IDS_MSG_23590));
       print3(LS(IDS_MSG_21676));
       p_poison(random_range(12));
       break;
     case 1: 
       print2(LS(IDS_MSG_21675));
-      p_damage(random_range(12),NORMAL_DAMAGE,"a hedge");
+      p_damage(random_range(12),NORMAL_DAMAGE,LS(IDS_MSG_23590));
       break;
     case 2: 
       print2(LS(IDS_MSG_21677));
@@ -124,10 +124,10 @@ void l_lava()
   morewait();
   if (strcmp(Player.name,"Saltheart Foamfollower")==0) {
     print1(LS(IDS_MSG_21683));
-    p_damage(1,UNSTOPPABLE,"slow death in a pool of lava");
+    p_damage(1,UNSTOPPABLE,LS(IDS_MSG_23591));
   }
   else {
-    p_damage(random_range(75),FLAME,"incineration in a pool of lava");
+    p_damage(random_range(75),FLAME,LS(IDS_MSG_23592));
     if (Player.hp> 0) p_drown();
     Player.status[IMMOBILE]+=2;
   }
@@ -142,7 +142,7 @@ void l_fire()
     print2(LS(IDS_MSG_21685));
     resetgamestatus(MOUNTED);
   }
-  p_damage(random_range(100),FLAME,"self-immolation");
+  p_damage(random_range(100),FLAME,LS(IDS_MSG_23593));
 }
 
 void l_abyss()
@@ -163,7 +163,7 @@ void l_abyss()
       morewait();
       clearmsg();
       if (Player.alignment > -10) 
-	p_death("the Eater of Souls");
+	p_death(LS(IDS_MSG_23577));
       else {
 	print1(LS(IDS_MSG_21691));
 	print2(LS(IDS_MSG_21692));
@@ -196,12 +196,12 @@ void l_abyss()
 	  Player.x = random_range(WIDTH);
 	  Player.y = random_range(LENGTH);
 	} while(Country[Player.x][Player.y].base_terrain_type == CHAOS_SEA);
-	p_damage(i*50,NORMAL_DAMAGE,"a fall from a great height");
+	p_damage(i*50,NORMAL_DAMAGE,LS(IDS_MSG_23594));
       }
       else {
 	print2(LS(IDS_MSG_21698));
 	morewait();
-	p_damage(i*5,NORMAL_DAMAGE,"a fall through the abyss");
+	p_damage(i*5,NORMAL_DAMAGE,LS(IDS_MSG_23595));
 	change_level(Level->depth,Level->depth+i,FALSE);
 	gain_experience(i*i*50);
       }
@@ -247,7 +247,7 @@ void l_lift()
 	print3(LS(IDS_MSG_21706));
 	morewait();
 	print3(LS(IDS_MSG_21697));
-	p_damage(distance*10,NORMAL_DAMAGE,"a fall from a great height");
+	p_damage(distance*10,NORMAL_DAMAGE,LS(IDS_MSG_23594));
       }
       return;
     }
@@ -294,7 +294,7 @@ void l_magic_pool()
       gain_experience(500);
       Player.hp = 1;
     }
-    else p_death("the DREADED AQUAE MORTIS!");
+    else p_death(LS(IDS_MSG_23578));
   }
   else if (possibilities < 25)
     augment(0);
@@ -378,7 +378,7 @@ void l_rubble()
     print2(LS(IDS_MSG_21724));
     print3(LS(IDS_MSG_21725));
     Player.status[IMMOBILE]+=2;
-    p_damage(screwup/5,UNSTOPPABLE,"rubble and debris");
+    p_damage(screwup/5,UNSTOPPABLE,LS(IDS_MSG_23596));
     morewait();
   }
 }
@@ -404,7 +404,7 @@ void l_portcullis_trap()
 	if ((i==Player.x)&&(j==Player.y)) {
 	  print3(LS(IDS_MSG_21727));
 	  morewait();
-	  p_damage(random_range(1000),NORMAL_DAMAGE,"a portcullis");
+	  p_damage(random_range(1000),NORMAL_DAMAGE,LS(IDS_MSG_23597));
 	}
 	slam = TRUE;
       }
@@ -433,7 +433,7 @@ void l_drop_every_portcullis()
 	if ((i==Player.x)&&(j==Player.y)) {
 	  print3(LS(IDS_MSG_21727));
 	  morewait();
-	  p_damage(random_range(1000),NORMAL_DAMAGE,"a portcullis");
+	  p_damage(random_range(1000),NORMAL_DAMAGE,LS(IDS_MSG_23597));
 	}
 	slam = TRUE;
       }
@@ -509,7 +509,7 @@ void l_fire_station()
   }
   print2(LS(IDS_MSG_21736));
   if (ynq2()=='y') {
-    if (Player.hp == 1) p_death("total incineration");
+    if (Player.hp == 1) p_death(LS(IDS_MSG_23579));
     else Player.hp = 1;
     dataprint();
     print1(LS(IDS_MSG_21737));
@@ -526,7 +526,7 @@ void l_fire_station()
       }
       else {
 	print2(LS(IDS_MSG_21741));
-	p_death("the Essence of Fire");
+	p_death(LS(IDS_MSG_23580));
       }
     }
   }
@@ -551,7 +551,7 @@ void l_water_station()
   }
   print1(LS(IDS_MSG_21747));
   if (ynq1()=='y') {
-    if (Player.hp == 1) p_death("drowning in acid (ick, what a way to go)");
+    if (Player.hp == 1) p_death(LS(IDS_MSG_23581));
     else Player.hp = 1;
     dataprint();
     print2(LS(IDS_MSG_21748));
@@ -573,7 +573,7 @@ void l_water_station()
       }
       else {
 	print2(LS(IDS_MSG_21753));
-	p_death("the Essence of Water");
+	p_death(LS(IDS_MSG_23582));
       }
     }
     
@@ -592,7 +592,7 @@ void l_air_station()
   morewait();
   print1(LS(IDS_MSG_21757));
   if (ynq1()=='y') {
-    if (Player.hp == 1) p_death("being torn apart and then electrocuted");
+    if (Player.hp == 1) p_death(LS(IDS_MSG_23583));
     else Player.hp = 1;
     dataprint();
     print1(LS(IDS_MSG_21758));
@@ -610,7 +610,7 @@ void l_air_station()
       }
       else {
 	print2(LS(IDS_MSG_21762));
-	p_death("the Essence of Air");
+	p_death(LS(IDS_MSG_23584));
       }
     }
   }
@@ -629,7 +629,7 @@ void l_earth_station()
   morewait();
   print1(LS(IDS_MSG_21766));
   if (ynq1()=='y') {
-    if (Player.hp == 1) p_death("being eaten alive");
+    if (Player.hp == 1) p_death(LS(IDS_MSG_23585));
     else Player.hp = 1;
     dataprint();
     print1(LS(IDS_MSG_21767));
@@ -647,7 +647,7 @@ void l_earth_station()
       }
       else {
 	print2(LS(IDS_MSG_21771));
-	p_death("the Essence of Earth");
+	p_death(LS(IDS_MSG_23586));
       }
     }
   }
@@ -717,12 +717,12 @@ void l_void_station()
 	morewait();
 	print1(LS(IDS_MSG_21786));
 	print2(LS(IDS_MSG_21787));
-	p_death("the Power of the Void");
+	p_death(LS(IDS_MSG_23587));
       }
       else if (! gamestatusp(PREPARED_VOID)){
 	print1(LS(IDS_MSG_21788));
 	print2(LS(IDS_MSG_21789));
-	p_death("the Emptyness of the Void");
+	p_death(LS(IDS_MSG_23588));
       }
       else {
 	print1(LS(IDS_MSG_21790));
@@ -773,10 +773,10 @@ void l_voice3()
 void l_whirlwind()
 {
   print1(LS(IDS_MSG_21802));
-  p_damage(random_range(difficulty()*10),NORMAL_DAMAGE,"a magic whirlwind");
+  p_damage(random_range(difficulty()*10),NORMAL_DAMAGE,LS(IDS_MSG_23598));
   if (random_range(2)) {
     print2(LS(IDS_MSG_21803));
-    p_damage(random_range(difficulty()*10),ELECTRICITY,"a magic whirlwind");
+    p_damage(random_range(difficulty()*10),ELECTRICITY,LS(IDS_MSG_23598));
   }
   morewait();
   if (random_range(2)) {
@@ -1110,7 +1110,7 @@ void l_sacrificestone()
 	sacrifice *= 2;
 	dataprint();
 	if ((Player.hp < 1) || (Player.maxhp < 1))
-	  p_death("self-sacrifice");
+	  p_death(LS(IDS_MSG_23589));
       } while (stillonblock());
       print1(LS(IDS_MSG_21888));
       print2(LS(IDS_MSG_21889));

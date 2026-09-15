@@ -370,7 +370,7 @@ int x,y;
     break;
   case 3:
     print1(LS(IDS_MSG_22270));
-    p_damage(random_range(difficulty()*5),UNSTOPPABLE,"a statue");
+    p_damage(random_range(difficulty()*5),UNSTOPPABLE,LS(IDS_MSG_23614));
     break;
   case 4:
     print1(LS(IDS_MSG_22271));
@@ -708,7 +708,7 @@ void l_tavern()
       if (Player.cash < 100) {
 	print1(LS(IDS_MSG_22315));
 	print2(LS(IDS_MSG_22316));
-	p_damage(random_range(20),UNSTOPPABLE,"Riley's right cross");
+	p_damage(random_range(20),UNSTOPPABLE,LS(IDS_MSG_23615));
 	morewait();
       }
       else {

@@ -568,7 +568,7 @@ void vault()
       if ((! jumper) && (random_range(30) > Player.agi)) {
 	mprint(LS(IDS_MSG_20643));
 	setgamestatus(SKIP_PLAYER);
-	p_damage((Player.itemweight/250),UNSTOPPABLE,"clumsiness");
+	p_damage((Player.itemweight/250),UNSTOPPABLE,LS(IDS_MSG_23530));
       }
       p_movefunction(Level->site[Player.x][Player.y].p_locf);
       if (Current_Environment != E_COUNTRYSIDE) 
@@ -872,7 +872,7 @@ void tunnel()
       if (random_range(20)==1){
 	if (Player.possessions[O_WEAPON_HAND] == NULL) {
 	  mprint(LS(IDS_MSG_20666));
-	  p_damage(Player.str / 6,UNSTOPPABLE,"a broken fingernail");
+	  p_damage(Player.str / 6,UNSTOPPABLE,LS(IDS_MSG_23531));
 	}
 	else if ((Player.possessions[O_WEAPON_HAND]->type == THRUSTING) ||
 		 ((Player.possessions[O_WEAPON_HAND]->type != STRIKING) &&

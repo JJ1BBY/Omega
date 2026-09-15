@@ -260,7 +260,7 @@ void s_ritual()
 	case ROOMBASE+26: /*shrine to high magic */
 	  mprint(LS(IDS_MSG_22586));
 	  mprint(LS(IDS_MSG_22587));
-	  p_damage(random_range(Player.pow),UNSTOPPABLE,"high magic");
+	  p_damage(random_range(Player.pow),UNSTOPPABLE,LS(IDS_MSG_23622));
 	  mprint(LS(IDS_MSG_22588));
 	  if (ynq()=='y') s_wish();
 	  else mprint(LS(IDS_MSG_22589));

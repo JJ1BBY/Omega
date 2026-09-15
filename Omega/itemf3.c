@@ -110,7 +110,7 @@ pob o;
   print1(LS(IDS_MSG_21513));
   if (! o->known) {
     print2(LS(IDS_MSG_21514));
-    p_death("the Juggernaut of Karnak");
+    p_death(LS(IDS_MSG_23569));
   }
   else {
     d = getdir();
@@ -239,7 +239,7 @@ pob o;
   if (!o->known){
     print1(LS(IDS_MSG_21536));
     print2(LS(IDS_MSG_21537));
-    p_death("the Holy Hand-Grenade of Antioch");
+    p_death(LS(IDS_MSG_23570));
   }
   else {
     print1(LS(IDS_MSG_21538));
@@ -255,7 +255,7 @@ pob o;
       morewait();
       clearmsg();
       print1(LS(IDS_MSG_21536));
-      p_death("the Holy Hand-Grenade of Antioch");
+      p_death(LS(IDS_MSG_23570));
     }
     else if (count>3) {
       print1(LS(IDS_MSG_21544));
@@ -263,7 +263,7 @@ pob o;
       morewait();
       clearmsg();
       print1(LS(IDS_MSG_21536));
-      p_death("the Holy Hand-Grenade of Antioch");
+      p_death(LS(IDS_MSG_23570));
     }
     else {
       print1(LS(IDS_MSG_21536));
@@ -287,7 +287,7 @@ pob o;
   int i;
   if (! o->known) {
     print1(LS(IDS_MSG_21546));
-    p_death("Kolwynia, The Key That Was Lost");
+    p_death(LS(IDS_MSG_23571));
   }
   else {
     gain_experience(5000);
@@ -344,7 +344,7 @@ pob o;
 {
   clearmsg();
   print1(LS(IDS_MSG_21555));
-  p_death("the Potion of Death");
+  p_death(LS(IDS_MSG_23572));
 }
 
 void i_life(o)
@@ -444,7 +444,7 @@ pob o;
     print2(LS(IDS_MSG_21574));
     Player.con -= 10;
     if (Player.con < 3)
-      p_death("congestive heart failure");
+      p_death(LS(IDS_MSG_23573));
     else {
       print3(LS(IDS_MSG_21575));
       for (i=0;i<MAXITEMS;i++)
@@ -505,7 +505,7 @@ pob o;
   if (! orbcheck('m')) {
     print1(LS(IDS_MSG_21582));
     print2(LS(IDS_MSG_21583));
-    p_death("playing with the Orb of Mastery");
+    p_death(LS(IDS_MSG_23574));
     o->known = 1;
   }
   else if ((find_and_remove_item(ARTIFACTID+1,-1)) &&
@@ -534,7 +534,7 @@ pob o;
   else {
     print1(LS(IDS_MSG_21588));
     print2(LS(IDS_MSG_21583));
-    p_death("playing with the Orb of Mastery");
+    p_death(LS(IDS_MSG_23574));
   }  
 }
 
@@ -555,7 +555,7 @@ pob o;
     }
   }
   print3(LS(IDS_MSG_21591));
-  level_drain(Player.level-1,"a Burnt-out Orb");
+  level_drain(Player.level-1,LS(IDS_MSG_23575));
   Player.mana = 0;
   Player.pow -= 10;
 }

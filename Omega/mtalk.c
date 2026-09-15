@@ -87,7 +87,7 @@ struct monster *m;
     }
     else {
       mprint(LS(IDS_MSG_22012));
-      p_damage(500,UNSTOPPABLE,"the ArchDruid's Vengeance");
+      p_damage(500,UNSTOPPABLE,LS(IDS_MSG_23608));
     }
   }
 }
@@ -546,7 +546,7 @@ struct monster *m;
       mprint(Str2);
       morewait();
       mprint(LS(IDS_MSG_22051));
-      level_drain(random_range(3)+1,"a demon's kiss");
+      level_drain(random_range(3)+1,LS(IDS_MSG_23609));
       morewait();
     }
   }
