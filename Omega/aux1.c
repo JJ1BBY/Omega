@@ -509,10 +509,20 @@ char *fromstring;
 void p_death(fromstring)
 char *fromstring;
 {
+  /* fromstring may be one of LS()'s 4 rotating buffers (most callers now
+     pass LS(IDS_MSG_x) directly for a death-cause string extracted from a
+     literal); print3()/morewait() below each call LS() again, and enough
+     of those (eg. the player dawdling at the morewait() prompt) wraps the
+     rotation back around and overwrites fromstring's own buffer before
+     display_death() gets to it. Copy it out immediately so it survives
+     regardless of how many further LS() calls happen before it's used. */
+  char deathCause[STRING_LEN];
+  strcpy(deathCause,fromstring);
+
   Player.hp = -1;
   print3(LS(IDS_MSG_20030));
   morewait();
-  display_death(fromstring);
+  display_death(deathCause);
 #ifdef SAVE_LEVELS
   kill_all_levels();
 #endif
