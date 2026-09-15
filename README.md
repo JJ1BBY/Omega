@@ -78,3 +78,47 @@ This fork's default branch is `master`, tracking upstream unchanged; check out `
 git checkout japanese-localization
 ```
 Start Visual Studio, open the solution "Omega.sln", then build and run the "Omega" project.
+
+---
+
+# Omega(日本語)
+
+Omegaは1980年代後半にLaurence BrothersがUnixワークステーション向けに書いたゲームです。RogueやHackといった初期のゲームの流れを汲んでおり、プレイヤーはASCIIマップ表示を通してダンジョンとモンスターの迷宮を探索します。
+
+Omegaが興味深いのは、より物語性・クエスト性の強いゲーム――特に1980年代にOrigin Systemsが各種パソコン向けに商業リリースしたUltimaシリーズ――の影響を受けた初期のゲームの一つである点です。単にダンジョンを歩き回るだけでなく、Omegaの世界の神々の機嫌を取るための様々な道がプレイヤーには開かれています。
+
+Omega 0.80.2を元に、(従来からあったコンソールモード版ではなく)「まともな」Windowsアプリケーションとしてビルドしました。このバージョンでは、通常のASCII文字の代わりにグラフィックでプレイヤー周辺のエリアを表示するオプションも選べます。グラフィックはAngband向けに描かれたDavid Gervaisのタイルを使用しています。
+
+![Omega in play](omega.png)
+
+## このフォークについて
+
+これは[DavidKinder/Omega](https://github.com/DavidKinder/Omega)(上記の元のWindows移植版)のフォークです。`japanese-localization`ブランチでは、それに加えて: 実行時に切り替え可能な言語スイッチャー付きの完全な日本語翻訳(下記参照)と、**ゲームパッド対応(実験的)**(移動、決定/キャンセル、押しっぱなしでダッシュする修飾操作。システムメニューから開けるゲーム内設定画面付き――ゲームパッドのボタン配置はキーボードほど標準化されていないため便利です)を追加しています。このフォークの`master`はupstreamを変更なしで追従しており、上記の内容は全て`japanese-localization`ブランチにのみ存在します。
+
+## 日本語ローカライズ
+
+`japanese-localization`ブランチでは、オリジナルの英語テキストと並行して完全な日本語翻訳を追加しています。
+
+**仕組み:** ゲーム内の全てのメッセージ文字列をCソースコードから切り出し、言語ごとに分けたWindowsリソースに移しました: `Strings.en.rc`(英語)と`Strings.ja.rc`(日本語)で、どちらも`WinOmega.rc`からそれぞれ専用の`LANGUAGE`ブロック内で`#include`されています。ゲームコードは`LS(id)`という小さなヘルパー(`LoadStringA`のラッパー)を通じてIDで文字列を引き、スレッドの現在のUI言語(`SetThreadUILanguage`)に一致する`LANGUAGE`ブロックが解決されます――これはWindows自身が多言語バイナリから適切なリソースを提供する際に使う仕組みと同じです。プレーンテキストファイル(`help*.txt`、`motd.txt`)と暗号化されたストーリー/ロアテキスト(`intro.txt`、`abyss.txt`、`scroll*.txt`)も同じ考え方をもう一段上のレベルで踏襲しています: 日本語版が`name.ja.txt`としてオリジナルの英語版と並んで置かれ、`file.c`の`omegalibFile()`がファイルを開く際に現在の言語に一致する方を選びます(暗号化ファイルは復号・翻訳の上、ゲームが元々使っているのと同じローリングXOR暗号で再暗号化しているため、他のコードを変更する必要はありませんでした)。`license.txt`はゲームの法的ライセンス文書であるため、意図的に英語のままにしています。
+
+**言語の選択:** 起動時に表示される設定ダイアログには**言語**ドロップダウン(*System default*、*English*、*日本語*)と**この選択を記憶する**チェックボックスがあります。言語を選択すると`SetThreadUILanguage()`が呼ばれ、これが上記のリソース検索でどの`LANGUAGE`ブロックが選ばれるかを決めます。*System default*を選ぶとOS自体のUI言語に従います(そのため日本語ロケールのWindowsでは、*System default*を選ぶとゲームは日本語で起動します)。チェックボックスがオンの場合、選択内容はレジストリに保存され次回起動時にも適用されます。オフのままだと、その変更は今回のセッション限りになります。何も保存されていない新規インストール時は、OSロケールに関わらずデフォルトで*English*になります。
+
+**英語はフォールバックです。** 日本語の文字列・ヘルプファイル・リソースダイアログが存在しない箇所(未翻訳の取りこぼし、将来の追加分など)では、Windows自体のリソース言語ネゴシエーションが自動的に英語の`LANGUAGE`ブロックにフォールバックするため、何も表示されず空白になることはありません。
+
+実装の詳細と残タスク(アイテム/呪文名テーブルなど)については、そのブランチの`LOCALIZATION_PLAN.md`を参照してください。
+
+## ビルド方法
+
+https://visualstudio.microsoft.com/ からVisual Studio Community editionをダウンロード・インストールしてください。インストーラーの「ワークロード」で「C++によるデスクトップ開発」が選択されていることを確認してください。
+
+gitをインストールしてください。私はMSYS2(Windows向けのLinuxライクな環境)に含まれるgitを使っていますが、Windowsのコマンドプロンプトから使えるGit for Windowsでも構いません。
+
+gitを使う環境を開き、ビルド環境を作成するルートディレクトリに移動します。gitでこのリポジトリをクローンします:
+```
+git clone https://github.com/JJ1BBY/Omega.git
+```
+このフォークの既定ブランチは`master`で、upstreamを変更なしで追従しています。上記の日本語翻訳とゲームパッド対応が入った`japanese-localization`をチェックアウトしてください:
+```
+git checkout japanese-localization
+```
+Visual Studioを起動し、ソリューション"Omega.sln"を開いて、"Omega"プロジェクトをビルド・実行してください。
